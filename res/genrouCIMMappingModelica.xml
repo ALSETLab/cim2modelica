@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<cim:SynchronousMachine
+	xmlns:cim="http://iec.ch/TC57/2012/CIM-schema-cim16#">
+	<cim:RotatingMachine.p paramtype="parameter" datatype="Real">GENROU.pelec</cim:RotatingMachine.p>
+	<cim:RotatingMachine.q paramtype="parameter" datatype="Real">GENROU.qelec</cim:RotatingMachine.q>
+	<cim:RotatingMachine.ratedS paramtype="parameter" datatype="Real">GENROU.mbase</cim:RotatingMachine.ratedS>
+	<cim:RotatingMachine.ratedU paramtype="parameter" datatype="Real">GENROU.eterm</cim:RotatingMachine.ratedU>
+	<cim:RotatingMachineDynamics.damping paramtype="parameter" datatype="Real">GENROU.D</cim:RotatingMachineDynamics.damping>
+	<cim:RotatingMachineDynamics.inertia paramtype="parameter" datatype="Real">GENROU.H</cim:RotatingMachineDynamics.inertia>
+	<cim:RotatingMachineDynamics.saturationFactor paramtype="parameter" datatype="Real">GENROU.s10</cim:RotatingMachineDynamics.saturationFactor>
+	<cim:RotatingMachineDynamics.saturationFactor120 paramtype="parameter" datatype="Real">GENROU.s12</cim:RotatingMachineDynamics.saturationFactor120>
+	<cim:RotatingMachineDynamics.statorLeakageReactance paramtype="parameter" datatype="Real">GENROU.Xl</cim:RotatingMachineDynamics.statorLeakageReactance>
+	<cim:RotatingMachineDynamics.statorResistance paramtype="parameter" datatype="Real">GENROU.Ra</cim:RotatingMachineDynamics.statorResistance>
+	<cim:SynchronousMachineTimeConstantReactance.tpd0 paramtype="parameter" datatype="Real">GENROU.Tpd0</cim:SynchronousMachineTimeConstantReactance.tpd0>
+	<cim:SynchronousMachineTimeConstantReactance.tppd0 paramtype="parameter" datatype="Real">GENROU.Tppd0</cim:SynchronousMachineTimeConstantReactance.tppd0>
+	<cim:SynchronousMachineTimeConstantReactance.tpq0 paramtype="parameter" datatype="Real">GENROU.Tpq0</cim:SynchronousMachineTimeConstantReactance.tpq0>
+	<cim:SynchronousMachineTimeConstantReactance.tppq0 paramtype="parameter" datatype="Real">GENROU.Tppq0</cim:SynchronousMachineTimeConstantReactance.tppq0>
+	<cim:SynchronousMachineTimeConstantReactance.xDirectSync paramtype="parameter" datatype="Real">GENROU.Xd</cim:SynchronousMachineTimeConstantReactance.xDirectSync>
+	<cim:SynchronousMachineTimeConstantReactance.xDirectTrans paramtype="parameter" datatype="Real">GENROU.Xpd</cim:SynchronousMachineTimeConstantReactance.xDirectTrans>
+	<cim:SynchronousMachineTimeConstantReactance.xDirectSubtrans paramtype="parameter" datatype="Real">GENROU.Xppd</cim:SynchronousMachineTimeConstantReactance.xDirectSubtrans>
+	<cim:SynchronousMachineTimeConstantReactance.xQuadSync paramtype="parameter" datatype="Real">GENROU.Xq</cim:SynchronousMachineTimeConstantReactance.xQuadSync>
+	<cim:SynchronousMachineTimeConstantReactance.xQuadTrans paramtype="parameter" datatype="Real">GENROU.Xpq</cim:SynchronousMachineTimeConstantReactance.xQuadTrans>
+	<cim:SynchronousMachineTimeConstantReactance.xQuadSubTrans paramtype="parameter" datatype="Real">GENROU.Xppq</cim:SynchronousMachineTimeConstantReactance.xQuadSubTrans>
+	<cim:SvVoltage.angle paramtype="void" datatype="Real">GENROU.anglev_rad</cim:SvVoltage.angle>
+	<cim:SvVoltage.v paramtype="void" datatype="Real">GENROU.v0</cim:SvVoltage.v>
+	<cim:SvPowerFlow.p paramtype="void" datatype="Real">GENROU.p</cim:SvPowerFlow.p>
+	<cim:SvPowerFlow.q paramtype="void" datatype="Real">GENROU.q</cim:SvPowerFlow.q>
+</cim:SynchronousMachine>

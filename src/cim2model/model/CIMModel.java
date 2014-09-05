@@ -44,13 +44,16 @@ public class CIMModel {
             if (p.isURIResource() && p.getLocalName().equals("type"))
             {
             	this.component.put(s, o);
-            	System.out.println(s.getLocalName());
-            	System.out.println(p.getLocalName());
-            	System.out.println(o.toString());
+//            	System.out.println("Subject : "+ s.getLocalName());
+//            	System.out.println("Predicate : "+ p.getLocalName());
+//            	System.out.print("Object : "+ o.toString());
+//            	String [] componentName= o.toString().split("#");
+//            	System.out.println(" : "+ componentName[1]);
             }
 		}
 		
 		return this.component;
+		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}
 	
 	public Map<String,Object> retrieveAttributes(Resource _subject)
@@ -61,11 +64,11 @@ public class CIMModel {
 		while( statements.hasNext() ) 
 		{
 		    Statement stmt= statements.next();
-//			System.out.println("Statement -> "+ stmt);
-//			System.out.println("Predicate -> "+ stmt.getPredicate());
-//			System.out.println("Attribute -> "+ stmt.getPredicate().getLocalName()); //name of the variable
+			System.out.println("Statement -> "+ stmt);
+			System.out.println("Predicate -> "+ stmt.getPredicate());
+			System.out.println("Attribute -> "+ stmt.getPredicate().getLocalName()); //name of the variable
 //			System.out.println("Value -> "+ stmt.getBag()); //value of the variable as String
-//			System.out.println("Value -> "+ stmt.getAlt()); //value of the variable as String
+			System.out.println("Value -> "+ stmt.getAlt()); //value of the variable as String
 			this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getAlt());
 		}
 		
