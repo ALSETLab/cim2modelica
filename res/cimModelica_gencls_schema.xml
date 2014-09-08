@@ -1,6 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<cim:SynchronousMachine
-	xmlns:cim="http://iec.ch/TC57/2012/CIM-schema-cim16#">
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:cim="http://iec.ch/TC57/2012/CIM-schema-cim16#"
+	xmlns:modelica="smartslab-machines-schema#">
+<rdf:Class rdf:ID="GENROU">
 	<cim:RotatingMachine.p paramtype="parameter" datatype="Real">GENROU.pelec</cim:RotatingMachine.p>
 	<cim:RotatingMachine.q paramtype="parameter" datatype="Real">GENROU.qelec</cim:RotatingMachine.q>
 	<cim:RotatingMachine.ratedS paramtype="parameter" datatype="Real">GENROU.mbase</cim:RotatingMachine.ratedS>
@@ -25,4 +29,5 @@
 	<cim:SvVoltage.v paramtype="void" datatype="Real">GENROU.v0</cim:SvVoltage.v>
 	<cim:SvPowerFlow.p paramtype="void" datatype="Real">GENROU.p</cim:SvPowerFlow.p>
 	<cim:SvPowerFlow.q paramtype="void" datatype="Real">GENROU.q</cim:SvPowerFlow.q>
-</cim:SynchronousMachine>
+</rdf:Class>
+</rdf:RDF>
