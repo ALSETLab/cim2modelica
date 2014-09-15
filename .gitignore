@@ -1,4 +1,8 @@
 /bin
+<<<<<<< HEAD
+
+.classpath
+=======
 /bin
 /bin
 /bin
@@ -52,6 +56,7 @@
 /bin
 /bin
 /bin
+<<<<<<< HEAD
 /bin
 /bin
 /bin
@@ -70,3 +75,8 @@
 /bin
 /bin
 *.classpath
+=======
+>>>>>>> FETCH_HEAD
+
+.classpath
+>>>>>>> origin/master
