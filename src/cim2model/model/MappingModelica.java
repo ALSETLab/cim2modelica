@@ -78,4 +78,29 @@ public class MappingModelica implements Mapping
 	{
 		return 1;
 	}
+
+	@Override
+	public void loadMapping(String _rdfSource) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void saveMapping() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Element getCIMAttributeMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCIMAttributeMap(String _cimAtt, String _value,
+			String _moAtt, String _type, String _datatype) {
+		// TODO Auto-generated method stub
+		
+	}
 }

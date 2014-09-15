@@ -44,11 +44,11 @@ public class CIMModel {
             if (p.isURIResource() && p.getLocalName().equals("type"))
             {
             	this.component.put(s, o);
-//            	System.out.println("Subject : "+ s.getLocalName());
-//            	System.out.println("Predicate : "+ p.getLocalName());
-//            	System.out.print("Object : "+ o.toString());
-//            	String [] componentName= o.toString().split("#");
-//            	System.out.println(" : "+ componentName[1]);
+            	System.out.println("Subject : "+ s.getLocalName());
+            	System.out.println("Predicate : "+ p.getLocalName());
+            	System.out.print("Object : "+ o.toString());
+            	String [] componentName= o.toString().split("#");
+            	System.out.println(" : "+ componentName[1]);
             }
 		}
 		
