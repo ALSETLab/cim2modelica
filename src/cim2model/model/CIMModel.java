@@ -44,16 +44,26 @@ public class CIMModel {
             if (p.isURIResource() && p.getLocalName().equals("type"))
             {
             	this.component.put(s, o);
-            	System.out.println("Subject : "+ s.getLocalName());
-            	System.out.println("Predicate : "+ p.getLocalName());
-            	System.out.print("Object : "+ o.toString());
-            	String [] componentName= o.toString().split("#");
-            	System.out.println(" : "+ componentName[1]);
+//            	System.out.println("Subject : "+ s.getLocalName());
+//            	System.out.println("Predicate : "+ p.getLocalName());
+//            	System.out.print("Object : "+ o.toString());
+//            	String [] componentName= o.toString().split("#");
+//            	System.out.println(" : "+ componentName[1]);
             }
 		}
 		
 		return this.component;
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
+	}
+	
+	public String [] retrieveComponentName(Resource _subject)
+	{
+		RDFNode aux;
+		
+		aux= this.component.get(_subject);
+		String [] object= aux.toString().split("#");
+		
+		return new String [] {_subject.getLocalName(), object[1]};
 	}
 	
 	public Map<String,Object> retrieveAttributes(Resource _subject)

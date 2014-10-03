@@ -1,7 +1,5 @@
 package cim2model;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.jdom2.Element;
@@ -20,22 +18,22 @@ public class ControlTranslation {
 		CIMReaderJENA cimReader;
 		CIMModel cim;
 		Map<Resource, RDFNode> components;
+		String [] onlyOneID;
 		Map<String, Object> attributes;
 //		TemplateModelica template= null;
 //		MappingModelica moMap= null;
 		Element etemplate= null;
 		
-		cimReader= new CIMReaderJENA("C:/Users/fragom/PhD_CIM/CIMv16/SmarTSLab/Components", "Generator.xml");
+		cimReader= new CIMReaderJENA("C:/Users/fragom/PhD_CIM/CIMv16/SmarTSLab/Components", "gencls.xml");
 		cim = new CIMModel(cimReader.readModel());
 		components = cim.gatherComponents();
 //		template= TemplateModelica.getInstance("C:/Users/fragom/PhD_CIM/JAVA/edu.smartslab.cim2model/res/moMappingTemplate.xml");
 		for (Resource key : components.keySet())
 		{
-//			System.out.println("key: "+ key);
-//			moMap= new MappingModelica(components.get(key).toString());
-			if (key.getLocalName().equals("_b95009c0-1e1e-11e4-a682-080027008896"))
+			onlyOneID= cim.retrieveComponentName(key); 
+			System.out.println("onlyOneID: "+ onlyOneID[0] + " value: "+ onlyOneID[1]);
+			if (onlyOneID[1].equals("SynchronousMachine"))
 			{//case of a SynchronousMachine object
-				String [] componentName= components.get(key).toString().split("#");
 				attributes= cim.retrieveAttributes(key);
 				//TODO: load/create the mapping for generator
 				//load template
