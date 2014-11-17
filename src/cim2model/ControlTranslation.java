@@ -32,9 +32,10 @@ public class ControlTranslation {
 		{
 			onlyOneID= cim.retrieveComponentName(key); 
 			System.out.println("onlyOneID: "+ onlyOneID[0] + " value: "+ onlyOneID[1]);
-			if (onlyOneID[1].equals("SynchronousMachine"))
+			if (onlyOneID[1].equals("Terminal"))
 			{//case of a SynchronousMachine object
-				attributes= cim.retrieveAttributes(key);
+				attributes= cim.retrieveTerminalAtt(key);
+				System.out.println("Attributes"+ attributes);
 				//TODO: load/create the mapping for generator
 				//load template
 //				etemplate= template.getElementTemplate("root");
@@ -52,7 +53,7 @@ public class ControlTranslation {
 				//TODO: generate the modelica code with starting values
 			}
 			else
-				System.out.println("Not a SynchronousMachine");
+				System.out.println("Not a Terminal");
 		}
 		
 		/**

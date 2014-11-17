@@ -17,12 +17,20 @@ public class CIMModel {
 	private Map<Resource, RDFNode> component;
 	private Model rdfModel;
 
+	/**
+	 * 
+	 */
 	public CIMModel()
 	{
 //		id= "";
 		attribute= new HashMap<String, Object>();
 		component= new HashMap<Resource, RDFNode>();
 	}
+	
+	/**
+	 * 
+	 * @param _model
+	 */
 	public CIMModel(Model _model)
 	{
 		this.rdfModel= _model;
@@ -31,6 +39,10 @@ public class CIMModel {
 		component= new HashMap<Resource, RDFNode>();
 	}
 	
+	/**
+	 * 
+	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
+	 */
 	public Map<Resource,RDFNode> gatherComponents()
 	{
 		final StmtIterator stmtiter = this.rdfModel.listStatements();
@@ -56,6 +68,11 @@ public class CIMModel {
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}
 	
+	/**
+	 * 
+	 * @param _subject
+	 * @return Array containing Component ID, Component/Class name
+	 */
 	public String [] retrieveComponentName(Resource _subject)
 	{
 		RDFNode aux;
@@ -66,7 +83,13 @@ public class CIMModel {
 		return new String [] {_subject.getLocalName(), object[1]};
 	}
 	
-	public Map<String,Object> retrieveAttributes(Resource _subject)
+	/**
+	 * 
+	 * @param _subject
+	 * @return Hashmap containing Complete name of attribute (Class.Attribute), value of the attribute
+	 * The value can be either a string or number, or the CIM ID of a component: URL#ComponentID
+	 */
+	public void terminalAttributes(Resource _subject)
 	{
 		System.out.println("Attributes");
 		System.out.println(_subject.toString());
@@ -77,10 +100,121 @@ public class CIMModel {
 			System.out.println("Statement -> "+ stmt);
 			System.out.println("Predicate -> "+ stmt.getPredicate());
 			System.out.println("Attribute -> "+ stmt.getPredicate().getLocalName()); //name of the variable
-//			System.out.println("Value -> "+ stmt.getBag()); //value of the variable as String
 			System.out.println("Value -> "+ stmt.getAlt()); //value of the variable as String
 			this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getAlt());
+//			this.component.put(stmt.getSubject(), stmt.getObject());
 		}
+	}
+	
+	/**
+	 * 
+	 * @param _subject
+	 * @return Hashmap containing Complete name of attribute (Class.Attribute), value of the attribute
+	 * The value can be either a string or number, or the CIM ID of a component: URL#ComponentID
+	 */
+	public Map<String, Object> retrieveAttributes(Resource _subject)
+	{
+		System.out.println("Attributes");
+		System.out.println(_subject.toString());
+		StmtIterator statements= _subject.listProperties();
+		while( statements.hasNext() ) 
+		{
+		    Statement stmt= statements.next();
+			System.out.println("Statement -> "+ stmt);
+			System.out.println("Predicate -> "+ stmt.getPredicate());
+			System.out.println("Attribute -> "+ stmt.getPredicate().getLocalName()); //name of the variable
+			System.out.println("Value -> "+ stmt.getAlt()); //value of the variable as String
+			this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getAlt());
+//			this.component.put(stmt.getSubject(), stmt.getObject());
+		}
+		return this.attribute;
+	}
+	
+	public Map<String,Object> retrieveTerminalAtt(Resource _subject)
+	{ 
+		Statement terminalAttribute, topoNodeAttribute, svPFAttribute, svVoltAttribute;
+		
+		System.out.println("Attributes");
+		System.out.println(_subject.toString());
+		StmtIterator terminalAttributes= _subject.listProperties();
+		
+		while( terminalAttributes.hasNext() ) 
+		{
+			terminalAttribute= terminalAttributes.next();
+			System.out.println("Att_Statement -> "+ terminalAttribute);
+			System.out.println("Att_Predicate -> "+ terminalAttribute.getPredicate());
+			System.out.println("Att_Attribute -> "+ terminalAttribute.getPredicate().getLocalName()); //name of the variable
+			System.out.println("Att_Value -> "+ terminalAttribute.getAlt()); //value of the variable as String
+//			
+			if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.SvPowerFlow"))
+			{
+				//agafar els valor d'aquest component //Revisar
+				System.out.println(terminalAttribute.getSubject());
+				terminalAttributes(terminalAttribute.getAlt().getProperty(arg0));
+//				StmtIterator svPowerFlowAtts= terminalAttribute.getSubject().listProperties();
+//				while( svPowerFlowAtts.hasNext() ) 
+//				{
+//					svPFAttribute= svPowerFlowAtts.next();
+//					if (svPFAttribute.getAlt().isLiteral())
+//					{
+////						System.out.println("1. isLiteral?"+ svPFAttribute.getAlt().isLiteral());
+//						this.attribute.put(svPFAttribute.getPredicate().getLocalName(), svPFAttribute.getAlt());
+//					}
+//				}
+//				svPowerFlowAtts.close();
+			}
+			if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.TopologicalNode") )
+			{
+				StmtIterator topologicalNodeAtts= terminalAttribute.getAlt().listProperties();
+				while( topologicalNodeAtts.hasNext() ) 
+				{
+					topoNodeAttribute= topologicalNodeAtts.next();
+					if (terminalAttribute.getPredicate().getLocalName().equals("TopologicalNode.SvVoltage"))
+					{
+						StmtIterator svVoltageAtts= topoNodeAttribute.getAlt().listProperties();
+						while( svVoltageAtts.hasNext() ) 
+						{
+							svVoltAttribute= svVoltageAtts.next();
+							if (svVoltAttribute.getAlt().isLiteral())
+							{
+//								System.out.println("2. isLiteral?"+ svVoltAttribute.getAlt().isLiteral());
+								this.attribute.put(svVoltAttribute.getPredicate().getLocalName(), svVoltAttribute.getAlt());
+							}
+						}
+						svVoltageAtts.close();
+					}
+				}
+				topologicalNodeAtts.close();
+			}
+			if (terminalAttribute.getAlt().isLiteral())
+			{
+//				System.out.println("1. isLiteral?"+ terminalAttribute.getAlt().isLiteral());
+				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), terminalAttribute.getAlt());
+			}
+		}
+		    
+//		    System.out.println("Statement -> "+ stmt);
+//			System.out.println("Predicate -> "+ stmt.getPredicate());
+//			System.out.println("Attribute -> "+ stmt.getPredicate().getLocalName()); //name of the variable
+////			System.out.println("Value -> "+ stmt.getBag()); //value of the variable as String
+//			System.out.println("Value -> "+ stmt.getAlt()); //value of the variable as String
+//		System.out.println("isLiteral? -> "+ stmt.getAlt().isLiteral());
+//		if (stmt.getAlt().isResource() && !stmt.getAlt().isLiteral())
+//		{
+//			System.out.println("isResource? -> "+ stmt.getAlt().isResource());
+//			String [] onlyOneID= this.retrieveComponentName(stmt.getAlt()); 
+//			System.out.println("onlyOneID: "+ onlyOneID[0] + " value: "+ onlyOneID[1]);
+//			if (onlyOneID[1].equals("SvPowerFlow"))
+//				this.retrieveAttributes(stmt.getAlt());
+//			if (onlyOneID[1].equals("TopologicalNode"))
+//				this.retrieveAttributes(stmt.getAlt());
+//			if (onlyOneID[1].equals("TopologicalNode"))
+//				this.retrieveAttributes(stmt.getAlt());
+//		}
+//		else
+//	//		System.out.println("Life sucks!");
+//			
+//			this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getAlt());
 		
 		return this.attribute;
 	}
