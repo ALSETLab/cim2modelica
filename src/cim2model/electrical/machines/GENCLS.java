@@ -1,6 +1,6 @@
 package cim2model.electrical.machines;
 
-import cim2model.model.modelica.MOAttribute;
+import cim2model.model.modelica.MOVariable;
 
 /**
  * Specific class which contains the declaration of attributes and equations of this specific
@@ -10,6 +10,6 @@ import cim2model.model.modelica.MOAttribute;
  */
 public class GENCLS 
 {
-	MOAttribute [] attributes; 
+	MOVariable [] attributes; 
 	String [] equations;
 }
