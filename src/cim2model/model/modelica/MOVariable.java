@@ -14,7 +14,7 @@ public class MOVariable
 	private String variability;
 	private String datatype;
 	private String name;
-	private float value;
+	private double value;
 	private String annotation;
 	private Boolean fixed;
 	private Boolean flow;
@@ -83,13 +83,13 @@ public class MOVariable
 	/**
 	 * @return the value
 	 */
-	public float getValue() {
+	public double getValue() {
 		return value;
 	}
 	/**
 	 * @param value the value to set
 	 */
-	public void setValue(float value) {
+	public void setValue(double value) {
 		this.value = value;
 	}
 	/**
@@ -107,7 +107,7 @@ public class MOVariable
 	/**
 	 * @return the fixed
 	 */
-	public Boolean getFixed() {
+	public Boolean isFixed() {
 		return fixed;
 	}
 	/**
@@ -156,8 +156,8 @@ public class MOVariable
 			line.append(value); line.append(" ");
 		}
 		line.append('"'+ this.annotation+ '"');
+		line.append(";");
 		code= line.toString();
-		line= null;
 		
 		return code;
 	}

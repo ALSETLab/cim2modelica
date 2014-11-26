@@ -8,9 +8,8 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 
 import cim2model.io.*;
-import cim2model.model.CIMModel;
-import cim2model.model.MappingModelica;
-import cim2model.model.TemplateModelica;
+import cim2model.mapping.CIMModel;
+import cim2model.mapping.ModMapping;
 
 public class ControlTranslation {
 
@@ -24,7 +23,7 @@ public class ControlTranslation {
 //		MappingModelica moMap= null;
 		Element etemplate= null;
 		
-		cimReader= new CIMReaderJENA("C:/Users/fragom/PhD_CIM/CIMv16/SmarTSLab/Components", "gencls.xml");
+		cimReader= new CIMReaderJENA("C:/Users/fragom/PhD_CIM/CIMv16/SmarTSLab/Components", "line.xml");
 		cim = new CIMModel(cimReader.readModel());
 		components = cim.gatherComponents();
 //		template= TemplateModelica.getInstance("C:/Users/fragom/PhD_CIM/JAVA/edu.smartslab.cim2model/res/moMappingTemplate.xml");

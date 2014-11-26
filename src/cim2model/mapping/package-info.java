@@ -9,4 +9,4 @@
  * @author fragom
  *
  */
-package cim2model.model;
+package cim2model.mapping;

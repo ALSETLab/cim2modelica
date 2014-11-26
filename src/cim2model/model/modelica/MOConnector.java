@@ -2,18 +2,31 @@ package cim2model.model.modelica;
 
 import java.util.ArrayList;
 
-public class MOComponent extends MOModel
+public class MOConnector 
 {
 	private String visibility;
+	private String name;
+	private String datatype;
+	private String annotation;
 	private ArrayList<MOVariable> attributes;
-	private ArrayList<MOConnector> terminals;
 	
-	public MOComponent(String _name) 
+	public MOConnector(String _datatype)
 	{
-		super(_name);
-		this.name = _name;
+		this.datatype= _datatype;
 		this.attributes= new ArrayList<MOVariable>();
-		this.terminals= new ArrayList<MOConnector>();
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getDatatype() {
+		return name;
+	}
+	/**
+	 * @param name the name to set when is used as instance in other components
+	 */
+	public void setDatatype(String datatype) {
+		this.datatype = datatype;
 	}
 	
 	/**
@@ -23,12 +36,12 @@ public class MOComponent extends MOModel
 		return name;
 	}
 	/**
-	 * @param name the name to set
+	 * @param name the name to set when is used as instance in other components
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	/**
 	 * @return the visibility
 	 */
@@ -44,20 +57,6 @@ public class MOComponent extends MOModel
 	}
 
 	/**
-	 * @return the stereotype
-	 */
-	public String getStereotype() {
-		return stereotype;
-	}
-
-	/**
-	 * @param stereotype the stereotype to set
-	 */
-	public void setStereotype(String stereotype) {
-		this.stereotype = stereotype;
-	}
-
-	/**
 	 * @return the annotation
 	 */
 	public String getAnnotation() {
@@ -70,52 +69,32 @@ public class MOComponent extends MOModel
 	public void setAnnotation(String annotation) {
 		this.annotation = annotation;
 	}
-	
+
 	/**
 	 * @return the attributes
 	 */
 	public ArrayList<MOVariable> getAttributes() {
 		return attributes;
 	}
+
 	/**
-	 * 
-	 * @param variable
+	 * @param attributes the attributes to set
 	 */
-	public void setAttribute(MOVariable variable){
-		this.attributes.add(variable);
+	public void setAttribute(MOVariable attribute) {
+		this.attributes.add(attribute);
 	}
+	
 	/**
 	 * @param attributes the attributes to set
 	 */
 	public void setAttributes(ArrayList<MOVariable> attributes) {
 		this.attributes = attributes;
 	}
-	/**
-	 * @return the terminals
-	 */
-	public ArrayList<MOConnector> getTerminals() {
-		return terminals;
-	}
-	/**
-	 * 
-	 * @param variable
-	 */
-	public void setTerminal(MOConnector pin){
-		this.terminals.add(pin);
-	}
-	/**
-	 * @param terminals the terminals to set
-	 */
-	public void setTerminals(ArrayList<MOConnector> terminals) {
-		this.terminals = terminals;
-	}
 	
 	/**
-	 * class name "some comments"
+	 * connector name "some comments"
 	 * 		parameter 
 	 * 		...
-	 * 		equation
-	 * 			...
 	 * end name;
 	 * @return text representation of the class
 	 */
@@ -124,47 +103,17 @@ public class MOComponent extends MOModel
 		String code= "";
 		StringBuilder pencil= new StringBuilder();
 		
-		/* ATTRIBUTES SECTION */
-		pencil.append(this.stereotype); pencil.append(" ");
-		pencil.append(this.name); pencil.append(" ");
-		pencil.append('"');
+		pencil.append("connector ");
+		pencil.append(this.datatype);
+		pencil.append(" "); pencil.append('"');
 		pencil.append(this.annotation);
 		pencil.append('"'); pencil.append("\n");
 		for (MOVariable item: this.attributes)
 		{
 			pencil.append("\t");
-			pencil.append(item.getVariability()); pencil.append(" ");
-			pencil.append(item.getDatatype()); pencil.append(" ");
-			pencil.append(item.getName());
-			if (item.getVariability().equals("parameter") || item.getVariability().equals("constant")){
-				pencil.append("=");
-				pencil.append(item.getValue());
-				pencil.append(" ");
-			}
-			else{
-				pencil.append("(start=");
-				pencil.append(item.getValue());
-				pencil.append(", fixed=");
-				if (item.isFixed())
-					pencil.append("true");
-				else
-					pencil.append("false");
-				pencil.append(") ");
-			}
-			pencil.append('"');
-			pencil.append(item.getAnnotation());
-			pencil.append('"');
-			pencil.append(";\n");
+			pencil.append(item.toModelica());
+			pencil.append("\n");
 		}
-		for (MOConnector pin: this.terminals)
-		{
-			pencil.append("\t");
-			pencil.append(pin.toModelicaInstance());
-		}
-		/* EQUATION SECTION */
-		pencil.append("\t");
-		pencil.append("equation\n");
-		
 		pencil.append("end ");
 		pencil.append(this.name);
 		pencil.append(";");
@@ -174,7 +123,7 @@ public class MOComponent extends MOModel
 	}
 	
 	/**
-	 * Name className (parameter1=?,value2=?,...) "comments";
+	 * Name connectorName (value1=?,value2=?,...) "comments";
 	 * @return text representation of the instance
 	 */
 	public String toModelicaInstance()
@@ -187,6 +136,8 @@ public class MOComponent extends MOModel
 			pencil.append(this.visibility); 
 			pencil.append(" ");
 		}
+		pencil.append(this.datatype);
+		pencil.append(" ");
 		pencil.append(this.name);
 		pencil.append("(");
 		for (MOVariable item: this.attributes)
@@ -201,8 +152,6 @@ public class MOComponent extends MOModel
 		pencil.append('"');
 		pencil.append(this.annotation);
 		pencil.append('"'); pencil.append(";\n");
-		code= pencil.toString();
-		
 		code= pencil.toString();
 		
 		return code;

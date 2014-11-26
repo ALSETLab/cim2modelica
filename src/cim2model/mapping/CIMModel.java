@@ -1,4 +1,4 @@
-package cim2model.model;
+package cim2model.mapping;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -141,27 +141,26 @@ public class CIMModel {
 		while( terminalAttributes.hasNext() ) 
 		{
 			terminalAttribute= terminalAttributes.next();
-			System.out.println("Att_Statement -> "+ terminalAttribute);
-			System.out.println("Att_Predicate -> "+ terminalAttribute.getPredicate());
-			System.out.println("Att_Attribute -> "+ terminalAttribute.getPredicate().getLocalName()); //name of the variable
-			System.out.println("Att_Value -> "+ terminalAttribute.getAlt()); //value of the variable as String
+//			System.out.println("Att_Subject -> "+ terminalAttribute.getSubject());
+//			System.out.println("Att_Predicate -> "+ terminalAttribute.getPredicate());
+//			System.out.println("Att_Object -> "+ terminalAttribute.getObject());
+//			System.out.println("Att_Attribute -> "+ terminalAttribute.getPredicate().getLocalName()); //name of the variable
+//			System.out.println("Att_Value -> "+ terminalAttribute.getAlt()); //value of the variable as String
 //			
 			if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.SvPowerFlow"))
 			{
-				//agafar els valor d'aquest component //Revisar
-				System.out.println(terminalAttribute.getSubject());
-				terminalAttributes(terminalAttribute.getAlt().getProperty(arg0));
-//				StmtIterator svPowerFlowAtts= terminalAttribute.getSubject().listProperties();
-//				while( svPowerFlowAtts.hasNext() ) 
-//				{
-//					svPFAttribute= svPowerFlowAtts.next();
-//					if (svPFAttribute.getAlt().isLiteral())
+				//agafar els valor d'aquest component
+				StmtIterator svPowerFlowAtts= terminalAttribute.getAlt().listProperties();
+				while( svPowerFlowAtts.hasNext() ) 
+				{
+					svPFAttribute= svPowerFlowAtts.next();
+					if (svPFAttribute.getAlt().isLiteral())
 //					{
 ////						System.out.println("1. isLiteral?"+ svPFAttribute.getAlt().isLiteral());
-//						this.attribute.put(svPFAttribute.getPredicate().getLocalName(), svPFAttribute.getAlt());
+						this.attribute.put(svPFAttribute.getPredicate().getLocalName(), svPFAttribute.getAlt());
 //					}
-//				}
-//				svPowerFlowAtts.close();
+				}
+				svPowerFlowAtts.close();
 			}
 			if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.TopologicalNode") )
 			{

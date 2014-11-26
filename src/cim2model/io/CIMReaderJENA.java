@@ -11,12 +11,21 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.util.FileManager;
 
-
+/**
+ * 
+ * @author fragom
+ *
+ */
 public class CIMReaderJENA {
 	
 	Model model;
 	InputStream in;
 	
+	/**
+	 * 
+	 * @param path
+	 * @param file
+	 */
 	public CIMReaderJENA(String path, String file)
 	{
 		//open CIM/XML file
@@ -34,6 +43,10 @@ public class CIMReaderJENA {
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Model readModel()
 	{
 		// read the RDF/XML file
@@ -43,16 +56,28 @@ public class CIMReaderJENA {
 		return model;
 	}
 	
+	/**
+	 * 
+	 * @param _destiny
+	 */
 	public void writeModel(String _destiny)
 	{
 		this.model.write(System.out, null, "TURTLE");
 	}
 	
+	/**
+	 * 
+	 * @param _rdfModel
+	 * @param _destiny
+	 */
 	public void writeModel(Model _rdfModel, String _destiny)
 	{
 		_rdfModel.write(System.out, null, "TURTLE");
 	}
-		
+	
+	/**
+	 * 
+	 */
 	public void retrieveResource()
 	{
 //		final Resource s = model.getResource("file:///C:/Users/fragom/PhD_CIM/JAVA/edu.smartslab.cim2modelica/RDF/XML#_a8ae1d40-1e1f-11e4-a682-080027008896");
