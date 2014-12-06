@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT connector (variable+)>
+<!ATTLIST connector
+	name ID #IMPLIED
+	stereotype CDATA #IMPLIED
+>
+<!ELEMENT variable (value)>
+<!ELEMENT value (#PCDATA)>
+<!ATTLIST variable
+	name ID #IMPLIED
+	datatype CDATA #IMPLIED
+	variability CDATA #IMPLIED
+	visibility CDATA #IMPLIED
+	flow CDATA #IMPLIED
+>

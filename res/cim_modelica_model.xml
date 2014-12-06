@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE model SYSTEM "cim_modelica_model.dtd">
+<model name="system_name" stereotype="model">
+  <component name="InstanceClassCIM" datatype="ClassCIM" variability="UD" visibility="UD"></component>
+  <eq_connect>
+	  <component_init>ClassCIM.AttributeCIM</component_init>
+	  <component_end>ClassCIM.AttributeCIM</component_end>
+  </eq_connect>
+</model> 
+
+

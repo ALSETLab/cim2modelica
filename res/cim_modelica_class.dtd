@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT component (attribute+, equation+)>
+<!ATTLIST component
+	name ID #IMPLIED
+	stereotype CDATA #IMPLIED
+>
+<!ELEMENT attribute (value)>
+<!ELEMENT value (#PCDATA)>
+<!ATTLIST attribute
+	name ID #IMPLIED
+	datatype CDATA #IMPLIED
+	variability CDATA #IMPLIED
+	visibility CDATA #IMPLIED
+>
+<!ELEMENT equation (method, argument+)>
+<!ELEMENT method (#PCDATA)>
+<!ELEMENT argument (#PCDATA)>

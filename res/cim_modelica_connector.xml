@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!DOCTYPE connector SYSTEM "cim_modelica_connector.dtd">
+<connector name="ClassCIM" stereotype="connector" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///C:/Users/fragom/PhD_CIM/CIMv16/Mapping/cim_modelica_connector.xsd">
+	<variable name="AttributeCIM" datatype="DataTypeCIM" variability="" visibility="UD" flow="0/1">
+		<value>ValueAttributeCIM</value>
+	</variable>
+</connector>

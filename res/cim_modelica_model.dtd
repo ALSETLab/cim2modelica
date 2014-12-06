@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT model (component+, eq_connect+)>
+  <!ATTLIST model
+	   name 		ID #IMPLIED
+	   stereotype 	CDATA #IMPLIED>
+  <!ELEMENT component EMPTY>
+  <!ATTLIST component
+      name			ID    #IMPLIED
+      datatype 	CDATA #IMPLIED
+      variability 	CDATA #IMPLIED
+      visibility 		CDATA #IMPLIED>
+  <!ELEMENT eq_connect (component_init, component_end)>
+	  <!ELEMENT component_init (#PCDATA)>
+	  <!ELEMENT component_end (#PCDATA)>
+

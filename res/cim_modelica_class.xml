@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE component SYSTEM "cim_modelica_class.dtd">
+<component name="ClassCIM" stereotype="UD">
+  <attribute name="AttributeCIM" datatype="DataTypeCIM" variability="UD" visibility="UD">
+	  <value>ValueAttributeCIM</value>
+  </attribute>
+  <equation>
+	  <method>method_name</method>
+	  <argument>A</argument>
+	  <argument>B</argument>
+  </equation>
+</component> 
+
+
