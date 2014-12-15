@@ -40,7 +40,7 @@ public class joke_CreateModel {
 		System.out.println(port.toModelicaInstance());
 		
 		/* MAPPING A MODELICA CLASS: COMPONENT or CLASS */
-		MOComponent line= new MOComponent("ACLineSegment");
+		MOClass line= new MOClass("ACLineSegment");
 		line.setStereotype("class");
 		line.setAnnotation("ACLineSegment");
 		MOVariable r= new MOVariable();

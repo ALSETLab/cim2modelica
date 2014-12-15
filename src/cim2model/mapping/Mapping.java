@@ -1,7 +1,9 @@
 package cim2model.mapping;
 
+import cim2model.model.modelica.*;
+
 public interface Mapping 
 {
 	public void loadMapping(String _xmlSource);
-	public int createModel(String _language);
+	public ModelicaModel createModel(ModelStereotype _modelKind);
 }

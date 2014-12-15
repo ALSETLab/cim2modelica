@@ -10,13 +10,7 @@ import cim2model.mapping.*;
 
 public class CodeGenerator 
 {
-	
-	public CodeGenerator()
-	{
-		
-	}
-	
-	public void loadCIMModel(String _rdfResource) 
+	public static void loadCIMModel(String _rdfResource) 
 	{
 		CIMReaderJENA cimReader;
 		CIMModel cim;
@@ -24,7 +18,7 @@ public class CodeGenerator
 		String [] onlyOneID;
 		Map<String, Object> attributes;
 		
-		cimReader= new CIMReaderJENA("C:/Users/fragom/PhD_CIM/CIMv16/SmarTSLab/Components", "line.xml");
+		cimReader= new CIMReaderJENA("C:/Users/fragom/PhD_CIM/JAVA/edu.smartslab.cim2model/res/", _rdfResource);
 		cim = new CIMModel(cimReader.readModel());
 		components = cim.gatherComponents();
 		for (Resource key : components.keySet())
@@ -45,7 +39,7 @@ public class CodeGenerator
 		
 	}
 	
-	public Mapping FactoryMapping(String _language)
+	public static Mapping FactoryMapping(String _language)
 	{
 		Mapping map= null;
 		

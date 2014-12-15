@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE component SYSTEM "cim_modelica_class.dtd">
+<component name="ACLineSegment" stereotype="class">
+  <attribute name="AttributeCIM" datatype="DataTypeCIM" variability="parameter" visibility="public">
+	  <value>ValueAttributeCIM</value>
+  </attribute>
+  <equation>
+	  <method>method_name</method>
+	  <argument>A</argument>
+	  <argument>B</argument>
+  </equation>
+</component> 

@@ -2,18 +2,20 @@ package cim2model.model.modelica;
 
 import java.util.ArrayList;
 
-public class MOComponent extends MOModel
+public class MOClass extends ModelicaModel
 {
 	private String visibility;
+	private String variability;
 	private ArrayList<MOVariable> attributes;
 	private ArrayList<MOConnector> terminals;
+	private ArrayList<MOEquation> equations;
 	
-	public MOComponent(String _name) 
+	public MOClass(String _name) 
 	{
-		super(_name);
-		this.name = _name;
+		super(_name, "class");
 		this.attributes= new ArrayList<MOVariable>();
 		this.terminals= new ArrayList<MOConnector>();
+		this.equations= new ArrayList<MOEquation>();
 	}
 	
 	/**

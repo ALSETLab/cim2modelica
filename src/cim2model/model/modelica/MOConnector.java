@@ -2,31 +2,16 @@ package cim2model.model.modelica;
 
 import java.util.ArrayList;
 
-public class MOConnector 
+public class MOConnector extends ModelicaModel
 {
 	private String visibility;
-	private String name;
-	private String datatype;
-	private String annotation;
+	private String variability;
 	private ArrayList<MOVariable> attributes;
 	
-	public MOConnector(String _datatype)
+	public MOConnector(String _name)
 	{
-		this.datatype= _datatype;
+		super(_name, "connector");
 		this.attributes= new ArrayList<MOVariable>();
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getDatatype() {
-		return name;
-	}
-	/**
-	 * @param name the name to set when is used as instance in other components
-	 */
-	public void setDatatype(String datatype) {
-		this.datatype = datatype;
 	}
 	
 	/**
@@ -104,7 +89,7 @@ public class MOConnector
 		StringBuilder pencil= new StringBuilder();
 		
 		pencil.append("connector ");
-		pencil.append(this.datatype);
+		pencil.append(this.name);
 		pencil.append(" "); pencil.append('"');
 		pencil.append(this.annotation);
 		pencil.append('"'); pencil.append("\n");
@@ -136,7 +121,7 @@ public class MOConnector
 			pencil.append(this.visibility); 
 			pencil.append(" ");
 		}
-		pencil.append(this.datatype);
+		pencil.append(this.name);
 		pencil.append(" ");
 		pencil.append(this.name);
 		pencil.append("(");
