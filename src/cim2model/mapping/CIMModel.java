@@ -23,7 +23,6 @@ public class CIMModel {
 	public CIMModel()
 	{
 //		id= "";
-		attribute= new HashMap<String, Object>();
 		component= new HashMap<Resource, RDFNode>();
 	}
 	
@@ -114,14 +113,15 @@ public class CIMModel {
 	 */
 	public Map<String, Object> retrieveAttributes(Resource _subject)
 	{
-		System.out.println("Attributes");
-		System.out.println(_subject.toString());
+//		System.out.println("Attributes");
+//		System.out.println(_subject.toString());
 		StmtIterator statements= _subject.listProperties();
+		attribute= new HashMap<String, Object>();
 		while( statements.hasNext() ) 
 		{
 		    Statement stmt= statements.next();
-			System.out.println("Statement -> "+ stmt);
-			System.out.println("Predicate -> "+ stmt.getPredicate());
+//			System.out.println("Statement -> "+ stmt);
+//			System.out.println("Predicate -> "+ stmt.getPredicate());
 			System.out.println("Attribute -> "+ stmt.getPredicate().getLocalName()); //name of the variable
 			System.out.println("Value -> "+ stmt.getAlt()); //value of the variable as String
 			this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getAlt());
@@ -216,5 +216,11 @@ public class CIMModel {
 //			this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getAlt());
 		
 		return this.attribute;
+	}
+	
+	public void clearAttributes()
+	{
+		this.attribute.clear();
+		this.component.clear();
 	}
 }

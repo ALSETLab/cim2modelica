@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by Cimphony RDF XML Serialiser from Open Grid Systems Ltd.
+	 Bundle: com.cimphony.core.emf.rdf v1.0.0
+	Created: 2014-11-26T17:12:17-->
+<rdf:RDF xmlns:entsoe="http://entsoe.eu/CIM/SchemaExtension/3/1#" xmlns:cim="http://iec.ch/TC57/2013/CIM-schema-cim16#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <cim:ACLineSegment rdf:ID="_b0bfe500-1d51-11e4-878c-080027008896">
+  <cim:Conductor.length>200</cim:Conductor.length>
+  <cim:ACLineSegment.bch>0.5</cim:ACLineSegment.bch>
+  <cim:ACLineSegment.gch>0.5</cim:ACLineSegment.gch>
+  <cim:ACLineSegment.r>1.100000023841858</cim:ACLineSegment.r>
+  <cim:ACLineSegment.x>0.20000000298023224</cim:ACLineSegment.x>
+ </cim:ACLineSegment>
+ <cim:Analog rdf:ID="_539dc5d0-1d52-11e4-878c-080027008896">
+  <cim:IdentifiedObject.aliasName>Current</cim:IdentifiedObject.aliasName>
+  <cim:IdentifiedObject.name>Current</cim:IdentifiedObject.name>
+  <cim:Measurement.PowerSystemResource rdf:resource="#_b0bfe500-1d51-11e4-878c-080027008896"/>
+ </cim:Analog>
+ <cim:Conductor rdf:ID="_a5bba760-1d52-11e4-878c-080027008896">
+  <cim:Conductor.length>200</cim:Conductor.length>
+ </cim:Conductor>
+ <cim:Analog rdf:ID="_0810a5b0-1d52-11e4-878c-080027008896">
+  <cim:IdentifiedObject.aliasName>Voltage</cim:IdentifiedObject.aliasName>
+  <cim:IdentifiedObject.name>Voltage</cim:IdentifiedObject.name>
+  <cim:Measurement.PowerSystemResource rdf:resource="#_b0bfe500-1d51-11e4-878c-080027008896"/>
+ </cim:Analog>
+ <cim:Terminal rdf:ID="_9e0eb930-7586-11e4-9e1e-080027008896">
+  <cim:IdentifiedObject.aliasName>pinIn</cim:IdentifiedObject.aliasName>
+  <cim:IdentifiedObject.name>pinIn</cim:IdentifiedObject.name>
+  <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
+  <cim:Terminal.ConductingEquipment rdf:resource="#_b0bfe500-1d51-11e4-878c-080027008896"/>
+  <cim:Terminal.SvPowerFlow rdf:resource="#_d0b9ea30-7586-11e4-9e1e-080027008896"/>
+ </cim:Terminal>
+ <cim:Terminal rdf:ID="_aba1c290-7586-11e4-9e1e-080027008896">
+  <cim:IdentifiedObject.aliasName>pinOut</cim:IdentifiedObject.aliasName>
+  <cim:IdentifiedObject.name>pinOut</cim:IdentifiedObject.name>
+  <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
+  <cim:Terminal.ConductingEquipment rdf:resource="#_b0bfe500-1d51-11e4-878c-080027008896"/>
+  <cim:Terminal.SvPowerFlow rdf:resource="#_ca941f90-7586-11e4-9e1e-080027008896"/>
+ </cim:Terminal>
+ <cim:SvPowerFlow rdf:ID="_ca941f90-7586-11e4-9e1e-080027008896">
+  <cim:SvPowerFlow.p>49.5</cim:SvPowerFlow.p>
+  <cim:SvPowerFlow.q>-5.35699987411499</cim:SvPowerFlow.q>
+  <cim:SvPowerFlow.Terminal rdf:resource="#_aba1c290-7586-11e4-9e1e-080027008896"/>
+ </cim:SvPowerFlow>
+ <cim:SvPowerFlow rdf:ID="_d0b9ea30-7586-11e4-9e1e-080027008896">
+  <cim:SvPowerFlow.p>49.5</cim:SvPowerFlow.p>
+  <cim:SvPowerFlow.q>5.375</cim:SvPowerFlow.q>
+  <cim:SvPowerFlow.Terminal rdf:resource="#_9e0eb930-7586-11e4-9e1e-080027008896"/>
+ </cim:SvPowerFlow>
+</rdf:RDF>

@@ -11,12 +11,11 @@ public class ModMapping implements Mapping
 {
 	XMLReaderJDOM xmlReader; //object reader for xml mapping
 	Element xmlModelName;
-	ArrayList<Element>  xmlModelAttribute;
+	Element  xmlModelAttribute;
 	
-	public ModMapping(String _mapp)
+	public ModMapping()
 	{
-		xmlReader= new XMLReaderJDOM("C:/Users/fragom/PhD_CIM/CIMv16/Mapping","cim_modelica_connector.xml");
-		this.xmlModelAttribute= new ArrayList<Element>();
+		this.xmlModelAttribute= null;
 		this.xmlModelName= null;
 	}
 	
@@ -44,18 +43,12 @@ public class ModMapping implements Mapping
 	}
 
 	@Override
-	public void loadMapping(String _xmlResource)
+	public void loadMapping(String _xmlMap)
 	{
+		//"C:/Users/fragom/PhD_CIM/CIMv16/Mapping","cim_modelica_connector.xml"
+		xmlReader= new XMLReaderJDOM("C:/Users/fragom/PhD_CIM/JAVA/edu.smartslab.cim2model/res/", _xmlMap);
 		xmlModelName= xmlReader.getRoot();
-//		System.out.println(xmlModelName.getName());
-//		System.out.println(xmlModelName.getAttributeValue("name"));
-//		System.out.println(xmlModelName.getAttributeValue("stereotype"));
-		
-		Iterator<Element> iElement= xmlModelName.getChildren().listIterator();
-		while (iElement.hasNext())
-		{
-			this.xmlModelAttribute.add(iElement.next());
-		}
+		this.xmlModelAttribute= xmlReader.getRoot().getChild("Attribute");
 	}
 
 	/**
