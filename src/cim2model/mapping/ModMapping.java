@@ -68,7 +68,7 @@ public class ModMapping implements Mapping
 	/**
 	 * @return the xmlModelAttribute
 	 */
-	public ArrayList<Element> getXmlModelAttribute() 
+	public Element getXmlModelAttribute() 
 	{
 //		for (Element e: xmlModelAttribute)
 //		{
@@ -85,7 +85,7 @@ public class ModMapping implements Mapping
 	/**
 	 * @param xmlModelAttribute the xmlModelAttribute to set
 	 */
-	public void setXmlModelAttribute(ArrayList<Element> xmlModelAttribute) {
+	public void setXmlModelAttribute(Element xmlModelAttribute) {
 		this.xmlModelAttribute = xmlModelAttribute;
 	}
 	
