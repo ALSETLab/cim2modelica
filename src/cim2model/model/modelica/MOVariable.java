@@ -14,7 +14,7 @@ public class MOVariable
 	private String variability;
 	private String datatype;
 	private String name;
-	private double value;
+	private String value;
 	private String annotation;
 	private Boolean fixed;
 	private Boolean flow;
@@ -24,7 +24,7 @@ public class MOVariable
 		this.variability= "parameter";
 		this.datatype = "Real";
 		this.name = "name";
-		this.value = 0;
+		this.value = "0";
 		this.fixed = false;
 		this.annotation= "annotation";
 		this.flow= false;
@@ -83,13 +83,13 @@ public class MOVariable
 	/**
 	 * @return the value
 	 */
-	public double getValue() {
+	public String getValue() {
 		return value;
 	}
 	/**
 	 * @param value the value to set
 	 */
-	public void setValue(double value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 	/**

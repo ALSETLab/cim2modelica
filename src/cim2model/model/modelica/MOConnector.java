@@ -6,6 +6,7 @@ public class MOConnector extends ModelicaModel
 {
 	private String visibility;
 	private String variability;
+	private String instanceName; 
 	private ArrayList<MOVariable> attributes;
 	
 	public MOConnector(String _name)
@@ -27,6 +28,19 @@ public class MOConnector extends ModelicaModel
 		this.name = name;
 	}
 
+	/**
+	 * @return the name
+	 */
+	public String getInstanceName() {
+		return instanceName;
+	}
+	/**
+	 * @param name the name to set when is used as instance in other components
+	 */
+	public void setInstanceName(String instanceName) {
+		this.instanceName = instanceName;
+	}
+	
 	/**
 	 * @return the visibility
 	 */
@@ -123,7 +137,7 @@ public class MOConnector extends ModelicaModel
 		}
 		pencil.append(this.name);
 		pencil.append(" ");
-		pencil.append(this.name);
+		pencil.append(this.instanceName);
 		pencil.append("(");
 		for (MOVariable item: this.attributes)
 		{

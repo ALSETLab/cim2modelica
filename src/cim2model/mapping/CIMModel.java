@@ -123,8 +123,18 @@ public class CIMModel {
 //			System.out.println("Predicate -> "+ stmt.getPredicate());
 			System.out.println("Attribute -> "+ stmt.getPredicate().getLocalName()); //name of the variable
 			System.out.println("Value -> "+ stmt.getAlt()); //value of the variable as String
-			this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getAlt());
-//			this.component.put(stmt.getSubject(), stmt.getObject());
+			System.out.println("Literal -> "+ stmt.getAlt().isLiteral());
+			System.out.println("URIResource -> "+ stmt.getAlt().isURIResource());
+			if (stmt.getAlt().isLiteral())
+			{
+				System.out.println("DataType -> "+ stmt.getLiteral().getValue());
+				this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getLiteral().getValue());
+			}
+			if (stmt.getAlt().isURIResource())
+			{
+				System.out.println("URIResource -> "+ stmt.getAlt());
+				//TODO How handle pointers to other classes
+			}
 		}
 		return this.attribute;
 	}

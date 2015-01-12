@@ -10,6 +10,7 @@ import org.jdom2.Element;
 import cim2model.io.CIMReaderJENA;
 import cim2model.mapping.*;
 import cim2model.model.modelica.MOClass;
+import cim2model.model.modelica.MOConnector;
 import cim2model.model.modelica.MOVariable;
 
 public class CodeGenerator 
@@ -43,20 +44,48 @@ public class CodeGenerator
 			if (onlyOneID[1].equals("ACLineSegment"))
 			{
 //				_map.loadMapping("cim_modelica_connector.xml");
-				System.out.println("puto - "+ attributes);
+				//TODO Apply mapping here
 				MOClass aclinesegment= new MOClass("ACLineSegment");
 				aclinesegment.setStereotype("class");
-				MOVariable variable= new MOVariable();
 				for (String str : attributes.keySet())
 				{
+					MOVariable variable= new MOVariable();
 					String [] name= str.split("\\.");
-					System.out.println("fill de puta 1 "+ name[0]);
 					variable.setName(name[1]);
 					variable.setDatatype("Real");
-					variable.setValue(attributes.get(str));
+					if (attributes.get(str) instanceof java.lang.String)
+						variable.setValue(attributes.get(str).toString());
 					aclinesegment.setAttribute(variable);
 				}
-				aclinesegment.toModelicaClass();
+				System.out.println(attributes);
+				System.out.println(aclinesegment.toModelicaClass());
+				//TODO Include the Terminal instances here
+			}
+			if (onlyOneID[1].equals("Terminal"))
+			{
+//				_map.loadMapping("cim_modelica_connector.xml");
+				//TODO Apply mapping here
+				MOConnector terminal= new MOConnector("Terminal");
+				terminal.setStereotype("connector");
+				for (String str : attributes.keySet())
+				{
+					MOVariable variable= new MOVariable();
+					String [] name= str.split("\\.");
+					variable.setName(name[1]);
+					if (str.equals("IdentifiedObject.name") || str.equals("IdentifiedObject.aliasName") )
+					{
+						terminal.setInstanceName(attributes.get(str).toString());
+					}
+					else
+					{
+						variable.setDatatype("Real");
+						if (attributes.get(str) instanceof java.lang.String)
+							variable.setValue(attributes.get(str).toString());
+						terminal.setAttribute(variable);
+					}
+				}
+				System.out.println(attributes);
+				System.out.println(terminal.toModelicaClass());
 			}
 			else
 			{
