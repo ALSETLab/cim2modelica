@@ -6,14 +6,14 @@ public class MOClass extends ModelicaModel
 {
 	private String visibility;
 	private String variability;
-	private ArrayList<MOVariable> attributes;
+	private ArrayList<MOAttribute> attributes;
 	private ArrayList<MOConnector> terminals;
 	private ArrayList<MOEquation> equations;
 	
 	public MOClass(String _name) 
 	{
 		super(_name, "class");
-		this.attributes= new ArrayList<MOVariable>();
+		this.attributes= new ArrayList<MOAttribute>();
 		this.terminals= new ArrayList<MOConnector>();
 		this.equations= new ArrayList<MOEquation>();
 	}
@@ -21,94 +21,108 @@ public class MOClass extends ModelicaModel
 	/**
 	 * @return the name
 	 */
-	public String getName() {
+	public String get_Name() {
 		return name;
 	}
 	/**
 	 * @param name the name to set
 	 */
-	public void setName(String name) {
+	public void set_Name(String name) {
 		this.name = name;
+	}
+	
+	/**
+	 * @return the variability
+	 */
+	public String get_Variability() {
+		return variability;
+	}
+
+	/**
+	 * @param visibility the visibility to set
+	 */
+	public void set_Variability(String variability) {
+		this.variability = variability;
 	}
 	
 	/**
 	 * @return the visibility
 	 */
-	public String getVisibility() {
+	public String get_Visibility() {
 		return visibility;
 	}
 
 	/**
 	 * @param visibility the visibility to set
 	 */
-	public void setVisibility(String visibility) {
+	public void set_Visibility(String visibility) {
 		this.visibility = visibility;
 	}
 
 	/**
 	 * @return the stereotype
 	 */
-	public String getStereotype() {
+	public String get_Stereotype() {
 		return stereotype;
 	}
 
 	/**
 	 * @param stereotype the stereotype to set
 	 */
-	public void setStereotype(String stereotype) {
+	public void set_Stereotype(String stereotype) {
 		this.stereotype = stereotype;
 	}
 
 	/**
 	 * @return the annotation
 	 */
-	public String getAnnotation() {
+	public String get_Annotation() {
 		return annotation;
 	}
 
 	/**
 	 * @param annotation the annotation to set
 	 */
-	public void setAnnotation(String annotation) {
+	public void set_Annotation(String annotation) {
 		this.annotation = annotation;
 	}
 	
 	/**
 	 * @return the attributes
 	 */
-	public ArrayList<MOVariable> getAttributes() {
+	public ArrayList<MOAttribute> get_Attributes() {
 		return attributes;
 	}
 	/**
 	 * 
 	 * @param variable
 	 */
-	public void setAttribute(MOVariable variable){
+	public void add_Attribute(MOAttribute variable){
 		this.attributes.add(variable);
 	}
 	/**
 	 * @param attributes the attributes to set
 	 */
-	public void setAttributes(ArrayList<MOVariable> attributes) {
+	public void add_Attribute(ArrayList<MOAttribute> attributes) {
 		this.attributes = attributes;
 	}
 	/**
 	 * @return the terminals
 	 */
-	public ArrayList<MOConnector> getTerminals() {
+	public ArrayList<MOConnector> get_Terminals() {
 		return terminals;
 	}
 	/**
 	 * 
 	 * @param variable
 	 */
-	public void setTerminal(MOConnector pin){
+	public void add_Terminal(MOConnector pin){
 		this.terminals.add(pin);
 	}
 	/**
 	 * @param terminals the terminals to set
 	 */
-	public void setTerminals(ArrayList<MOConnector> terminals) {
+	public void add_Terminal(ArrayList<MOConnector> terminals) {
 		this.terminals = terminals;
 	}
 	
@@ -121,7 +135,7 @@ public class MOClass extends ModelicaModel
 	 * end name;
 	 * @return text representation of the class
 	 */
-	public String toModelicaClass()
+	public String to_ModelicaClass()
 	{
 		String code= "";
 		StringBuilder pencil= new StringBuilder();
@@ -132,7 +146,7 @@ public class MOClass extends ModelicaModel
 		pencil.append('"');
 		pencil.append(this.annotation);
 		pencil.append('"'); pencil.append("\n");
-		for (MOVariable item: this.attributes)
+		for (MOAttribute item: this.attributes)
 		{
 			pencil.append("\t");
 			pencil.append(item.getVariability()); pencil.append(" ");
@@ -161,7 +175,7 @@ public class MOClass extends ModelicaModel
 		for (MOConnector pin: this.terminals)
 		{
 			pencil.append("\t");
-			pencil.append(pin.toModelicaInstance());
+			pencil.append(pin.to_ModelicaInstance());
 		}
 		/* EQUATION SECTION */
 		pencil.append("\t");
@@ -191,7 +205,7 @@ public class MOClass extends ModelicaModel
 		}
 		pencil.append(this.name);
 		pencil.append("(");
-		for (MOVariable item: this.attributes)
+		for (MOAttribute item: this.attributes)
 		{
 			pencil.append(item.getName());
 			pencil.append("=");

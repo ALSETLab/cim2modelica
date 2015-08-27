@@ -9,9 +9,10 @@ import org.jdom2.Element;
 
 import cim2model.io.CIMReaderJENA;
 import cim2model.mapping.*;
+import cim2model.model.cim.CIMModel;
 import cim2model.model.modelica.MOClass;
 import cim2model.model.modelica.MOConnector;
-import cim2model.model.modelica.MOVariable;
+import cim2model.model.modelica.MOAttribute;
 
 public class CodeGenerator 
 {
@@ -23,7 +24,7 @@ public class CodeGenerator
 		this.components= null;
 		this.attributes= null;
 	}
-	public void loadCIMModel(String _rdfResource, Mapping _map) 
+	public void loadCIMModel(String _rdfResource) 
 	{
 		CIMReaderJENA cimReader;
 		CIMModel cim;
@@ -49,16 +50,16 @@ public class CodeGenerator
 				aclinesegment.setStereotype("class");
 				for (String str : attributes.keySet())
 				{
-					MOVariable variable= new MOVariable();
+					MOAttribute variable= new MOAttribute();
 					String [] name= str.split("\\.");
 					variable.setName(name[1]);
 					variable.setDatatype("Real");
 					if (attributes.get(str) instanceof java.lang.String)
 						variable.setValue(attributes.get(str).toString());
-					aclinesegment.setAttribute(variable);
+					aclinesegment.add_Attribute(variable);
 				}
 				System.out.println(attributes);
-				System.out.println(aclinesegment.toModelicaClass());
+				System.out.println(aclinesegment.to_ModelicaClass());
 				//TODO Include the Terminal instances here
 			}
 			if (onlyOneID[1].equals("Terminal"))
@@ -69,27 +70,27 @@ public class CodeGenerator
 				terminal.setStereotype("connector");
 				for (String str : attributes.keySet())
 				{
-					MOVariable variable= new MOVariable();
+					MOAttribute variable= new MOAttribute();
 					String [] name= str.split("\\.");
 					variable.setName(name[1]);
 					if (str.equals("IdentifiedObject.name") || str.equals("IdentifiedObject.aliasName") )
 					{
-						terminal.setInstanceName(attributes.get(str).toString());
+						terminal.set_InstanceName(attributes.get(str).toString());
 					}
 					else
 					{
 						variable.setDatatype("Real");
 						if (attributes.get(str) instanceof java.lang.String)
 							variable.setValue(attributes.get(str).toString());
-						terminal.setAttribute(variable);
+						terminal.set_Attribute(variable);
 					}
 				}
 				System.out.println(attributes);
-				System.out.println(terminal.toModelicaClass());
+				System.out.println(terminal.to_ModelicaClass());
 			}
 			else
 			{
-				_map.loadMapping("cim_modelica_class.xml");
+				//_map.loadMapping("cim_modelica_class.xml");
 			}
 		}	
 	}

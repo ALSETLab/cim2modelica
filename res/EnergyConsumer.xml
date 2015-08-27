@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by Cimphony RDF XML Serialiser from Open Grid Systems Ltd.
+	 Bundle: com.cimphony.core.emf.rdf v1.0.0
+	Created: 2015-08-13T16:13:32-->
+<rdf:RDF xmlns:entsoe="http://entsoe.eu/CIM/SchemaExtension/3/1#" xmlns:cim="http://iec.ch/TC57/2013/CIM-schema-cim16#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <cim:EnergyConsumer rdf:ID="_826f13e0-1f06-11e4-a181-080027008896">
+  <cim:IdentifiedObject.aliasName>Normal</cim:IdentifiedObject.aliasName>
+  <cim:IdentifiedObject.name>Normal Load</cim:IdentifiedObject.name>
+  <cim:Equipment.aggregate>false</cim:Equipment.aggregate>
+  <cim:ConductingEquipment.BaseVoltage rdf:resource="#_a285a090-41c4-11e5-9b3e-080027008896"/>
+  <cim:EnergyConsumer.customerCount>100</cim:EnergyConsumer.customerCount>
+  <cim:EnergyConsumer.grounded>false</cim:EnergyConsumer.grounded>
+  <cim:EnergyConsumer.p>250</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.pfixed>230</cim:EnergyConsumer.pfixed>
+  <cim:EnergyConsumer.phaseConnection rdf:resource="http://iec.ch/TC57/2013/CIM-schema-cim16#PhaseShuntConnectionKind.Y"/>
+  <cim:EnergyConsumer.q>-35</cim:EnergyConsumer.q>
+  <cim:EnergyConsumer.qfixed>-25</cim:EnergyConsumer.qfixed>
+  <cim:EnergyConsumer.LoadResponse rdf:resource="#_c0cf8d90-1f06-11e4-a181-080027008896"/>
+ </cim:EnergyConsumer>
+ <cim:LoadResponseCharacteristic rdf:ID="_c0cf8d90-1f06-11e4-a181-080027008896">
+  <cim:IdentifiedObject.name>Distribution</cim:IdentifiedObject.name>
+  <cim:LoadResponseCharacteristic.pConstantCurrent>100</cim:LoadResponseCharacteristic.pConstantCurrent>
+  <cim:LoadResponseCharacteristic.pConstantImpedance>25</cim:LoadResponseCharacteristic.pConstantImpedance>
+  <cim:LoadResponseCharacteristic.pConstantPower>100</cim:LoadResponseCharacteristic.pConstantPower>
+  <cim:LoadResponseCharacteristic.pFrequencyExponent>0.0010000000474974513</cim:LoadResponseCharacteristic.pFrequencyExponent>
+  <cim:LoadResponseCharacteristic.pVoltageExponent>0.029999999329447746</cim:LoadResponseCharacteristic.pVoltageExponent>
+  <cim:LoadResponseCharacteristic.qConstantCurrent>0.10000000149011612</cim:LoadResponseCharacteristic.qConstantCurrent>
+  <cim:LoadResponseCharacteristic.qConstantImpedance>0.10000000149011612</cim:LoadResponseCharacteristic.qConstantImpedance>
+  <cim:LoadResponseCharacteristic.qConstantPower>0.10000000149011612</cim:LoadResponseCharacteristic.qConstantPower>
+  <cim:LoadResponseCharacteristic.qFrequencyExponent>0.10000000149011612</cim:LoadResponseCharacteristic.qFrequencyExponent>
+ </cim:LoadResponseCharacteristic>
+ <cim:BaseVoltage rdf:ID="_a285a090-41c4-11e5-9b3e-080027008896">
+  <cim:IdentifiedObject.name>Distribution</cim:IdentifiedObject.name>
+  <cim:BaseVoltage.nominalVoltage>230</cim:BaseVoltage.nominalVoltage>
+ </cim:BaseVoltage>
+ <cim:Terminal rdf:ID="_ba5cfd80-41c4-11e5-9b3e-080027008896">
+  <cim:Terminal.ConductingEquipment rdf:resource="#_826f13e0-1f06-11e4-a181-080027008896"/>
+  <cim:Terminal.SvPowerFlow rdf:resource="#_c8ef2760-41c4-11e5-9b3e-080027008896"/>
+  <cim:Terminal.TopologicalNode rdf:resource="#_d8a7cfe0-41c4-11e5-9b3e-080027008896"/>
+ </cim:Terminal>
+ <cim:SvPowerFlow rdf:ID="_c8ef2760-41c4-11e5-9b3e-080027008896">
+  <cim:SvPowerFlow.p>1</cim:SvPowerFlow.p>
+  <cim:SvPowerFlow.q>0.10000000149011612</cim:SvPowerFlow.q>
+  <cim:SvPowerFlow.Terminal rdf:resource="#_ba5cfd80-41c4-11e5-9b3e-080027008896"/>
+ </cim:SvPowerFlow>
+ <cim:TopologicalNode rdf:ID="_d8a7cfe0-41c4-11e5-9b3e-080027008896">
+  <cim:TopologicalNode.SvVoltage rdf:resource="#_ddabfde0-41c4-11e5-9b3e-080027008896"/>
+ </cim:TopologicalNode>
+ <cim:SvVoltage rdf:ID="_ddabfde0-41c4-11e5-9b3e-080027008896">
+  <cim:SvVoltage.angle>0.10000000149011612</cim:SvVoltage.angle>
+  <cim:SvVoltage.v>1</cim:SvVoltage.v>
+  <cim:SvVoltage.TopologicalNode rdf:resource="#_d8a7cfe0-41c4-11e5-9b3e-080027008896"/>
+ </cim:SvVoltage>
+</rdf:RDF>

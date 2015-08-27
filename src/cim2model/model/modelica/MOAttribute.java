@@ -8,7 +8,7 @@ import java.util.Map;
  * @author fragom
  *
  */
-public class MOVariable 
+public class MOAttribute 
 {
 	private String visibility;
 	private String variability;
@@ -19,7 +19,7 @@ public class MOVariable
 	private Boolean fixed;
 	private Boolean flow;
 	
-	public MOVariable() {
+	public MOAttribute() {
 		super();
 		this.variability= "parameter";
 		this.datatype = "Real";

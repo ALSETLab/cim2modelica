@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_pwline.dtd">
+<pwLineMap package="PowerSystems.Electrical.Branches" name="PwLine" stereotype="class">
+  <cimAttribute name="Conductor.length">0</cimAttribute>
+  <cimAttribute name="bch">0</cimAttribute>
+  <cimAttribute name="gch">0</cimAttribute>
+  <cimAttribute name="r">0</cimAttribute>
+  <cimAttribute name="x">0</cimAttribute>
+  <moAttribute name="p" datatype="PowerSystems.Connectors.PwPin" variability="none" visibility="public">0</moAttribute>
+  <moAttribute name="n" datatype="PowerSystems.Connectors.PwPin" variability="none" visibility="public">0</moAttribute>
+  <moAttribute name="length" datatype="Real" variability="UD" visibility="public">0</moAttribute>
+  <moAttribute name="R" datatype="Real" variability="parameter" visibility="public">0</moAttribute>
+  <moAttribute name="X" datatype="Real" variability="parameter" visibility="public">0</moAttribute>
+  <moAttribute name="G" datatype="Real" variability="parameter" visibility="public">0</moAttribute>
+  <moAttribute name="B" datatype="Real" variability="parameter" visibility="public">0</moAttribute>
+</pwLineMap>

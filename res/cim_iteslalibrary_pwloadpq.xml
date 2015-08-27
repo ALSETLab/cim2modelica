@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_pwloadpq.dtd">
+<pwLoadPQMap package="PowerSystems.Electrical.Loads" name="PwLoadPQ" stereotype="class">
+  <cimAttribute name="EnergyConsumer.grounded">false</cimAttribute>
+  <cimAttribute name="EnergyConsumer.customerCount">100</cimAttribute>
+  <cimAttribute name="EnergyConsumer.p">1.1</cimAttribute>
+  <cimAttribute name="EnergyConsumer.q">0.1</cimAttribute>
+  <cimAttribute name="LoadResponseCharacteristic.pConstantPower">1.0</cimAttribute>
+  <cimAttribute name="LoadResponseCharacteristic.qConstantPower">0.1</cimAttribute>
+  <cimAttribute id="_ba5cfd80-41c4-11e5-9b3e-080027008896" name="Terminal.IdentifiedObject.aliasName">u</cimAttribute>
+  <cimAttribute name="TopologicalNode.SvVoltage.angle" terminalId="_ba5cfd80-41c4-11e5-9b3e-080027008896">0.1</cimAttribute>
+  <cimAttribute name="TopologicalNode.SvVoltage.v" terminalId="_ba5cfd80-41c4-11e5-9b3e-080027008896">1.0</cimAttribute>
+  <moAttribute name="u" datatype="PowerSystems.Connectors.PwPin" variability="none" visibility="public">0</moAttribute>
+  <moAttribute name="P" datatype="Real" variability="parameter" visibility="public">0</moAttribute>
+  <moAttribute name="Q" datatype="Real" variability="parameter" visibility="public">0</moAttribute>
+  <moAttribute name="Vo_real" datatype="Real" variability="parameter" visibility="public">0</moAttribute>
+  <moAttribute name="Vo_img" datatype="Real" variability="parameter" visibility="public">0</moAttribute>
+  <moAttribute name="angle" datatype="Real" variability="none" visibility="public">0</moAttribute>
+  <moAttribute name="v" datatype="Real" variability="none" visibility="public">0</moAttribute>
+</pwLoadPQMap>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="pwBusMap">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="cimAttribute" maxOccurs="unbounded"/>
+        <xs:element ref="moAttribute" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="package" type="xs:string" use="required"/>
+      <xs:attribute name="stereotype" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cimAttribute">
+    <xs:complexType mixed="true">
+      <xs:attribute name="id" type="xs:string"/>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="terminalId" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="moAttribute">
+    <xs:complexType mixed="true">
+      <xs:attribute name="datatype" type="xs:string" use="required"/>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="variability" type="xs:string" use="required"/>
+      <xs:attribute name="visibility" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,5 +1,10 @@
 package cim2model.model.modelica;
 
+/**
+ * Generic class which contains general attributes to create a Modelica class
+ * @author fragom
+ *
+ */
 public abstract class ModelicaModel 
 {
 	protected String name;
@@ -48,5 +53,5 @@ public abstract class ModelicaModel
 		this.annotation = annotation;
 	}
 	
-	
+	public void from_XMLMapping(){}
 }

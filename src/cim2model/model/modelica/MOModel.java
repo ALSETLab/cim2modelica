@@ -22,13 +22,13 @@ public class MOModel extends ModelicaModel
 	 * 
 	 * @param component
 	 */
-	public void setComponent(MOClass component){
+	public void add_Component(MOClass component){
 		this.components.add(component);
 	}
 	/**
 	 * @param attributes the components to set
 	 */
-	public void setComponents(ArrayList<MOClass> components) {
+	public void add_Component(ArrayList<MOClass> components) {
 		this.components = components;
 	}
 }

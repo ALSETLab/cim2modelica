@@ -8,8 +8,7 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 
 import cim2model.io.*;
-import cim2model.mapping.CIMModel;
-import cim2model.mapping.ModMapping;
+import cim2model.model.cim.CIMModel;
 
 public class ControlTranslation {
 

@@ -1,92 +1,107 @@
 package cim2model.model.modelica;
 
 import java.util.ArrayList;
+import cim2model.model.xml.*;
 
 public class MOConnector extends ModelicaModel
 {
 	private String visibility;
 	private String variability;
 	private String instanceName; 
-	private ArrayList<MOVariable> attributes;
+	private ArrayList<MOAttribute> attributes;
 	
 	public MOConnector(String _name)
 	{
 		super(_name, "connector");
-		this.attributes= new ArrayList<MOVariable>();
+		this.attributes= new ArrayList<MOAttribute>();
 	}
 	
 	/**
 	 * @return the name
 	 */
-	public String getName() {
+	public String get_Name() {
 		return name;
 	}
 	/**
 	 * @param name the name to set when is used as instance in other components
 	 */
-	public void setName(String name) {
+	public void set_Name(String name) {
 		this.name = name;
 	}
 
 	/**
 	 * @return the name
 	 */
-	public String getInstanceName() {
+	public String get_InstanceName() {
 		return instanceName;
 	}
 	/**
 	 * @param name the name to set when is used as instance in other components
 	 */
-	public void setInstanceName(String instanceName) {
+	public void set_InstanceName(String instanceName) {
 		this.instanceName = instanceName;
+	}
+	
+	/**
+	 * @return the variability
+	 */
+	public String get_Variability() {
+		return variability;
+	}
+
+	/**
+	 * @param visibility the visibility to set
+	 */
+	public void set_Variability(String variability) {
+		this.variability = variability;
 	}
 	
 	/**
 	 * @return the visibility
 	 */
-	public String getVisibility() {
+	public String get_Visibility() {
 		return visibility;
 	}
 
 	/**
 	 * @param visibility the visibility to set
 	 */
-	public void setVisibility(String visibility) {
+	public void set_Visibility(String visibility) {
 		this.visibility = visibility;
 	}
 
 	/**
 	 * @return the annotation
 	 */
-	public String getAnnotation() {
+	public String get_Annotation() {
 		return annotation;
 	}
 
 	/**
 	 * @param annotation the annotation to set
 	 */
-	public void setAnnotation(String annotation) {
+	public void set_Annotation(String annotation) {
 		this.annotation = annotation;
 	}
 
 	/**
 	 * @return the attributes
 	 */
-	public ArrayList<MOVariable> getAttributes() {
+	public ArrayList<MOAttribute> get_Attributes() {
 		return attributes;
 	}
 
 	/**
 	 * @param attributes the attributes to set
 	 */
-	public void setAttribute(MOVariable attribute) {
+	public void set_Attribute(MOAttribute attribute) {
 		this.attributes.add(attribute);
 	}
 	
 	/**
 	 * @param attributes the attributes to set
 	 */
-	public void setAttributes(ArrayList<MOVariable> attributes) {
+	public void set_Attributes(ArrayList<MOAttribute> attributes) {
 		this.attributes = attributes;
 	}
 	
@@ -97,7 +112,7 @@ public class MOConnector extends ModelicaModel
 	 * end name;
 	 * @return text representation of the class
 	 */
-	public String toModelicaClass()
+	public String to_ModelicaClass()
 	{
 		String code= "";
 		StringBuilder pencil= new StringBuilder();
@@ -107,7 +122,7 @@ public class MOConnector extends ModelicaModel
 		pencil.append(" "); pencil.append('"');
 		pencil.append(this.annotation);
 		pencil.append('"'); pencil.append("\n");
-		for (MOVariable item: this.attributes)
+		for (MOAttribute item: this.attributes)
 		{
 			pencil.append("\t");
 			pencil.append(item.toModelica());
@@ -125,7 +140,7 @@ public class MOConnector extends ModelicaModel
 	 * Name connectorName (value1=?,value2=?,...) "comments";
 	 * @return text representation of the instance
 	 */
-	public String toModelicaInstance()
+	public String to_ModelicaInstance()
 	{
 		String code= "";
 		StringBuilder pencil= new StringBuilder();
@@ -139,7 +154,7 @@ public class MOConnector extends ModelicaModel
 		pencil.append(" ");
 		pencil.append(this.instanceName);
 		pencil.append("(");
-		for (MOVariable item: this.attributes)
+		for (MOAttribute item: this.attributes)
 		{
 			pencil.append(item.getName());
 			pencil.append("=");

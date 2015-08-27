@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_pwbus.dtd">
+<pwBusMap package="PowerSystems.Electrical.Buses" name="Bus" stereotype="class">
+  <cimAttribute id="_488d5140-419d-11e5-9b3e-080027008896" name="Terminal.IdentifiedObject.aliasName">u</cimAttribute>  
+  <cimAttribute name="TopologicalNode.SvVoltage.angle" terminalId="_488d5140-419d-11e5-9b3e-080027008896">0</cimAttribute>
+  <cimAttribute name="TopologicalNode.+-SvVoltage.v" terminalId="_488d5140-419d-11e5-9b3e-080027008896">0</cimAttribute>
+  <cimAttribute name="SvPowerFlow.p" terminalId="_488d5140-419d-11e5-9b3e-080027008896">0</cimAttribute>
+  <cimAttribute name="SvPowerFlow.q" terminalId="_488d5140-419d-11e5-9b3e-080027008896">0</cimAttribute>
+  <cimAttribute id="_cedb4ec0-41a0-11e5-9b3e-080027008896" name="Terminal.IdentifiedObject.aliasName">o</cimAttribute>
+  <cimAttribute name="TopologicalNode.SvVoltage.angle" terminalId="_cedb4ec0-41a0-11e5-9b3e-080027008896">0</cimAttribute>
+  <cimAttribute name="TopologicalNode.SvVoltage.v" terminalId="_cedb4ec0-41a0-11e5-9b3e-080027008896">0</cimAttribute>
+  <cimAttribute name="SvPowerFlow.p" terminalId="_cedb4ec0-41a0-11e5-9b3e-080027008896">0</cimAttribute>
+  <cimAttribute name="SvPowerFlow.q" terminalId="_cedb4ec0-41a0-11e5-9b3e-080027008896">0</cimAttribute>
+  <cimAttribute name="BaseVoltage.nominalVoltage">230</cimAttribute>
+  <moAttribute name="u" datatype="PowerSystems.Connectors.PwPin" variability="none" visibility="public">0</moAttribute>
+  <moAttribute name="o" datatype="PowerSystems.Connectors.PwPin" variability="none" visibility="public">0</moAttribute>
+  <moAttribute name="v" datatype="Real" variability="none" visibility="public">0</moAttribute>
+  <moAttribute name="anglev" datatype="Real" variability="none" visibility="public">0</moAttribute>
+  <moAttribute name="V_base" datatype="Real" variability="parameter" visibility="public">1</moAttribute>
+  <moAttribute name="S_base" datatype="Real" variability="parameter" visibility="public">0</moAttribute>
+</pwBusMap>
