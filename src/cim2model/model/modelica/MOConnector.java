@@ -3,7 +3,12 @@ package cim2model.model.modelica;
 import java.util.ArrayList;
 import cim2model.model.xml.*;
 
-public class MOConnector extends ModelicaModel
+/**
+ * Generic class for implementation the declaration of modelica connectors
+ * @author fragom
+ *
+ */
+public class MOConnector extends MOModel
 {
 	private String visibility;
 	private String variability;

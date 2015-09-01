@@ -14,11 +14,12 @@ public class XMLReaderJDOM {
 	Document document;
 	Element rootNode;
 	
-	public XMLReaderJDOM(String path, String file)
+	public XMLReaderJDOM(String _filesource)
 	{
 		//open CIM/XML file
 		SAXBuilder builder = new SAXBuilder();
-		File xmlFile = new File(path +"/"+ file);
+		//path +"/"+ file
+		File xmlFile = new File(_filesource);
 		
 		try
 		{

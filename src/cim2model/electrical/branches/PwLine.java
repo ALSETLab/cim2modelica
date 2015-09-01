@@ -1,5 +1,7 @@
 package cim2model.electrical.branches;
 
+import java.util.ArrayList;
+
 import cim2model.electrical.connectors.PwPin;
 import cim2model.model.modelica.*;
 
@@ -10,6 +12,7 @@ public class PwLine extends MOClass
 	private float X;
 	private float G;
 	private float B;
+	private ArrayList<PwPin> terminales;
 	
 	public PwLine(float _l, float _r, float _x, float _g, float _b)
 	{
@@ -54,6 +57,20 @@ public class PwLine extends MOClass
 	 */
 	public float get_B() {
 		return B;
+	}
+
+	/**
+	 * @return the terminales
+	 */
+	public ArrayList<PwPin> getTerminales() {
+		return terminales;
+	}
+
+	/**
+	 * @param terminales the terminales to set
+	 */
+	public void addTerminales(PwPin _terminal) {
+		this.terminales.add(_terminal);
 	}
 	
 	

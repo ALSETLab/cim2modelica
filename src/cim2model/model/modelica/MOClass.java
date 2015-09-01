@@ -2,7 +2,13 @@ package cim2model.model.modelica;
 
 import java.util.ArrayList;
 
-public class MOClass extends ModelicaModel
+/**
+ * Generic class for implementing the declaration of a modelica class. this class will be used to store 
+ * characteristics of a component model
+ * @author fragom
+ *
+ */
+public class MOClass extends MOModel
 {
 	private String visibility;
 	private String variability;

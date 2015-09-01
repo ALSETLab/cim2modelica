@@ -190,6 +190,7 @@ public class PwLineMap {
         this.stereotype = value;
     }
 
+    /**/
     public String toString()
     {
     	String str= "Name: "+ this.name+ "; Package: "+ this._package+ "; Stereotype: "+ this.stereotype;

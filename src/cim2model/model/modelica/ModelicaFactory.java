@@ -13,7 +13,7 @@ import cim2model.model.xml.*;;
  */
 public class ModelicaFactory
 {	
-	private static ModelicaModel modelo;
+	private static MOModel modelo;
 	private static ModelicaFactory fabrica;
 	
 	private ModelicaFactory(String _component)
@@ -28,38 +28,50 @@ public class ModelicaFactory
 		return fabrica;
 	}
 	
-	public static ModelicaModel make_Model(String _name)
+	public static MONetwork make_Network(String _name)
 	{
-		modelo = new MOModel(_name);
-        return modelo;
+		modelo = new MONetwork(_name);
+        return (MONetwork)modelo;
 	}
 
-	public static ModelicaModel make_Class(String _name)
+	public static MOClass make_Class(String _name)
+	{
+		modelo = new MOClass(_name);
+        return (MOClass)modelo;
+	}	
+	
+	public static MOConnector make_Connector(String _name)
+	{
+		modelo = new MOConnector(_name);
+		return (MOConnector)modelo;
+	}	
+	
+	public static MOClass make_Class(String _name, String _cimsource)
 	{
 		modelo = new MOClass(_name);
 		// 1 load mapping
-		String mapName= "cim_iteslalibrary_"+ _name+ ".xml";
-		XMLReaderJDOM mapping= new XMLReaderJDOM("C:/Users/fragom/PhD_CIM/JAVA/edu.smartslab.cim2model/res/", mapName);
+		// "C:/Users/fragom/PhD_CIM/JAVA/edu.smartslab.cim2model/res/","cim_iteslalibrary_"+ _name+ ".xml";
+		XMLReaderJDOM mapping= new XMLReaderJDOM(_cimsource);
 		// 2 create class from mapping
 		MOClassXML xmlparser= new MOClassXML(_name);
 		xmlparser.create_Class(mapping);
 		
 		// 3 save class
-        return modelo;
+        return (MOClass)modelo;
 	}	
 	
-	public static ModelicaModel make_Connector(String _name)
+	public static MOConnector make_Connector(String _name, String _cimsource)
 	{
 		modelo = new MOConnector(_name);
 		// 1 load mapping
-		String mapName= "cim_iteslalibrary_"+ _name+ ".xml";
-		XMLReaderJDOM mapping= new XMLReaderJDOM("C:/Users/fragom/PhD_CIM/JAVA/edu.smartslab.cim2model/res/", mapName);
+		// "C:/Users/fragom/PhD_CIM/JAVA/edu.smartslab.cim2model/res/", "cim_iteslalibrary_"+ _name+ ".xml";
+		XMLReaderJDOM mapping= new XMLReaderJDOM(_cimsource);
 		// 2 create class from mapping
 		MOConnectorXML xmlparser= new MOConnectorXML(_name);
 		xmlparser.create_Class(mapping);
 		
 		// 3 save class
-		return modelo;
+		return (MOConnector)modelo;
 	}	
 	
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 import cim2model.io.XMLReaderJDOM;
 import cim2model.model.modelica.MOClass;
-import cim2model.model.modelica.ModelicaModel;
+import cim2model.model.modelica.MOModel;
 
 public class MOClassXML
 {
@@ -15,7 +15,7 @@ public class MOClassXML
 	Element xmlModelName;
 	List<Element> cimChild;
 	List<Element> modelicaChild;
-	ModelicaModel modelo;
+	MOModel modelo;
 	
 	public MOClassXML(String _name)
 	{

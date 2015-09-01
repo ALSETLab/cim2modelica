@@ -10,7 +10,7 @@ public class joke_CreateModel {
 	{
 		
 		ModelicaFactory mofactory= ModelicaFactory.get_Factory("");
-		ModelicaModel modelo= mofactory.make_Class("pwline");
+		MOModel modelo= mofactory.make_Class("pwline");
 		
 		modelo.from_XMLMapping();
 		

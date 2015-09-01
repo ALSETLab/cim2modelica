@@ -7,7 +7,7 @@ import org.jdom2.Element;
 
 import cim2model.io.XMLReaderJDOM;
 import cim2model.model.modelica.MOConnector;
-import cim2model.model.modelica.ModelicaModel;
+import cim2model.model.modelica.MOModel;
 
 public class MOConnectorXML 
 {
@@ -15,7 +15,7 @@ public class MOConnectorXML
 	Element xmlModelName;
 	List<Element> cimChild;
 	List<Element> modelicaChild;
-	ModelicaModel modelo;
+	MOModel modelo;
 	
 	public MOConnectorXML(String _name)
 	{

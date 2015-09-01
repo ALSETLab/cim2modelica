@@ -127,13 +127,13 @@ public class CIMModel {
 			System.out.println("URIResource -> "+ stmt.getAlt().isURIResource());
 			if (stmt.getAlt().isLiteral())
 			{
-				System.out.println("DataType -> "+ stmt.getLiteral().getValue());
+				System.out.println("Literal Value -> "+ stmt.getLiteral().getValue());
 				this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getLiteral().getValue());
 			}
 			if (stmt.getAlt().isURIResource())
 			{
-				System.out.println("URIResource -> "+ stmt.getAlt());
-				//TODO How handle pointers to other classes
+				System.out.println("URIResource Value -> "+ stmt.getAlt().getLocalName());
+				this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getAlt().getLocalName());
 			}
 		}
 		return this.attribute;

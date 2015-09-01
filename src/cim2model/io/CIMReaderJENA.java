@@ -26,11 +26,11 @@ public class CIMReaderJENA {
 	 * @param path
 	 * @param file
 	 */
-	public CIMReaderJENA(String path, String file)
+	public CIMReaderJENA(String _file)
 	{
 		//open CIM/XML file
 		model = ModelFactory.createDefaultModel();
-		File xmlFile = new File(path +"/"+ file);
+		File xmlFile = new File(_file);
 		System.out.println(xmlFile.getAbsolutePath());
 		try
 		{

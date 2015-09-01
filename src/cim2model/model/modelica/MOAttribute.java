@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Generic class to implement and map the declaration of a Modelica Parameter.
+ * Generic class to implement the declaration of a Modelica Parameter.
  * @author fragom
  *
  */

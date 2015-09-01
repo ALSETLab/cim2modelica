@@ -30,7 +30,7 @@ public class CodeGenerator
 		CIMModel cim;
 		String [] onlyOneID;
 		
-		cimReader= new CIMReaderJENA("C:/Users/fragom/PhD_CIM/JAVA/edu.smartslab.cim2model/res/", _rdfResource);
+		cimReader= new CIMReaderJENA("C:/Users/fragom/PhD_CIM/JAVA/edu.smartslab.cim2model/res/"+ _rdfResource);
 		cim = new CIMModel(cimReader.readModel());
 		components = cim.gatherComponents();
 		for (Resource key : components.keySet())
