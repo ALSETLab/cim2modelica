@@ -9,7 +9,9 @@
 package cim2model.mapping;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -89,6 +91,23 @@ public class PwLineMap {
         return this.cimAttribute;
     }
 
+    public CimAttribute getCimAttribute(String _name)
+    {
+    	Iterator<CimAttribute> atributos= this.cimAttribute.iterator();
+    	CimAttribute atributo;
+    	do
+    		atributo= atributos.next();
+    	while (!atributo.equals(_name) && atributos.hasNext());
+    		
+    	return atributo;
+    }
+    
+    public void setCimAttribute(CimAttribute _old, CimAttribute _new)
+    {
+    	int index= this.cimAttribute.indexOf(_old);
+    	this.cimAttribute.set(index, _new);
+    }
+    
     /**
      * Gets the value of the moAttribute property.
      * 

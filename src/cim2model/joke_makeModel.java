@@ -1,6 +1,8 @@
 package cim2model;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ import cim2model.electrical.branches.PwLine;
 import cim2model.io.CIMReaderJENA;
 import cim2model.mapping.*;
 import cim2model.model.cim.CIMModel;
+import cim2model.model.modelica.MOClass;
 import cim2model.model.modelica.ModelicaFactory;
 import cim2model.model.modelica.MOModel;
 
@@ -56,21 +59,41 @@ public class joke_makeModel {
 		cimReader= new CIMReaderJENA(_cimSource);
 		cim = new CIMModel(cimReader.readModel());
 		components = cim.gatherComponents();
-		//1. buscar la referencia de ACLineSegment
+		
 		for (Resource key : components.keySet())
 		{	
 			onlyOneID= cim.retrieveComponentName(key); 
 			System.out.println("onlyOneID: "+ onlyOneID[0] + " value: "+ onlyOneID[1]);
+			//1. buscar la referencia de ACLineSegment
 			if (onlyOneID[1].equals("ACLineSegment"))
 			{
 				// Create PwLine from a ACLineSegment and MOClass
 				PwLineMap aclinemap= pwlineXMLToObject("./res/cim_iteslalibrary_pwline.xml");
-				PwLine pwline= new PwLine(0,0,0,0,0);
+				MOClass pwline= new MOClass(aclinemap.getName());
 				attributes= cim.retrieveAttributes(key); //attributes contain <name,value>
-				//TODO:
 				//2. guardar en CimAttribute del objeto mapping id, nombre, terminalid, otros attributos
-				List<CimAttribute> cimAttribute= aclinemap.getCimAttribute();
-				
+				ArrayList<CimAttribute> cimAttributos= (ArrayList<CimAttribute>)aclinemap.getCimAttribute();
+				Iterator<CimAttribute> llistaatt= cimAttributos.iterator();
+				while (llistaatt.hasNext())
+						System.out.println(llistaatt.next().toString());
+				String[] parts;
+				CimAttribute cimatt;
+				for (String attributo : attributes.keySet())
+				{
+					//update cim attributs from specidic class, necessary?
+					parts= attributo.split("\\.");
+					System.out.println("attributo "+ attributo);
+//					cimAttributos.get(cimAttributos.indexOf(aclinemap.getCimAttribute(parts[0])));
+					cimatt= new CimAttribute();
+					cimatt= aclinemap.getCimAttribute(parts[1]);
+					cimatt.setId(attributo);
+					cimatt.setContent((String)attributes.get(attributo));
+					aclinemap.setCimAttribute(aclinemap.getCimAttribute(parts[1]), cimatt);
+					//update modelica attributes from specific class
+				}
+				llistaatt= cimAttributos.iterator();
+				while (llistaatt.hasNext())
+						System.out.println(llistaatt.next().toString());
 			}
 
 			//2.1. crear el objeto PwLine con valores

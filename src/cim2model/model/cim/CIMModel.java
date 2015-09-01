@@ -121,10 +121,10 @@ public class CIMModel {
 		    Statement stmt= statements.next();
 //			System.out.println("Statement -> "+ stmt);
 //			System.out.println("Predicate -> "+ stmt.getPredicate());
-			System.out.println("Attribute -> "+ stmt.getPredicate().getLocalName()); //name of the variable
-			System.out.println("Value -> "+ stmt.getAlt()); //value of the variable as String
-			System.out.println("Literal -> "+ stmt.getAlt().isLiteral());
-			System.out.println("URIResource -> "+ stmt.getAlt().isURIResource());
+//			System.out.println("Attribute -> "+ stmt.getPredicate().getLocalName()); //name of the variable
+//			System.out.println("Value -> "+ stmt.getAlt()); //value of the variable as String
+//			System.out.println("Literal -> "+ stmt.getAlt().isLiteral());
+//			System.out.println("URIResource -> "+ stmt.getAlt().isURIResource());
 			if (stmt.getAlt().isLiteral())
 			{
 				System.out.println("Literal Value -> "+ stmt.getLiteral().getValue());
@@ -132,8 +132,9 @@ public class CIMModel {
 			}
 			if (stmt.getAlt().isURIResource())
 			{
-				System.out.println("URIResource Value -> "+ stmt.getAlt().getLocalName());
-				this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getAlt().getLocalName());
+				//TODO: extract references to other classes ?
+				System.out.println("URIResource Value -> "+ stmt.getPredicate());
+//				this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getAlt().getLocalName());
 			}
 		}
 		return this.attribute;

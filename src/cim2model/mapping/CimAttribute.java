@@ -145,4 +145,15 @@ public class CimAttribute {
         this.terminalId = value;
     }
 
+    @Override
+    public String toString()
+    {
+    	return "Name: "+ this.name+ "; Value: "+ this.content;
+    }
+    
+
+    public boolean equals(String _value)
+    {
+    	return this.name== _value;
+    }
 }

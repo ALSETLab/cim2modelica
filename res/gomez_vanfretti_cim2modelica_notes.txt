@@ -1,0 +1,23 @@
+Each CIM class, will be mapped as components, so class type in definition (ref modelicaXML)
+Model: entire network
+Component: electric device forming the network
+Attribute: parameters of each device
+Pin: connector between devices
+In modelicaXML, a model is defined by program, and a component is identified by definition
+
+type of parameter (parameter, input, output, variable), for Terminals (flow + type of parameter)
+data type of parameter
+name of the parameter (start= value of parameter), using this property for the initial
+
+Mapping directly to Modelica code is more easy. It only requires to directly create the code 
+from the xml/rdf representation of CIM, without matching any attributes. So, all the names and 
+data types on Modelica model will be the same as the CIM definition.
+The mapping is defined by an XML structure. The root element of this structure is bla bla bla. 
+
+Some simplifications have been considered for this work: for a CIM class as a Modelica component, 
+the values for variability value will be parameter, and visibility will be public by default. 
+The same strategy is applied for the mapping of a Modelica connector. In this case, the 
+variability value will be set as variable, meaning that the values of connector variables are 
+allowed to change during the simulation. The value for visibility will be public.
+
+This work deals with the implementation of the Steady-State Solver Engine module, included in the open source modular simulation software architecture conceived for complete analysis of power system models [19].
