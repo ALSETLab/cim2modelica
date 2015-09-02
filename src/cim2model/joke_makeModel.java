@@ -50,7 +50,7 @@ public class joke_makeModel {
 	{
 		//TODO Read full CIM model
 		Map<Resource, RDFNode> components;
-		Map<String, Object> attributes;
+		Map<String, Object> modelCimAtt;
 		CIMReaderJENA cimReader;
 		CIMModel cim;
 		String [] onlyOneID;
@@ -68,30 +68,33 @@ public class joke_makeModel {
 			if (onlyOneID[1].equals("ACLineSegment"))
 			{
 				// Create PwLine from a ACLineSegment and MOClass
-				PwLineMap aclinemap= pwlineXMLToObject("./res/cim_iteslalibrary_pwline.xml");
-				MOClass pwline= new MOClass(aclinemap.getName());
-				attributes= cim.retrieveAttributes(key); //attributes contain <name,value>
+				PwLineMap mapACLine= pwlineXMLToObject("./res/cim_iteslalibrary_pwline.xml");
+				MOClass pwline= new MOClass(mapACLine.getName());
+				modelCimAtt= cim.retrieveAttributes(key); //attributes contain <name,value>
 				//2. guardar en CimAttribute del objeto mapping id, nombre, terminalid, otros attributos
-				ArrayList<CimAttribute> cimAttributos= (ArrayList<CimAttribute>)aclinemap.getCimAttribute();
-				Iterator<CimAttribute> llistaatt= cimAttributos.iterator();
+				ArrayList<CimAttribute> mapCimAtt= (ArrayList<CimAttribute>)mapACLine.getCimAttribute();
+				Iterator<CimAttribute> llistaatt= mapCimAtt.iterator();
+				System.out.println("1. Map object with empty values");
 				while (llistaatt.hasNext())
 						System.out.println(llistaatt.next().toString());
 				String[] parts;
-				CimAttribute cimatt;
-				for (String attributo : attributes.keySet())
+				CimAttribute newCimAtt;
+				System.out.println("2. Values from the CIM model");
+				for (String attributo : modelCimAtt.keySet())
 				{
-					//update cim attributs from specidic class, necessary?
-					parts= attributo.split("\\.");
-					System.out.println("attributo "+ attributo);
+					//TODO: update cim attributs from specidic class, necessary?
+					System.out.println("2.1. attributo "+ attributo+ " valor "+ (String)modelCimAtt.get(attributo));
 //					cimAttributos.get(cimAttributos.indexOf(aclinemap.getCimAttribute(parts[0])));
-					cimatt= new CimAttribute();
-					cimatt= aclinemap.getCimAttribute(parts[1]);
-					cimatt.setId(attributo);
-					cimatt.setContent((String)attributes.get(attributo));
-					aclinemap.setCimAttribute(aclinemap.getCimAttribute(parts[1]), cimatt);
-					//update modelica attributes from specific class
+					newCimAtt= new CimAttribute();
+					newCimAtt.setName(attributo);
+					newCimAtt.setContent((String)modelCimAtt.get(attributo));
+					System.out.println("2.2. nuevos valores "+ newCimAtt.toString());
+					System.out.println("2.3. atributo del mapa "+ mapACLine.getCimAttribute(attributo).toString());
+					mapACLine.setCimAttribute(mapACLine.getCimAttribute(attributo), newCimAtt);
+					//TODO: update modelica attributes from specific class
 				}
-				llistaatt= cimAttributos.iterator();
+				llistaatt= mapCimAtt.iterator();
+				System.out.println("3. Updated values from CIM model");
 				while (llistaatt.hasNext())
 						System.out.println(llistaatt.next().toString());
 			}

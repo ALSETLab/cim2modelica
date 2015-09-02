@@ -154,6 +154,6 @@ public class CimAttribute {
 
     public boolean equals(String _value)
     {
-    	return this.name== _value;
+    	return this.name.equals(_value);
     }
 }
