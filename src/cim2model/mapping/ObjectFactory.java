@@ -74,20 +74,13 @@ public class ObjectFactory {
     public PwLoadPQMap createPwLoadPQMap() {
         return new PwLoadPQMap();
     }
+    
     /**
-     * Create an instance of {@link CimAttribute }
+     * Create an instance of {@link MapAttribute }
      * 
      */
-    public CimAttribute createCimAttribute() {
-        return new CimAttribute();
-    }
-
-    /**
-     * Create an instance of {@link MoAttribute }
-     * 
-     */
-    public MoAttribute createMoAttribute() {
-        return new MoAttribute();
+    public MapAttribute createMapAttribute() {
+        return new MapAttribute();
     }
 
 }

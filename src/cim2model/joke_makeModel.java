@@ -50,7 +50,7 @@ public class joke_makeModel {
 	{
 		//TODO Read full CIM model
 		Map<Resource, RDFNode> components;
-		Map<String, Object> modelCimAtt;
+		Map<String, Object> modelCimClass;
 		CIMReaderJENA cimReader;
 		CIMModel cim;
 		String [] onlyOneID;
@@ -69,35 +69,25 @@ public class joke_makeModel {
 			{
 				// Create PwLine from a ACLineSegment and MOClass
 				PwLineMap mapACLine= pwlineXMLToObject("./res/cim_iteslalibrary_pwline.xml");
-				MOClass pwline= new MOClass(mapACLine.getName());
-				modelCimAtt= cim.retrieveAttributes(key); //attributes contain <name,value>
+				//TODO: use factory class
+//				MOClass pwline= new MOClass(mapACLine.getName());
+				modelCimClass= cim.retrieveAttributes(key); //attributes contain <name,value>
 				//2. guardar en CimAttribute del objeto mapping id, nombre, terminalid, otros attributos
-				ArrayList<MoAttribute> mapAtt= (ArrayList<MoAttribute>)mapACLine.getMoAttribute();
-				Iterator<MoAttribute> llistaatt= mapAtt.iterator();
-				System.out.println("1. Map object with empty values");
-				while (llistaatt.hasNext())
-						System.out.println(llistaatt.next().toString());
-//				String[] parts;
-				CimAttribute newCimAtt;
-				MoAttribute newMoAtt;
-				System.out.println("2. Values from the CIM model");
-				for (String attributo : modelCimAtt.keySet())
-				{
-					System.out.println("2.1. attributo "+ attributo+ " valor "+ (String)modelCimAtt.get(attributo));
-//					cimAttributos.get(cimAttributos.indexOf(aclinemap.getCimAttribute(parts[0])));
-					newCimAtt= new CimAttribute();
-					newCimAtt.setName(attributo);
-					newCimAtt.setContent((String)modelCimAtt.get(attributo));
-					mapACLine.setCimAttribute(mapACLine.getCimAttribute(attributo), newCimAtt);
-					//TODO: update modelica attributes from specific class
-					newMoAtt= new MoAttribute();
-					
-					
+				ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapACLine.getMapAttribute();
+				Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+				MapAttribute currentmapAtt, newmapAtt;
+				while (icimAttList.hasNext()) {
+					currentCimAtt= icimAttList.next();
+					newCimAtt= new MapAttribute();
+					newCimAtt.setName(currentCimAtt.getName());
+					newCimAtt.setContent((String)modelCimClass.get(currentCimAtt.getName()));
+					mapACLine.setMapAttribute(currentCimAtt, newCimAtt);
 				}
-				llistaatt= mapAtt.iterator();
-				System.out.println("3. Updated values from CIM model");
-				while (llistaatt.hasNext())
-						System.out.println(llistaatt.next().toString());
+				System.out.println("xxx Final list of cim attributes ");
+				icimAttList= cimAttList.iterator();
+				while (icimAttList.hasNext()) {
+					System.out.println(icimAttList.next().toString());
+				}
 			}
 
 			//2.1. crear el objeto PwLine con valores
