@@ -72,28 +72,29 @@ public class joke_makeModel {
 				MOClass pwline= new MOClass(mapACLine.getName());
 				modelCimAtt= cim.retrieveAttributes(key); //attributes contain <name,value>
 				//2. guardar en CimAttribute del objeto mapping id, nombre, terminalid, otros attributos
-				ArrayList<CimAttribute> mapCimAtt= (ArrayList<CimAttribute>)mapACLine.getCimAttribute();
-				Iterator<CimAttribute> llistaatt= mapCimAtt.iterator();
+				ArrayList<MoAttribute> mapAtt= (ArrayList<MoAttribute>)mapACLine.getMoAttribute();
+				Iterator<MoAttribute> llistaatt= mapAtt.iterator();
 				System.out.println("1. Map object with empty values");
 				while (llistaatt.hasNext())
 						System.out.println(llistaatt.next().toString());
-				String[] parts;
+//				String[] parts;
 				CimAttribute newCimAtt;
+				MoAttribute newMoAtt;
 				System.out.println("2. Values from the CIM model");
 				for (String attributo : modelCimAtt.keySet())
 				{
-					//TODO: update cim attributs from specidic class, necessary?
 					System.out.println("2.1. attributo "+ attributo+ " valor "+ (String)modelCimAtt.get(attributo));
 //					cimAttributos.get(cimAttributos.indexOf(aclinemap.getCimAttribute(parts[0])));
 					newCimAtt= new CimAttribute();
 					newCimAtt.setName(attributo);
 					newCimAtt.setContent((String)modelCimAtt.get(attributo));
-					System.out.println("2.2. nuevos valores "+ newCimAtt.toString());
-					System.out.println("2.3. atributo del mapa "+ mapACLine.getCimAttribute(attributo).toString());
 					mapACLine.setCimAttribute(mapACLine.getCimAttribute(attributo), newCimAtt);
 					//TODO: update modelica attributes from specific class
+					newMoAtt= new MoAttribute();
+					
+					
 				}
-				llistaatt= mapCimAtt.iterator();
+				llistaatt= mapAtt.iterator();
 				System.out.println("3. Updated values from CIM model");
 				while (llistaatt.hasNext())
 						System.out.println(llistaatt.next().toString());
