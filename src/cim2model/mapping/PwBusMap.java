@@ -9,7 +9,9 @@
 package cim2model.mapping;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -85,6 +87,23 @@ public class PwBusMap {
         return this.mapAttribute;
     }
 
+    public MapAttribute getMapAttribute(String _name)
+    {
+    	Iterator<MapAttribute> atributos= this.mapAttribute.iterator();
+    	MapAttribute atributo;
+    	do
+    		atributo= atributos.next();
+    	while (!atributo.equals(_name) && atributos.hasNext());
+    		
+    	return atributo;
+    }
+    
+    public void setMapAttribute(MapAttribute _old, MapAttribute _new)
+    {
+    	int index= this.mapAttribute.indexOf(_old);
+    	this.mapAttribute.set(index, _new);
+    }
+    
     /**
      * Gets the value of the name property.
      * 

@@ -1,0 +1,12 @@
+<!ELEMENT pwBusMap (mapAttribute+)>
+<!ATTLIST pwBusMap
+          name CDATA #REQUIRED
+          package CDATA #REQUIRED
+          stereotype CDATA #REQUIRED>
+<!ELEMENT mapAttribute (#PCDATA)>
+<!ATTLIST mapAttribute
+          cim_name CDATA #REQUIRED
+          datatype CDATA #REQUIRED
+          mo_name CDATA #REQUIRED
+          variability CDATA #REQUIRED
+          visibility CDATA #REQUIRED>

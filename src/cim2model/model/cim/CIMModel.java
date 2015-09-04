@@ -58,7 +58,7 @@ public class CIMModel {
 //            	System.out.println("Predicate : "+ p.getLocalName());
 //            	System.out.print("Object : "+ o.toString());
 //            	String [] componentName= o.toString().split("#");
-//            	System.out.println(" : "+ componentName[1]);
+//            	System.out.println(componentName[0]+ " : "+ componentName[1]);
             }
 		}
 		

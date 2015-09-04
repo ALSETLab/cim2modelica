@@ -1,0 +1,20 @@
+<!ELEMENT pwPinMap (mapAttribute+)>
+<!ATTLIST pwPinMap
+		  cim_name CDATA #REQUIRED
+		  rfd_id CDATA #REQUIRED
+          ConductingEquipment CDATA #REQUIRED
+          EquipmentContainer CDATA #REQUIRED
+          SvPowerFlow CDATA #REQUIRED
+          SvVoltage CDATA #REQUIRED
+          TopologicalNode CDATA #REQUIRED
+          name CDATA #REQUIRED
+          package CDATA #REQUIRED
+          stereotype CDATA #REQUIRED>
+<!ELEMENT mapAttribute (#PCDATA)>
+<!ATTLIST mapAttribute
+          cim_name CDATA #REQUIRED
+          datatype CDATA #REQUIRED
+          flow CDATA #REQUIRED
+          mo_name CDATA #REQUIRED
+          variability CDATA #REQUIRED
+          visibility CDATA #REQUIRED>

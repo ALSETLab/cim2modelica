@@ -51,6 +51,10 @@ public class PwLineMap {
 
     @XmlElement(required = true)
     protected List<MapAttribute> mapAttribute;
+    @XmlAttribute(name = "cim_name", required = true)
+    protected String cimName;
+    @XmlAttribute(name = "rfd_id", required = true)
+    protected String rfdId;
     @XmlAttribute(name = "name", required = true)
     protected String name;
     @XmlAttribute(name = "package", required = true)
@@ -104,6 +108,54 @@ public class PwLineMap {
     	this.mapAttribute.set(index, _new);
     }
 
+    /**
+     * Gets the value of the name property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCimName() {
+        return cimName;
+    }
+
+    /**
+     * Sets the value of the name property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCimName(String value) {
+        this.cimName = value;
+    }
+    
+    /**
+     * Gets the value of the name property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getRfdId() {
+        return rfdId;
+    }
+
+    /**
+     * Sets the value of the name property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setRfdId(String value) {
+        this.rfdId = value;
+    }
+    
     /**
      * Gets the value of the name property.
      * 
@@ -176,4 +228,16 @@ public class PwLineMap {
         this.stereotype = value;
     }
 
+    @Override
+    public String toString()
+    {
+    	return this.stereotype+ " "+ this._package+" "+ this.name+ 
+    			" from "+ this.cimName+ " with id "+ this.rfdId;
+    }
+    
+    public boolean equals(String _value)
+    {
+    	return false;
+    }
+    
 }

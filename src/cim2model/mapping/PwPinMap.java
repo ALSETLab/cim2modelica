@@ -9,7 +9,9 @@
 package cim2model.mapping;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -54,6 +56,10 @@ public class PwPinMap {
 
     @XmlElement(required = true)
     protected List<MapAttribute> mapAttribute;
+    @XmlAttribute(name = "cim_name", required = true)
+    protected String cimName;
+    @XmlAttribute(name = "rfd_id", required = true)
+    protected String rfdId;
     @XmlAttribute(name = "ConductingEquipment", required = true)
     protected String conductingEquipment;
     @XmlAttribute(name = "EquipmentContainer", required = true)
@@ -99,7 +105,72 @@ public class PwPinMap {
         }
         return this.mapAttribute;
     }
+    
+    public MapAttribute getMapAttribute(String _name)
+    {
+    	Iterator<MapAttribute> atributos= this.mapAttribute.iterator();
+    	MapAttribute atributo;
+    	do
+    		atributo= atributos.next();
+    	while (!atributo.equals(_name) && atributos.hasNext());
+    		
+    	return atributo;
+    }
+    
+    public void setMapAttribute(MapAttribute _old, MapAttribute _new)
+    {
+    	int index= this.mapAttribute.indexOf(_old);
+    	this.mapAttribute.set(index, _new);
+    }
 
+    /**
+     * Gets the value of the name property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCimName() {
+        return cimName;
+    }
+
+    /**
+     * Sets the value of the name property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCimName(String value) {
+        this.cimName = value;
+    }
+    
+    /**
+     * Gets the value of the name property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getRfdId() {
+        return rfdId;
+    }
+
+    /**
+     * Sets the value of the name property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setRfdId(String value) {
+        this.rfdId = value;
+    }
+    
     /**
      * Gets the value of the conductingEquipment property.
      * 
