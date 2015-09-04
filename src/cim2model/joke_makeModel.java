@@ -89,9 +89,15 @@ public class joke_makeModel {
 					System.out.println(icimAttList.next().toString());
 				}
 			}
+			if (onlyOneID[1].equals("Terminal"))
+			{
+				//2. crear el objeto PwPin con valores
+				//3. buscar las referencias de Terminal en el CIMModel
+				//3.1. crear objeto class segun aparezca referencia de objeto Terminal
+				
+			}
 
-			//2.1. crear el objeto PwLine con valores
-			//3. buscar las referencias de Terminal segun terminalid
+			
 			//3.1. guardar en CimAttribute del objeto mapping id, nombre, otros attributos
 			//3.2. crear el objeto PwPin con valores
 			//4. Update objeto PwLine con los objetos PwPin

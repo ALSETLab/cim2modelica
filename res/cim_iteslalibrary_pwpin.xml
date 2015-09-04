@@ -1,16 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!--Created by fragom-->
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_pwpin.dtd">
-<pwPinMap package="PowerSystems.Electrical.Connectors" name="PwPin" stereotype="connector">
-  <cimAttribute name="name">0</cimAttribute>
-  <cimAttribute name="sequence number">0</cimAttribute>
-  <cimAttribute name="SvPowerFlow.p">0</cimAttribute>
-  <cimAttribute name="SvPowerFlow.q">0</cimAttribute>
-  <cimAttribute name="TopologicalNode.BaseVoltage.nominalVoltage">0</cimAttribute>
-  <cimAttribute name="TopologicalNode.SvVoltage.angle">0</cimAttribute>
-  <cimAttribute name="TopologicalNode.SvVoltage.v">0</cimAttribute>
-  <moAttribute name="vr" datatype="Real"  variability="none" visibility="public" flow="0">0</moAttribute>
-  <moAttribute name="vi" datatype="Real"  variability="none" visibility="public" flow="0">0</moAttribute>
-  <moAttribute name="ir" datatype="Real"  variability="none" visibility="public" flow="1">0</moAttribute>
-  <moAttribute name="ii" datatype="Real"  variability="none" visibility="public" flow="1">0</moAttribute>
+<pwPinMap package="PowerSystems.Electrical.Connectors" name="PwPin" stereotype="connector"
+	SvPowerFlow="rfd:resource" TopologicalNode="rfd:resource" SvVoltage="rfd:resource"
+	ConductingEquipment="rfd:resource" EquipmenContainer="rfd:resource">
+  <mapAttribute cim_name="SvVoltage.angle" mo_name="vi" datatype="Real"  variability="none" visibility="public" flow="0">0</mapAttribute>
+  <mapAttribute cim_name="SvVoltage.v" mo_name="vi" datatype="Real"  variability="none" visibility="public" flow="0">0</mapAttribute>
+  <mapAttribute cim_name="SvPowerFlow.p" mo_name="ir" datatype="Real"  variability="none" visibility="public" flow="1">0</mapAttribute>
+  <mapAttribute cim_name="SvPowerFlow.q" mo_name="vi" datatype="Real"  variability="none" visibility="public" flow="1">0</mapAttribute>
+  <mapAttribute cim_name="BaseVoltage.nominalVoltage" mo_name="mbase" datatype="Real"  variability="none" visibility="public" flow="0">0</mapAttribute>
+  <mapAttribute cim_name="BasePower.basePower" mo_name="Sbase" datatype="Real"  variability="none" visibility="public" flow="0">0</mapAttribute>
 </pwPinMap>
