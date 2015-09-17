@@ -4,6 +4,7 @@
 	Created: 2014-11-26T17:12:17-->
 <rdf:RDF xmlns:entsoe="http://entsoe.eu/CIM/SchemaExtension/3/1#" xmlns:cim="http://iec.ch/TC57/2013/CIM-schema-cim16#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
  <cim:ACLineSegment rdf:ID="_b0bfe500-1d51-11e4-878c-080027008896">
+  <cim:ConductingEquipment.BaseVoltage rdf:resource="#_a285a090-41c4-11e5-9b3e-080027008896"/>
   <cim:Conductor.length>200</cim:Conductor.length>
   <cim:ACLineSegment.bch>0.5</cim:ACLineSegment.bch>
   <cim:ACLineSegment.gch>0.5</cim:ACLineSegment.gch>
@@ -47,4 +48,8 @@
   <cim:SvPowerFlow.q>5.375</cim:SvPowerFlow.q>
   <cim:SvPowerFlow.Terminal rdf:resource="#_9e0eb930-7586-11e4-9e1e-080027008896"/>
  </cim:SvPowerFlow>
+ <cim:BaseVoltage rdf:ID="_a285a090-41c4-11e5-9b3e-080027008896">
+  <cim:IdentifiedObject.name>Distribution</cim:IdentifiedObject.name>
+  <cim:BaseVoltage.nominalVoltage>230</cim:BaseVoltage.nominalVoltage>
+ </cim:BaseVoltage>
 </rdf:RDF>

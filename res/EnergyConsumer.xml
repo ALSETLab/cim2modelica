@@ -45,6 +45,7 @@
  </cim:SvPowerFlow>
  <cim:TopologicalNode rdf:ID="_d8a7cfe0-41c4-11e5-9b3e-080027008896">
   <cim:TopologicalNode.SvVoltage rdf:resource="#_ddabfde0-41c4-11e5-9b3e-080027008896"/>
+  <cim:TopologicalNode.BaseVoltage rdf:resource="#_a285a090-41c4-11e5-9b3e-080027008896"/>
  </cim:TopologicalNode>
  <cim:SvVoltage rdf:ID="_ddabfde0-41c4-11e5-9b3e-080027008896">
   <cim:SvVoltage.angle>0.10000000149011612</cim:SvVoltage.angle>

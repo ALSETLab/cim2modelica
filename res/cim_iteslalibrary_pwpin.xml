@@ -1,13 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!--Created by fragom-->
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_pwpin.dtd">
-<pwPinMap cim_name="ACLineSegment" rfd_id="" package="PowerSystems.Electrical.Connectors" name="PwPin" stereotype="connector"
-	SvPowerFlow="rfd:resource" TopologicalNode="rfd:resource" SvVoltage="rfd:resource"
-	ConductingEquipment="rfd:resource" EquipmentContainer="rfd:resource">
+<pwPinMap cim_name="Terminal" rfd_id="" package="PowerSystems.Electrical.Connectors" name="PwPin" stereotype="connector"
+	TopologicalNode="rfd:resource" ConductingEquipment="rfd:resource">
   <mapAttribute cim_name="SvVoltage.angle" mo_name="vi" datatype="Real"  variability="none" visibility="public" flow="0">0</mapAttribute>
-  <mapAttribute cim_name="SvVoltage.v" mo_name="vi" datatype="Real"  variability="none" visibility="public" flow="0">0</mapAttribute>
-  <mapAttribute cim_name="SvPowerFlow.p" mo_name="ir" datatype="Real"  variability="none" visibility="public" flow="1">0</mapAttribute>
-  <mapAttribute cim_name="SvPowerFlow.q" mo_name="vi" datatype="Real"  variability="none" visibility="public" flow="1">0</mapAttribute>
+  <mapAttribute cim_name="SvVoltage.v" mo_name="vr" datatype="Real"  variability="none" visibility="public" flow="0">0</mapAttribute>
+  <mapAttribute cim_name="SvPowerFlow.p" mo_name="P" datatype="Real"  variability="none" visibility="public" flow="1">0</mapAttribute>
+  <mapAttribute cim_name="SvPowerFlow.q" mo_name="Q" datatype="Real"  variability="none" visibility="public" flow="1">0</mapAttribute>
   <mapAttribute cim_name="BaseVoltage.nominalVoltage" mo_name="mbase" datatype="Real"  variability="none" visibility="public" flow="0">0</mapAttribute>
   <mapAttribute cim_name="BasePower.basePower" mo_name="Sbase" datatype="Real"  variability="none" visibility="public" flow="0">0</mapAttribute>
 </pwPinMap>

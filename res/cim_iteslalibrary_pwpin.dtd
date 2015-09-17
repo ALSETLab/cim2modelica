@@ -3,9 +3,6 @@
 		  cim_name CDATA #REQUIRED
 		  rfd_id CDATA #REQUIRED
           ConductingEquipment CDATA #REQUIRED
-          EquipmentContainer CDATA #REQUIRED
-          SvPowerFlow CDATA #REQUIRED
-          SvVoltage CDATA #REQUIRED
           TopologicalNode CDATA #REQUIRED
           name CDATA #REQUIRED
           package CDATA #REQUIRED

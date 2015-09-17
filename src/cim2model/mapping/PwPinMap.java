@@ -62,12 +62,6 @@ public class PwPinMap {
     protected String rfdId;
     @XmlAttribute(name = "ConductingEquipment", required = true)
     protected String conductingEquipment;
-    @XmlAttribute(name = "EquipmentContainer", required = true)
-    protected String equipmentContainer;
-    @XmlAttribute(name = "SvPowerFlow", required = true)
-    protected String svPowerFlow;
-    @XmlAttribute(name = "SvVoltage", required = true)
-    protected String svVoltage;
     @XmlAttribute(name = "TopologicalNode", required = true)
     protected String topologicalNode;
     @XmlAttribute(name = "name", required = true)
@@ -106,6 +100,11 @@ public class PwPinMap {
         return this.mapAttribute;
     }
     
+    /**
+     * Returns an MapAttribute object according to its Modelica name
+     * @param _name
+     * @return
+     */
     public MapAttribute getMapAttribute(String _name)
     {
     	Iterator<MapAttribute> atributos= this.mapAttribute.iterator();
@@ -117,10 +116,24 @@ public class PwPinMap {
     	return atributo;
     }
     
+    /**
+     * Updates a current MapAttribute object with a new one, which contains new values for this attribute
+     * @param _old
+     * @param _new
+     */
     public void setMapAttribute(MapAttribute _old, MapAttribute _new)
     {
     	int index= this.mapAttribute.indexOf(_old);
     	this.mapAttribute.set(index, _new);
+    }
+    
+    /**
+     * Adds a new MapAttribute object to the collection of attributes of the map objec
+     * @param _new
+     */
+    public void setMapAttribute(MapAttribute _new)
+    {
+    	this.mapAttribute.add(_new);
     }
 
     /**
@@ -193,78 +206,6 @@ public class PwPinMap {
      */
     public void setConductingEquipment(String value) {
         this.conductingEquipment = value;
-    }
-
-    /**
-     * Gets the value of the equipmentContainer property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getEquipmentContainer() {
-        return equipmentContainer;
-    }
-
-    /**
-     * Sets the value of the equipmentContainer property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setEquipmentContainer(String value) {
-        this.equipmentContainer = value;
-    }
-
-    /**
-     * Gets the value of the svPowerFlow property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSvPowerFlow() {
-        return svPowerFlow;
-    }
-
-    /**
-     * Sets the value of the svPowerFlow property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSvPowerFlow(String value) {
-        this.svPowerFlow = value;
-    }
-
-    /**
-     * Gets the value of the svVoltage property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSvVoltage() {
-        return svVoltage;
-    }
-
-    /**
-     * Sets the value of the svVoltage property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSvVoltage(String value) {
-        this.svVoltage = value;
     }
 
     /**
@@ -368,6 +309,6 @@ public class PwPinMap {
     {
     	return this.stereotype+ " "+ this._package+" "+ this.name+ 
     			" from "+ this.cimName+ " with id "+ this.rfdId+
-    			" with "+ this.conductingEquipment+ " "+ this.svPowerFlow+ " "+ this.svVoltage;
+    			" having "+ this.conductingEquipment+ " and "+ this.topologicalNode;
     }
 }

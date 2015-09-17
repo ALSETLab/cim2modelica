@@ -8,9 +8,6 @@
       <xs:attribute name="cim_name" type="xs:string" use="required"/>
       <xs:attribute name="rfd_id" type="xs:string" use="required"/>
       <xs:attribute name="ConductingEquipment" type="xs:string" use="required"/>
-      <xs:attribute name="EquipmentContainer" type="xs:string" use="required"/>
-      <xs:attribute name="SvPowerFlow" type="xs:string" use="required"/>
-      <xs:attribute name="SvVoltage" type="xs:string" use="required"/>
       <xs:attribute name="TopologicalNode" type="xs:string" use="required"/>
       <xs:attribute name="name" type="xs:string" use="required"/>
       <xs:attribute name="package" type="xs:string" use="required"/>

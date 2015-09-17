@@ -64,7 +64,6 @@ public class joke_makeModel {
 	
 	public static void main(String[] args) 
 	{
-		//TODO Read full CIM model
 		Map<Resource, RDFNode> components;
 		Map<String, Object> modelCimClass, modelTerminalClass;
 		CIMReaderJENA cimReader;
@@ -106,8 +105,8 @@ public class joke_makeModel {
 				// add cim id, used as reference from terminal and connections to other components 
 				mapACLine.setRfdId(subjectResource[0]);
 				mapACLine.setCimName(subjectResource[1]);
-				System.out.print("ACLineSegment Map: ");
-				System.out.println(mapACLine.toString());
+//				System.out.print("ACLineSegment Map: ");
+//				System.out.println(mapACLine.toString());
 //				imapAttList= mapAttList.iterator();
 //				while (imapAttList.hasNext()) {
 //					System.out.println(imapAttList.next().toString());
@@ -120,9 +119,7 @@ public class joke_makeModel {
 				System.out.println("I FOUND TERMINAL...");
 				// TODO: buscar los valores para el terminal
 				PwPinMap mapTerminal= pwpinXMLToObject("./res/cim_iteslalibrary_pwpin.xml");
-				
 				modelTerminalClass= cim.retrieveAttributesTerminal(key);
-				
 				//3. buscar las referencias de Terminal en el CIMModel
 				//3.1. crear objeto class segun aparezca referencia de objeto Terminal
 				ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapTerminal.getMapAttribute();
@@ -133,29 +130,50 @@ public class joke_makeModel {
 //					System.out.println(currentmapAtt.toString());
 					newmapAtt= new MapAttribute();
 					newmapAtt.setMoName(currentmapAtt.getMoName());
-					//TODO: look for value of the attribute in the cim model 
-					
-					modelTerminalClass= cim.retrieveAttributesTerminal(key);
-					newmapAtt.setContent((String)modelCimClass.get(currentmapAtt.getCimName()));
+					newmapAtt.setContent((String)modelTerminalClass.get(currentmapAtt.getCimName()));
 					newmapAtt.setDatatype(currentmapAtt.getDatatype());
 					newmapAtt.setVariability(currentmapAtt.getVariability());
 					newmapAtt.setVisibility(currentmapAtt.getVisibility());
+					newmapAtt.setFlow("false");
 					mapTerminal.setMapAttribute(currentmapAtt, newmapAtt);
 				}
-				
-//				mapTerminal.setConductingEquipment(modelTerminalClass.get("ConductingEquipment").toString());
+				mapTerminal.setConductingEquipment(modelTerminalClass.get("Terminal.ConductingEquipment").toString());
+				mapTerminal.setConductingEquipment(modelTerminalClass.get("Terminal.TopologicalNode").toString());
+				//TODO: calculate ir and ii with vr, vi, p, q and add two new MapAttribute to the mapTerminal object
+				//I= P/V cos(theta)
+				System.out.println("suputamadre "+ mapTerminal.getMapAttribute("vr").getContent());
+				double voltage= Double.parseDouble(mapTerminal.getMapAttribute("vr").getContent());
+				double apower= Double.parseDouble(mapTerminal.getMapAttribute("P").getContent());
+				double angle= Double.parseDouble(mapTerminal.getMapAttribute("vi").getContent());
+				double current= apower/(voltage*Math.cos(angle));
+				newmapAtt= new MapAttribute();
+				newmapAtt.setMoName("ir");
+				newmapAtt.setContent(Double.toString(current));
+				newmapAtt.setDatatype("Real");
+				newmapAtt.setVariability("none");
+				newmapAtt.setVisibility("public");
+				newmapAtt.setFlow("true");
+				mapTerminal.setMapAttribute(newmapAtt);
+				newmapAtt= new MapAttribute();
+				newmapAtt.setMoName("ii");
+				newmapAtt.setContent(Double.toString(current));
+				newmapAtt.setDatatype("Real");
+				newmapAtt.setVariability("none");
+				newmapAtt.setVisibility("public");
+				newmapAtt.setFlow("true");
+				mapTerminal.setMapAttribute(newmapAtt);
 //				mapTerminal.setSvPowerFlow(modelTerminalClass.get("SvPowerFlow").toString());
 //				mapTerminal.setSvVoltage(modelTerminalClass.get("SvVoltage").toString());
 				// add cim id, used as reference from terminal and connections to other components 
 				mapTerminal.setRfdId(subjectResource[0]);
 				mapTerminal.setCimName(subjectResource[1]);
 				//update object map with refId
-				System.out.print("Terminal Map: ");
-				System.out.println("Terminal "+ mapTerminal.toString());
-//				imapAttList= mapAttList.iterator();
-//				while (imapAttList.hasNext()) {
-//					System.out.println(imapAttList.next().toString());
-//				}
+				imapAttList= mapAttList.iterator();
+				while (imapAttList.hasNext()) {
+					System.out.println(imapAttList.next().toString());
+				}
+				System.out.print("I FOUND TERMINAL ");
+				System.out.println(mapTerminal.toString());
 				//TODO: use factory class
 //				MOClass pwline= new MOClass(mapACLine.getName());
 			}
