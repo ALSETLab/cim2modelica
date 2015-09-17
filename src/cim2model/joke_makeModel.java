@@ -66,10 +66,10 @@ public class joke_makeModel {
 	{
 		//TODO Read full CIM model
 		Map<Resource, RDFNode> components;
-		Map<String, Object> modelCimClass;
+		Map<String, Object> modelCimClass, modelTerminalClass;
 		CIMReaderJENA cimReader;
 		CIMModel cim;
-		String [] onlyOneID;
+		String [] subjectResource;
 		String _cimSource= args[0];
 		
 		cimReader= new CIMReaderJENA(_cimSource);
@@ -78,12 +78,15 @@ public class joke_makeModel {
 		
 		for (Resource key : components.keySet())
 		{	
-			onlyOneID= cim.retrieveComponentName(key); 
-			System.out.println("onlyOneID: "+ onlyOneID[0] + " value: "+ onlyOneID[1]);
+			subjectResource= cim.retrieveComponentName(key);
+			//subjectResource[0] is the rfd_id 
+			//subjectResource[1] is the CIM name
+			System.out.println("rfd_id: "+ subjectResource[0] + " cim name: "+ subjectResource[1]);
 			modelCimClass= cim.retrieveAttributes(key); //attributes contain <name,value>
 			//1. buscar la referencia de ACLineSegment
-			if (onlyOneID[1].equals("ACLineSegment"))
+			if (subjectResource[1].equals("ACLineSegment"))
 			{
+				System.out.println("I FOUND ACLINESEGMENT...");
 				PwLineMap mapACLine= pwlineXMLToObject("./res/cim_iteslalibrary_pwline.xml");
 				//2. guardar en mapClass del objeto mapping id, nombre, terminalid, otros attributos
 				ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapACLine.getMapAttribute();
@@ -101,9 +104,10 @@ public class joke_makeModel {
 					mapACLine.setMapAttribute(currentmapAtt, newmapAtt);
 				}
 				// add cim id, used as reference from terminal and connections to other components 
-				mapACLine.setRfdId(onlyOneID[0]);
-				mapACLine.setCimName(onlyOneID[1]);
-				//update object map with refId
+				mapACLine.setRfdId(subjectResource[0]);
+				mapACLine.setCimName(subjectResource[1]);
+				System.out.print("ACLineSegment Map: ");
+				System.out.println(mapACLine.toString());
 //				imapAttList= mapAttList.iterator();
 //				while (imapAttList.hasNext()) {
 //					System.out.println(imapAttList.next().toString());
@@ -111,10 +115,14 @@ public class joke_makeModel {
 				//TODO: use factory class
 //				MOClass pwline= new MOClass(mapACLine.getName());
 			}
-			if (onlyOneID[1].equals("Terminal"))
+			if (subjectResource[1].equals("Terminal"))
 			{
+				System.out.println("I FOUND TERMINAL...");
 				// TODO: buscar los valores para el terminal
 				PwPinMap mapTerminal= pwpinXMLToObject("./res/cim_iteslalibrary_pwpin.xml");
+				
+				modelTerminalClass= cim.retrieveAttributesTerminal(key);
+				
 				//3. buscar las referencias de Terminal en el CIMModel
 				//3.1. crear objeto class segun aparezca referencia de objeto Terminal
 				ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapTerminal.getMapAttribute();
@@ -124,22 +132,30 @@ public class joke_makeModel {
 					currentmapAtt= imapAttList.next();
 //					System.out.println(currentmapAtt.toString());
 					newmapAtt= new MapAttribute();
-					newmapAtt.setMoName(currentmapAtt.getCimName());
+					newmapAtt.setMoName(currentmapAtt.getMoName());
+					//TODO: look for value of the attribute in the cim model 
+					
+					modelTerminalClass= cim.retrieveAttributesTerminal(key);
 					newmapAtt.setContent((String)modelCimClass.get(currentmapAtt.getCimName()));
 					newmapAtt.setDatatype(currentmapAtt.getDatatype());
 					newmapAtt.setVariability(currentmapAtt.getVariability());
 					newmapAtt.setVisibility(currentmapAtt.getVisibility());
 					mapTerminal.setMapAttribute(currentmapAtt, newmapAtt);
 				}
+				
+//				mapTerminal.setConductingEquipment(modelTerminalClass.get("ConductingEquipment").toString());
+//				mapTerminal.setSvPowerFlow(modelTerminalClass.get("SvPowerFlow").toString());
+//				mapTerminal.setSvVoltage(modelTerminalClass.get("SvVoltage").toString());
 				// add cim id, used as reference from terminal and connections to other components 
-				mapTerminal.setRfdId(onlyOneID[0]);
-				mapTerminal.setCimName(onlyOneID[1]);
+				mapTerminal.setRfdId(subjectResource[0]);
+				mapTerminal.setCimName(subjectResource[1]);
 				//update object map with refId
-				System.out.println("line "+ mapTerminal.toString());
-				imapAttList= mapAttList.iterator();
-				while (imapAttList.hasNext()) {
-					System.out.println(imapAttList.next().toString());
-				}
+				System.out.print("Terminal Map: ");
+				System.out.println("Terminal "+ mapTerminal.toString());
+//				imapAttList= mapAttList.iterator();
+//				while (imapAttList.hasNext()) {
+//					System.out.println(imapAttList.next().toString());
+//				}
 				//TODO: use factory class
 //				MOClass pwline= new MOClass(mapACLine.getName());
 			}

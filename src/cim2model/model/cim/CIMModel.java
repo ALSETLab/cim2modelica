@@ -132,31 +132,44 @@ public class CIMModel {
 			}
 			if (stmt.getAlt().isURIResource())
 			{
-				//TODO: extract references to other classes ?
+				//TODO: extract references to other classes ? Another method
 				System.out.println("URIResource Value -> "+ stmt.getPredicate());
+//				if (!stmt.getPredicate().getLocalName().equals("type"))
+//					this.retrieveAttributesTerminal(stmt.getResource());
 //				this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getAlt().getLocalName());
 			}
 		}
 		return this.attribute;
 	}
 	
-	public Map<String,Object> retrieveTerminalAtt(Resource _subject)
+	/**
+	 * cim_name="SvVoltage.angle" 
+	cim_name="SvVoltage.v" 
+	cim_name="SvPowerFlow.p" 
+	cim_name="SvPowerFlow.q" 
+	cim_name="BaseVoltage.nominalVoltage"
+	cim_name="BasePower.basePower"
+	 * @param _subject
+	 * @return
+	 */
+	public Map<String,Object> retrieveAttributesTerminal(Resource _subject)
 	{ 
 		Statement terminalAttribute, topoNodeAttribute, svPFAttribute, svVoltAttribute;
 		
-		System.out.println("Attributes");
+		System.out.print("Terminal id ");
 		System.out.println(_subject.toString());
 		StmtIterator terminalAttributes= _subject.listProperties();
 		
 		while( terminalAttributes.hasNext() ) 
 		{
 			terminalAttribute= terminalAttributes.next();
+//			System.out.println("ME CAGUEN TU PUTA MADRE ");
 //			System.out.println("Att_Subject -> "+ terminalAttribute.getSubject());
 //			System.out.println("Att_Predicate -> "+ terminalAttribute.getPredicate());
 //			System.out.println("Att_Object -> "+ terminalAttribute.getObject());
 //			System.out.println("Att_Attribute -> "+ terminalAttribute.getPredicate().getLocalName()); //name of the variable
 //			System.out.println("Att_Value -> "+ terminalAttribute.getAlt()); //value of the variable as String
-//			
+//			predicate and object has the values to retrieve the next component
 			if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.SvPowerFlow"))
 			{
 				//agafar els valor d'aquest component
@@ -165,10 +178,11 @@ public class CIMModel {
 				{
 					svPFAttribute= svPowerFlowAtts.next();
 					if (svPFAttribute.getAlt().isLiteral())
-//					{
-////						System.out.println("1. isLiteral?"+ svPFAttribute.getAlt().isLiteral());
-						this.attribute.put(svPFAttribute.getPredicate().getLocalName(), svPFAttribute.getAlt());
-//					}
+					{
+//						System.out.println("1. isLiteral?"+ svPFAttribute.getAlt().isLiteral());
+//						System.out.println("1. isLiteral?"+ svPFAttribute.getString());
+						this.attribute.put(svPFAttribute.getPredicate().getLocalName(), svPFAttribute.getString());
+					}
 				}
 				svPowerFlowAtts.close();
 			}
@@ -195,10 +209,12 @@ public class CIMModel {
 				}
 				topologicalNodeAtts.close();
 			}
-			if (terminalAttribute.getAlt().isLiteral())
+			if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.ConductingEquipment"))
 			{
-//				System.out.println("1. isLiteral?"+ terminalAttribute.getAlt().isLiteral());
-				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), terminalAttribute.getAlt());
+				// for this component I have to get its rfd_id
+				String[] id= terminalAttribute.getAlt().toString().split("#");
+//				System.out.println("2. getAlt?"+ id[1]);
+				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), id[1]);
 			}
 		}
 		    

@@ -363,4 +363,11 @@ public class PwPinMap {
         this.stereotype = value;
     }
 
+    @Override
+    public String toString()
+    {
+    	return this.stereotype+ " "+ this._package+" "+ this.name+ 
+    			" from "+ this.cimName+ " with id "+ this.rfdId+
+    			" with "+ this.conductingEquipment+ " "+ this.svPowerFlow+ " "+ this.svVoltage;
+    }
 }
