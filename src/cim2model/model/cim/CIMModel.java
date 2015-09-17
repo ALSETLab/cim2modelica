@@ -203,7 +203,7 @@ public class CIMModel {
 							if (svVoltAttribute.getAlt().isLiteral())
 							{
 //								System.out.println("2. TopologicalNode.SvVoltage.isLiteral?"+  svVoltAttribute.getAlt().toString());
-								this.attribute.put(svVoltAttribute.getPredicate().getLocalName(), svVoltAttribute.getAlt().toString());
+								this.attribute.put(svVoltAttribute.getPredicate().getLocalName(), svVoltAttribute.getString());
 							}
 						}
 						svVoltageAtts.close();
@@ -217,7 +217,7 @@ public class CIMModel {
 							if (svVoltAttribute.getAlt().isLiteral())
 							{
 //								System.out.println("2. TopologicalNode.BaseVoltage.isLiteral?"+  svVoltAttribute.getAlt().toString());
-								this.attribute.put(svVoltAttribute.getPredicate().getLocalName(), svVoltAttribute.getAlt().toString());
+								this.attribute.put(svVoltAttribute.getPredicate().getLocalName(), svVoltAttribute.getString());
 							}
 						}
 						svVoltageAtts.close();
@@ -237,30 +237,56 @@ public class CIMModel {
 				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), id[1]);
 			}
 		}
-		    
-//		    System.out.println("Statement -> "+ stmt);
-//			System.out.println("Predicate -> "+ stmt.getPredicate());
-//			System.out.println("Attribute -> "+ stmt.getPredicate().getLocalName()); //name of the variable
-////			System.out.println("Value -> "+ stmt.getBag()); //value of the variable as String
-//			System.out.println("Value -> "+ stmt.getAlt()); //value of the variable as String
-//		System.out.println("isLiteral? -> "+ stmt.getAlt().isLiteral());
-//		if (stmt.getAlt().isResource() && !stmt.getAlt().isLiteral())
-//		{
-//			System.out.println("isResource? -> "+ stmt.getAlt().isResource());
-//			String [] onlyOneID= this.retrieveComponentName(stmt.getAlt()); 
-//			System.out.println("onlyOneID: "+ onlyOneID[0] + " value: "+ onlyOneID[1]);
-//			if (onlyOneID[1].equals("SvPowerFlow"))
-//				this.retrieveAttributes(stmt.getAlt());
-//			if (onlyOneID[1].equals("TopologicalNode"))
-//				this.retrieveAttributes(stmt.getAlt());
-//			if (onlyOneID[1].equals("TopologicalNode"))
-//				this.retrieveAttributes(stmt.getAlt());
-//		}
-//		else
-//	//		System.out.println("Life sucks!");
-//			
-//			this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getAlt());
+		return this.attribute;
+	}
+	
+	/**
+	 * cim_name="SvVoltage.angle" 
+	 * cim_name="SvVoltage.v" 
+	 * cim_name="SvPowerFlow.p" 
+	 * cim_name="SvPowerFlow.q" 
+	 * cim_name="BaseVoltage.nominalVoltage"
+	 * cim_name="BasePower.basePower"
+	 * @param _subject
+	 * @return
+	 */
+	public Map<String,Object> retrieveAttributesEnergyC(Resource _subject)
+	{ 
+		Statement terminalAttribute, topoNodeAttribute, svPFAttribute, svVoltAttribute;
 		
+		System.out.print("EnergyConsumer id ");
+		System.out.println(_subject.toString());
+		StmtIterator terminalAttributes= _subject.listProperties();
+		
+		while( terminalAttributes.hasNext() ) 
+		{
+			terminalAttribute= terminalAttributes.next();
+//			System.out.println("ME CAGUEN TU PUTA MADRE ");
+//			System.out.println("Att_Subject -> "+ terminalAttribute.getSubject());
+//			System.out.println("Att_Predicate -> "+ terminalAttribute.getPredicate());
+//			System.out.println("Att_Object -> "+ terminalAttribute.getObject());
+//			System.out.println("Att_Attribute -> "+ terminalAttribute.getPredicate().getLocalName()); //name of the variable
+//			System.out.println("Att_Value -> "+ terminalAttribute.getAlt()); //value of the variable as String
+//			predicate and object has the values to retrieve the next component
+			if ( terminalAttribute.getPredicate().getLocalName().equals("EnergyConsumer.LoadResponse"))
+			{
+				//agafar els valor d'aquest component
+				StmtIterator svPowerFlowAtts= terminalAttribute.getAlt().listProperties();
+				while( svPowerFlowAtts.hasNext() ) 
+				{
+					svPFAttribute= svPowerFlowAtts.next();
+					if (svPFAttribute.getAlt().isLiteral())
+					{
+//						System.out.println("1. isLiteral?"+ svPFAttribute.getAlt().isLiteral());
+//						System.out.println("1. isLiteral?"+ svPFAttribute.getString());
+//						System.out.print(svPFAttribute.getPredicate().getLocalName());
+//						System.out.println(svPFAttribute.getString());
+						this.attribute.put(svPFAttribute.getPredicate().getLocalName(), svPFAttribute.getString());
+					}
+				}
+				svPowerFlowAtts.close();
+			}
+		}
 		return this.attribute;
 	}
 	

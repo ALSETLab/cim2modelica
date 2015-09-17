@@ -1,16 +1,14 @@
-<!ELEMENT pwLoadPQMap (cimAttribute+, moAttribute+)>
+<!ELEMENT pwLoadPQMap (mapAttribute+)>
 <!ATTLIST pwLoadPQMap
+		  cim_name CDATA #REQUIRED
+		  rfd_id CDATA #REQUIRED
           name CDATA #REQUIRED
           package CDATA #REQUIRED
           stereotype CDATA #REQUIRED>
 <!ELEMENT cimAttribute (#PCDATA)>
-<!ATTLIST cimAttribute
-          id CDATA #IMPLIED
-          name CDATA #REQUIRED
-          terminalId CDATA #IMPLIED>
-<!ELEMENT moAttribute (#PCDATA)>
-<!ATTLIST moAttribute
+<!ATTLIST mapAttribute
+          cim_name CDATA #REQUIRED
           datatype CDATA #REQUIRED
-          name CDATA #REQUIRED
+          mo_name CDATA #REQUIRED
           variability CDATA #REQUIRED
           visibility CDATA #REQUIRED>

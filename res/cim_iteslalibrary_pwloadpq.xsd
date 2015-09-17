@@ -3,25 +3,20 @@
   <xs:element name="pwLoadPQMap">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="cimAttribute" maxOccurs="unbounded"/>
         <xs:element ref="moAttribute" maxOccurs="unbounded"/>
       </xs:sequence>
+      <xs:attribute name="cim_name" type="xs:string" use="required"/>
+      <xs:attribute name="rfd_id" type="xs:string" use="required"/>
       <xs:attribute name="name" type="xs:string" use="required"/>
       <xs:attribute name="package" type="xs:string" use="required"/>
       <xs:attribute name="stereotype" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="cimAttribute">
+  <xs:element name="mapAttribute">
     <xs:complexType mixed="true">
-      <xs:attribute name="id" type="xs:string"/>
-      <xs:attribute name="name" type="xs:string" use="required"/>
-      <xs:attribute name="terminalId" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="moAttribute">
-    <xs:complexType mixed="true">
+      <xs:attribute name="cim_name" type="xs:string" use="required"/>
       <xs:attribute name="datatype" type="xs:string" use="required"/>
-      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="mo_name" type="xs:string" use="required"/>
       <xs:attribute name="variability" type="xs:string" use="required"/>
       <xs:attribute name="visibility" type="xs:string" use="required"/>
     </xs:complexType>

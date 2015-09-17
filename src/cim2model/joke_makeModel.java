@@ -55,6 +55,22 @@ public class joke_makeModel {
         }
     }
 	
+	private static PwLoadPQMap pwloadpqXMLToObject(String _xmlmap) {
+		JAXBContext context;
+		Unmarshaller un;
+		
+		try{
+			context = JAXBContext.newInstance(PwPinMap.class);
+	        un = context.createUnmarshaller();
+	        PwLoadPQMap map = (PwLoadPQMap) un.unmarshal(new File(_xmlmap));
+	        return map;
+        } 
+        catch (JAXBException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+	
 	private static final String RDF_NS = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     private static final String CIM16_NS = "http://iec.ch/TC57/2013/CIM-schema-cim16#";
     
@@ -111,13 +127,12 @@ public class joke_makeModel {
 //				while (imapAttList.hasNext()) {
 //					System.out.println(imapAttList.next().toString());
 //				}
-				//TODO: use factory class
+				//TODO: Create MOClass for Line with its 2 Terminals
 //				MOClass pwline= new MOClass(mapACLine.getName());
 			}
 			if (subjectResource[1].equals("Terminal"))
 			{
 				System.out.println("I FOUND TERMINAL...");
-				// TODO: buscar los valores para el terminal
 				PwPinMap mapTerminal= pwpinXMLToObject("./res/cim_iteslalibrary_pwpin.xml");
 				modelTerminalClass= cim.retrieveAttributesTerminal(key);
 				//3. buscar las referencias de Terminal en el CIMModel
@@ -139,31 +154,35 @@ public class joke_makeModel {
 				}
 				mapTerminal.setConductingEquipment(modelTerminalClass.get("Terminal.ConductingEquipment").toString());
 				mapTerminal.setConductingEquipment(modelTerminalClass.get("Terminal.TopologicalNode").toString());
-				//TODO: calculate ir and ii with vr, vi, p, q and add two new MapAttribute to the mapTerminal object
-				//I= P/V cos(theta)
-				System.out.println("suputamadre "+ mapTerminal.getMapAttribute("vr").getContent());
-				double voltage= Double.parseDouble(mapTerminal.getMapAttribute("vr").getContent());
-				double apower= Double.parseDouble(mapTerminal.getMapAttribute("P").getContent());
-				double angle= Double.parseDouble(mapTerminal.getMapAttribute("vi").getContent());
-				double current= apower/(voltage*Math.cos(angle));
-				newmapAtt= new MapAttribute();
-				newmapAtt.setMoName("ir");
-				newmapAtt.setContent(Double.toString(current));
-				newmapAtt.setDatatype("Real");
-				newmapAtt.setVariability("none");
-				newmapAtt.setVisibility("public");
-				newmapAtt.setFlow("true");
-				mapTerminal.setMapAttribute(newmapAtt);
-				newmapAtt= new MapAttribute();
-				newmapAtt.setMoName("ii");
-				newmapAtt.setContent(Double.toString(current));
-				newmapAtt.setDatatype("Real");
-				newmapAtt.setVariability("none");
-				newmapAtt.setVisibility("public");
-				newmapAtt.setFlow("true");
-				mapTerminal.setMapAttribute(newmapAtt);
-//				mapTerminal.setSvPowerFlow(modelTerminalClass.get("SvPowerFlow").toString());
-//				mapTerminal.setSvVoltage(modelTerminalClass.get("SvVoltage").toString());
+				try 
+				{ //TODO: calculate value for ii from v,angle,p,q
+					double voltage= Double.valueOf(mapTerminal.getMapAttribute("vr").getContent());
+					double apower= Double.valueOf(mapTerminal.getMapAttribute("P").getContent());
+					double angle= Double.valueOf(mapTerminal.getMapAttribute("vi").getContent());
+					double current= apower/(voltage*Math.cos(angle));
+					newmapAtt= new MapAttribute();
+					newmapAtt.setMoName("ir");
+					newmapAtt.setContent(Double.toString(current));
+					newmapAtt.setDatatype("Real");
+					newmapAtt.setVariability("none");
+					newmapAtt.setVisibility("public");
+					newmapAtt.setFlow("true");
+					mapTerminal.setMapAttribute(newmapAtt);
+					newmapAtt= new MapAttribute();
+					newmapAtt.setMoName("ii");
+					newmapAtt.setContent(Double.toString(current));
+					newmapAtt.setDatatype("Real");
+					newmapAtt.setVariability("none");
+					newmapAtt.setVisibility("public");
+					newmapAtt.setFlow("true");
+					mapTerminal.setMapAttribute(newmapAtt);
+				}
+				catch (NumberFormatException nfe)
+				{
+					System.err.println(nfe.getLocalizedMessage());
+					System.err.println(nfe.getLocalizedMessage());
+				}
+				
 				// add cim id, used as reference from terminal and connections to other components 
 				mapTerminal.setRfdId(subjectResource[0]);
 				mapTerminal.setCimName(subjectResource[1]);
@@ -177,13 +196,41 @@ public class joke_makeModel {
 				//TODO: use factory class
 //				MOClass pwline= new MOClass(mapACLine.getName());
 			}
-
+			if (subjectResource[1].equals("EnergyConsumer"))
+			{
+				System.out.println("I FOUND A LOAD...");
+				PwLoadPQMap mapEnergyC= pwloadpqXMLToObject("./res/cim_iteslalibrary_pwloadpq.xml");
+				ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapEnergyC.getMapAttribute();
+				Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+				MapAttribute currentmapAtt, newmapAtt;
+				while (imapAttList.hasNext()) {
+					currentmapAtt= imapAttList.next();
+//					System.out.println(currentmapAtt.toString());
+					newmapAtt= new MapAttribute();
+					newmapAtt.setMoName(currentmapAtt.getCimName());
+					newmapAtt.setContent((String)modelCimClass.get(currentmapAtt.getCimName()));
+					newmapAtt.setDatatype(currentmapAtt.getDatatype());
+					newmapAtt.setVariability(currentmapAtt.getVariability());
+					newmapAtt.setVisibility(currentmapAtt.getVisibility());
+					mapEnergyC.setMapAttribute(currentmapAtt, newmapAtt);
+				}
+				// add cim id, used as reference from terminal and connections to other components 
+				mapEnergyC.setRfdId(subjectResource[0]);
+				mapEnergyC.setCimName(subjectResource[1]);
+				System.out.print("EnergyConsumer Map: ");
+				System.out.println(mapEnergyC.toString());
+				imapAttList= mapAttList.iterator();
+				while (imapAttList.hasNext()) {
+					System.out.println(imapAttList.next().toString());
+				}
+				//TODO: Create MOClass for Line with its 2 Terminals
+//				MOClass pwline= new MOClass(mapACLine.getName());
+			}
 			//2. crear el objeto PwPin con valores
 			//3.1. guardar en CimAttribute del objeto mapping id, nombre, otros attributos
 			//3.2. crear el objeto PwPin con valores
 			//4. Update objeto PwLine con los objetos PwPin
 		}
-		
 		
 		
 		//TODO: Crear PwPin 

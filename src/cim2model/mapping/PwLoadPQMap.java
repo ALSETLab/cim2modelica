@@ -9,7 +9,9 @@
 package cim2model.mapping;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -50,44 +52,17 @@ import javax.xml.bind.annotation.XmlType;
 public class PwLoadPQMap {
 
     @XmlElement(required = true)
-    protected List<CimAttribute> cimAttribute;
-    @XmlElement(required = true)
-    protected List<MoAttribute> moAttribute;
+    protected List<MapAttribute> mapAttribute;
+    @XmlAttribute(name = "cim_name", required = true)
+    protected String cimName;
+    @XmlAttribute(name = "rfd_id", required = true)
+    protected String rfdId;
     @XmlAttribute(name = "name", required = true)
     protected String name;
     @XmlAttribute(name = "package", required = true)
     protected String _package;
     @XmlAttribute(name = "stereotype", required = true)
     protected String stereotype;
-
-    /**
-     * Gets the value of the cimAttribute property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the cimAttribute property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getCimAttribute().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link CimAttribute }
-     * 
-     * 
-     */
-    public List<CimAttribute> getCimAttribute() {
-        if (cimAttribute == null) {
-            cimAttribute = new ArrayList<CimAttribute>();
-        }
-        return this.cimAttribute;
-    }
 
     /**
      * Gets the value of the moAttribute property.
@@ -111,13 +86,79 @@ public class PwLoadPQMap {
      * 
      * 
      */
-    public List<MoAttribute> getMoAttribute() {
-        if (moAttribute == null) {
-            moAttribute = new ArrayList<MoAttribute>();
+    public List<MapAttribute> getMapAttribute() {
+        if (mapAttribute == null) {
+        	mapAttribute = new ArrayList<MapAttribute>();
         }
-        return this.moAttribute;
+        return this.mapAttribute;
     }
 
+    public MapAttribute getMapAttribute(String _name)
+    {
+    	Iterator<MapAttribute> atributos= this.mapAttribute.iterator();
+    	MapAttribute atributo;
+    	do
+    		atributo= atributos.next();
+    	while (!atributo.equals(_name) && atributos.hasNext());
+    		
+    	return atributo;
+    }
+    
+    public void setMapAttribute(MapAttribute _old, MapAttribute _new)
+    {
+    	int index= this.mapAttribute.indexOf(_old);
+    	this.mapAttribute.set(index, _new);
+    }
+    
+    
+    /**
+     * Gets the value of the name property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCimName() {
+        return cimName;
+    }
+
+    /**
+     * Sets the value of the name property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCimName(String value) {
+        this.cimName = value;
+    }
+    
+    /**
+     * Gets the value of the name property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getRfdId() {
+        return rfdId;
+    }
+
+    /**
+     * Sets the value of the name property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setRfdId(String value) {
+        this.rfdId = value;
+    }
+    
     /**
      * Gets the value of the name property.
      * 
@@ -190,4 +231,15 @@ public class PwLoadPQMap {
         this.stereotype = value;
     }
 
+    @Override
+    public String toString()
+    {
+    	return this.stereotype+ " "+ this._package+" "+ this.name+ 
+    			" from "+ this.cimName+ " with id "+ this.rfdId;
+    }
+    
+    public boolean equals(String _value)
+    {
+    	return false;
+    }
 }
