@@ -1,5 +1,7 @@
 <!ELEMENT pwBusMap (mapAttribute+)>
 <!ATTLIST pwBusMap
+          cim_name CDATA #REQUIRED
+		  rfd_id CDATA #REQUIRED
           name CDATA #REQUIRED
           package CDATA #REQUIRED
           stereotype CDATA #REQUIRED>

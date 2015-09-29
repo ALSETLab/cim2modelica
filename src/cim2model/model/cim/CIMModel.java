@@ -132,7 +132,6 @@ public class CIMModel {
 			}
 			if (stmt.getAlt().isURIResource())
 			{
-				//TODO: extract references to other classes ? Another method
 				System.out.println("URIResource Value -> "+ stmt.getPredicate());
 //				if (!stmt.getPredicate().getLocalName().equals("type"))
 //					this.retrieveAttributesTerminal(stmt.getResource());
@@ -163,13 +162,6 @@ public class CIMModel {
 		while( terminalAttributes.hasNext() ) 
 		{
 			terminalAttribute= terminalAttributes.next();
-//			System.out.println("ME CAGUEN TU PUTA MADRE ");
-//			System.out.println("Att_Subject -> "+ terminalAttribute.getSubject());
-//			System.out.println("Att_Predicate -> "+ terminalAttribute.getPredicate());
-//			System.out.println("Att_Object -> "+ terminalAttribute.getObject());
-//			System.out.println("Att_Attribute -> "+ terminalAttribute.getPredicate().getLocalName()); //name of the variable
-//			System.out.println("Att_Value -> "+ terminalAttribute.getAlt()); //value of the variable as String
-//			predicate and object has the values to retrieve the next component
 			if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.SvPowerFlow"))
 			{
 				//agafar els valor d'aquest component
@@ -179,10 +171,6 @@ public class CIMModel {
 					svPFAttribute= svPowerFlowAtts.next();
 					if (svPFAttribute.getAlt().isLiteral())
 					{
-//						System.out.println("1. isLiteral?"+ svPFAttribute.getAlt().isLiteral());
-//						System.out.println("1. isLiteral?"+ svPFAttribute.getString());
-//						System.out.print(svPFAttribute.getPredicate().getLocalName());
-//						System.out.println(svPFAttribute.getString());
 						this.attribute.put(svPFAttribute.getPredicate().getLocalName(), svPFAttribute.getString());
 					}
 				}
@@ -210,17 +198,17 @@ public class CIMModel {
 					}
 					if (topoNodeAttribute.getPredicate().getLocalName().equals("TopologicalNode.BaseVoltage"))
 					{
-						StmtIterator svVoltageAtts= topoNodeAttribute.getAlt().listProperties();
-						while( svVoltageAtts.hasNext() ) 
+						StmtIterator baseVoltage= topoNodeAttribute.getAlt().listProperties();
+						while( baseVoltage.hasNext() ) 
 						{
-							svVoltAttribute= svVoltageAtts.next();
+							svVoltAttribute= baseVoltage.next();
 							if (svVoltAttribute.getAlt().isLiteral())
 							{
 //								System.out.println("2. TopologicalNode.BaseVoltage.isLiteral?"+  svVoltAttribute.getAlt().toString());
 								this.attribute.put(svVoltAttribute.getPredicate().getLocalName(), svVoltAttribute.getString());
 							}
 						}
-						svVoltageAtts.close();
+						baseVoltage.close();
 					}
 				}
 				// Add the rfd_id of the TopologicalNode which Terminal is related to
@@ -252,36 +240,98 @@ public class CIMModel {
 	 */
 	public Map<String,Object> retrieveAttributesEnergyC(Resource _subject)
 	{ 
-		Statement terminalAttribute, topoNodeAttribute, svPFAttribute, svVoltAttribute;
+		Statement attributeClass, classAttribute;
 		
 		System.out.print("EnergyConsumer id ");
 		System.out.println(_subject.toString());
-		StmtIterator terminalAttributes= _subject.listProperties();
-		
-		while( terminalAttributes.hasNext() ) 
+		StmtIterator iAttributes= _subject.listProperties();
+		while( iAttributes.hasNext() ) 
 		{
-			terminalAttribute= terminalAttributes.next();
-//			System.out.println("ME CAGUEN TU PUTA MADRE ");
-//			System.out.println("Att_Subject -> "+ terminalAttribute.getSubject());
-//			System.out.println("Att_Predicate -> "+ terminalAttribute.getPredicate());
-//			System.out.println("Att_Object -> "+ terminalAttribute.getObject());
-//			System.out.println("Att_Attribute -> "+ terminalAttribute.getPredicate().getLocalName()); //name of the variable
-//			System.out.println("Att_Value -> "+ terminalAttribute.getAlt()); //value of the variable as String
-//			predicate and object has the values to retrieve the next component
-			if ( terminalAttribute.getPredicate().getLocalName().equals("EnergyConsumer.LoadResponse"))
+			attributeClass= iAttributes.next();
+			if ( attributeClass.getPredicate().getLocalName().equals("EnergyConsumer.LoadResponse"))
 			{
 				//agafar els valor d'aquest component
-				StmtIterator svPowerFlowAtts= terminalAttribute.getAlt().listProperties();
+				StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
 				while( svPowerFlowAtts.hasNext() ) 
 				{
-					svPFAttribute= svPowerFlowAtts.next();
-					if (svPFAttribute.getAlt().isLiteral())
+					classAttribute= svPowerFlowAtts.next();
+					if (classAttribute.getAlt().isLiteral())
 					{
-//						System.out.println("1. isLiteral?"+ svPFAttribute.getAlt().isLiteral());
-//						System.out.println("1. isLiteral?"+ svPFAttribute.getString());
-//						System.out.print(svPFAttribute.getPredicate().getLocalName());
-//						System.out.println(svPFAttribute.getString());
-						this.attribute.put(svPFAttribute.getPredicate().getLocalName(), svPFAttribute.getString());
+						this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
+					}
+				}
+				svPowerFlowAtts.close();
+			}
+			if ( attributeClass.getPredicate().getLocalName().equals("ConductingEquipment.BaseVoltage"))
+			{
+				//agafar els valor d'aquest component
+				StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+				while( svPowerFlowAtts.hasNext() ) 
+				{
+					classAttribute= svPowerFlowAtts.next();
+					if (classAttribute.getAlt().isLiteral())
+					{
+						this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
+					}
+				}
+				svPowerFlowAtts.close();
+			}
+			if ( attributeClass.getPredicate().getLocalName().equals("Terminal.ConductingEquipment"))
+			{
+				// Add the rfd_id of the CondictingEquipment which Terminal is related to
+				String[] id= attributeClass.getAlt().toString().split("#");
+//				System.out.println("2. getAlt?"+ id[1]);
+//				System.out.println("2. Terminal.ConductingEquipment.isLiteral?"+  id[1]);
+				this.attribute.put(attributeClass.getPredicate().getLocalName(), id[1]);
+			}
+		}
+		return this.attribute;
+	}
+	
+	/**
+	 * cim_name="SvVoltage.angle" 
+	 * cim_name="SvVoltage.v" 
+	 * cim_name="SvPowerFlow.p" 
+	 * cim_name="SvPowerFlow.q" 
+	 * cim_name="BaseVoltage.nominalVoltage"
+	 * cim_name="BasePower.basePower"
+	 * @param _subject
+	 * @return
+	 */
+	public Map<String,Object> retrieveAttributesTopoNode(Resource _subject)
+	{ 
+		Statement attributeClass, classAttribute;
+		
+		System.out.print("TopologicalNode id ");
+		System.out.println(_subject.toString());
+		StmtIterator iAttributes= _subject.listProperties();
+		while( iAttributes.hasNext() ) 
+		{
+			attributeClass= iAttributes.next();
+			if ( attributeClass.getPredicate().getLocalName().equals("TopologicalNode.SvVoltage"))
+			{
+				//agafar els valor d'aquest component
+				StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+				while( svPowerFlowAtts.hasNext() ) 
+				{
+					classAttribute= svPowerFlowAtts.next();
+					if (classAttribute.getAlt().isLiteral())
+					{
+						this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
+					}
+				}
+				svPowerFlowAtts.close();
+			}
+			if ( attributeClass.getPredicate().getLocalName().equals("TopologicalNode.BaseVoltage"))
+			{
+				//agafar els valor d'aquest component
+				StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+				while( svPowerFlowAtts.hasNext() ) 
+				{
+					classAttribute= svPowerFlowAtts.next();
+					if (classAttribute.getAlt().isLiteral())
+					{
+						this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
 					}
 				}
 				svPowerFlowAtts.close();

@@ -27,69 +27,69 @@ public class MOClass extends MOModel
 	/**
 	 * @return the name
 	 */
-	public String get_Name() {
+	public String getName() {
 		return name;
 	}
 	/**
 	 * @param name the name to set
 	 */
-	public void set_Name(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	
 	/**
 	 * @return the variability
 	 */
-	public String get_Variability() {
+	public String getVariability() {
 		return variability;
 	}
 
 	/**
 	 * @param visibility the visibility to set
 	 */
-	public void set_Variability(String variability) {
+	public void setVariability(String variability) {
 		this.variability = variability;
 	}
 	
 	/**
 	 * @return the visibility
 	 */
-	public String get_Visibility() {
+	public String getVisibility() {
 		return visibility;
 	}
 
 	/**
 	 * @param visibility the visibility to set
 	 */
-	public void set_Visibility(String visibility) {
+	public void setVisibility(String visibility) {
 		this.visibility = visibility;
 	}
 
 	/**
 	 * @return the stereotype
 	 */
-	public String get_Stereotype() {
+	public String getStereotype() {
 		return stereotype;
 	}
 
 	/**
 	 * @param stereotype the stereotype to set
 	 */
-	public void set_Stereotype(String stereotype) {
+	public void setStereotype(String stereotype) {
 		this.stereotype = stereotype;
 	}
 
 	/**
 	 * @return the annotation
 	 */
-	public String get_Annotation() {
+	public String getAnnotation() {
 		return annotation;
 	}
 
 	/**
 	 * @param annotation the annotation to set
 	 */
-	public void set_Annotation(String annotation) {
+	public void setAnnotation(String annotation) {
 		this.annotation = annotation;
 	}
 	
@@ -103,13 +103,13 @@ public class MOClass extends MOModel
 	 * 
 	 * @param variable
 	 */
-	public void add_Attribute(MOAttribute variable){
+	public void addAttribute(MOAttribute variable){
 		this.attributes.add(variable);
 	}
 	/**
 	 * @param attributes the attributes to set
 	 */
-	public void add_Attribute(ArrayList<MOAttribute> attributes) {
+	public void addAttribute(ArrayList<MOAttribute> attributes) {
 		this.attributes = attributes;
 	}
 	/**
@@ -122,13 +122,13 @@ public class MOClass extends MOModel
 	 * 
 	 * @param variable
 	 */
-	public void add_Terminal(MOConnector pin){
+	public void addTerminal(MOConnector pin){
 		this.terminals.add(pin);
 	}
 	/**
 	 * @param terminals the terminals to set
 	 */
-	public void add_Terminal(ArrayList<MOConnector> terminals) {
+	public void addTerminal(ArrayList<MOConnector> terminals) {
 		this.terminals = terminals;
 	}
 	
@@ -141,7 +141,7 @@ public class MOClass extends MOModel
 	 * end name;
 	 * @return text representation of the class
 	 */
-	public String to_ModelicaClass()
+	public String toModelicaClass()
 	{
 		String code= "";
 		StringBuilder pencil= new StringBuilder();

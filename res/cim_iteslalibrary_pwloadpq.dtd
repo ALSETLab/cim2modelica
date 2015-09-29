@@ -5,7 +5,7 @@
           name CDATA #REQUIRED
           package CDATA #REQUIRED
           stereotype CDATA #REQUIRED>
-<!ELEMENT cimAttribute (#PCDATA)>
+<!ELEMENT mapAttribute (#PCDATA)>
 <!ATTLIST mapAttribute
           cim_name CDATA #REQUIRED
           datatype CDATA #REQUIRED

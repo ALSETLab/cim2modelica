@@ -2,8 +2,8 @@
 <!--Created by fragom-->
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_pwline.dtd">
 <pwLineMap cim_name="ACLineSegment" rfd_id="" package="PowerSystems.Electrical.Branches" name="PwLine" stereotype="class">
-  <mapAttribute cim_name="terminal" mo_name="p" datatype="PowerSystems.Connectors.PwPin" variability="none" visibility="public">0</mapAttribute>
-  <mapAttribute cim_name="terminal" mo_name="n" datatype="PowerSystems.Connectors.PwPin" variability="none" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="Terminal" mo_name="p" datatype="PowerSystems.Connectors.PwPin" variability="none" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="Terminal" mo_name="n" datatype="PowerSystems.Connectors.PwPin" variability="none" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="Conductor.length" mo_name="length" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="ACLineSegment.r" mo_name="R" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="ACLineSegment.x" mo_name="X" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>

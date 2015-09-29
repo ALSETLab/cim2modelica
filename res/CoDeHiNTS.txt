@@ -1,0 +1,28 @@
+//Structure of CIM model from JENA
+
+StmtIterator statements= _subject.listProperties();
+attribute= new HashMap<String, Object>();
+while( statements.hasNext() ) 
+{
+    Statement stmt= statements.next();
+	System.out.println("CIM Class RDF structure in the XML file");
+	System.out.println("Att_Subject -> "+ terminalAttribute.getSubject());
+	// predicate and object has the values to retrieve the next component
+	System.out.println("Att_Predicate -> "+ terminalAttribute.getPredicate());
+	System.out.println("Att_Object -> "+ terminalAttribute.getObject());
+	System.out.println("Att_Attribute -> "+ terminalAttribute.getPredicate().getLocalName()); //name of the variable
+	System.out.println("Att_Value -> "+ terminalAttribute.getAlt()); //value of the variable as String
+}
+
+StmtIterator svPowerFlowAtts= terminalAttribute.getAlt().listProperties();
+while( svPowerFlowAtts.hasNext() ) 
+{
+	svPFAttribute= svPowerFlowAtts.next();
+	if (svPFAttribute.getAlt().isLiteral())
+	{
+		System.out.println("1. isLiteral?"+ svPFAttribute.getAlt().isLiteral());
+		System.out.println("1. isLiteral?"+ svPFAttribute.getString());
+		System.out.print(svPFAttribute.getPredicate().getLocalName());
+		System.out.println(svPFAttribute.getString());
+	}
+}

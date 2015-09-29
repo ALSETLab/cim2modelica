@@ -9,6 +9,7 @@ public abstract class MOModel
 {
 	protected String name;
 	protected String stereotype;
+	protected String pakage;
 	protected String annotation;
 	
 	public MOModel(String _name, String _stereotype)
@@ -52,6 +53,19 @@ public abstract class MOModel
 	public void setAnnotation(String annotation) {
 		this.annotation = annotation;
 	}
+	/**
+	 * @return the package
+	 */
+	public String getPackage() {
+		return pakage;
+	}
+	/**
+	 * @param pakage the package to set
+	 */
+	public void setPackage(String pakage) {
+		this.pakage = pakage;
+	}
+	
 	
 	public void from_XMLMapping(){}
 }

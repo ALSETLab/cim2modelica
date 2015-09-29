@@ -7,7 +7,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import cim2model.mapping.*;
+import cim2model.mapping.modelica.*;
 
 public class joke_JAXB {
 

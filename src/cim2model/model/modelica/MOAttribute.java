@@ -1,8 +1,5 @@
 package cim2model.model.modelica;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Generic class to implement the declaration of a Modelica Parameter.
  * @author fragom
@@ -20,7 +17,6 @@ public class MOAttribute
 	private Boolean flow;
 	
 	public MOAttribute() {
-		super();
 		this.variability= "parameter";
 		this.datatype = "Real";
 		this.name = "name";

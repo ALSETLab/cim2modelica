@@ -5,7 +5,7 @@
 // Generated on: 2015.07.21 at 06:27:04 PM CEST 
 //
 
-package cim2model.mapping;
+package cim2model.mapping.modelica;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -67,7 +67,7 @@ public class ObjectFactory {
     }
     
     /**
-     * Create an instance of {@link PwLoadRXMap }
+     * Create an instance of {@link PwLoadPQMap }
      * 
      */
     public PwLoadPQMap createPwLoadPQMap() {

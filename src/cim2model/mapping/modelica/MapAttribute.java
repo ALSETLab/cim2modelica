@@ -5,7 +5,7 @@
 // Generated on: 2015.09.03 at 04:57:26 PM CEST 
 //
 
-package cim2model.mapping;
+package cim2model.mapping.modelica;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
