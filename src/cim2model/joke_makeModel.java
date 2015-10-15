@@ -275,16 +275,6 @@ public class joke_makeModel {
 //				MOClass pwLoad= new MOClass(mapTopoNode.getName());
 			}
 		}
-		//TODO: Crear PwPin 
-		//MOConnector	
-		
-		//TODO: Assign PwPin (x2) to a PwLine component 
-		
-//		ModelicaFactory mofactory= ModelicaFactory.get_Factory("");
-//		MOModel classe= ModelicaFactory.make_Class("pwline");
-//		classe.from_XMLMapping();
-//		MOModel connector= ModelicaFactory.make_Class("pwpin");
-//		connector.from_XMLMapping();
 		
 		//TODO: Connect components
 		
