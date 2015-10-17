@@ -2,6 +2,7 @@
 <!ATTLIST pwLoadPQMap
 		  cim_name CDATA #REQUIRED
 		  rfd_id CDATA #REQUIRED
+		  LoadResponse CDATA #REQUIRED
           name CDATA #REQUIRED
           package CDATA #REQUIRED
           stereotype CDATA #REQUIRED>

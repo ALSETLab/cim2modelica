@@ -34,7 +34,6 @@ public class ControlTranslation {
 			{//case of a SynchronousMachine object
 				attributes= cim.retrieveTerminalAtt(key);
 				System.out.println("Attributes"+ attributes);
-				//TODO: load/create the mapping for generator
 				//load template
 //				etemplate= template.getElementTemplate("root");
 //				etemplate.setName(componentName[1]);
@@ -48,7 +47,6 @@ public class ControlTranslation {
 //					etamplate= template.getElementTemplate("moAtt");
 //					etemplate.setName
 //				}
-				//TODO: generate the modelica code with starting values
 			}
 			else
 				System.out.println("Not a Terminal");
@@ -62,7 +60,6 @@ public class ControlTranslation {
 //		System.out.println(cimlector.printRoot());
 //		
 //		CIMModel modcim= new CIMModel();
-//		//TODO: Save info in CIMModel object
 //		List<Element> alist = cimlector.getModelComponents();
 //		for (int i = 0; i < alist.size(); i++) 
 //		{//component

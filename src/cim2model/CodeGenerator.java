@@ -45,7 +45,6 @@ public class CodeGenerator
 			if (onlyOneID[1].equals("ACLineSegment"))
 			{
 //				_map.loadMapping("cim_modelica_connector.xml");
-				//TODO Apply mapping here
 				MOClass aclinesegment= new MOClass("ACLineSegment");
 				aclinesegment.setStereotype("class");
 				for (String str : attributes.keySet())
@@ -60,12 +59,10 @@ public class CodeGenerator
 				}
 				System.out.println(attributes);
 				System.out.println(aclinesegment.to_ModelicaClass());
-				//TODO Include the Terminal instances here
 			}
 			if (onlyOneID[1].equals("Terminal"))
 			{
 //				_map.loadMapping("cim_modelica_connector.xml");
-				//TODO Apply mapping here
 				MOConnector terminal= new MOConnector("Terminal");
 				terminal.setStereotype("connector");
 				for (String str : attributes.keySet())

@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;attribute name="package" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="rfd_id" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="stereotype" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *       &lt;attribute name="LoadResponse" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -61,6 +62,8 @@ public class PwLoadPQMap {
     protected String rfdId;
     @XmlAttribute(name = "stereotype", required = true)
     protected String stereotype;
+    @XmlAttribute(name = "LoadResponse", required = true)
+    protected String loadResponse;
 
     /**
      * Gets the value of the moAttribute property.
@@ -227,6 +230,30 @@ public class PwLoadPQMap {
      */
     public void setStereotype(String value) {
         this.stereotype = value;
+    }
+    
+    /**
+     * Gets the value of the loadResponse property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getLoadResponse() {
+        return loadResponse;
+    }
+
+    /**
+     * Sets the value of the conductingEquipment property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setLoadResponse(String value) {
+        this.loadResponse = value;
     }
 
     @Override

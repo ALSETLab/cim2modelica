@@ -158,7 +158,6 @@ public class CIMModel {
 		System.out.print("Terminal id ");
 		System.out.println(_subject.toString());
 		StmtIterator terminalAttributes= _subject.listProperties();
-		
 		while( terminalAttributes.hasNext() ) 
 		{
 			terminalAttribute= terminalAttributes.next();
@@ -222,7 +221,10 @@ public class CIMModel {
 				String[] id= terminalAttribute.getAlt().toString().split("#");
 //				System.out.println("2. getAlt?"+ id[1]);
 //				System.out.println("2. Terminal.ConductingEquipment.isLiteral?"+  id[1]);
-				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), id[1]);
+				System.out.println("PUTAS!! "+terminalAttribute.getObject().toString() );
+				System.out.println("PUTAS!!!! "+terminalAttribute.getResource().toString() );
+//				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), id[1]);
+				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), terminalAttribute.getResource());
 			}
 		}
 		return this.attribute;
@@ -251,16 +253,16 @@ public class CIMModel {
 			if ( attributeClass.getPredicate().getLocalName().equals("EnergyConsumer.LoadResponse"))
 			{
 				//agafar els valor d'aquest component
-				StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
-				while( svPowerFlowAtts.hasNext() ) 
+				StmtIterator iLoadResponse= attributeClass.getAlt().listProperties();
+				while( iLoadResponse.hasNext() ) 
 				{
-					classAttribute= svPowerFlowAtts.next();
+					classAttribute= iLoadResponse.next();
 					if (classAttribute.getAlt().isLiteral())
 					{
 						this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
 					}
 				}
-				svPowerFlowAtts.close();
+				iLoadResponse.close();
 			}
 			if ( attributeClass.getPredicate().getLocalName().equals("ConductingEquipment.BaseVoltage"))
 			{
@@ -276,14 +278,14 @@ public class CIMModel {
 				}
 				svPowerFlowAtts.close();
 			}
-			if ( attributeClass.getPredicate().getLocalName().equals("Terminal.ConductingEquipment"))
-			{
-				// Add the rfd_id of the CondictingEquipment which Terminal is related to
-				String[] id= attributeClass.getAlt().toString().split("#");
-//				System.out.println("2. getAlt?"+ id[1]);
-//				System.out.println("2. Terminal.ConductingEquipment.isLiteral?"+  id[1]);
-				this.attribute.put(attributeClass.getPredicate().getLocalName(), id[1]);
-			}
+//			if ( attributeClass.getPredicate().getLocalName().equals("Terminal.ConductingEquipment"))
+//			{
+//				// Add the rfd_id of the CondictingEquipment which Terminal is related to
+//				String[] id= attributeClass.getAlt().toString().split("#");
+////				System.out.println("2. getAlt?"+ id[1]);
+////				System.out.println("2. Terminal.ConductingEquipment.isLiteral?"+  id[1]);
+//				this.attribute.put(attributeClass.getPredicate().getLocalName(), id[1]);
+//			}
 		}
 		return this.attribute;
 	}
