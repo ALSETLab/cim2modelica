@@ -12,6 +12,7 @@ public class MOClass extends MOModel
 {
 	private String visibility;
 	private String variability;
+	private String instanceName; 
 	private ArrayList<MOAttribute> attributes;
 	private ArrayList<MOConnector> terminals;
 	private ArrayList<MOEquation> equations;
@@ -19,49 +20,51 @@ public class MOClass extends MOModel
 	public MOClass(String _name) 
 	{
 		super(_name, "class");
+		this.visibility= "public";
+		this.variability= "parameter";
 		this.attributes= new ArrayList<MOAttribute>();
 		this.terminals= new ArrayList<MOConnector>();
 		this.equations= new ArrayList<MOEquation>();
 	}
 	
 	/**
-	 * @return the name
+	 * @return the instanceName
 	 */
-	public String getName() {
-		return name;
+	public String get_InstanceName() {
+		return instanceName;
 	}
 	/**
-	 * @param name the name to set
+	 * @param instanceName is the name when it is used as instance in other components
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void set_InstanceName(String instanceName) {
+		this.instanceName = instanceName;
 	}
 	
 	/**
 	 * @return the variability
 	 */
-	public String getVariability() {
+	public String get_Variability() {
 		return variability;
 	}
 
 	/**
 	 * @param visibility the visibility to set
 	 */
-	public void setVariability(String variability) {
+	public void set_Variability(String variability) {
 		this.variability = variability;
 	}
 	
 	/**
 	 * @return the visibility
 	 */
-	public String getVisibility() {
+	public String get_Visibility() {
 		return visibility;
 	}
 
 	/**
 	 * @param visibility the visibility to set
 	 */
-	public void setVisibility(String visibility) {
+	public void set_Visibility(String visibility) {
 		this.visibility = visibility;
 	}
 
@@ -78,20 +81,6 @@ public class MOClass extends MOModel
 	public void setStereotype(String stereotype) {
 		this.stereotype = stereotype;
 	}
-
-	/**
-	 * @return the annotation
-	 */
-	public String getAnnotation() {
-		return annotation;
-	}
-
-	/**
-	 * @param annotation the annotation to set
-	 */
-	public void setAnnotation(String annotation) {
-		this.annotation = annotation;
-	}
 	
 	/**
 	 * @return the attributes
@@ -103,13 +92,13 @@ public class MOClass extends MOModel
 	 * 
 	 * @param variable
 	 */
-	public void addAttribute(MOAttribute variable){
+	public void add_Attribute(MOAttribute variable){
 		this.attributes.add(variable);
 	}
 	/**
 	 * @param attributes the attributes to set
 	 */
-	public void addAttribute(ArrayList<MOAttribute> attributes) {
+	public void add_Attribute(ArrayList<MOAttribute> attributes) {
 		this.attributes = attributes;
 	}
 	/**
@@ -122,13 +111,13 @@ public class MOClass extends MOModel
 	 * 
 	 * @param variable
 	 */
-	public void addTerminal(MOConnector pin){
+	public void add_Terminal(MOConnector pin){
 		this.terminals.add(pin);
 	}
 	/**
 	 * @param terminals the terminals to set
 	 */
-	public void addTerminal(ArrayList<MOConnector> terminals) {
+	public void add_Terminal(ArrayList<MOConnector> terminals) {
 		this.terminals = terminals;
 	}
 	
@@ -141,7 +130,7 @@ public class MOClass extends MOModel
 	 * end name;
 	 * @return text representation of the class
 	 */
-	public String toModelicaClass()
+	public String to_ModelicaClass()
 	{
 		String code= "";
 		StringBuilder pencil= new StringBuilder();
@@ -152,36 +141,39 @@ public class MOClass extends MOModel
 		pencil.append('"');
 		pencil.append(this.annotation);
 		pencil.append('"'); pencil.append("\n");
+		for (MOConnector pin: this.terminals)
+		{
+			pencil.append("\t");
+			pencil.append(pin.to_ModelicaInstance());
+		}
 		for (MOAttribute item: this.attributes)
 		{
 			pencil.append("\t");
-			pencil.append(item.getVariability()); pencil.append(" ");
-			pencil.append(item.getDatatype()); pencil.append(" ");
-			pencil.append(item.getName());
-			if (item.getVariability().equals("parameter") || item.getVariability().equals("constant")){
+			if (!item.get_Variability().equals("none"))
+				pencil.append(item.get_Variability()); pencil.append(" ");
+			pencil.append(item.get_Datatype()); pencil.append(" ");
+			pencil.append(item.get_Name());
+			if (item.get_Variability().equals("parameter") || 
+					item.get_Variability().equals("constant"))
+			{// write initialization according to variability of the attribute
 				pencil.append("=");
-				pencil.append(item.getValue());
+				pencil.append(item.get_Value());
 				pencil.append(" ");
 			}
 			else{
 				pencil.append("(start=");
-				pencil.append(item.getValue());
+				pencil.append(item.get_Value());
 				pencil.append(", fixed=");
-				if (item.isFixed())
+				if (item.is_Fixed())
 					pencil.append("true");
 				else
 					pencil.append("false");
 				pencil.append(") ");
 			}
 			pencil.append('"');
-			pencil.append(item.getAnnotation());
+			pencil.append(item.get_Annotation());
 			pencil.append('"');
 			pencil.append(";\n");
-		}
-		for (MOConnector pin: this.terminals)
-		{
-			pencil.append("\t");
-			pencil.append(pin.to_ModelicaInstance());
 		}
 		/* EQUATION SECTION */
 		pencil.append("\t");
@@ -199,7 +191,7 @@ public class MOClass extends MOModel
 	 * Name className (parameter1=?,value2=?,...) "comments";
 	 * @return text representation of the instance
 	 */
-	public String toModelicaInstance()
+	public String to_ModelicaInstance()
 	{
 		String code= "";
 		StringBuilder pencil= new StringBuilder();
@@ -209,14 +201,20 @@ public class MOClass extends MOModel
 			pencil.append(this.visibility); 
 			pencil.append(" ");
 		}
+//		pencil.append(this.variability);
+//		pencil.append(" ");
 		pencil.append(this.name);
-		pencil.append("(");
+		pencil.append(" ");
+		pencil.append(this.instanceName);
+		pencil.append(" (");
 		for (MOAttribute item: this.attributes)
 		{
-			pencil.append(item.getName());
-			pencil.append("=");
-			pencil.append(item.getValue());
-			pencil.append(",");
+			if (item.get_Variability().equals("parameter")){
+				pencil.append(item.get_Name());
+				pencil.append("=");
+				pencil.append(item.get_Value());
+				pencil.append(",");
+			}
 		}
 		pencil.deleteCharAt(pencil.lastIndexOf(","));
 		pencil.append(") ");

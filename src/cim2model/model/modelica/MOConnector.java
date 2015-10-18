@@ -18,30 +18,19 @@ public class MOConnector extends MOModel
 	public MOConnector(String _name)
 	{
 		super(_name, "connector");
+		this.visibility= "public";
+		this.variability= "none";
 		this.attributes= new ArrayList<MOAttribute>();
-	}
-	
-	/**
-	 * @return the name
-	 */
-	public String get_Name() {
-		return name;
-	}
-	/**
-	 * @param name the name to set when is used as instance in other components
-	 */
-	public void set_Name(String name) {
-		this.name = name;
 	}
 
 	/**
-	 * @return the name
+	 * @return the instanceName
 	 */
 	public String get_InstanceName() {
 		return instanceName;
 	}
 	/**
-	 * @param name the name to set when is used as instance in other components
+	 * @param instanceName is the name when it is used as instance in other components
 	 */
 	public void set_InstanceName(String instanceName) {
 		this.instanceName = instanceName;
@@ -73,20 +62,6 @@ public class MOConnector extends MOModel
 	 */
 	public void set_Visibility(String visibility) {
 		this.visibility = visibility;
-	}
-
-	/**
-	 * @return the annotation
-	 */
-	public String get_Annotation() {
-		return annotation;
-	}
-
-	/**
-	 * @param annotation the annotation to set
-	 */
-	public void set_Annotation(String annotation) {
-		this.annotation = annotation;
 	}
 
 	/**
@@ -130,7 +105,7 @@ public class MOConnector extends MOModel
 		for (MOAttribute item: this.attributes)
 		{
 			pencil.append("\t");
-			pencil.append(item.toModelica());
+			pencil.append(item.to_Modelica());
 			pencil.append("\n");
 		}
 		pencil.append("end ");
@@ -158,13 +133,16 @@ public class MOConnector extends MOModel
 		pencil.append(this.name);
 		pencil.append(" ");
 		pencil.append(this.instanceName);
-		pencil.append("(");
+		pencil.append(" (");
 		for (MOAttribute item: this.attributes)
 		{
-			pencil.append(item.getName());
-			pencil.append("=");
-			pencil.append(item.getValue());
-			pencil.append(",");
+			if (item.get_Name().equals("vr") | item.get_Name().equals("vi") |
+					item.get_Name().equals("ir") | item.get_Name().equals("ii")){
+				pencil.append(item.get_Name());
+				pencil.append("=");
+				pencil.append(item.get_Value());
+				pencil.append(",");
+			}
 		}
 		pencil.deleteCharAt(pencil.lastIndexOf(","));
 		pencil.append(") ");

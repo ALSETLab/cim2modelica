@@ -1,83 +1,121 @@
 package cim2model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import cim2model.model.modelica.*;
 import cim2model.mapping.modelica.*;
 
 public class ModelBuilder 
 {
 	private MONetwork powsys;
+	private MOClass _currentComponent;
+	private String _currentID;
 	
 	public ModelBuilder(String _network)
 	{
 		powsys= new MONetwork(_network);
+		this._currentComponent= null;
+		this._currentID= "";
 	}
 	
-	public MOConnector create_PinConnector(PwPinMap _pin)
+	public MOClass get_CurrentComponent(){
+		return _currentComponent;
+	}
+	
+	public void set_CurrentComponent(MOClass _device, String _id){
+		this._currentComponent= _device;
+		this._currentID= _id;
+	}
+	
+	public boolean exist_CurrentComponent(String _id)
 	{
-		return null;
+		if (this._currentID.equals(_id))
+			return true;
+		else
+			return false;
 	}
 	
-	public void add_terminalComponent(MOConnector _pin, Object _component)
+	public MOConnector create_PinConnector(PwPinMap _terminalMap)
 	{
-		//TODO: use factory class
-//		MOAttribute att= new MOAttribute();
-//		MOConnector pwpin= new MOConnector(_pin.getName());
-//		MOClass pwline= new MOClass(_pin.getName());
-
-//		imapAttList= mapAttList.iterator();
-//		while (imapAttList.hasNext()) {
-//			System.out.println(imapAttList.next().toString());
-//		}
+		MOConnector pin= new MOConnector(_terminalMap.getName());
+		ArrayList<MapAttribute> mapAttList= 
+				(ArrayList<MapAttribute>)_terminalMap.getMapAttribute();
+		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		imapAttList= mapAttList.iterator();
+		MapAttribute current;
+		while (imapAttList.hasNext()) {
+			current= imapAttList.next();
+			MOAttribute param= new MOAttribute();
+			param.set_Name(current.getMoName());
+			param.set_Value(current.getContent());
+			param.set_Variability(current.getVariability());
+			param.set_Visibility(current.getVisibility());
+			param.set_Flow(Boolean.valueOf(current.getFlow()));
+			pin.set_Attribute(param);
+		}
+		pin.set_Stereotype(_terminalMap.getStereotype());
+		pin.set_Package(_terminalMap.getPackage());
+		pin.set_InstanceName(_terminalMap.getRfdId());
+		return pin;
 	}
 	
-	public MOClass create_LoadComponent()
+	public void add_deviceNetwork(MOClass _component)
+	{
+		this.powsys.add_Component(_component);;
+	}
+	
+	public MOClass create_LoadComponent(PwLoadPQMap _mapEnergyC)
 	{
 		//TODO: Create MOClass for Line with its 1 Terminal
-		//utilizar clases from cim2model.model.modelica
-//		MOClass pwLoad= new MOClass(mapEnergyC.getName());
-//		imapAttList= mapAttList.iterator();
-//		MapAttribute current;
-//		while (imapAttList.hasNext()) {
-//			current= imapAttList.next();
-//			MOAttribute param= new MOAttribute();
-//			param.setName(current.getMoName());
-//			param.setValue(current.getContent());
-//			param.setVariability(current.getVariability());
-//			param.setVisibility(current.getVisibility());
-//			param.setFlow(Boolean.valueOf(current.getFlow()));
-//		}
-//		pwLoad.setStereotype(mapEnergyC.getStereotype());
-//		pwLoad.setPackage(mapEnergyC.getPackage());
-//		System.out.println(pwLoad.toModelicaClass());
-//		System.out.println(pwLoad.toModelicaInstance());
-		return null;
-	}
-	
-	public MOClass create_LineComponent()
-	{
-		//TODO: Create MOClass for Line with its 2 Terminals,
-		//utilizar clases from cim2model.model.modelica
-//		MOClass pwline= new MOClass(mapACLine.getName());
-//		imapAttList= mapAttList.iterator();
-//		MapAttribute current;
-//		while (imapAttList.hasNext()) {
-//			current= imapAttList.next();
-//			MOAttribute param= new MOAttribute();
-//			param.setName(current.getMoName());
-//			param.setValue(current.getContent());
-//			param.setVariability(current.getVariability());
-//			param.setVisibility(current.getVisibility());
-//			param.setFlow(Boolean.valueOf(current.getFlow()));
-//		}
-//		pwline.setStereotype(mapACLine.getStereotype());
-//		pwline.setPackage(mapACLine.getPackage());
-//		System.out.println(pwline.toModelicaClass());
-//		System.out.println(pwline.toModelicaInstance());
-		return null;
-	}
-	
-	public void add_deviceComponent(MOClass _component)
-	{
+		MOClass pwLoad= new MOClass(_mapEnergyC.getName());
+		ArrayList<MapAttribute> mapAttList= 
+				(ArrayList<MapAttribute>)_mapEnergyC.getMapAttribute();
+		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		imapAttList= mapAttList.iterator();
+		MapAttribute current;
+		while (imapAttList.hasNext()) {
+			current= imapAttList.next();
+			if (!current.getCimName().equals("Terminal")){
+				MOAttribute param= new MOAttribute();
+				param.set_Name(current.getMoName());
+				param.set_Value(current.getContent());
+				param.set_Variability(current.getVariability());
+				param.set_Visibility(current.getVisibility());
+				param.set_Flow(Boolean.valueOf(current.getFlow()));
+				pwLoad.add_Attribute(param);
+			}
+		}
+		pwLoad.set_Stereotype(_mapEnergyC.getStereotype());
+		pwLoad.set_Package(_mapEnergyC.getPackage());
+		pwLoad.set_InstanceName(_mapEnergyC.getRfdId());
 		
+		return pwLoad;
+	}
+	
+	public MOClass create_LineComponent(PwLineMap _mapACLine)
+	{
+		MOClass pwline= new MOClass(_mapACLine.getName());
+		ArrayList<MapAttribute> mapAttList= 
+				(ArrayList<MapAttribute>)_mapACLine.getMapAttribute();
+		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		MapAttribute current;
+		while (imapAttList.hasNext()) {
+			current= imapAttList.next();
+			if (!current.getCimName().equals("Terminal")){
+			MOAttribute param= new MOAttribute();
+				param.set_Name(current.getMoName());
+				param.set_Value(current.getContent());
+				param.set_Variability(current.getVariability());
+				param.set_Visibility(current.getVisibility());
+				param.set_Flow(Boolean.valueOf(current.getFlow()));
+				pwline.add_Attribute(param);
+			}
+		}
+		pwline.set_Stereotype(_mapACLine.getStereotype());
+		pwline.set_Package(_mapACLine.getPackage());
+		pwline.set_InstanceName(_mapACLine.getRfdId());
+		
+		return pwline;
 	}
 }

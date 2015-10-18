@@ -16,53 +16,55 @@ public abstract class MOModel
 	{
 		this.name= _name;
 		this.stereotype= _stereotype;
+		this.pakage= "package";
+		this.annotation= "annotation";
 	}
 	/**
 	 * @return the name
 	 */
-	public String getName() {
+	public String get_Name() {
 		return name;
 	}
 	/**
 	 * @param name the name to set
 	 */
-	public void setName(String name) {
+	public void set_Name(String name) {
 		this.name = name;
 	}
 	/**
 	 * @return the stereotype
 	 */
-	public String getStereotype() {
+	public String get_Stereotype() {
 		return stereotype;
 	}
 	/**
 	 * @param stereotype the stereotype to set
 	 */
-	public void setStereotype(String stereotype) {
+	public void set_Stereotype(String stereotype) {
 		this.stereotype = stereotype;
 	}
 	/**
 	 * @return the annotation
 	 */
-	public String getAnnotation() {
+	public String get_Annotation() {
 		return annotation;
 	}
 	/**
 	 * @param annotation the annotation to set
 	 */
-	public void setAnnotation(String annotation) {
+	public void set_Annotation(String annotation) {
 		this.annotation = annotation;
 	}
 	/**
 	 * @return the package
 	 */
-	public String getPackage() {
+	public String get_Package() {
 		return pakage;
 	}
 	/**
 	 * @param pakage the package to set
 	 */
-	public void setPackage(String pakage) {
+	public void set_Package(String pakage) {
 		this.pakage = pakage;
 	}
 	

@@ -62,9 +62,6 @@ public class ModelDesigner
 	 */
 	public Map.Entry<PwPinMap, Resource> create_TerminalModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
-		//1st, Terminal
-		//2nd, Componenent associated to that/those Terminal
-		
 		PwPinMap mapTerminal= pwpinXMLToObject(_source);
 		//load corresponding tag cim:Terminal
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTerminal(key);
@@ -108,13 +105,12 @@ public class ModelDesigner
 		// add cim id, used as reference from terminal and connections to other components 
 		mapTerminal.setRfdId(_subjectID[0]);
 		mapTerminal.setCimName(_subjectID[1]);
-		
-		System.out.print("Terminal Map: ");
-		System.out.println(mapTerminal.toString());
-		imapAttList= mapAttList.iterator();
-		while (imapAttList.hasNext()) {
-			System.out.println(imapAttList.next().toString());
-		}
+//		System.out.print("Terminal Map: ");
+//		System.out.println(mapTerminal.toString());
+//		imapAttList= mapAttList.iterator();
+//		while (imapAttList.hasNext()) {
+//			System.out.println(imapAttList.next().toString());
+//		}
 		Map.Entry<PwPinMap, Resource> entry= new AbstractMap.SimpleEntry<PwPinMap, Resource>(
 				mapTerminal, (Resource)cimClassMap.get("Terminal.ConductingEquipment"));
 		return entry;
@@ -142,7 +138,7 @@ public class ModelDesigner
 	 * @param _subjectID
 	 * @return
 	 */
-	public PwLoadPQMap create_LoadModelicaMap(Resource key, String _source, String[] _subjectID, String _terminalID)
+	public PwLoadPQMap create_LoadModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
 		PwLoadPQMap mapEnergyC= pwloadpqXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesEnergyC(key);
@@ -151,21 +147,18 @@ public class ModelDesigner
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
-			if (currentmapAtt.getCimName().equals("Terminal"))
-				currentmapAtt.setContent(_terminalID);
-			else
-				currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
 //		mapEnergyC.setLoadResponse(cimClassMap.get("EnergyConsumer.LoadResponse").toString());
 		// add cim id, used as reference from terminal and connections to other components 
 		mapEnergyC.setRfdId(_subjectID[0]);
 		mapEnergyC.setCimName(_subjectID[1]);
-		System.out.print("EnergyConsumer Map: ");
-		System.out.println(mapEnergyC.toString());
-		imapAttList= mapAttList.iterator();
-		while (imapAttList.hasNext()) {
-			System.out.println(imapAttList.next().toString());
-		}
+//		System.out.print("EnergyConsumer Map: ");
+//		System.out.println(mapEnergyC.toString());
+//		imapAttList= mapAttList.iterator();
+//		while (imapAttList.hasNext()) {
+//			System.out.println(imapAttList.next().toString());
+//		}
 		return mapEnergyC;
 	}
 	private static PwLoadPQMap pwloadpqXMLToObject(String _xmlmap) {
@@ -184,28 +177,25 @@ public class ModelDesigner
         }
     }
 	
-	public PwLineMap create_LineModelicaMap(Resource key, String _source, String[] _subjectID, String _terminalID)
+	public PwLineMap create_LineModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
 		PwLineMap mapACLine= pwlineXMLToObject(_source);
-		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesEnergyC(key);
+		Map<String, Object> cimClassMap= modelCIM.retrieveAttributes(key);
 		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapACLine.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
-			if (currentmapAtt.getCimName().equals("Terminal"))
-				currentmapAtt.setContent(_terminalID);
-			else
-				currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
 		mapACLine.setRfdId(_subjectID[0]);
 		mapACLine.setCimName(_subjectID[1]);
-		System.out.print("ACLineSegment Map: ");
-		System.out.println(mapACLine.toString());
-		imapAttList= mapAttList.iterator();
-		while (imapAttList.hasNext()) {
-			System.out.println(imapAttList.next().toString());
-		}
+//		System.out.print("ACLineSegment Map: ");
+//		System.out.println(mapACLine.toString());
+//		imapAttList= mapAttList.iterator();
+//		while (imapAttList.hasNext()) {
+//			System.out.println(imapAttList.next().toString());
+//		}
 		
 		return mapACLine;
 	}

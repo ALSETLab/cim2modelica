@@ -163,7 +163,7 @@ public class CIMModel {
 			terminalAttribute= terminalAttributes.next();
 			if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.SvPowerFlow"))
 			{
-				//agafar els valor d'aquest component
+				/* retrieve the values of this cim class */
 				StmtIterator svPowerFlowAtts= terminalAttribute.getAlt().listProperties();
 				while( svPowerFlowAtts.hasNext() ) 
 				{
@@ -189,7 +189,6 @@ public class CIMModel {
 							svVoltAttribute= svVoltageAtts.next();
 							if (svVoltAttribute.getAlt().isLiteral())
 							{
-//								System.out.println("2. TopologicalNode.SvVoltage.isLiteral?"+  svVoltAttribute.getAlt().toString());
 								this.attribute.put(svVoltAttribute.getPredicate().getLocalName(), svVoltAttribute.getString());
 							}
 						}
@@ -203,26 +202,23 @@ public class CIMModel {
 							svVoltAttribute= baseVoltage.next();
 							if (svVoltAttribute.getAlt().isLiteral())
 							{
-//								System.out.println("2. TopologicalNode.BaseVoltage.isLiteral?"+  svVoltAttribute.getAlt().toString());
 								this.attribute.put(svVoltAttribute.getPredicate().getLocalName(), svVoltAttribute.getString());
 							}
 						}
 						baseVoltage.close();
 					}
 				}
-				// Add the rfd_id of the TopologicalNode which Terminal is related to
+				/* Add the rfd_id of the TopologicalNode which Terminal is related to */
 				String[] id= terminalAttribute.getAlt().toString().split("#");
 				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), id[1]);
 				topologicalNodeAtts.close();
 			}
 			if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.ConductingEquipment"))
 			{
-				// Add the rfd_id of the CondictingEquipment which Terminal is related to
-				String[] id= terminalAttribute.getAlt().toString().split("#");
+				/* Add the rfd_id of the CondictingEquipment which Terminal is related to */
+//				String[] id= terminalAttribute.getAlt().toString().split("#");
 //				System.out.println("2. getAlt?"+ id[1]);
 //				System.out.println("2. Terminal.ConductingEquipment.isLiteral?"+  id[1]);
-				System.out.println("PUTAS!! "+terminalAttribute.getObject().toString() );
-				System.out.println("PUTAS!!!! "+terminalAttribute.getResource().toString() );
 //				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), id[1]);
 				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), terminalAttribute.getResource());
 			}

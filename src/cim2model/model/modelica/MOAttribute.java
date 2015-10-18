@@ -28,25 +28,25 @@ public class MOAttribute
 	/**
 	 * @return the visibility
 	 */
-	public String getVisibility() {
+	public String get_Visibility() {
 		return visibility;
 	}
 	/**
 	 * @param paramtype the variability to set
 	 */
-	public void setVisibility(String _visibility) {
+	public void set_Visibility(String _visibility) {
 		this.visibility = _visibility;
 	}
 	/**
 	 * @return the variability
 	 */
-	public String getVariability() {
+	public String get_Variability() {
 		return variability;
 	}
 	/**
 	 * @param paramtype the variability to set
 	 */
-	public void setVariability(String _variability) {
+	public void set_Variability(String _variability) {
 		if (_variability.equals("variable"))
 			this.variability= "";
 		else
@@ -55,77 +55,77 @@ public class MOAttribute
 	/**
 	 * @return the datatype
 	 */
-	public String getDatatype() {
+	public String get_Datatype() {
 		return datatype;
 	}
 	/**
 	 * @param datatype the datatype to set
 	 */
-	public void setDatatype(String _datatype) {
+	public void set_Datatype(String _datatype) {
 		this.datatype = _datatype;
 	}
 	/**
 	 * @return the name
 	 */
-	public String getName() {
+	public String get_Name() {
 		return name;
 	}
 	/**
 	 * @param name the name to set
 	 */
-	public void setName(String name) {
+	public void set_Name(String name) {
 		this.name = name;
 	}
 	/**
 	 * @return the value
 	 */
-	public String getValue() {
+	public String get_Value() {
 		return value;
 	}
 	/**
 	 * @param value the value to set
 	 */
-	public void setValue(String value) {
+	public void set_Value(String value) {
 		this.value = value;
 	}
 	/**
 	 * @return the annotation
 	 */
-	public String getAnnotation() {
+	public String get_Annotation() {
 		return annotation;
 	}
 	/**
 	 * @param annotation the annotation to set
 	 */
-	public void setAnnotation(String annotation) {
+	public void set_Annotation(String annotation) {
 		this.annotation = annotation;
 	}
 	/**
 	 * @return the fixed
 	 */
-	public Boolean isFixed() {
+	public Boolean is_Fixed() {
 		return fixed;
 	}
 	/**
 	 * @param fixed the fixed to set
 	 */
-	public void setFixed(Boolean fixed) {
+	public void set_Fixed(Boolean fixed) {
 		this.fixed = fixed;
 	}
 	/**
 	 * @return the flow
 	 */
-	public Boolean getFlow() {
+	public Boolean get_Flow() {
 		return flow;
 	}
 	/**
 	 * @param fixed the fixed to set
 	 */
-	public void setFlow(Boolean flow) {
+	public void set_Flow(Boolean flow) {
 		this.flow = flow;
 	}
 	
-	public String toModelica()
+	public String to_Modelica()
 	{
 		String code= "";
 		StringBuilder line= new StringBuilder();
