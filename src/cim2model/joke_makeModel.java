@@ -21,70 +21,6 @@ import com.hp.hpl.jena.rdf.model.Resource;
 
 public class joke_makeModel {
 	
-	private static PwLineMap pwlineXMLToObject(String _xmlmap) {
-		JAXBContext context;
-		Unmarshaller un;
-		
-		try{
-			context = JAXBContext.newInstance(PwLineMap.class);
-	        un = context.createUnmarshaller();
-	        PwLineMap map = (PwLineMap) un.unmarshal(new File(_xmlmap));
-	        return map;
-        } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-	
-	private static PwPinMap pwpinXMLToObject(String _xmlmap) {
-		JAXBContext context;
-		Unmarshaller un;
-		
-		try{
-			context = JAXBContext.newInstance(PwPinMap.class);
-	        un = context.createUnmarshaller();
-	        PwPinMap map = (PwPinMap) un.unmarshal(new File(_xmlmap));
-	        return map;
-        } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-	
-	private static PwLoadPQMap pwloadpqXMLToObject(String _xmlmap) {
-		JAXBContext context;
-		Unmarshaller un;
-		
-		try{
-			context = JAXBContext.newInstance(PwLoadPQMap.class);
-	        un = context.createUnmarshaller();
-	        PwLoadPQMap map = (PwLoadPQMap) un.unmarshal(new File(_xmlmap));
-	        return map;
-        } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-	
-	private static PwBusMap pwbusXMLToObject(String _xmlmap) {
-		JAXBContext context;
-		Unmarshaller un;
-		
-		try{
-			context = JAXBContext.newInstance(PwBusMap.class);
-	        un = context.createUnmarshaller();
-	        PwBusMap map = (PwBusMap) un.unmarshal(new File(_xmlmap));
-	        return map;
-        } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-	
 	private static final String RDF_NS = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     private static final String CIM16_NS = "http://iec.ch/TC57/2013/CIM-schema-cim16#";
     
@@ -95,7 +31,7 @@ public class joke_makeModel {
 	public static void main(String[] args) 
 	{
 		Map<Resource, RDFNode> components;
-		String [] subjectResource;
+		String [] terminalResource, equipmentResource, topologyResource;
 		String _cimSource= args[0];
 		ModelDesigner cartografo;
 		ModelBuilder constructor;
@@ -105,26 +41,29 @@ public class joke_makeModel {
 		components= cartografo.load_CIMModel();
 		for (Resource key : components.keySet())
 		{	
-			subjectResource= cartografo.get_CIMComponentName(key);
-			/* subjectResource[0] is the rfd_id 
-			subjectResource[1] is the CIM name */
-			System.out.println("rfd_id: "+ subjectResource[0] + " cim name: "+ subjectResource[1]);
-			//TODO: create the modelica files, with line, terminal, load and connect function
-			if (subjectResource[1].equals("Terminal"))
+			terminalResource= cartografo.get_CIMComponentName(key);
+			/* subjectResource[0] is the rfd_id, subjectResource[1] is the CIM name */
+			System.out.println("rfd_id: "+ terminalResource[0] + " cim name: "+ terminalResource[1]);
+			if (terminalResource[1].equals("Terminal"))
 			{
 				System.out.println("I FOUND TERMINAL...");
-				Map.Entry<PwPinMap,Resource> mapa= 
-						cartografo.create_TerminalModelicaMap(key, "./res/cim_iteslalibrary_pwpin.xml", subjectResource);
-				PwPinMap mapTerminal= mapa.getKey();
+//				Map.Entry<PwPinMap,Resource> mapa= 
+//						cartografo.create_TerminalModelicaMap(key, "./res/cim_iteslalibrary_pwpin.xml", subjectResource);
+				ConnectMap conector= 
+						cartografo.create_TerminalModelicaMap(key, "./res/cim_iteslalibrary_pwpin.xml", terminalResource);
+				PwPinMap mapTerminal= conector.get_TerminalMap();
 				System.out.println("TERMINAL COMPLETED!!");
 				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
 				/* after loading terminal, load the resource connected to it, aka, ConductingEquipment */
-				subjectResource= cartografo.get_CIMComponentName(mapa.getValue());
-				if (subjectResource[1].equals("EnergyConsumer"))
+				equipmentResource= cartografo.get_CIMComponentName(conector.get_ConductingEquipment());
+				topologyResource= cartografo.get_CIMComponentName(conector.get_TopologicalNode());
+				System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
+				System.out.println("rfd_id: "+ topologyResource[0] + " cim name: "+ topologyResource[1]);
+				if (equipmentResource[1].equals("EnergyConsumer"))
 				{
 					System.out.println("I FOUND A LOAD...");
-					PwLoadPQMap mapEnergyC= cartografo.create_LoadModelicaMap(mapa.getValue(), 
-							"./res/cim_iteslalibrary_pwloadpq.xml", subjectResource);
+					PwLoadPQMap mapEnergyC= cartografo.create_LoadModelicaMap(conector.get_ConductingEquipment(), 
+							"./res/cim_iteslalibrary_pwloadpq.xml", equipmentResource);
 					System.out.println("LOAD COMPLETED!!");
 					MOClass moload= constructor.create_LoadComponent(mapEnergyC);
 					moload.add_Terminal(mopin);
@@ -133,58 +72,60 @@ public class joke_makeModel {
 					//TODO: save this to a file
 					constructor.add_deviceNetwork(moload);
 				}
-				if (subjectResource[1].equals("ACLineSegment"))
+				if (equipmentResource[1].equals("ACLineSegment"))
 				{
-					if (constructor.exist_CurrentComponent(subjectResource[0]))
+					if (constructor.exist_CurrentEquipment(equipmentResource[0]))
 					{/* condition to check if the line already exist in the model, true, add the second terminal */
-						MOClass moline= constructor.get_CurrentComponent();
+						MOClass moline= constructor.get_CurrentEquipment();
 						moline.add_Terminal(mopin);
 						constructor.add_deviceNetwork(moline);
-						constructor.set_CurrentComponent(null, "");
+						constructor.set_CurrentEquipment(null, "");
 						System.out.println(moline.to_ModelicaClass());
 						System.out.println(moline.to_ModelicaInstance());
-						constructor.add_deviceNetwork(moline);
 					}
 					else 
 					{/* false, create map of the line and add the first terminal */
 						System.out.println("I FOUND ACLINESEGMENT...");
-						PwLineMap mapACLine= cartografo.create_LineModelicaMap(mapa.getValue(), 
-								"./res/cim_iteslalibrary_pwline.xml", subjectResource);
+						PwLineMap mapACLine= cartografo.create_LineModelicaMap(conector.get_ConductingEquipment(), 
+								"./res/cim_iteslalibrary_pwline.xml", equipmentResource);
 						System.out.println("LINE COMPLETED!!");
 						MOClass moline= constructor.create_LineComponent(mapACLine);
 						moline.add_Terminal(mopin);
 						//TODO: save this to a file
-						System.out.println(moline.to_ModelicaClass());
-						System.out.println(moline.to_ModelicaInstance());
-						constructor.set_CurrentComponent(moline, subjectResource[0]);
+//						System.out.println(moline.to_ModelicaClass());
+//						System.out.println(moline.to_ModelicaInstance());
+						constructor.set_CurrentEquipment(moline, equipmentResource[0]);
 					}
-					
 				}
+				if (topologyResource[1].equals("TopologicalNode"))
+				{
+					if (constructor.exist_CurrentNode(topologyResource[0]))
+					{/* condition to check if the line already exist in the model, true, add the second terminal */
+						MOClass mobus= constructor.get_CurrentNode();
+						mobus.add_Terminal(mopin);
+						constructor.add_deviceNetwork(mobus);
+						System.out.println(mobus.to_ModelicaClass());
+						System.out.println(mobus.to_ModelicaInstance());
+					}
+					else 
+					{/* false, create map of the line and add the first terminal */
+						System.out.println("I FOUND TOPOLOGICALNODE...");
+						PwBusMap mapTopoNode= cartografo.create_BusModelicaMap(conector.get_TopologicalNode(), 
+										"./res/cim_iteslalibrary_pwbus.xml", topologyResource);
+						System.out.println("TOPOLOGICALNODE COMPLETED!!");
+						MOClass mobus= constructor.create_BusComponent(mapTopoNode);
+						mobus.add_Terminal(mopin);
+						//TODO: save this to a file
+//						System.out.println(mobus.to_ModelicaClass());
+//						System.out.println(mobus.to_ModelicaInstance());
+						constructor.set_CurrentNode(mobus, topologyResource[0]);
+					}
+				}	
 			}
-			//TODO: create xml line with proper topologicalnode attributes, i.e. in EnergyConsumer
-//			if (subjectResource[1].equals("TopologicalNode"))
-//			{
-//				System.out.println("I FOUND TERMINAL...");
-//				PwBusMap mapTopoNode= pwbusXMLToObject("./res/cim_iteslalibrary_pwbus.xml");
-//				cimClassMap= cim.retrieveAttributesTopoNode(key);
-//				ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapTopoNode.getMapAttribute();
-//				Iterator<MapAttribute> imapAttList= mapAttList.iterator();
-//				MapAttribute currentmapAtt;
-//				while (imapAttList.hasNext()) {
-//					currentmapAtt= imapAttList.next();
-//					currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
-//				}
-//				// add cim id, used as reference from terminal and connections to other components 
-//				mapTopoNode.setRfdId(subjectResource[0]);
-//				mapTopoNode.setCimName(subjectResource[1]);
-//				System.out.print("EnergyConsumer Map: ");
-//				System.out.println(mapTopoNode.toString());
-//				//TODO: Create MOClass for Line with its X Terminals
-//				//utilizar clases from cim2model.model.modelica
-////				MOClass pwLoad= new MOClass(mapTopoNode.getName());
-//			}
+			
 		}
 		
+		//
 		//TODO: Connect components
 		
 		

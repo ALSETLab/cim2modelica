@@ -11,19 +11,9 @@
   <cim:ACLineSegment.r>1.100000023841858</cim:ACLineSegment.r>
   <cim:ACLineSegment.x>0.20000000298023224</cim:ACLineSegment.x>
  </cim:ACLineSegment>
- <cim:Analog rdf:ID="_539dc5d0-1d52-11e4-878c-080027008896">
-  <cim:IdentifiedObject.aliasName>Current</cim:IdentifiedObject.aliasName>
-  <cim:IdentifiedObject.name>Current</cim:IdentifiedObject.name>
-  <cim:Measurement.PowerSystemResource rdf:resource="#_b0bfe500-1d51-11e4-878c-080027008896"/>
- </cim:Analog>
  <cim:Conductor rdf:ID="_a5bba760-1d52-11e4-878c-080027008896">
   <cim:Conductor.length>200</cim:Conductor.length>
  </cim:Conductor>
- <cim:Analog rdf:ID="_0810a5b0-1d52-11e4-878c-080027008896">
-  <cim:IdentifiedObject.aliasName>Voltage</cim:IdentifiedObject.aliasName>
-  <cim:IdentifiedObject.name>Voltage</cim:IdentifiedObject.name>
-  <cim:Measurement.PowerSystemResource rdf:resource="#_b0bfe500-1d51-11e4-878c-080027008896"/>
- </cim:Analog>
  <cim:Terminal rdf:ID="_9e0eb930-7586-11e4-9e1e-080027008896">
   <cim:IdentifiedObject.aliasName>pinIn</cim:IdentifiedObject.aliasName>
   <cim:IdentifiedObject.name>pinIn</cim:IdentifiedObject.name>
@@ -49,7 +39,8 @@
   <cim:SvVoltage.angle>1</cim:SvVoltage.angle>
   <cim:SvVoltage.v>10</cim:SvVoltage.v>
   <cim:SvVoltage.TopologicalNode rdf:resource="#_b2a7cb10-6096-11e5-b5e9-080027008896" />
- </cim:SvVoltage><cim:SvPowerFlow rdf:ID="_ca941f90-7586-11e4-9e1e-080027008896">
+ </cim:SvVoltage>
+ <cim:SvPowerFlow rdf:ID="_ca941f90-7586-11e4-9e1e-080027008896">
   <cim:SvPowerFlow.p>49.5</cim:SvPowerFlow.p>
   <cim:SvPowerFlow.q>-5.35699987411499</cim:SvPowerFlow.q>
   <cim:SvPowerFlow.Terminal rdf:resource="#_aba1c290-7586-11e4-9e1e-080027008896"/>
@@ -59,7 +50,6 @@
   <cim:SvPowerFlow.q>5.375</cim:SvPowerFlow.q>
   <cim:SvPowerFlow.Terminal rdf:resource="#_9e0eb930-7586-11e4-9e1e-080027008896"/>
  </cim:SvPowerFlow>
- 
  <cim:BaseVoltage rdf:ID="_a285a090-41c4-11e5-9b3e-080027008896">
   <cim:IdentifiedObject.name>Distribution</cim:IdentifiedObject.name>
   <cim:BaseVoltage.nominalVoltage>230</cim:BaseVoltage.nominalVoltage>

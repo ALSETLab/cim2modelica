@@ -22,7 +22,7 @@ public class MONetwork extends MOModel
 	/**
 	 * @return the components
 	 */
-	public ArrayList<MOClass> getComponents() {
+	public ArrayList<MOClass> get_Components() {
 		return this.components;
 	}
 	/**

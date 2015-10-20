@@ -209,8 +209,8 @@ public class CIMModel {
 					}
 				}
 				/* Add the rfd_id of the TopologicalNode which Terminal is related to */
-				String[] id= terminalAttribute.getAlt().toString().split("#");
-				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), id[1]);
+//				String[] id= terminalAttribute.getAlt().toString().split("#");
+				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), terminalAttribute.getResource());
 				topologicalNodeAtts.close();
 			}
 			if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.ConductingEquipment"))

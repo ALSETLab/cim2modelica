@@ -23,6 +23,7 @@
   <cim:ACDCTerminal.connected>true</cim:ACDCTerminal.connected>
   <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
   <cim:Terminal.ConductingEquipment rdf:resource="#_da1ef180-5df1-11e4-a209-080027008896"/>
+  <cim:Terminal.SvPowerFlow rdf:resource="#_da1e5541-5df1-11e4-a209-080027008896"/>
   <cim:Terminal.TopologicalNode rdf:resource="#_da1d91f0-5df1-11e4-a209-080027008896"/>
  </cim:Terminal>
  <cim:RegulatingControl rdf:ID="_da1e7c52-5df1-11e4-a209-080027008896">
@@ -110,7 +111,7 @@
   <cim:ACDCTerminal.connected>true</cim:ACDCTerminal.connected>
   <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
   <cim:Terminal.ConductingEquipment rdf:resource="#_da1e5544-5df1-11e4-a209-080027008896"/>
-  <cim:Terminal.SvPowerFlow rdf:resource="#_da1e7c51-5df1-11e4-a209-080027008896"/>
+  <cim:Terminal.SvPowerFlow rdf:resource="#_da1e5541-5df1-11e4-a209-080027008896"/>
   <cim:Terminal.TopologicalNode rdf:resource="#_da1d91f0-5df1-11e4-a209-080027008896"/>
  </cim:Terminal>
  <cim:VoltageLevel rdf:ID="_da1e0721-5df1-11e4-a209-080027008896">
@@ -149,6 +150,7 @@
   <cim:ACDCTerminal.connected>true</cim:ACDCTerminal.connected>
   <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
   <cim:Terminal.ConductingEquipment rdf:resource="#_da1ef180-5df1-11e4-a209-080027008896"/>
+  <cim:Terminal.SvPowerFlow rdf:resource="#_da1e5541-5df1-11e4-a209-080027008896"/>
   <cim:Terminal.TopologicalNode rdf:resource="#_da1de011-5df1-11e4-a209-080027008896"/>
  </cim:Terminal>
  <cim:TopologicalNode rdf:ID="_da1de011-5df1-11e4-a209-080027008896">
@@ -193,6 +195,7 @@
   <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
   <cim:ACDCTerminal.BusNameMarker rdf:resource="#_da1e0720-5df1-11e4-a209-080027008896"/>
   <cim:Terminal.ConductingEquipment rdf:resource="#_da1de012-5df1-11e4-a209-080027008896"/>
+  <cim:Terminal.SvPowerFlow rdf:resource="#_da1e5541-5df1-11e4-a209-080027008896"/>
   <cim:Terminal.TopologicalNode rdf:resource="#_da1de011-5df1-11e4-a209-080027008896"/>
  </cim:Terminal>
  <cim:GeneratingUnit rdf:ID="_da1e5543-5df1-11e4-a209-080027008896">
@@ -241,6 +244,7 @@
   <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
   <cim:ACDCTerminal.BusNameMarker rdf:resource="#_da1db900-5df1-11e4-a209-080027008896"/>
   <cim:Terminal.ConductingEquipment rdf:resource="#_da1d91f2-5df1-11e4-a209-080027008896"/>
+  <cim:Terminal.SvPowerFlow rdf:resource="#_d0b9ea30-7586-11e4-9e1e-080027008896"/>
   <cim:Terminal.TopologicalNode rdf:resource="#_da1d91f0-5df1-11e4-a209-080027008896"/>
  </cim:Terminal>
  <cim:Diagram rdf:ID="_6de93d30-5ed3-11e4-ad98-080027008896">
