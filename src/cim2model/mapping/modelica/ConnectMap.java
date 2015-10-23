@@ -6,9 +6,9 @@ public class ConnectMap
 {
 	private PwPinMap terminalMap;
 	private Resource conductingEquipment;
+	private String ce_id;
 	private Resource topologicalNode;
-	
-	
+	private String tn_id;
 	
 	public ConnectMap(PwPinMap _terminal, Resource _conductingEquipment,
 			Resource _topologicalNode) {
@@ -16,6 +16,7 @@ public class ConnectMap
 		this.terminalMap = _terminal;
 		this.conductingEquipment = _conductingEquipment;
 		this.topologicalNode = _topologicalNode;
+		this.ce_id= this.tn_id= "";
 	}
 	/**
 	 * @return the terminal
@@ -52,6 +53,31 @@ public class ConnectMap
 	 */
 	public void set_TopologicalNode(Resource _topologicalNode) {
 		this.topologicalNode = _topologicalNode;
+	}
+	
+	/**
+	 * @return the ce_id
+	 */
+	public String get_Ce_id() {
+		return ce_id;
+	}
+	/**
+	 * @param ce_id the ce_id to set
+	 */
+	public void set_Ce_id(String _ce_id) {
+		this.ce_id = _ce_id;
+	}
+	/**
+	 * @return the tn_id
+	 */
+	public String get_Tn_id() {
+		return tn_id;
+	}
+	/**
+	 * @param tn_id the tn_id to set
+	 */
+	public void set_Tn_id(String _tn_id) {
+		this.tn_id = _tn_id;
 	}
 	
 	

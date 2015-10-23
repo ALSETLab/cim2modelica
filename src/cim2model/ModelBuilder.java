@@ -2,6 +2,7 @@ package cim2model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 
 import cim2model.model.modelica.*;
 import cim2model.mapping.modelica.*;
@@ -89,17 +90,22 @@ public class ModelBuilder
 		MapAttribute current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
-			MOAttribute param= new MOAttribute();
-			param.set_Name(current.getMoName());
-			param.set_Value(current.getContent());
-			param.set_Variability(current.getVariability());
-			param.set_Visibility(current.getVisibility());
-			param.set_Flow(Boolean.valueOf(current.getFlow()));
-			pin.set_Attribute(param);
+			if (current.getCimName().equals("IdentifiedObject.name")){
+				pin.set_InstanceName(current.getContent());
+			}
+			else{
+				MOAttribute param= new MOAttribute();
+				param.set_Name(current.getMoName());
+				param.set_Value(current.getContent());
+				param.set_Variability(current.getVariability());
+				param.set_Visibility(current.getVisibility());
+				param.set_Flow(Boolean.valueOf(current.getFlow()));
+				pin.set_Attribute(param);
+			}
 		}
 		pin.set_Stereotype(_terminalMap.getStereotype());
 		pin.set_Package(_terminalMap.getPackage());
-		pin.set_InstanceName(_terminalMap.getRfdId());
+		
 		return pin;
 	}
 	
@@ -124,7 +130,10 @@ public class ModelBuilder
 		MapAttribute current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
-			if (!current.getCimName().equals("Terminal")){
+			if (current.getCimName().equals("IdentifiedObject.name")){
+				pwLoad.set_InstanceName(current.getContent());
+			}
+			else{
 				MOAttribute param= new MOAttribute();
 				param.set_Name(current.getMoName());
 				param.set_Value(current.getContent());
@@ -136,7 +145,6 @@ public class ModelBuilder
 		}
 		pwLoad.set_Stereotype(_mapEnergyC.getStereotype());
 		pwLoad.set_Package(_mapEnergyC.getPackage());
-		pwLoad.set_InstanceName(_mapEnergyC.getRfdId());
 		
 		return pwLoad;
 	}
@@ -150,7 +158,10 @@ public class ModelBuilder
 		MapAttribute current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
-			if (!current.getCimName().equals("Terminal")){
+			if (current.getCimName().equals("IdentifiedObject.name")){
+				pwline.set_InstanceName(current.getContent());
+			}
+			else{
 				MOAttribute param= new MOAttribute();
 				param.set_Name(current.getMoName());
 				param.set_Value(current.getContent());
@@ -162,7 +173,6 @@ public class ModelBuilder
 		}
 		pwline.set_Stereotype(_mapACLine.getStereotype());
 		pwline.set_Package(_mapACLine.getPackage());
-		pwline.set_InstanceName(_mapACLine.getRfdId());
 		
 		return pwline;
 	}
@@ -176,7 +186,10 @@ public class ModelBuilder
 		MapAttribute current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
-			if (!current.getCimName().equals("Terminal")){
+			if (current.getCimName().equals("IdentifiedObject.name")){
+				pwbus.set_InstanceName(current.getContent());
+			}
+			else {
 				MOAttribute param= new MOAttribute();
 				param.set_Name(current.getMoName());
 				param.set_Value(current.getContent());
@@ -188,8 +201,60 @@ public class ModelBuilder
 		}
 		pwbus.set_Stereotype(_mapTopoNode.getStereotype());
 		pwbus.set_Package(_mapTopoNode.getPackage());
-		pwbus.set_InstanceName(_mapTopoNode.getRfdId());
 		
 		return pwbus;
+	}
+	
+	public void connect_Components()
+	{
+		System.out.println(this.powsys.to_ModelicaClass());
+		MOClass component, componentConnectat;
+		MOConnector pin, pinConnectat;
+		boolean trobat;
+		MOConnect conexio;
+		//recorregut components de la xarxa
+		Iterator<MOClass> iComponents= this.powsys.get_Components().iterator();
+		Iterator<MOClass> iComponentConnectat;
+		Iterator<MOConnector> iPin, iPinConnectat; 
+		while (iComponents.hasNext())
+		{
+			/* retrieve first component to connect */
+			component= iComponents.next(); 
+			System.out.println("component 1 "+ component.get_InstanceName());
+			iPin= component.get_Terminals().iterator();
+			while (iPin.hasNext())
+			{
+				/* retrieve pin of the first component */
+				pin= iPin.next();
+				System.out.println("pin 1 "+ pin.get_InstanceName());
+				iComponentConnectat= this.powsys.get_Components().iterator();
+				while (iComponentConnectat.hasNext())
+				{
+					/* retrieve the second component to connect */
+					componentConnectat= iComponentConnectat.next();
+					System.out.println("component 2 "+ componentConnectat.get_InstanceName());
+					/* if first component is different to the second component */
+					if (!component.get_InstanceName().equals(componentConnectat.get_InstanceName()))
+					{
+						/* retrieve the pins of the second component */
+						iPinConnectat= componentConnectat.get_Terminals().iterator();
+						do
+						{
+							pinConnectat= iPinConnectat.next();
+							System.out.println("pin 2 "+ pin.get_InstanceName());
+							trobat= pin.get_InstanceName().equals(pinConnectat.get_InstanceName());
+							/* check wheather pin names are equal or not */
+						}
+						while (!trobat && iPinConnectat.hasNext());
+						if (trobat){ /*if pin name are equal, connect */
+							conexio= new MOConnect(component.get_InstanceName(),pin.get_InstanceName(),
+									componentConnectat.get_InstanceName(), pinConnectat.get_InstanceName());
+							this.powsys.add_Connection(conexio);
+						}
+					}
+				}
+			}
+		}
+		System.out.println(this.powsys.to_ModelicaClass());
 	}
 }

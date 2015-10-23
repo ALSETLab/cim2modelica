@@ -3,7 +3,7 @@
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_pwloadpq.dtd">
 <pwLoadPQMap cim_name="EnergyConsumer" rfd_id="" package="PowerSystems.Electrical.Loads" name="PwLoadPQ" stereotype="class"
 	LoadResponse="rdf:resource">
-  <mapAttribute cim_name="Terminal" mo_name="u" datatype="PowerSystems.Connectors.PwPin" variability="none" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</mapAttribute>
   <mapAttribute cim_name="LoadResponseCharacteristic.pConstantPower" mo_name="P" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="LoadResponseCharacteristic.qConstantPower" mo_name="Q" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="LoadResponseCharacteristic.pConstantImpedance" mo_name="Vo_real" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>

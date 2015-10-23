@@ -229,7 +229,7 @@ public class MapAttribute {
     @Override
     public String toString()
     {
-    	return this.visibility+ " "+ this.variability+" "+ this.datatype+ " "+ this.moName+ "= "+ this.content;
+    	return this.cimName+ " "+ this.visibility+ " "+ this.variability+" "+ this.datatype+ " "+ this.moName+ "= "+ this.content;
     }
     
     public boolean equals(String _value)

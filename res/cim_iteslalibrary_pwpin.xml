@@ -3,6 +3,7 @@
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_pwpin.dtd">
 <pwPinMap cim_name="Terminal" rfd_id="" package="PowerSystems.Electrical.Connectors" name="PwPin" stereotype="connector"
 	TopologicalNode="rfd:resource" ConductingEquipment="rfd:resource">
+  <mapAttribute cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none" flow="0">name</mapAttribute>
   <mapAttribute cim_name="SvVoltage.angle" mo_name="vi" datatype="Real"  variability="none" visibility="public" flow="0">0</mapAttribute>
   <mapAttribute cim_name="SvVoltage.v" mo_name="vr" datatype="Real"  variability="none" visibility="public" flow="0">0</mapAttribute>
   <mapAttribute cim_name="SvPowerFlow.p" mo_name="P" datatype="Real"  variability="none" visibility="public" flow="1">0</mapAttribute>

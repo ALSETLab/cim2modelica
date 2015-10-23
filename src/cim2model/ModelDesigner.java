@@ -31,8 +31,9 @@ import cim2model.model.cim.CIMModel;
  */
 public class ModelDesigner 
 {
-	Map<String, String> connectMap;
-	Map<Object, String> equipmentMap;
+	Map<String, String> connections;
+//	ArrayList<ConnectMap> connections;
+	Map<Object, String> equipment;
 	Map<Resource, RDFNode> components;
 	CIMReaderJENA cimReader;
 	CIMModel modelCIM;
@@ -46,16 +47,50 @@ public class ModelDesigner
 	{
 		modelCIM = new CIMModel(cimReader.readModel());
 		components = modelCIM.gatherComponents();
-		this.connectMap= new HashMap<String,String>();
-		this.equipmentMap= new HashMap<Object,String>();
+		this.connections= new HashMap<String,String>();
+//		this.connections= new ArrayList<ConnectMap>();
+		this.equipment= new HashMap<Object, String>();
 		
 		return components;
 	}
 	
+	/**
+	 * 
+	 * @param _key
+	 * @return
+	 */
 	public String[] get_CIMComponentName(Resource _key)
 	{
 		return modelCIM.retrieveComponentName(_key);
 	}
+	
+	public Map<String, String> get_ConnectionMap(){
+		return this.connections;
+	}
+	
+//	public ArrayList<ConnectMap> get_ConnectionMap(){
+//		return this.connections;
+//	}
+	
+	public Map<Object, String> get_EquipmentMap(){
+		return this.equipment;
+	}
+	
+	private static PwPinMap pwpinXMLToObject(String _xmlmap) {
+		JAXBContext context;
+		Unmarshaller un;
+		
+		try{
+			context = JAXBContext.newInstance(PwPinMap.class);
+	        un = context.createUnmarshaller();
+	        PwPinMap map = (PwPinMap) un.unmarshal(new File(_xmlmap));
+	        return map;
+        } 
+        catch (JAXBException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 	/**
 	 * 
 	 * @param key
@@ -66,6 +101,7 @@ public class ModelDesigner
 	public ConnectMap create_TerminalModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
 		PwPinMap mapTerminal= pwpinXMLToObject(_source);
+		ConnectMap connection;
 		/* load corresponding tag cim:Terminal */
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTerminal(key);
 		/* iterate through map attributes, for storing proper cim values */
@@ -75,6 +111,7 @@ public class ModelDesigner
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+//			System.out.println("currentmapAtt "+ currentmapAtt.toString());
 		}
 		mapTerminal.setConductingEquipment(cimClassMap.get("Terminal.ConductingEquipment").toString());
 		mapTerminal.setTopologicalNode(cimClassMap.get("Terminal.TopologicalNode").toString());
@@ -85,6 +122,7 @@ public class ModelDesigner
 			double angle= Double.valueOf(mapTerminal.getMapAttribute("vi").getContent());
 			double current= apower/(voltage*Math.cos(angle));
 			newmapAtt= new MapAttribute();
+			newmapAtt.setCimName("ir");
 			newmapAtt.setMoName("ir");
 			newmapAtt.setContent(Double.toString(current));
 			newmapAtt.setDatatype("Real");
@@ -93,6 +131,7 @@ public class ModelDesigner
 			newmapAtt.setFlow("true");
 			mapTerminal.setMapAttribute(newmapAtt);
 			newmapAtt= new MapAttribute();
+			newmapAtt.setCimName("ii");
 			newmapAtt.setMoName("ii");
 			newmapAtt.setContent(Double.toString(current));
 			newmapAtt.setDatatype("Real");
@@ -115,25 +154,34 @@ public class ModelDesigner
 //			System.out.println(imapAttList.next().toString());
 //		}
 		
-		this.connectMap.put(mapTerminal.getRfdId(), cimClassMap.get("Terminal.ConductingEquipment").toString());
-		this.connectMap.put(mapTerminal.getRfdId(), cimClassMap.get("Terminal.TopologicalNode").toString());
+		this.connections.put(mapTerminal.getRfdId(), 
+				cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1]);
+		this.connections.put(mapTerminal.getRfdId(), 
+				cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]);
 		
 //		Map.Entry<PwPinMap, Resource> entry= new AbstractMap.SimpleEntry<PwPinMap, Resource>(
 //				mapTerminal, (Resource)cimClassMap.get("Terminal.ConductingEquipment"));
 //		return entry;
 		
-		return new ConnectMap(mapTerminal, 
+		connection= new ConnectMap(mapTerminal, 
 				(Resource)cimClassMap.get("Terminal.ConductingEquipment"),
 				(Resource)cimClassMap.get("Terminal.TopologicalNode"));
+		connection.set_Ce_id(cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1]);
+		connection.set_Tn_id(cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]);
+		
+//		this.connections.add(connection);
+		
+		return connection;
 	}
-	private static PwPinMap pwpinXMLToObject(String _xmlmap) {
+	
+	private static PwLoadPQMap pwloadpqXMLToObject(String _xmlmap) {
 		JAXBContext context;
 		Unmarshaller un;
 		
 		try{
-			context = JAXBContext.newInstance(PwPinMap.class);
+			context = JAXBContext.newInstance(PwLoadPQMap.class);
 	        un = context.createUnmarshaller();
-	        PwPinMap map = (PwPinMap) un.unmarshal(new File(_xmlmap));
+	        PwLoadPQMap map = (PwLoadPQMap) un.unmarshal(new File(_xmlmap));
 	        return map;
         } 
         catch (JAXBException e) {
@@ -141,7 +189,6 @@ public class ModelDesigner
             return null;
         }
     }
-	
 	/**
 	 * 
 	 * @param key
@@ -170,17 +217,19 @@ public class ModelDesigner
 //		while (imapAttList.hasNext()) {
 //			System.out.println(imapAttList.next().toString());
 //		}
-		this.equipmentMap.put(mapEnergyC, mapEnergyC.getClass().getName());
+		this.equipment.put(mapEnergyC, mapEnergyC.getClass().getName());
+		
 		return mapEnergyC;
 	}
-	private static PwLoadPQMap pwloadpqXMLToObject(String _xmlmap) {
+	
+	private static PwLineMap pwlineXMLToObject(String _xmlmap) {
 		JAXBContext context;
 		Unmarshaller un;
 		
 		try{
-			context = JAXBContext.newInstance(PwLoadPQMap.class);
+			context = JAXBContext.newInstance(PwLineMap.class);
 	        un = context.createUnmarshaller();
-	        PwLoadPQMap map = (PwLoadPQMap) un.unmarshal(new File(_xmlmap));
+	        PwLineMap map = (PwLineMap) un.unmarshal(new File(_xmlmap));
 	        return map;
         } 
         catch (JAXBException e) {
@@ -188,7 +237,6 @@ public class ModelDesigner
             return null;
         }
     }
-	
 	public PwLineMap create_LineModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
 		PwLineMap mapACLine= pwlineXMLToObject(_source);
@@ -208,17 +256,19 @@ public class ModelDesigner
 //		while (imapAttList.hasNext()) {
 //			System.out.println(imapAttList.next().toString());
 //		}
-		this.equipmentMap.put(mapACLine, mapACLine.getClass().getName());
+		this.equipment.put(mapACLine, mapACLine.getClass().getName());
+
 		return mapACLine;
 	}
-	private static PwLineMap pwlineXMLToObject(String _xmlmap) {
+	
+	private static PwBusMap pwbusXMLToObject(String _xmlmap) {
 		JAXBContext context;
 		Unmarshaller un;
 		
 		try{
-			context = JAXBContext.newInstance(PwLineMap.class);
+			context = JAXBContext.newInstance(PwBusMap.class);
 	        un = context.createUnmarshaller();
-	        PwLineMap map = (PwLineMap) un.unmarshal(new File(_xmlmap));
+	        PwBusMap map = (PwBusMap) un.unmarshal(new File(_xmlmap));
 	        return map;
         } 
         catch (JAXBException e) {
@@ -226,7 +276,6 @@ public class ModelDesigner
             return null;
         }
     }
-	
 	public PwBusMap create_BusModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
 		PwBusMap mapTopoNode= pwbusXMLToObject(_source);
@@ -246,22 +295,8 @@ public class ModelDesigner
 //		while (imapAttList.hasNext()) {
 //			System.out.println(imapAttList.next().toString());
 //		}
-		this.equipmentMap.put(mapTopoNode, mapTopoNode.getClass().getName());
+		this.equipment.put(mapTopoNode, mapTopoNode.getClass().getName());
+		
 		return mapTopoNode;
 	}
-	private static PwBusMap pwbusXMLToObject(String _xmlmap) {
-		JAXBContext context;
-		Unmarshaller un;
-		
-		try{
-			context = JAXBContext.newInstance(PwBusMap.class);
-	        un = context.createUnmarshaller();
-	        PwBusMap map = (PwBusMap) un.unmarshal(new File(_xmlmap));
-	        return map;
-        } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }
