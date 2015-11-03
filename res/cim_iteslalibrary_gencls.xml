@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GENCLSMap cim_name="SynchronousMachine" rfd_id="" package="PowerSystems.Electrical.Machines.PSSE" name="GENCLS" stereotype="class"
+  GeneratingUnit="rfd:resource" SynchronousMachineDynamics="SynchronousMachineDynamics">
+  <mapAttribute cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">gencls</mapAttribute>
+  <mapAttribute cim_name="SvVoltage.v" mo_name="eterm" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="SvVoltage.angle" mo_name="anglev0" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="SvPowerFlow.p" mo_name="pelec" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="SvPowerFlow.q" mo_name="qelec" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="GeneratingUnit.baseP" mo_name="Mbase" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="BasePower.basePower" mo_name="Sbase" datatype="Real" variability="parameter" visibility="public"></mapAttribute> 
+  <mapAttribute cim_name="statorResistance" mo_name="ra" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="SynchronousMachineDynamics.xDirectTrans" mo_name="x1d" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="Inertia" mo_name="H" datatype="Real" variability="parameter" visibility="public"></mapAttribute>  
+  <mapAttribute cim_name="Damping" mo_name="D" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+</GENCLSMap>

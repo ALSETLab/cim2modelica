@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_constantload.dtd">
+<constantLoadMap cim_name="EnergyConsumer" rfd_id="" package="PowerSystems.Electrical.Loads" name="ConstantLoad" stereotype="class"
+	LoadResponse="rdf:resource">
+  <mapAttribute cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</mapAttribute>
+  <!-- next 6 parameters need to be revised. How to design mapping when Modelica variable is Complex datatype? -->
+  <mapAttribute cim_name="LoadResponseCharacteristic.pConstantCurrent" mo_name="S_i.re" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
+  <mapAttribute cim_name="LoadResponseCharacteristic.qConstantCurrent" mo_name="S_i.im" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
+  <mapAttribute cim_name="LoadResponseCharacteristic.pConstantImpedance" mo_name="S_y.re" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
+  <mapAttribute cim_name="LoadResponseCharacteristic.qConstantImpedance" mo_name="S_y.im" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
+  <mapAttribute cim_name="LoadResponseCharacteristic.pConstantPower" mo_name="S_p.re" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
+  <mapAttribute cim_name="LoadResponseCharacteristic.qConstantPower" mo_name="S_p.im" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
+  <!-- parameter Complex a "load transfer fraction for constant current load";  -->
+  <!-- parameter Complex b "load transfer fraction for constant shunt admittance load";  -->
+  <mapAttribute cim_name="pfixed" mo_name="PQBRAK" datatype="Real" variability="parameter" visibility="none">0</mapAttribute>
+  <mapAttribute cim_name="TopologicalNode.SvVoltage.angle" mo_name="anglev0" datatype="Real" variability="none" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="TopologicalNode.SvVoltage.v" mo_name="v0" datatype="Real" variability="none" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="Terminal.SvPowerFlow.p" mo_name="P" datatype="Real" variability="none" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="Terminal.SvPowerFlow.q" mo_name="Q" datatype="Real" variability="none" visibility="public">0</mapAttribute>
+</constantLoadMap>
