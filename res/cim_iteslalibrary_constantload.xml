@@ -10,8 +10,8 @@
   <mapAttribute cim_name="LoadResponseCharacteristic.qConstantImpedance" mo_name="S_y.im" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
   <mapAttribute cim_name="LoadResponseCharacteristic.pConstantPower" mo_name="S_p.re" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
   <mapAttribute cim_name="LoadResponseCharacteristic.qConstantPower" mo_name="S_p.im" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
-  <!-- parameter Complex a "load transfer fraction for constant current load";  -->
-  <!-- parameter Complex b "load transfer fraction for constant shunt admittance load";  -->
+  <mapAttribute cim_name="LoadResponseCharacteristic.pVoltageExponent" mo_name="a" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
+  <mapAttribute cim_name="LoadResponseCharacteristic.qVoltageExponent" mo_name="b" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
   <mapAttribute cim_name="pfixed" mo_name="PQBRAK" datatype="Real" variability="parameter" visibility="none">0</mapAttribute>
   <mapAttribute cim_name="TopologicalNode.SvVoltage.angle" mo_name="anglev0" datatype="Real" variability="none" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="TopologicalNode.SvVoltage.v" mo_name="v0" datatype="Real" variability="none" visibility="public">0</mapAttribute>

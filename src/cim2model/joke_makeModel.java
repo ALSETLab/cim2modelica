@@ -1,21 +1,8 @@
 package cim2model;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
-import cim2model.electrical.branches.PwLine;
-import cim2model.io.CIMReaderJENA;
 import cim2model.mapping.modelica.*;
-import cim2model.model.cim.CIMModel;
 import cim2model.model.modelica.*;
-
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 
@@ -37,7 +24,7 @@ public class joke_makeModel {
 		ModelBuilder constructor;
 		
 		cartografo= new ModelDesigner(_cimSource);
-		constructor= new ModelBuilder("smib1l_topology_1Island_v16");
+		constructor= new ModelBuilder("IEEE_9Bus");
 		components= cartografo.load_CIMModel();
 		for (Resource key : components.keySet())
 		{	

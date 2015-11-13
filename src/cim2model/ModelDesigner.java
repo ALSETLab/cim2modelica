@@ -144,6 +144,11 @@ public class ModelDesigner
 		{
 			System.err.println(nfe.getLocalizedMessage());
 		}
+		catch (NullPointerException npe)
+		{
+			System.out.println("This Terminal does not have power flow associated!");
+			System.err.println(npe.getLocalizedMessage());
+		}
 		// add cim id, used as reference from terminal and connections to other components 
 		mapTerminal.setRfdId(_subjectID[0]);
 		mapTerminal.setCimName(_subjectID[1]);
