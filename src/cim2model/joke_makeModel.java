@@ -47,8 +47,6 @@ public class joke_makeModel {
 			if (terminalResource[1].equals("Terminal"))
 			{
 				System.out.println("rfd_id: "+ terminalResource[0] + " cim name: "+ terminalResource[1]);
-//				Map.Entry<PwPinMap,Resource> mapa= 
-//						cartografo.create_TerminalModelicaMap(key, "./res/cim_iteslalibrary_pwpin.xml", subjectResource);
 				ConnectMap conector= 
 						cartografo.create_TerminalModelicaMap(key, "./res/cim_iteslalibrary_pwpin.xml", terminalResource);
 				PwPinMap mapTerminal= conector.get_TerminalMap();
@@ -63,8 +61,8 @@ public class joke_makeModel {
 							"./res/cim_iteslalibrary_pwloadpq.xml", equipmentResource);
 					MOClass moload= constructor.create_LoadComponent(mapEnergyC);
 					moload.add_Terminal(mopin);
-					System.out.println(moload.to_ModelicaClass());
-//					System.out.println(moload.to_ModelicaInstance());
+//					System.out.println(moload.to_ModelicaClass());
+					System.out.println(moload.to_ModelicaInstance());
 					//TODO: save this to a file
 					constructor.add_deviceNetwork(moload);
 				}
@@ -76,8 +74,8 @@ public class joke_makeModel {
 						moline.add_Terminal(mopin);
 						constructor.add_deviceNetwork(moline);
 						constructor.set_CurrentEquipment(null, "");
-						System.out.println(moline.to_ModelicaClass());
-//						System.out.println(moline.to_ModelicaInstance());
+//						System.out.println(moline.to_ModelicaClass());
+						System.out.println(moline.to_ModelicaInstance());
 					}
 					else 
 					{/* false, create map of the line and add the first terminal */
@@ -87,8 +85,6 @@ public class joke_makeModel {
 						MOClass moline= constructor.create_LineComponent(mapACLine);
 						moline.add_Terminal(mopin);
 						//TODO: save this to a file
-//						System.out.println(moline.to_ModelicaClass());
-//						System.out.println(moline.to_ModelicaInstance());
 						constructor.set_CurrentEquipment(moline, equipmentResource[0]);
 					}
 				}
@@ -99,8 +95,8 @@ public class joke_makeModel {
 						MOClass mobus= constructor.get_CurrentNode();
 						mobus.add_Terminal(mopin);
 						constructor.add_deviceNetwork(mobus);
-						System.out.println(mobus.to_ModelicaClass());
-//						System.out.println(mobus.to_ModelicaInstance());
+//						System.out.println(mobus.to_ModelicaClass());
+						System.out.println(mobus.to_ModelicaInstance());
 					}
 					else 
 					{/* false, create map of the line and add the first terminal */
@@ -110,8 +106,6 @@ public class joke_makeModel {
 						MOClass mobus= constructor.create_BusComponent(mapTopoNode);
 						mobus.add_Terminal(mopin);
 						//TODO: save this to a file
-//						System.out.println(mobus.to_ModelicaClass());
-//						System.out.println(mobus.to_ModelicaInstance());
 						constructor.set_CurrentNode(mobus, topologyResource[0]);
 					}
 				}	

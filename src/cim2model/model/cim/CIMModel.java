@@ -221,33 +221,39 @@ public class CIMModel {
 		while( iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
-			if ( attributeClass.getPredicate().getLocalName().equals("EnergyConsumer.LoadResponse"))
+			if (attributeClass.getAlt().isLiteral())
 			{
-				//agafar els valor d'aquest component
-				StmtIterator iLoadResponse= attributeClass.getAlt().listProperties();
-				while( iLoadResponse.hasNext() ) 
-				{
-					classAttribute= iLoadResponse.next();
-					if (classAttribute.getAlt().isLiteral())
-					{
-						this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
-					}
-				}
-				iLoadResponse.close();
+				this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getLiteral().getValue());
 			}
-			if ( attributeClass.getPredicate().getLocalName().equals("ConductingEquipment.BaseVoltage"))
+			if (attributeClass.getAlt().isURIResource())
 			{
-				//agafar els valor d'aquest component
-				StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
-				while( svPowerFlowAtts.hasNext() ) 
+				if ( attributeClass.getPredicate().getLocalName().equals("EnergyConsumer.LoadResponse"))
 				{
-					classAttribute= svPowerFlowAtts.next();
-					if (classAttribute.getAlt().isLiteral())
+					StmtIterator iLoadResponse= attributeClass.getAlt().listProperties();
+					while( iLoadResponse.hasNext() ) 
 					{
-						this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
+						classAttribute= iLoadResponse.next();
+						if (classAttribute.getAlt().isLiteral())
+						{
+							this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
+						}
 					}
+					iLoadResponse.close();
 				}
-				svPowerFlowAtts.close();
+				if ( attributeClass.getPredicate().getLocalName().equals("ConductingEquipment.BaseVoltage"))
+				{
+					//agafar els valor d'aquest component
+					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+					while( svPowerFlowAtts.hasNext() ) 
+					{
+						classAttribute= svPowerFlowAtts.next();
+						if (classAttribute.getAlt().isLiteral())
+						{
+							this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
+						}
+					}
+					svPowerFlowAtts.close();
+				}
 			}
 		}
 		return this.attribute;
@@ -271,32 +277,39 @@ public class CIMModel {
 		while( iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
-			if ( attributeClass.getPredicate().getLocalName().equals("TopologicalNode.SvVoltage"))
+			if (attributeClass.getAlt().isLiteral())
 			{
-				//agafar els valor d'aquest component
-				StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
-				while( svPowerFlowAtts.hasNext() ) 
-				{
-					classAttribute= svPowerFlowAtts.next();
-					if (classAttribute.getAlt().isLiteral())
-					{
-						this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
-					}
-				}
-				svPowerFlowAtts.close();
+				this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getLiteral().getValue());
 			}
-			if ( attributeClass.getPredicate().getLocalName().equals("TopologicalNode.BaseVoltage"))
+			if (attributeClass.getAlt().isURIResource())
 			{
-				StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
-				while( svPowerFlowAtts.hasNext() ) 
+				if ( attributeClass.getPredicate().getLocalName().equals("TopologicalNode.SvVoltage"))
 				{
-					classAttribute= svPowerFlowAtts.next();
-					if (classAttribute.getAlt().isLiteral())
+					//agafar els valor d'aquest component
+					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+					while( svPowerFlowAtts.hasNext() ) 
 					{
-						this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
+						classAttribute= svPowerFlowAtts.next();
+						if (classAttribute.getAlt().isLiteral())
+						{
+							this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
+						}
 					}
+					svPowerFlowAtts.close();
 				}
-				svPowerFlowAtts.close();
+				if ( attributeClass.getPredicate().getLocalName().equals("TopologicalNode.BaseVoltage"))
+				{
+					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+					while( svPowerFlowAtts.hasNext() ) 
+					{
+						classAttribute= svPowerFlowAtts.next();
+						if (classAttribute.getAlt().isLiteral())
+						{
+							this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
+						}
+					}
+					svPowerFlowAtts.close();
+				}
 			}
 		}
 		return this.attribute;

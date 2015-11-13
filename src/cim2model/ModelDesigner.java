@@ -147,29 +147,17 @@ public class ModelDesigner
 		// add cim id, used as reference from terminal and connections to other components 
 		mapTerminal.setRfdId(_subjectID[0]);
 		mapTerminal.setCimName(_subjectID[1]);
-//		System.out.print("Terminal Map: ");
-//		System.out.println(mapTerminal.toString());
-//		imapAttList= mapAttList.iterator();
-//		while (imapAttList.hasNext()) {
-//			System.out.println(imapAttList.next().toString());
-//		}
 		
 		this.connections.put(mapTerminal.getRfdId(), 
 				cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1]);
 		this.connections.put(mapTerminal.getRfdId(), 
 				cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]);
 		
-//		Map.Entry<PwPinMap, Resource> entry= new AbstractMap.SimpleEntry<PwPinMap, Resource>(
-//				mapTerminal, (Resource)cimClassMap.get("Terminal.ConductingEquipment"));
-//		return entry;
-		
 		connection= new ConnectMap(mapTerminal, 
 				(Resource)cimClassMap.get("Terminal.ConductingEquipment"),
 				(Resource)cimClassMap.get("Terminal.TopologicalNode"));
 		connection.set_Ce_id(cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1]);
 		connection.set_Tn_id(cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]);
-		
-//		this.connections.add(connection);
 		
 		return connection;
 	}
@@ -211,12 +199,6 @@ public class ModelDesigner
 		// add cim id, used as reference from terminal and connections to other components 
 		mapEnergyC.setRfdId(_subjectID[0]);
 		mapEnergyC.setCimName(_subjectID[1]);
-//		System.out.print("EnergyConsumer Map: ");
-//		System.out.println(mapEnergyC.toString());
-//		imapAttList= mapAttList.iterator();
-//		while (imapAttList.hasNext()) {
-//			System.out.println(imapAttList.next().toString());
-//		}
 		this.equipment.put(mapEnergyC, mapEnergyC.getClass().getName());
 		
 		return mapEnergyC;
@@ -250,12 +232,6 @@ public class ModelDesigner
 		}
 		mapACLine.setRfdId(_subjectID[0]);
 		mapACLine.setCimName(_subjectID[1]);
-//		System.out.print("ACLineSegment Map: ");
-//		System.out.println(mapACLine.toString());
-//		imapAttList= mapAttList.iterator();
-//		while (imapAttList.hasNext()) {
-//			System.out.println(imapAttList.next().toString());
-//		}
 		this.equipment.put(mapACLine, mapACLine.getClass().getName());
 
 		return mapACLine;
@@ -289,14 +265,16 @@ public class ModelDesigner
 		}
 		mapTopoNode.setRfdId(_subjectID[0]);
 		mapTopoNode.setCimName(_subjectID[1]);
-//		System.out.print("ACLineSegment Map: ");
-//		System.out.println(mapACLine.toString());
-//		imapAttList= mapAttList.iterator();
-//		while (imapAttList.hasNext()) {
-//			System.out.println(imapAttList.next().toString());
-//		}
 		this.equipment.put(mapTopoNode, mapTopoNode.getClass().getName());
 		
 		return mapTopoNode;
 	}
+	
+	/* extends QuiescentModelWithInheritance(gamma=0.3, delta=0.01); 
+	 * will focus on create the high level model from cim, with
+	 * component instances
+	 * connect equations
+	 * loading the components from the library, that means that the first step of the conversion
+	 * will use the components of the library
+	 */
 }

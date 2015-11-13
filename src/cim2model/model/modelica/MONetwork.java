@@ -1,6 +1,7 @@
 package cim2model.model.modelica;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Class with the definition of a high level modelica class, aka model
@@ -51,6 +52,22 @@ public class MONetwork extends MOModel
 	 */
 	public void add_Connection(MOConnect _value){
 		this.conexions.add(_value);
+	}
+	public boolean exist_Connection(MOConnect _value){
+		boolean exists= false;
+		MOConnect current;
+		
+		Iterator<MOConnect> iconnections= this.conexions.iterator();
+		while (!exists && iconnections.hasNext())
+		{
+			current= iconnections.next();
+			exists= (current.get_connection_U().equals(_value.get_connection_U()) &&
+					current.get_connection_Y().equals(_value.get_connection_Y())) ||
+					(current.get_connection_U().equals(_value.get_connection_Y()) &&
+					current.get_connection_Y().equals(_value.get_connection_U()));
+		}
+		
+		return exists;
 	}
 	
 	public String to_ModelicaClass()

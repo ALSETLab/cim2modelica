@@ -1,6 +1,7 @@
 package cim2model.model.modelica;
 
 import java.util.Map;
+import java.util.AbstractMap;
 
 /**
  * Implementation of a tuple, to store pair of MOClass that are connected to each other
@@ -9,8 +10,7 @@ import java.util.Map;
  */
 public class MOConnect 
 {
-	public final Map.Entry<MOClass, MOConnector> component_u;
-    public final Map.Entry<MOClass, MOConnector> component_y;
+	private Map.Entry<String, String> conexio;
 	public final String id_component_u, pin_component_u;
 	public final String id_component_y, pin_component_y;
     
@@ -20,16 +20,22 @@ public class MOConnect
       this.pin_component_u = _pin_u;
       this.id_component_y = _y;
       this.pin_component_y = _pin_y;
-      this.component_u= null;
-      this.component_y= null;
+      this.conexio= new AbstractMap.SimpleEntry<String, String>(
+    			_u+ "."+ _pin_u, _y+ "."+ _pin_y);
     }
     
-//    @Override
-//    public String toString() 
-//    { //TODO: arreglar
-//      return String.format("(%s, %s)", component_u, component_y);
-//    }
+    public String get_connection_U(){
+    	return this.conexio.getKey();
+    }
     
+    public String get_connection_Y(){
+    	return this.conexio.getValue();
+    }
+    
+    /**
+     * 
+     * @return
+     */
     public String to_ModelicaEquation()
     {
     	String code= "";

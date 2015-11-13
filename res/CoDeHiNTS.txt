@@ -26,3 +26,19 @@ while( svPowerFlowAtts.hasNext() )
 		System.out.println(svPFAttribute.getString());
 	}
 }
+
+//possible output from terminal
+Map.Entry<PwPinMap, Resource> entry= new AbstractMap.SimpleEntry<PwPinMap, Resource>(
+		mapTerminal, (Resource)cimClassMap.get("Terminal.ConductingEquipment"));
+return entry;
+
+Map.Entry<PwPinMap,Resource> mapa= 
+	cartografo.create_TerminalModelicaMap(key, "./res/cim_iteslalibrary_pwpin.xml", subjectResource);
+	
+//print the map 	
+System.out.print("Terminal Map: ");
+System.out.println(mapTerminal.toString());
+imapAttList= mapAttList.iterator();
+while (imapAttList.hasNext()) {
+	System.out.println(imapAttList.next().toString());
+}

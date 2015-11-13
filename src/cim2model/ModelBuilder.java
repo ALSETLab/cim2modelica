@@ -239,7 +239,7 @@ public class ModelBuilder
 						/* retrieve the pins of the second component */
 						iPinConnectat= componentConnectat.get_Terminals().iterator();
 						do
-						{
+						{//si hay buses, comprovar las connexiones componente bus, no componente componente
 							pinConnectat= iPinConnectat.next();
 							System.out.println("pin 2 "+ pin.get_InstanceName());
 							trobat= pin.get_InstanceName().equals(pinConnectat.get_InstanceName());
@@ -249,7 +249,8 @@ public class ModelBuilder
 						if (trobat){ /*if pin name are equal, connect */
 							conexio= new MOConnect(component.get_InstanceName(),pin.get_InstanceName(),
 									componentConnectat.get_InstanceName(), pinConnectat.get_InstanceName());
-							this.powsys.add_Connection(conexio);
+							if (!this.powsys.exist_Connection(conexio))
+								this.powsys.add_Connection(conexio);
 						}
 					}
 				}
