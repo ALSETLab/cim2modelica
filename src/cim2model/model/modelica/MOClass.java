@@ -1,6 +1,7 @@
 package cim2model.model.modelica;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Generic class for implementing the declaration of a modelica class. this class will be used to store 
@@ -26,7 +27,7 @@ public class MOClass extends MOModel
 		this.terminals= new ArrayList<MOConnector>();
 		this.equations= new ArrayList<MOEquation>();
 	}
-	
+
 	/**
 	 * @return the instanceName
 	 */
@@ -101,12 +102,7 @@ public class MOClass extends MOModel
 	public void add_Attribute(ArrayList<MOAttribute> attributes) {
 		this.attributes = attributes;
 	}
-	/**
-	 * @return the terminals
-	 */
-	public ArrayList<MOConnector> get_Terminals() {
-		return terminals;
-	}
+	
 	/**
 	 * 
 	 * @param variable
@@ -119,6 +115,28 @@ public class MOClass extends MOModel
 	 */
 	public void add_Terminal(ArrayList<MOConnector> terminals) {
 		this.terminals = terminals;
+	}
+	/**
+	 * @return the terminals
+	 */
+	public ArrayList<MOConnector> get_Terminals() {
+		return terminals;
+	}
+	public MOConnector get_Terminal(String _rfdId)
+	{
+		MOConnector current;
+		Iterator<MOConnector> iPins;
+		
+		iPins= this.terminals.iterator();
+		boolean exists= false;
+		do {
+			current= iPins.next();
+			exists= current.get_RfdId().equals(_rfdId);
+		} while (!exists && iPins.hasNext());
+		if (exists)
+			return current;
+		else
+			return null;
 	}
 	
 	/**
@@ -204,11 +222,11 @@ public class MOClass extends MOModel
 //		pencil.append(this.variability);
 //		pencil.append(" ");
 		pencil.append(this.pakage);
-		pencil.append(" ");
+		pencil.append(".");
 		pencil.append(this.name);
 		pencil.append(" ");
 		pencil.append(this.instanceName);
-		pencil.append(" (");
+		pencil.append("(");
 		for (MOAttribute item: this.attributes)
 		{
 			if (item.get_Variability().equals("parameter")){

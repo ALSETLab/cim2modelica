@@ -94,21 +94,27 @@ public class ModelBuilder
 				pin.set_InstanceName(current.getContent());
 			}
 			else{
-				MOAttribute param= new MOAttribute();
-				param.set_Name(current.getMoName());
-				param.set_Value(current.getContent());
-				param.set_Variability(current.getVariability());
-				param.set_Visibility(current.getVisibility());
-				param.set_Flow(Boolean.valueOf(current.getFlow()));
-				pin.set_Attribute(param);
+				MOAttribute variable= new MOAttribute();
+				variable.set_Name(current.getMoName());
+				variable.set_Value(current.getContent());
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+				pin.set_Attribute(variable);
 			}
 		}
 		pin.set_Stereotype(_terminalMap.getStereotype());
 		pin.set_Package(_terminalMap.getPackage());
+		//for internal identification only
+		pin.set_RfdId(_terminalMap.getRfdId());
 		
 		return pin;
 	}
 	
+	/**
+	 * 
+	 * @param _component
+	 */
 	public void add_deviceNetwork(MOClass _component)
 	{
 		Iterator<MOClass> iComponents= this.powsys.get_Components().iterator();
@@ -119,9 +125,84 @@ public class ModelBuilder
 		if (!exists)
 			this.powsys.add_Component(_component);
 	}
+	/**
+	 * 
+	 * @param _component
+	 */
+//	public void update_deviceNetwork(MOClass _component, MOConnector _terminal)
+//	{
+//		MOClass current;
+//		Iterator<MOClass> iComponents;
+//		
+//		iComponents= this.powsys.get_Components().iterator();
+//		boolean exists= false;
+//		do {
+//			current= iComponents.next();
+//			exists= current.get_InstanceName().equals(_component.get_InstanceName());
+//		} while (!exists && iComponents.hasNext());
+//		if (exists)
+//			current.add_Terminal(_terminal);
+//	}
+	/**
+	 * 
+	 * @param _rfdId
+	 * @return
+	 */
+	public MOClass get_equipmentNetwork(String _rfdId)
+	{
+		MOClass current= new MOClass("void");
+		Iterator<MOClass> iComponents;
+		
+		iComponents= this.powsys.get_Components().iterator();
+		boolean exists= false;
+		while (!exists && iComponents.hasNext()){
+			current= iComponents.next();
+			exists= current.get_RfdId().equals(_rfdId);
+		}
+		if (exists)
+			return current;
+		else
+			return null;
+	}
+	
+	public MOClass create_MachineComponent(GENSALMap _mapSyncMach)
+	{
+		MOClass syncMach= new MOClass(_mapSyncMach.getName());
+		ArrayList<MapAttribute> mapAttList= 
+				(ArrayList<MapAttribute>)_mapSyncMach.getMapAttribute();
+		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		imapAttList= mapAttList.iterator();
+		MapAttribute current;
+		while (imapAttList.hasNext()) {
+			current= imapAttList.next();
+			if (current.getCimName().equals("IdentifiedObject.name")){
+				syncMach.set_InstanceName(current.getContent());
+			}
+			else{ //TODO check current.getContent(), if null then 0
+				MOAttribute variable= new MOAttribute();
+				variable.set_Name(current.getMoName());
+				variable.set_Value(current.getContent());
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+				syncMach.add_Attribute(variable);
+			}
+		}
+		syncMach.set_Stereotype(_mapSyncMach.getStereotype());
+		syncMach.set_Package(_mapSyncMach.getPackage());
+		//for internal identification only
+		syncMach.set_RfdId(_mapSyncMach.getRfdId());
+		
+		return syncMach;
+	}
+	
+//	public MOClass create_LoadComponent(ConstantLoadMap _mapEnergyC)
+//	{
+//		
+//	}
 	
 	public MOClass create_LoadComponent(PwLoadPQMap _mapEnergyC)
-	{
+	{//TODO values for pfixed/qfixed in CIM are in %, convert to p.u. in code
 		MOClass pwLoad= new MOClass(_mapEnergyC.getName());
 		ArrayList<MapAttribute> mapAttList= 
 				(ArrayList<MapAttribute>)_mapEnergyC.getMapAttribute();
@@ -134,17 +215,19 @@ public class ModelBuilder
 				pwLoad.set_InstanceName(current.getContent());
 			}
 			else{
-				MOAttribute param= new MOAttribute();
-				param.set_Name(current.getMoName());
-				param.set_Value(current.getContent());
-				param.set_Variability(current.getVariability());
-				param.set_Visibility(current.getVisibility());
-				param.set_Flow(Boolean.valueOf(current.getFlow()));
-				pwLoad.add_Attribute(param);
+				MOAttribute variable= new MOAttribute();
+				variable.set_Name(current.getMoName());
+				variable.set_Value(current.getContent());
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+				pwLoad.add_Attribute(variable);
 			}
 		}
 		pwLoad.set_Stereotype(_mapEnergyC.getStereotype());
 		pwLoad.set_Package(_mapEnergyC.getPackage());
+		//for internal identification only
+		pwLoad.set_RfdId(_mapEnergyC.getRfdId());
 		
 		return pwLoad;
 	}
@@ -162,23 +245,25 @@ public class ModelBuilder
 				pwline.set_InstanceName(current.getContent());
 			}
 			else{
-				MOAttribute param= new MOAttribute();
-				param.set_Name(current.getMoName());
-				param.set_Value(current.getContent());
-				param.set_Variability(current.getVariability());
-				param.set_Visibility(current.getVisibility());
-				param.set_Flow(Boolean.valueOf(current.getFlow()));
-				pwline.add_Attribute(param);
+				MOAttribute variable= new MOAttribute();
+				variable.set_Name(current.getMoName());
+				variable.set_Value(current.getContent());
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+				pwline.add_Attribute(variable);
 			}
 		}
 		pwline.set_Stereotype(_mapACLine.getStereotype());
 		pwline.set_Package(_mapACLine.getPackage());
+		//for internal identification only
+		pwline.set_RfdId(_mapACLine.getRfdId());
 		
 		return pwline;
 	}
 	
 	public MOClass create_BusComponent(PwBusMap _mapTopoNode)
-	{
+	{//TODO BusExt2 is a model with nu and no (input terminals and output terminals
 		MOClass pwbus= new MOClass(_mapTopoNode.getName());
 		ArrayList<MapAttribute> mapAttList= 
 				(ArrayList<MapAttribute>)_mapTopoNode.getMapAttribute();
@@ -190,70 +275,48 @@ public class ModelBuilder
 				pwbus.set_InstanceName(current.getContent());
 			}
 			else {
-				MOAttribute param= new MOAttribute();
-				param.set_Name(current.getMoName());
-				param.set_Value(current.getContent());
-				param.set_Variability(current.getVariability());
-				param.set_Visibility(current.getVisibility());
-				param.set_Flow(Boolean.valueOf(current.getFlow()));
-				pwbus.add_Attribute(param);
+				MOAttribute variable= new MOAttribute();
+				variable.set_Name(current.getMoName());
+				variable.set_Value(current.getContent());
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+				pwbus.add_Attribute(variable);
 			}
 		}
 		pwbus.set_Stereotype(_mapTopoNode.getStereotype());
 		pwbus.set_Package(_mapTopoNode.getPackage());
+		//for internal identification only
+		pwbus.set_RfdId(_mapTopoNode.getRfdId());
 		
 		return pwbus;
 	}
 	
-	public void connect_Components()
+	public void connect_Components(ArrayList<ConnectionMap> _connectmap)
 	{
-		System.out.println(this.powsys.to_ModelicaClass());
-		MOClass component, componentConnectat;
-		MOConnector pin, pinConnectat;
-		boolean trobat;
+		Iterator<ConnectionMap> iConnections= _connectmap.iterator();
+		ConnectionMap current;
+		MOClass equipment, bus; 
 		MOConnect conexio;
-		//recorregut components de la xarxa
-		Iterator<MOClass> iComponents= this.powsys.get_Components().iterator();
-		Iterator<MOClass> iComponentConnectat;
-		Iterator<MOConnector> iPin, iPinConnectat; 
-		while (iComponents.hasNext())
+		
+		
+		while(iConnections.hasNext())
 		{
-			/* retrieve first component to connect */
-			component= iComponents.next(); 
-			System.out.println("component 1 "+ component.get_InstanceName());
-			iPin= component.get_Terminals().iterator();
-			while (iPin.hasNext())
+			try { //TODO: check equipment not null, still some equipment missing to map
+			current= iConnections.next();
+			System.out.println(current.toString());
+			equipment= this.get_equipmentNetwork(current.get_Ce_id());
+			bus= this.get_equipmentNetwork(current.get_Tn_id());
+			equipment.get_Terminal(current.get_T_id());
+			bus.get_Terminal(current.get_T_id());
+			conexio= new MOConnect(equipment.get_InstanceName(), equipment.get_Terminal(current.get_T_id()).get_InstanceName(),
+					bus.get_InstanceName(), bus.get_Terminal(current.get_T_id()).get_InstanceName());
+			if (!this.powsys.exist_Connection(conexio))
+				this.powsys.add_Connection(conexio);
+			}
+			catch(NullPointerException npe)
 			{
-				/* retrieve pin of the first component */
-				pin= iPin.next();
-				System.out.println("pin 1 "+ pin.get_InstanceName());
-				iComponentConnectat= this.powsys.get_Components().iterator();
-				while (iComponentConnectat.hasNext())
-				{
-					/* retrieve the second component to connect */
-					componentConnectat= iComponentConnectat.next();
-					System.out.println("component 2 "+ componentConnectat.get_InstanceName());
-					/* if first component is different to the second component */
-					if (!component.get_InstanceName().equals(componentConnectat.get_InstanceName()))
-					{
-						/* retrieve the pins of the second component */
-						iPinConnectat= componentConnectat.get_Terminals().iterator();
-						do
-						{//si hay buses, comprovar las connexiones componente bus, no componente componente
-							pinConnectat= iPinConnectat.next();
-							System.out.println("pin 2 "+ pin.get_InstanceName());
-							trobat= pin.get_InstanceName().equals(pinConnectat.get_InstanceName());
-							/* check wheather pin names are equal or not */
-						}
-						while (!trobat && iPinConnectat.hasNext());
-						if (trobat){ /*if pin name are equal, connect */
-							conexio= new MOConnect(component.get_InstanceName(),pin.get_InstanceName(),
-									componentConnectat.get_InstanceName(), pinConnectat.get_InstanceName());
-							if (!this.powsys.exist_Connection(conexio))
-								this.powsys.add_Connection(conexio);
-						}
-					}
-				}
+				System.out.println("Still some equipment left to map");
 			}
 		}
 		System.out.println(this.powsys.to_ModelicaClass());

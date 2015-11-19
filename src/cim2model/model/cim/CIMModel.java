@@ -104,16 +104,16 @@ public class CIMModel {
 //			System.out.println("URIResource -> "+ stmt.getAlt().isURIResource());
 			if (stmt.getAlt().isLiteral())
 			{
-				System.out.println("Literal Value -> "+ stmt.getLiteral().getValue());
+//				System.out.println("Literal Value -> "+ stmt.getLiteral().getValue());
 				this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getLiteral().getValue());
 			}
-			if (stmt.getAlt().isURIResource())
-			{
-				System.out.println("URIResource Value -> "+ stmt.getPredicate());
-//				if (!stmt.getPredicate().getLocalName().equals("type"))
-//					this.retrieveAttributesTerminal(stmt.getResource());
-//				this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getAlt().getLocalName());
-			}
+//			if (stmt.getAlt().isURIResource())
+//			{
+//				System.out.println("URIResource Value -> "+ stmt.getPredicate());
+////				if (!stmt.getPredicate().getLocalName().equals("type"))
+////					this.retrieveAttributesTerminal(stmt.getResource());
+////				this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getAlt().getLocalName());
+//			}
 		}
 		return this.attribute;
 	}
@@ -213,6 +213,60 @@ public class CIMModel {
 	 * @param _subject
 	 * @return
 	 */
+	public Map<String,Object> retrieveAttributesSyncMach(Resource _subject)
+	{ 
+		Statement attributeClass, classAttribute;
+		
+		StmtIterator iAttributes= _subject.listProperties();
+		while( iAttributes.hasNext() ) 
+		{
+			attributeClass= iAttributes.next();
+			if (attributeClass.getAlt().isLiteral())
+			{
+				this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getLiteral().getValue());
+			}
+			if (attributeClass.getAlt().isURIResource())
+			{
+				if ( attributeClass.getPredicate().getLocalName().equals("RotatingMachine.GeneratingUnit"))
+				{
+					StmtIterator iLoadResponse= attributeClass.getAlt().listProperties();
+					while( iLoadResponse.hasNext() ) 
+					{
+						classAttribute= iLoadResponse.next();
+						if (classAttribute.getAlt().isLiteral()) {
+							this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
+						}
+					}
+					iLoadResponse.close();
+				}
+				if ( attributeClass.getPredicate().getLocalName().equals("SynchronousMachine.SynchronousMachineDynamics"))
+				{
+					//agafar els valor d'aquest component
+					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+					while( svPowerFlowAtts.hasNext() ) 
+					{
+						classAttribute= svPowerFlowAtts.next();
+						if (classAttribute.getAlt().isLiteral()) {
+							this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
+						}
+					}
+					svPowerFlowAtts.close();
+				}
+			}
+		}
+		return this.attribute;
+	}
+	
+	/**
+	 * cim_name="SvVoltage.angle" 
+	 * cim_name="SvVoltage.v" 
+	 * cim_name="SvPowerFlow.p" 
+	 * cim_name="SvPowerFlow.q" 
+	 * cim_name="BaseVoltage.nominalVoltage"
+	 * cim_name="BasePower.basePower"
+	 * @param _subject
+	 * @return
+	 */
 	public Map<String,Object> retrieveAttributesEnergyC(Resource _subject)
 	{ 
 		Statement attributeClass, classAttribute;
@@ -233,8 +287,7 @@ public class CIMModel {
 					while( iLoadResponse.hasNext() ) 
 					{
 						classAttribute= iLoadResponse.next();
-						if (classAttribute.getAlt().isLiteral())
-						{
+						if (classAttribute.getAlt().isLiteral()) {
 							this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
 						}
 					}
@@ -247,8 +300,7 @@ public class CIMModel {
 					while( svPowerFlowAtts.hasNext() ) 
 					{
 						classAttribute= svPowerFlowAtts.next();
-						if (classAttribute.getAlt().isLiteral())
-						{
+						if (classAttribute.getAlt().isLiteral()) {
 							this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
 						}
 					}

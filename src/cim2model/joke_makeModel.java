@@ -1,8 +1,11 @@
 package cim2model;
 
 import java.util.Map;
+
 import cim2model.mapping.modelica.*;
+import cim2model.model.cim.CIMTerminal;
 import cim2model.model.modelica.*;
+
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 
@@ -34,13 +37,27 @@ public class joke_makeModel {
 			if (terminalResource[1].equals("Terminal"))
 			{
 				System.out.println("rfd_id: "+ terminalResource[0] + " cim name: "+ terminalResource[1]);
-				ConnectMap conector= 
+				CIMTerminal conector= 
 						cartografo.create_TerminalModelicaMap(key, "./res/cim_iteslalibrary_pwpin.xml", terminalResource);
 				PwPinMap mapTerminal= conector.get_TerminalMap();
 				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
 				/* after loading terminal, load the resource connected to it, aka, ConductingEquipment */
 				equipmentResource= cartografo.get_CIMComponentName(conector.get_ConductingEquipment());
 				topologyResource= cartografo.get_CIMComponentName(conector.get_TopologicalNode());
+				//According to CIM Composer, EC has one terminal
+				if (equipmentResource[1].equals("SynchronousMachine"))
+				{
+					System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
+					GENSALMap mapSyncMach= cartografo.create_MachineModelicaMap(conector.get_ConductingEquipment(), 
+							"./res/cim_iteslalibrary_gensal.xml", equipmentResource);
+					MOClass momachine= constructor.create_MachineComponent(mapSyncMach);
+					momachine.add_Terminal(mopin);
+//					System.out.println(moload.to_ModelicaClass());
+					System.out.println(momachine.to_ModelicaInstance());
+					//TODO: save this to a file
+					constructor.add_deviceNetwork(momachine);
+				}
+				//According to CIM Composer, EC has one terminal
 				if (equipmentResource[1].equals("EnergyConsumer"))
 				{
 					System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
@@ -53,53 +70,46 @@ public class joke_makeModel {
 					//TODO: save this to a file
 					constructor.add_deviceNetwork(moload);
 				}
+				//According to CIM Composer, ACLineSegment has two terminals
 				if (equipmentResource[1].equals("ACLineSegment"))
 				{
-					if (constructor.exist_CurrentEquipment(equipmentResource[0]))
-					{/* condition to check if the line already exist in the model, true, add the second terminal */
-						MOClass moline= constructor.get_CurrentEquipment();
+					MOClass moline= constructor.get_equipmentNetwork(equipmentResource[0]);
+					if (moline!= null){
+						/* condition to check if the line already exist in the model, true, add the second terminal */
 						moline.add_Terminal(mopin);
-						constructor.add_deviceNetwork(moline);
-						constructor.set_CurrentEquipment(null, "");
-//						System.out.println(moline.to_ModelicaClass());
-						System.out.println(moline.to_ModelicaInstance());
 					}
 					else 
 					{/* false, create map of the line and add the first terminal */
 						System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
 						PwLineMap mapACLine= cartografo.create_LineModelicaMap(conector.get_ConductingEquipment(), 
 								"./res/cim_iteslalibrary_pwline.xml", equipmentResource);
-						MOClass moline= constructor.create_LineComponent(mapACLine);
+						moline= constructor.create_LineComponent(mapACLine);
 						moline.add_Terminal(mopin);
-						//TODO: save this to a file
-						constructor.set_CurrentEquipment(moline, equipmentResource[0]);
+						constructor.add_deviceNetwork(moline);
 					}
 				}
+				//According to CIM Composer, TN has 1..N terminals
 				if (topologyResource[1].equals("TopologicalNode"))
-				{
-					if (constructor.exist_CurrentNode(topologyResource[0]))
-					{/* condition to check if the line already exist in the model, true, add the second terminal */
-						MOClass mobus= constructor.get_CurrentNode();
+				{//TODO change type of bus for mapping, use BusExt2 
+					MOClass mobus= constructor.get_equipmentNetwork(topologyResource[0]);
+					if (mobus!= null){
+						/* condition to check if the line already exist in the model, true, add the second terminal */
 						mobus.add_Terminal(mopin);
-						constructor.add_deviceNetwork(mobus);
-//						System.out.println(mobus.to_ModelicaClass());
-						System.out.println(mobus.to_ModelicaInstance());
 					}
-					else 
-					{/* false, create map of the line and add the first terminal */
+					else
+					{
+						/* false, create map of the line and add the first terminal */
 						System.out.println("rfd_id: "+ topologyResource[0] + " cim name: "+ topologyResource[1]);
 						PwBusMap mapTopoNode= cartografo.create_BusModelicaMap(conector.get_TopologicalNode(), 
 										"./res/cim_iteslalibrary_pwbus.xml", topologyResource);
-						MOClass mobus= constructor.create_BusComponent(mapTopoNode);
+						mobus= constructor.create_BusComponent(mapTopoNode);
 						mobus.add_Terminal(mopin);
 						//TODO: save this to a file
-						constructor.set_CurrentNode(mobus, topologyResource[0]);
+						constructor.add_deviceNetwork(mobus);
 					}
 				}	
 			}
 		}
-		//
-		//TODO: Connect components
-		constructor.connect_Components();
+		constructor.connect_Components(cartografo.get_ConnectionMap());
 	}
 }

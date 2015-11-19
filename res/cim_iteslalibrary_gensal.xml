@@ -1,26 +1,26 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_gensal.dtd">
-<GENSALMap cim_name="SynchronousMachine" rfd_id="" package="PowerSystems.Electrical.Machines.PSSE" name="GENCLS" stereotype="class"
-  GeneratingUnit="rfd:resource" SynchronousMachineDynamics="SynchronousMachineTimeConstantReactance">
+<GENSALMap cim_name="SynchronousMachine" rfd_id="" package="PowerSystems.Electrical.Machines.PSSE" name="GENSAL" stereotype="class"
+  GeneratingUnit="GeneratingUnit" SynchronousMachineDynamics="SynchronousMachineTimeConstantReactance">
   <mapAttribute cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">gencls</mapAttribute>
   <mapAttribute cim_name="SvVoltage.v" mo_name="eterm" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="SvVoltage.angle" mo_name="anglev0" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="SvPowerFlow.p" mo_name="pelec" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="SvPowerFlow.q" mo_name="qelec" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
-  <mapAttribute cim_name="GeneratingUnit.baseP" mo_name="Mbase" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="GeneratingUnit.nominalP" mo_name="Mbase" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="BasePower.basePower" mo_name="Sbase" datatype="Real" variability="parameter" visibility="public"></mapAttribute> 
-  <mapAttribute cim_name="statorResistance" mo_name="ra" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="RotatingMachine.statorResistance" mo_name="ra" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="SynchronousMachineTimeConstantReactance.tpdo" mo_name="Tpd0" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="SynchronousMachineTimeConstantReactance.tppdo" mo_name="Tppd0" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="SynchronousMachineTimeConstantReactance.tppqo" mo_name="Tppq0" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
-  <mapAttribute cim_name="Inertia" mo_name="H" datatype="Real" variability="parameter" visibility="public"></mapAttribute>  
-  <mapAttribute cim_name="Damping" mo_name="D" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="RotatingMachine.inertia" mo_name="H" datatype="Real" variability="parameter" visibility="public"></mapAttribute>  
+  <mapAttribute cim_name="RotatingMachine.damping" mo_name="D" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="SynchronousMachineTimeConstantReactance.xDirectSync" mo_name="Xd" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="SynchronousMachineTimeConstantReactance.xQuadSync" mo_name="Xq" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="SynchronousMachineTimeConstantReactance.xDirectTrans" mo_name="Xpd" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="SynchronousMachineTimeConstantReactance.xDirectSubtrans" mo_name="Xppd" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="SynchronousMachineTimeConstantReactance.xQuadSubtrans" mo_name="Xppq" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
-  <mapAttribute cim_name="x" mo_name="Xl" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
-  <mapAttribute cim_name="saturationFactor" mo_name="s10" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
-  <mapAttribute cim_name="saturationFactor120" mo_name="s12" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="SynchronousMachine.x" mo_name="Xl" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="RotatingMachine.saturationFactor" mo_name="s10" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="RotatingMachine.saturationFactor120" mo_name="s12" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
 </GENSALMap>

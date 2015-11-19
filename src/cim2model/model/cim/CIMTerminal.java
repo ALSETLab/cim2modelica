@@ -1,8 +1,15 @@
-package cim2model.mapping.modelica;
+package cim2model.model.cim;
+
+import cim2model.mapping.modelica.PwPinMap;
 
 import com.hp.hpl.jena.rdf.model.Resource;
 
-public class ConnectMap 
+/**
+ * Keeps the relationship of Terminal class with ConductingEquipment and TopologicalNode
+ * @author fragom
+ *
+ */
+public class CIMTerminal 
 {
 	private PwPinMap terminalMap;
 	private Resource conductingEquipment;
@@ -10,7 +17,7 @@ public class ConnectMap
 	private Resource topologicalNode;
 	private String tn_id;
 	
-	public ConnectMap(PwPinMap _terminal, Resource _conductingEquipment,
+	public CIMTerminal(PwPinMap _terminal, Resource _conductingEquipment,
 			Resource _topologicalNode) {
 		super();
 		this.terminalMap = _terminal;

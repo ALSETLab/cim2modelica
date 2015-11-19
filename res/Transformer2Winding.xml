@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by Cimphony RDF XML Serialiser from Open Grid Systems Ltd.
+	 Bundle: com.cimphony.core.emf.rdf v1.0.0
+	Created: 2015-11-19T14:57:35-->
+<rdf:RDF xmlns:cim="http://iec.ch/TC57/2012/CIM-schema-cim16#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <cim:SvVoltage rdf:ID="_90b1fdd4-8a32-11e5-b5f4-080027008896">
+  <cim:SvVoltage.angle>1.9661999940872192</cim:SvVoltage.angle>
+  <cim:SvVoltage.v>237.44049072265625</cim:SvVoltage.v>
+  <cim:SvVoltage.TopologicalNode rdf:resource="#_90b1d6c4-8a32-11e5-b5f4-080027008896"/>
+ </cim:SvVoltage>
+ <cim:PowerTransformerEnd rdf:ID="_90b3d291-8a32-11e5-b5f4-080027008896">
+  <cim:IdentifiedObject.name>T3 TWT3 Primary</cim:IdentifiedObject.name>
+  <cim:TransformerEnd.endNumber>1</cim:TransformerEnd.endNumber>
+  <cim:TransformerEnd.BaseVoltage rdf:resource="#_90b0ec61-8a32-11e5-b5f4-080027008896"/>
+  <cim:TransformerEnd.RatioTapChanger rdf:resource="#_a0954720-8ec4-11e5-9959-080027008896"/>
+  <cim:TransformerEnd.Terminal rdf:resource="#_90b3d292-8a32-11e5-b5f4-080027008896"/>
+  <cim:PowerTransformerEnd.b>0</cim:PowerTransformerEnd.b>
+  <cim:PowerTransformerEnd.g>0</cim:PowerTransformerEnd.g>
+  <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
+  <cim:PowerTransformerEnd.ratedS>0</cim:PowerTransformerEnd.ratedS>
+  <cim:PowerTransformerEnd.ratedU>230</cim:PowerTransformerEnd.ratedU>
+  <cim:PowerTransformerEnd.x>30.999401092529297</cim:PowerTransformerEnd.x>
+  <cim:PowerTransformerEnd.PowerTransformer rdf:resource="#_90b3ab85-8a32-11e5-b5f4-080027008896"/>
+ </cim:PowerTransformerEnd>
+ <cim:Terminal rdf:ID="_90b3d292-8a32-11e5-b5f4-080027008896">
+  <cim:IdentifiedObject.name>T3 T1</cim:IdentifiedObject.name>
+  <cim:Terminal.connected>true</cim:Terminal.connected>
+  <cim:Terminal.sequenceNumber>1</cim:Terminal.sequenceNumber>
+  <cim:Terminal.ConductingEquipment rdf:resource="#_90b3ab85-8a32-11e5-b5f4-080027008896"/>
+  <cim:Terminal.TopologicalNode rdf:resource="#_90b1d6c4-8a32-11e5-b5f4-080027008896"/>
+ </cim:Terminal>
+ <cim:TopologicalNode rdf:ID="_90b09e43-8a32-11e5-b5f4-080027008896">
+  <cim:IdentifiedObject.aliasName>3</cim:IdentifiedObject.aliasName>
+  <cim:IdentifiedObject.name>BUS3</cim:IdentifiedObject.name>
+  <cim:TopologicalNode.BaseVoltage rdf:resource="#_90b09e44-8a32-11e5-b5f4-080027008896"/>
+  <cim:TopologicalNode.SvVoltage rdf:resource="#_90b0c555-8a32-11e5-b5f4-080027008896"/>
+ </cim:TopologicalNode>
+ <cim:TopologicalNode rdf:ID="_90b1d6c4-8a32-11e5-b5f4-080027008896">
+  <cim:IdentifiedObject.aliasName>9</cim:IdentifiedObject.aliasName>
+  <cim:IdentifiedObject.name>BUS9</cim:IdentifiedObject.name>
+  <cim:TopologicalNode.BaseVoltage rdf:resource="#_90b0ec61-8a32-11e5-b5f4-080027008896"/>
+  <cim:TopologicalNode.SvVoltage rdf:resource="#_90b1fdd4-8a32-11e5-b5f4-080027008896"/>
+ </cim:TopologicalNode>
+ <cim:RatioTapChanger rdf:ID="_7acd5ee0-8ec1-11e5-9959-080027008896">
+  <cim:TapChanger.normalStep>1</cim:TapChanger.normalStep>
+  <cim:RatioTapChanger.TransformerEnd rdf:resource="#_90b3d294-8a32-11e5-b5f4-080027008896"/>
+ </cim:RatioTapChanger>
+ <cim:PowerTransformerEnd rdf:ID="_90b3d294-8a32-11e5-b5f4-080027008896">
+  <cim:IdentifiedObject.name>T3 TWT3 Secondary</cim:IdentifiedObject.name>
+  <cim:TransformerEnd.endNumber>2</cim:TransformerEnd.endNumber>
+  <cim:TransformerEnd.BaseVoltage rdf:resource="#_90b09e44-8a32-11e5-b5f4-080027008896"/>
+  <cim:TransformerEnd.RatioTapChanger rdf:resource="#_7acd5ee0-8ec1-11e5-9959-080027008896"/>
+  <cim:TransformerEnd.Terminal rdf:resource="#_90b3f9a0-8a32-11e5-b5f4-080027008896"/>
+  <cim:PowerTransformerEnd.b>0</cim:PowerTransformerEnd.b>
+  <cim:PowerTransformerEnd.g>0</cim:PowerTransformerEnd.g>
+  <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
+  <cim:PowerTransformerEnd.ratedS>0</cim:PowerTransformerEnd.ratedS>
+  <cim:PowerTransformerEnd.ratedU>13.800000190734863</cim:PowerTransformerEnd.ratedU>
+  <cim:PowerTransformerEnd.x>0</cim:PowerTransformerEnd.x>
+  <cim:PowerTransformerEnd.PowerTransformer rdf:resource="#_90b3ab85-8a32-11e5-b5f4-080027008896"/>
+ </cim:PowerTransformerEnd>
+ <cim:Terminal rdf:ID="_90b3f9a0-8a32-11e5-b5f4-080027008896">
+  <cim:IdentifiedObject.name>T3 T2</cim:IdentifiedObject.name>
+  <cim:Terminal.connected>true</cim:Terminal.connected>
+  <cim:Terminal.sequenceNumber>2</cim:Terminal.sequenceNumber>
+  <cim:Terminal.ConductingEquipment rdf:resource="#_90b3ab85-8a32-11e5-b5f4-080027008896"/>
+  <cim:Terminal.TopologicalNode rdf:resource="#_90b09e43-8a32-11e5-b5f4-080027008896"/>
+ </cim:Terminal>
+ <cim:PowerTransformer rdf:ID="_90b3ab85-8a32-11e5-b5f4-080027008896">
+  <cim:IdentifiedObject.name>T3</cim:IdentifiedObject.name>
+ </cim:PowerTransformer>
+ <cim:SvVoltage rdf:ID="_90b0c555-8a32-11e5-b5f4-080027008896">
+  <cim:SvVoltage.angle>4.664299964904785</cim:SvVoltage.angle>
+  <cim:SvVoltage.v>14.144999504089355</cim:SvVoltage.v>
+  <cim:SvVoltage.TopologicalNode rdf:resource="#_90b09e43-8a32-11e5-b5f4-080027008896"/>
+ </cim:SvVoltage>
+ <cim:BaseVoltage rdf:ID="_90b0ec61-8a32-11e5-b5f4-080027008896">
+  <cim:IdentifiedObject.name>230.0KV</cim:IdentifiedObject.name>
+  <cim:BaseVoltage.nominalVoltage>230</cim:BaseVoltage.nominalVoltage>
+ </cim:BaseVoltage>
+ <cim:BaseVoltage rdf:ID="_90b09e44-8a32-11e5-b5f4-080027008896">
+  <cim:IdentifiedObject.name>13.8KV</cim:IdentifiedObject.name>
+  <cim:BaseVoltage.nominalVoltage>13.800000190734863</cim:BaseVoltage.nominalVoltage>
+ </cim:BaseVoltage>
+ <cim:RatioTapChanger rdf:ID="_a0954720-8ec4-11e5-9959-080027008896">
+  <cim:TapChanger.normalStep>1</cim:TapChanger.normalStep>
+  <cim:RatioTapChanger.TransformerEnd rdf:resource="#_90b3d291-8a32-11e5-b5f4-080027008896"/>
+ </cim:RatioTapChanger>
+</rdf:RDF>

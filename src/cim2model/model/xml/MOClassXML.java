@@ -54,6 +54,4 @@ public class MOClassXML
 		}
 		attribute= null;
 	}
-	
-	//TODO: crear el objecto con sus valores, objeto segun el nombre en la fabrica/mapping
 }

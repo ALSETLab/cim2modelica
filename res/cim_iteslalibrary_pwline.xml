@@ -6,6 +6,6 @@
   <mapAttribute cim_name="Conductor.length" mo_name="length" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="ACLineSegment.r" mo_name="R" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="ACLineSegment.x" mo_name="X" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
-  <mapAttribute cim_name="ACLineSegment.bch" mo_name="G" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
-  <mapAttribute cim_name="ACLineSegment.gch" mo_name="B" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="ACLineSegment.gch" mo_name="G" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="ACLineSegment.bch" mo_name="B" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
 </pwLineMap>

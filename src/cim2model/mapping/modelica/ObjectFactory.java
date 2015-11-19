@@ -34,6 +34,15 @@ public class ObjectFactory {
     public ObjectFactory() {
     }
 
+    //MACHINES
+    /**
+     * Create an instance of {@link GENSALMap }
+     * 
+     */
+    public GENSALMap createGENSALMap() {
+        return new GENSALMap();
+    }
+    
     /**
      * Create an instance of {@link PwPinMap }
      * 
@@ -59,19 +68,19 @@ public class ObjectFactory {
     }
     
     /**
-     * Create an instance of {@link PwLoadRXMap }
+     * Create an instance of {@link PwLoadPQMap }
      * 
      */
-    public PwLoadRXMap createPwLoadRXMap() {
-        return new PwLoadRXMap();
+    public PwLoadPQMap createPwLoadPQMap() {
+        return new PwLoadPQMap();
     }
     
     /**
      * Create an instance of {@link PwLoadPQMap }
      * 
      */
-    public PwLoadPQMap createPwLoadPQMap() {
-        return new PwLoadPQMap();
+    public ConstantLoadMap createConstantLoadMap() {
+        return new ConstantLoadMap();
     }
     
     /**
