@@ -262,6 +262,38 @@ public class ModelBuilder
 		return pwline;
 	}
 	
+	public MOClass create_TransformerComponent(TwoWindingTransformerMap _mapPowTrans)
+	{
+		MOClass twtransformer= new MOClass(_mapPowTrans.getName());
+//		System.out.println("_mapPowTrans.getName() "+ _mapPowTrans.getName());
+//		System.out.println("_mapPowTrans.getPowerTransformer() "+ _mapPowTrans.getPowerTransformer());
+		ArrayList<MapAttribute> mapAttList= 
+				(ArrayList<MapAttribute>)_mapPowTrans.getMapAttribute();
+		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		MapAttribute current;
+		while (imapAttList.hasNext()) {
+			current= imapAttList.next();
+			if (current.getCimName().equals("IdentifiedObject.name")){
+				twtransformer.set_InstanceName(current.getContent());
+			}
+			else{
+				MOAttribute variable= new MOAttribute();
+				variable.set_Name(current.getMoName());
+				variable.set_Value(current.getContent());
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+				twtransformer.add_Attribute(variable);
+			}
+		}
+		twtransformer.set_Stereotype(_mapPowTrans.getStereotype());
+		twtransformer.set_Package(_mapPowTrans.getPackage());
+		//for internal identification only
+		twtransformer.set_RfdId(_mapPowTrans.getRfdId());
+		
+		return twtransformer;
+	}
+	
 	public MOClass create_BusComponent(PwBusMap _mapTopoNode)
 	{//TODO BusExt2 is a model with nu and no (input terminals and output terminals
 		MOClass pwbus= new MOClass(_mapTopoNode.getName());

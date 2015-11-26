@@ -34,31 +34,31 @@ public class CIMTerminal
 	/**
 	 * @param terminal the terminal to set
 	 */
-	public void set_Terminal(PwPinMap _terminalMap) {
+	public void set_TerminalMap(PwPinMap _terminalMap) {
 		this.terminalMap = _terminalMap;
 	}
 	/**
 	 * @return the conductingEquipment
 	 */
-	public Resource get_ConductingEquipment() {
+	public Resource get_ConductingEquipmentMap() {
 		return conductingEquipment;
 	}
 	/**
 	 * @param conductingEquipment the conductingEquipment to set
 	 */
-	public void set_ConductingEquipment(Resource _conductingEquipment) {
+	public void set_ConductingEquipmentMap(Resource _conductingEquipment) {
 		this.conductingEquipment = _conductingEquipment;
 	}
 	/**
 	 * @return the topologicalNode
 	 */
-	public Resource get_TopologicalNode() {
+	public Resource get_TopologicalNodeMap() {
 		return topologicalNode;
 	}
 	/**
 	 * @param topologicalNode the topologicalNode to set
 	 */
-	public void set_TopologicalNode(Resource _topologicalNode) {
+	public void set_TopologicalNodeMap(Resource _topologicalNode) {
 		this.topologicalNode = _topologicalNode;
 	}
 	
@@ -86,6 +86,5 @@ public class CIMTerminal
 	public void set_Tn_id(String _tn_id) {
 		this.tn_id = _tn_id;
 	}
-	
 	
 }

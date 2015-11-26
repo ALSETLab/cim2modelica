@@ -42,7 +42,7 @@
   <cim:TopologicalNode.SvVoltage rdf:resource="#_90b1fdd4-8a32-11e5-b5f4-080027008896"/>
  </cim:TopologicalNode>
  <cim:RatioTapChanger rdf:ID="_7acd5ee0-8ec1-11e5-9959-080027008896">
-  <cim:TapChanger.normalStep>1</cim:TapChanger.normalStep>
+  <cim:TapChanger.normalStep>0.65</cim:TapChanger.normalStep>
   <cim:RatioTapChanger.TransformerEnd rdf:resource="#_90b3d294-8a32-11e5-b5f4-080027008896"/>
  </cim:RatioTapChanger>
  <cim:PowerTransformerEnd rdf:ID="_90b3d294-8a32-11e5-b5f4-080027008896">
@@ -83,7 +83,7 @@
   <cim:BaseVoltage.nominalVoltage>13.800000190734863</cim:BaseVoltage.nominalVoltage>
  </cim:BaseVoltage>
  <cim:RatioTapChanger rdf:ID="_a0954720-8ec4-11e5-9959-080027008896">
-  <cim:TapChanger.normalStep>1</cim:TapChanger.normalStep>
+  <cim:TapChanger.normalStep>0.25</cim:TapChanger.normalStep>
   <cim:RatioTapChanger.TransformerEnd rdf:resource="#_90b3d291-8a32-11e5-b5f4-080027008896"/>
  </cim:RatioTapChanger>
 </rdf:RDF>

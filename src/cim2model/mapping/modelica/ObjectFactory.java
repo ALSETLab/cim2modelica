@@ -84,6 +84,14 @@ public class ObjectFactory {
     }
     
     /**
+     * Create an instance of {@link TwoWindingTransformerMap }
+     * 
+     */
+    public TwoWindingTransformerMap createTwoWindingTransformerMap() {
+        return new TwoWindingTransformerMap();
+    }
+    
+    /**
      * Create an instance of {@link MapAttribute }
      * 
      */

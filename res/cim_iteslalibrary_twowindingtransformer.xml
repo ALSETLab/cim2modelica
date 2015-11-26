@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_twowindingtransformer.dtd">
+<twoWindingTransformerMap cim_name="PowerTransformerEnd" rfd_id="" package="PowerSystems.Electrical.Branches.PSSE" name="TwoWindingTransformer" stereotype="class" 
+  PowerTransformer="rfd:resource" RatioTapChanger="rfd:resource" Terminal="rfd:resource">
+  <mapAttribute cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</mapAttribute>
+  <mapAttribute cim_name="PowerTransformerEnd.r" mo_name="R" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="PowerTransformerEnd.x" mo_name="X" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="PowerTransformerEnd.g" mo_name="G" datatype="Real" variability="parameter" visibility="public">1</mapAttribute>
+  <mapAttribute cim_name="PowerTransformerEnd.b" mo_name="B" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="TapChanger.normalStep" mo_name="t1" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="TapChanger.normalStep" mo_name="t2" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+</twoWindingTransformerMap>
