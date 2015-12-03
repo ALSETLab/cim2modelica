@@ -1,4 +1,4 @@
-package cim2model.model.cim;
+package cim2model.cim;
 
 import cim2model.mapping.modelica.PwPinMap;
 

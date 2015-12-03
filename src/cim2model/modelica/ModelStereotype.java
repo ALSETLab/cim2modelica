@@ -1,4 +1,4 @@
-package cim2model.model.modelica;
+package cim2model.modelica;
 
 /**
  * Enumeration class with available model stereotypes in Modelica

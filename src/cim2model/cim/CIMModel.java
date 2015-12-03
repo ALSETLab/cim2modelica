@@ -1,4 +1,4 @@
-package cim2model.model.cim;
+package cim2model.cim;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -352,31 +352,33 @@ public class CIMModel {
 					this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getResource());
 					powTransAtt.close();
 				}
-				if ( attributeClass.getPredicate().getLocalName().equals("TransformerEnd.BaseVoltage"))
-				{
-					//agafar els valor d'aquest component
-					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
-					while( svPowerFlowAtts.hasNext() ) 
-					{
-						attributeSubClass= svPowerFlowAtts.next();
-						if (attributeSubClass.getAlt().isLiteral()) {
-							this.attribute.put(attributeSubClass.getPredicate().getLocalName(), attributeSubClass.getString());
-						}
-					}
-					svPowerFlowAtts.close();
-				}
+//				if ( attributeClass.getPredicate().getLocalName().equals("TransformerEnd.BaseVoltage"))
+//				{
+//					//agafar els valor d'aquest component
+//					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+//					while( svPowerFlowAtts.hasNext() ) 
+//					{
+//						attributeSubClass= svPowerFlowAtts.next();
+//						if (attributeSubClass.getAlt().isLiteral()) {
+//							this.attribute.put(attributeSubClass.getPredicate().getLocalName(), attributeSubClass.getString());
+//						}
+//					}
+//					svPowerFlowAtts.close();
+//				}
 				if ( attributeClass.getPredicate().getLocalName().equals("TransformerEnd.RatioTapChanger"))
 				{
 					//agafar els valor d'aquest component
-					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
-					while( svPowerFlowAtts.hasNext() ) 
+					StmtIterator ratioTapChangerAtt= attributeClass.getAlt().listProperties();
+					while( ratioTapChangerAtt.hasNext() ) 
 					{
-						attributeSubClass= svPowerFlowAtts.next();
+						attributeSubClass= ratioTapChangerAtt.next();
 						if (attributeSubClass.getAlt().isLiteral()) {
 							this.attribute.put(attributeSubClass.getPredicate().getLocalName(), attributeSubClass.getString());
 						}
 					}
-					svPowerFlowAtts.close();
+					/* Add the rfd_id of the TopologicalNode which Terminal is related to */
+					this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getResource());
+					ratioTapChangerAtt.close();
 				}
 				if ( attributeClass.getPredicate().getLocalName().equals("TransformerEnd.Terminal"))
 				{

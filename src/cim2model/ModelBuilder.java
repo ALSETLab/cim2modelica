@@ -1,10 +1,14 @@
 package cim2model;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
 
-import cim2model.model.modelica.*;
+import cim2model.modelica.*;
+import cim2model.modelica.ipsl.branches.PwLine;
+import cim2model.modelica.ipsl.buses.Bus;
 import cim2model.mapping.modelica.*;
 
 public class ModelBuilder 
@@ -22,6 +26,13 @@ public class ModelBuilder
 		this._currentIDNode= "";
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
+	public MONetwork get_Network() {
+		return this.powsys;
+	}
 	/**
 	 * 
 	 * @return
@@ -181,7 +192,10 @@ public class ModelBuilder
 			else{ //TODO check current.getContent(), if null then 0
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getMoName());
-				variable.set_Value(current.getContent());
+				if (current.getContent()== null)
+					variable.set_Value("0");
+				else
+					variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
 				variable.set_Visibility(current.getVisibility());
 				variable.set_Flow(Boolean.valueOf(current.getFlow()));
@@ -217,7 +231,10 @@ public class ModelBuilder
 			else{
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getMoName());
-				variable.set_Value(current.getContent());
+				if (current.getContent()== null)
+					variable.set_Value("0");
+				else
+					variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
 				variable.set_Visibility(current.getVisibility());
 				variable.set_Flow(Boolean.valueOf(current.getFlow()));
@@ -234,7 +251,7 @@ public class ModelBuilder
 	
 	public MOClass create_LineComponent(PwLineMap _mapACLine)
 	{
-		MOClass pwline= new MOClass(_mapACLine.getName());
+		PwLine pwline= new PwLine(_mapACLine.getName());
 		ArrayList<MapAttribute> mapAttList= 
 				(ArrayList<MapAttribute>)_mapACLine.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
@@ -247,7 +264,10 @@ public class ModelBuilder
 			else{
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getMoName());
-				variable.set_Value(current.getContent());
+				if (current.getContent()== null)
+					variable.set_Value("0");
+				else
+					variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
 				variable.set_Visibility(current.getVisibility());
 				variable.set_Flow(Boolean.valueOf(current.getFlow()));
@@ -273,17 +293,23 @@ public class ModelBuilder
 		MapAttribute current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
-			if (current.getCimName().equals("IdentifiedObject.name")){
-				twtransformer.set_InstanceName(current.getContent());
-			}
-			else{
-				MOAttribute variable= new MOAttribute();
-				variable.set_Name(current.getMoName());
-				variable.set_Value(current.getContent());
-				variable.set_Variability(current.getVariability());
-				variable.set_Visibility(current.getVisibility());
-				variable.set_Flow(Boolean.valueOf(current.getFlow()));
-				twtransformer.add_Attribute(variable);
+			if (!current.getCimName().equals("TransformerEnd.endNumber") &&
+					!current.getCimName().equals("TapChanger.step")){
+				if (current.getCimName().equals("IdentifiedObject.name")){
+					twtransformer.set_InstanceName(current.getContent());
+				}
+				else{
+					MOAttribute variable= new MOAttribute();
+					variable.set_Name(current.getMoName());
+					if (current.getContent()== null)
+						variable.set_Value("0");
+					else
+						variable.set_Value(current.getContent());
+					variable.set_Variability(current.getVariability());
+					variable.set_Visibility(current.getVisibility());
+					variable.set_Flow(Boolean.valueOf(current.getFlow()));
+					twtransformer.add_Attribute(variable);
+				}
 			}
 		}
 		twtransformer.set_Stereotype(_mapPowTrans.getStereotype());
@@ -293,10 +319,35 @@ public class ModelBuilder
 		
 		return twtransformer;
 	}
+	public MOAttribute create_TransformerEndAttribute(TwoWindingTransformerMap _mapPowTrans) {
+		// TODO create a new attribute with 
+		MOAttribute variable= new MOAttribute();
+		String sequenceEnd= "0";
+		ArrayList<MapAttribute> mapAttList= 
+				(ArrayList<MapAttribute>)_mapPowTrans.getMapAttribute();
+		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		MapAttribute current;
+		while (imapAttList.hasNext()) {
+			current= imapAttList.next();
+			if (current.getCimName().equals("TransformerEnd.endNumber"))
+				sequenceEnd= current.getContent();
+			if (current.getCimName().equals("TapChanger.step")){
+				variable.set_Name(current.getMoName()+ sequenceEnd);
+				if (current.getContent()== null)
+					variable.set_Value("0");
+				else
+					variable.set_Value(current.getContent());
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+			}
+		}
+		return variable;
+	}
 	
 	public MOClass create_BusComponent(PwBusMap _mapTopoNode)
 	{//TODO BusExt2 is a model with nu and no (input terminals and output terminals
-		MOClass pwbus= new MOClass(_mapTopoNode.getName());
+		Bus pwbus= new Bus(_mapTopoNode.getName());
 		ArrayList<MapAttribute> mapAttList= 
 				(ArrayList<MapAttribute>)_mapTopoNode.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
@@ -309,7 +360,10 @@ public class ModelBuilder
 			else {
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getMoName());
-				variable.set_Value(current.getContent());
+				if (current.getContent()== null)
+					variable.set_Value("0");
+				else
+					variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
 				variable.set_Visibility(current.getVisibility());
 				variable.set_Flow(Boolean.valueOf(current.getFlow()));
@@ -336,7 +390,7 @@ public class ModelBuilder
 		{
 			try { //TODO: check equipment not null, still some equipment missing to map
 			current= iConnections.next();
-			System.out.println(current.toString());
+//			System.out.println(current.toString());
 			equipment= this.get_equipmentNetwork(current.get_Ce_id());
 			bus= this.get_equipmentNetwork(current.get_Tn_id());
 			equipment.get_Terminal(current.get_T_id());
@@ -348,9 +402,30 @@ public class ModelBuilder
 			}
 			catch(NullPointerException npe)
 			{
-				System.out.println("Still some equipment left to map");
+				System.err.println("Still some equipment left to map");
 			}
 		}
 		System.out.println(this.powsys.to_ModelicaClass());
+	}
+	
+	public void save_ModelicaFile(String _moCode)
+	{
+		BufferedWriter writer = null;
+		try {
+			String fitxer= "./model/"+ this.powsys.get_Name()+ ".mo";
+		    writer = new BufferedWriter(new FileWriter(fitxer));
+		    writer.write(_moCode);
+
+		}
+		catch ( IOException _e){
+		}
+		finally {
+		    try{
+		        if ( writer != null)
+		        writer.close( );
+		    }
+		    catch ( IOException _e){
+		    }
+		}
 	}
 }

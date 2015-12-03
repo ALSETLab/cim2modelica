@@ -1,4 +1,4 @@
-package cim2model.model.modelica;
+package cim2model.modelica;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,12 +11,12 @@ import java.util.Iterator;
  */
 public class MOClass extends MOModel
 {
-	private String visibility;
-	private String variability;
-	private String instanceName; 
-	private ArrayList<MOAttribute> attributes;
-	private ArrayList<MOConnector> terminals;
-	private ArrayList<MOEquation> equations;
+	protected String visibility;
+	protected String variability;
+	protected String instanceName; 
+	protected ArrayList<MOAttribute> attributes;
+	protected ArrayList<MOConnector> terminals;
+	protected ArrayList<MOEquation> equations;
 	
 	public MOClass(String _name) 
 	{
@@ -247,4 +247,10 @@ public class MOClass extends MOModel
 		
 		return code;
 	}
+	
+	@Override
+    public String toString()
+    {
+    	return this.stereotype+ ", "+ this.pakage+ ", "+ this.instanceName+ ", "+ this.get_RfdId();
+    }
 }

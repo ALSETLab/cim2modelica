@@ -1,8 +1,7 @@
-package cim2model.model.modelica;
+package cim2model.modelica;
 
 import cim2model.io.XMLReaderJDOM;
-import cim2model.model.modelica.*;
-import cim2model.model.xml.*;;
+import cim2model.model.xml.*;
 
 /**
  * This class has the responsability to create the corresponding mapping to generate modelica classes. 

@@ -7,4 +7,4 @@
  * @author fragom
  *
  */
-package cim2model.model.modelica;
+package cim2model.modelica;

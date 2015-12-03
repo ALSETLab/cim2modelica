@@ -6,8 +6,8 @@ import java.util.List;
 import org.jdom2.Element;
 
 import cim2model.io.XMLReaderJDOM;
-import cim2model.model.modelica.MOConnector;
-import cim2model.model.modelica.MOModel;
+import cim2model.modelica.MOConnector;
+import cim2model.modelica.MOModel;
 
 public class MOConnectorXML 
 {

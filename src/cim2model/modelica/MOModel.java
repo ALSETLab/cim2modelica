@@ -1,4 +1,4 @@
-package cim2model.model.modelica;
+package cim2model.modelica;
 
 /**
  * Generic class which contains general attributes to create a Modelica class

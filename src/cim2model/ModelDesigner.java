@@ -13,11 +13,11 @@ import javax.xml.bind.Unmarshaller;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 
+import cim2model.cim.CIMModel;
+import cim2model.cim.CIMTerminal;
+import cim2model.cim.CIMTransformerEnd;
 import cim2model.io.CIMReaderJENA;
 import cim2model.mapping.modelica.*;
-import cim2model.model.cim.CIMModel;
-import cim2model.model.cim.CIMTerminal;
-import cim2model.model.cim.CIMTransformerEnd;
 
 //TODO in the map, the content of the tags mapAttribute are the default values from iPSL
 
@@ -157,17 +157,12 @@ public class ModelDesigner
 		this.connections.add(new ConnectionMap(mapTerminal.getRfdId(),
 				cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1],
 				cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]));
-//		System.out.println("felisitasiones!");
-//		System.out.println(cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1]);
-//		System.out.println(cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]);
 		
 		connection= new CIMTerminal(mapTerminal, 
 				(Resource)cimClassMap.get("Terminal.ConductingEquipment"),
 				(Resource)cimClassMap.get("Terminal.TopologicalNode"));
 		connection.set_Ce_id(cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1]);
 		connection.set_Tn_id(cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]);
-//		connection.set_TransformerEndMap((Resource)cimClassMap.get("Terminal.TransformerEnd"));
-//		connection.set_Te_id(cimClassMap.get("Terminal.TransformerEnd").toString().split("#")[1]);
 		
 		return connection;
 	}
@@ -316,34 +311,24 @@ public class ModelDesigner
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
 		mapPowTrans.setPowerTransformer(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString());
+		mapPowTrans.setPowerTransformer(cimClassMap.get("TransformerEnd.RatioTapChanger").toString());
 		mapPowTrans.setTerminal(cimClassMap.get("TransformerEnd.Terminal").toString());
 		
 		// add cim id, used as reference from terminal and connections to other components 
-		mapPowTrans.setRfdId(_subjectID[0]);
+		mapPowTrans.setRfdId(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
 		mapPowTrans.setCimName(_subjectID[1]);
+		this.equipment.put(mapPowTrans, mapPowTrans.getClass().getName());
 		
 		transformerEnd= new CIMTransformerEnd(mapPowTrans, 
 				(Resource)cimClassMap.get("PowerTransformerEnd.PowerTransformer"),
+				(Resource)cimClassMap.get("TransformerEnd.RatioTapChanger"),
 				(Resource)cimClassMap.get("TransformerEnd.Terminal"));
 		transformerEnd.set_Pt_id(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
-//		transformerEnd.set_Rtc_id(cimClassMap.get("TransformerEnd.Terminal").toString().split("#")[1]);
+		transformerEnd.set_Rtc_id(cimClassMap.get("TransformerEnd.RatioTapChanger").toString().split("#")[1]);
 		transformerEnd.set_Te_id(cimClassMap.get("TransformerEnd.Terminal").toString().split("#")[1]);
 		
 		return transformerEnd;
 	}
-	public void create_TransformerConnectionMap(PwPinMap _mapTerminal)
-	{
-		//TODO how to add connection, the map will only care of one end of the transformer: 
-				//one ratioTapChanger and one PowerTransformerEnd
-		this.connections.add(new ConnectionMap(_mapTerminal.getRfdId(),
-				_mapTerminal.getConductingEquipment().toString().split("#")[1],
-				_mapTerminal.getTopologicalNode().toString().split("#")[1]));
-		
-		System.out.println("felisitasiones!");
-		System.out.println(_mapTerminal.getConductingEquipment().toString().split("#")[1]);
-		System.out.println(_mapTerminal.getTopologicalNode().toString().split("#")[1]);
-	}
-	
 	
 	private static PwBusMap pwbusXMLToObject(String _xmlmap) {
 		JAXBContext context;

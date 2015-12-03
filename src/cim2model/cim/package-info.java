@@ -6,4 +6,4 @@
  * @author fragom
  *
  */
-package cim2model.model.cim;
+package cim2model.cim;
