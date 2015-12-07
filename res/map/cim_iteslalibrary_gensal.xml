@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_gensal.dtd">
-<GENSALMap cim_name="SynchronousMachine" rfd_id="" package="PowerSystems.Electrical.Machines.PSSE" name="GENSAL" stereotype="class"
+<GENSALMap cim_name="SynchronousMachine" rfd_id="" package="PowerSystems.Electrical.Machines.PSSE.GENSAL" name="GENSAL" stereotype="class"
   GeneratingUnit="GeneratingUnit" SynchronousMachineDynamics="SynchronousMachineTimeConstantReactance">
   <mapAttribute cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">gencls</mapAttribute>
   <mapAttribute cim_name="SvVoltage.v" mo_name="eterm" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
@@ -9,7 +9,7 @@
   <mapAttribute cim_name="SvPowerFlow.q" mo_name="qelec" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="GeneratingUnit.nominalP" mo_name="Mbase" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="BasePower.basePower" mo_name="Sbase" datatype="Real" variability="parameter" visibility="public"></mapAttribute> 
-  <mapAttribute cim_name="RotatingMachine.statorResistance" mo_name="ra" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="RotatingMachine.statorResistance" mo_name="Ra" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="SynchronousMachineTimeConstantReactance.tpdo" mo_name="Tpd0" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="SynchronousMachineTimeConstantReactance.tppdo" mo_name="Tppd0" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
   <mapAttribute cim_name="SynchronousMachineTimeConstantReactance.tppqo" mo_name="Tppq0" datatype="Real" variability="parameter" visibility="public"></mapAttribute>

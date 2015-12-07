@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_pwbus.dtd">
+<pwBusMap cim_name="TopologicalNode" rfd_id="" package="PowerSystems.Electrical.Buses" name="Bus" stereotype="class">
+  <mapAttribute cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</mapAttribute>
+  <mapAttribute cim_name="SvVoltage.v" mo_name="v" datatype="Real" variability="none" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="SvVoltage.angle" mo_name="anglev" datatype="Real" variability="none" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="BaseVoltage.nominalVoltage" mo_name="V_base" datatype="Real" variability="parameter" visibility="public">1</mapAttribute>
+  <mapAttribute cim_name="BasePower.basePower" mo_name="S_base" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+</pwBusMap>

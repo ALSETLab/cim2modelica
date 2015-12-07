@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_pwloadrx.dtd">
+<pwLoadRXMap package="PowerSystems.Electrical.Loads" name="PwLoadRX" stereotype="class">
+ <cimAttribute name="EnergyConsumer.grounded">false</cimAttribute>
+  <cimAttribute name="EnergyConsumer.customerCount">100</cimAttribute>
+  <cimAttribute name="EnergyConsumer.p">1.1</cimAttribute>
+  <cimAttribute name="EnergyConsumer.q">0.1</cimAttribute>
+  <cimAttribute name="LoadResponseCharacteristic.pConstantImpedance">1.0</cimAttribute>
+  <cimAttribute name="LoadResponseCharacteristic.qConstantImpedance">0.1</cimAttribute>
+  <cimAttribute id="_ba5cfd80-41c4-11e5-9b3e-080027008896" name="Terminal.IdentifiedObject.aliasName">u</cimAttribute>
+  <cimAttribute name="TopologicalNode.SvVoltage.angle" terminalId="_ba5cfd80-41c4-11e5-9b3e-080027008896">0.1</cimAttribute>
+  <cimAttribute name="TopologicalNode.SvVoltage.v" terminalId="_ba5cfd80-41c4-11e5-9b3e-080027008896">1.0</cimAttribute>
+  <moAttribute name="u" datatype="PowerSystems.Connectors.PwPin" variability="none" visibility="public">0</moAttribute>
+  <moAttribute name="R" datatype="Real" variability="parameter" visibility="public">0</moAttribute>
+  <moAttribute name="X" datatype="Real" variability="parameter" visibility="public">0</moAttribute>
+</pwLoadRXMap>

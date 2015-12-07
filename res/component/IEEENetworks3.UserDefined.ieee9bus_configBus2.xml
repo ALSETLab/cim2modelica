@@ -1,0 +1,3451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenModelicaModelDescription
+  xmlns:exp="https://svn.jmodelica.org/trunk/XML/daeExpressions.xsd"
+  xmlns:equ="https://svn.jmodelica.org/trunk/XML/daeEquations.xsd"
+  xmlns:fun="https://svn.jmodelica.org/trunk/XML/daeFunctions.xsd"
+  xmlns:opt="https://svn.jmodelica.org/trunk/XML/daeOptimization.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  fmiVersion="1.0"
+  modelName="IEEENetworks3.UserDefined.ieee9bus_configBus2"
+  modelIdentifier="IEEENetworks3_UserDefined_ieee9bus_configBus2"
+  guid="{8c4e810f-3df3-4a00-8276-176fa3c9f9e0}"
+  generationDateAndTime="2015-12-07T19:29:55"
+  variableNamingConvention="Structured"
+  numberOfContinuousStates="6"
+  numberOfEventIndicators="0"
+  >
+  
+  <VendorAnnotations>
+    <Tool name="OpenModelica Compiler v1.9.3"> </Tool>
+  </VendorAnnotations>
+
+
+  <ModelVariables>
+    <ScalarVariable name="genrou1.Epd" description="d-axis voltage behind transient reactance" valueReference="0" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Epd"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>state</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Epq" description="q-axis voltage behind transient reactance" valueReference="1" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Epq"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>state</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIkd" description="d-axis rotor flux linkage" valueReference="2" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIkd"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>state</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIkq" description="q-axis rotor flux linkage" valueReference="3" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIkq"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>state</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.delta" description="load angle" valueReference="4" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="delta"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>state</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.w" description="machine speed deviation, p.u." valueReference="5" variability="continuous" causality="internal" alias="">
+      <Real start="0.0" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="w"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>state</VariableCategory>
+    </ScalarVariable> 
+    <ScalarVariable name="der(genrou1.Epd)" description="d-axis voltage behind transient reactance" valueReference="6" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Epd"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>derivative</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="der(genrou1.Epq)" description="q-axis voltage behind transient reactance" valueReference="7" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Epq"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>derivative</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="der(genrou1.PSIkd)" description="d-axis rotor flux linkage" valueReference="8" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIkd"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>derivative</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="der(genrou1.PSIkq)" description="q-axis rotor flux linkage" valueReference="9" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIkq"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>derivative</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="der(genrou1.delta)" description="load angle" valueReference="10" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="delta"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>derivative</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="der(genrou1.w)" description="machine speed deviation, p.u." valueReference="11" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="w"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>derivative</VariableCategory>
+    </ScalarVariable> 
+    <ScalarVariable name="genrou1.ETERM"  valueReference="12" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="ETERM"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.I" description="terminal current magnitude" valueReference="13" variability="continuous" causality="internal" alias="">
+      <Real start="1.584894806459024" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="I"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Isource"  valueReference="14" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Isource"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.P" description="Active power in p.u. on System base" valueReference="15" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="P"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PELEC" description="p.u. on Machine base" valueReference="16" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PELEC"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSId" description="d-axis flux linkage" valueReference="17" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSId"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIpp" description="air-gap flux" valueReference="18" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIpp"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIppd" description="d-axis subtransient flux linkage" valueReference="19" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIppd"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIppq" description="q-axis subtransient flux linkage" valueReference="20" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIppq"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIq" description="q-axis flux linkage" valueReference="21" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIq"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Q" description="Reactive power in p.u. on System base" valueReference="22" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Q"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Te" description="Electrical torque in p.u. machinebase" valueReference="23" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Te"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.XaqIlq" description="Ed, emf" valueReference="24" variability="continuous" causality="internal" alias="">
+      <Real start="0.0" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="XaqIlq"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.anglei" description="terminal current angle" valueReference="25" variability="continuous" causality="internal" alias="">
+      <Real start="-3.036033698744795" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="anglei"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.anglev" description="Bus voltage angle" valueReference="26" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="anglev"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.id" description="d-axis armature current" valueReference="27" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="id"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.iq" description="q-axis armature current" valueReference="28" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="iq"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.ud" description="d-axis terminal voltage" valueReference="29" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="ud"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.uq" description="q-axis terminal voltage" valueReference="30" variability="continuous" causality="internal" alias="">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="uq"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="pwpin1.ii"  valueReference="31" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="pwpin1"/>
+        <exp:QualifiedNamePart name="ii"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="pwpin1.ir"  valueReference="32" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="pwpin1"/>
+        <exp:QualifiedNamePart name="ir"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="pwpin1.vi"  valueReference="33" variability="continuous" causality="internal" alias="">
+      <Real start="0.1643616719789144" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="pwpin1"/>
+        <exp:QualifiedNamePart name="vi"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="pwpin1.vr"  valueReference="34" variability="continuous" causality="internal" alias="">
+      <Real start="1.016801475600963" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="pwpin1"/>
+        <exp:QualifiedNamePart name="vr"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+    <ScalarVariable name="genrou1.ANGLE"  valueReference="35" variability="continuous" causality="internal" alias="genrou1.delta">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="ANGLE"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.EFD"  valueReference="36" variability="continuous" causality="internal" alias="genrou1.EFD_0">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="EFD"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.EFD0"  valueReference="37" variability="continuous" causality="internal" alias="genrou1.EFD_0">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="EFD0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PMECH"  valueReference="38" variability="continuous" causality="internal" alias="genrou1.PMECH_0">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PMECH"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PMECH0"  valueReference="39" variability="continuous" causality="internal" alias="genrou1.PMECH_0">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PMECH0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.SPEED"  valueReference="40" variability="continuous" causality="internal" alias="genrou1.w">
+      <Real start="0.0" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="SPEED"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Vt" description="Bus voltage magnitude" valueReference="41" variability="continuous" causality="internal" alias="genrou1.ETERM">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Vt"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.XADIFD"  valueReference="42" variability="continuous" causality="internal" alias="genrou1.Isource">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="XADIFD"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.XadIfd" description="Eq, emf" valueReference="43" variability="continuous" causality="internal" alias="genrou1.Isource">
+      <Real start="*ERROR* initial value of unknown type" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="XadIfd"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.p.ii"  valueReference="44" variability="continuous" causality="internal" alias="pwpin1.ii">
+      <Real start="-0.1669893172389049" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="p"/>
+        <exp:QualifiedNamePart name="ii"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.p.ir"  valueReference="45" variability="continuous" causality="internal" alias="pwpin1.ir">
+      <Real start="-1.576073004485792" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="p"/>
+        <exp:QualifiedNamePart name="ir"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.p.vi"  valueReference="46" variability="continuous" causality="internal" alias="pwpin1.vi">
+      <Real start="0.1643616719789144" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="p"/>
+        <exp:QualifiedNamePart name="vi"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.p.vr"  valueReference="47" variability="continuous" causality="internal" alias="pwpin1.vr">
+      <Real start="1.016801475600963" fixed="false"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="p"/>
+        <exp:QualifiedNamePart name="vr"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+    <ScalarVariable name="genrou1.CoB" description="Constant to change from system base to machine base" valueReference="48" variability="parameter" causality="internal" alias="">
+      <Real start="3.2" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="CoB"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.D" description="Damping" valueReference="49" variability="parameter" causality="internal" alias="">
+      <Real start="0.67" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="D"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.DQ_dq.im" description="Imaginary part of complex number" valueReference="50" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="DQ_dq"/>
+        <exp:QualifiedNamePart name="im"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.DQ_dq.re" description="Real part of complex number" valueReference="51" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="DQ_dq"/>
+        <exp:QualifiedNamePart name="re"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.EFD_0" description="Initial field voltage magnitude" valueReference="52" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="EFD_0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Epd0"  valueReference="53" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Epd0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Epq0"  valueReference="54" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Epq0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.H" description="Inertia constant s" valueReference="55" variability="parameter" causality="internal" alias="">
+      <Real start="3.33" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="H"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.I_dq.im" description="Imaginary part of complex number" valueReference="56" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="I_dq"/>
+        <exp:QualifiedNamePart name="im"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.I_dq.re" description="Real part of complex number" valueReference="57" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="I_dq"/>
+        <exp:QualifiedNamePart name="re"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Is.im" description="Imaginary part of complex number" valueReference="58" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Is"/>
+        <exp:QualifiedNamePart name="im"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Is.re" description="Real part of complex number" valueReference="59" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Is"/>
+        <exp:QualifiedNamePart name="re"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.It.im" description="Imaginary part of complex number" valueReference="60" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="It"/>
+        <exp:QualifiedNamePart name="im"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.It.re" description="Real part of complex number" valueReference="61" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="It"/>
+        <exp:QualifiedNamePart name="re"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.K1d"  valueReference="62" variability="parameter" causality="internal" alias="">
+      <Real start="1.763313609467457" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K1d"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.K1q"  valueReference="63" variability="parameter" causality="internal" alias="">
+      <Real start="2.831275720164609" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K1q"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.K2d"  valueReference="64" variability="parameter" causality="internal" alias="">
+      <Real start="0.7149999999999993" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K2d"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.K2q"  valueReference="65" variability="parameter" causality="internal" alias="">
+      <Real start="0.185625" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K2q"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.K3d"  valueReference="66" variability="parameter" causality="internal" alias="">
+      <Real start="0.846153846153846" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K3d"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.K3q"  valueReference="67" variability="parameter" causality="internal" alias="">
+      <Real start="0.4074074074074073" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K3q"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.K4d"  valueReference="68" variability="parameter" causality="internal" alias="">
+      <Real start="0.153846153846154" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K4d"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.K4q"  valueReference="69" variability="parameter" causality="internal" alias="">
+      <Real start="0.5925925925925926" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K4q"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Mbase" description="Machine base power rating MVA" valueReference="70" variability="parameter" causality="internal" alias="">
+      <Real start="320.0" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Mbase"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PMECH_0" description="Initial mechanical power, machine base" valueReference="71" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PMECH_0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSId0"  valueReference="72" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSId0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIkd0" description="d-axis initial rotor flux linkage" valueReference="73" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIkd0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIkq0" description="q-axis initial rotor flux linkage" valueReference="74" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIkq0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIpp0.im" description="Imaginary part of complex number" valueReference="75" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIpp0"/>
+        <exp:QualifiedNamePart name="im"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIpp0.re" description="Real part of complex number" valueReference="76" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIpp0"/>
+        <exp:QualifiedNamePart name="re"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIpp0_dq.im" description="Imaginary part of complex number" valueReference="77" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIpp0_dq"/>
+        <exp:QualifiedNamePart name="im"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIpp0_dq.re" description="Real part of complex number" valueReference="78" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIpp0_dq"/>
+        <exp:QualifiedNamePart name="re"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIppd0" description="d-axis component of the sub-transient flux linkage" valueReference="79" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIppd0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIppq0" description="q-axis component of the sub-transient flux linkage" valueReference="80" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIppq0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.PSIq0"  valueReference="81" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="PSIq0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Ra" description="Armature resistance pu" valueReference="82" variability="parameter" causality="internal" alias="">
+      <Real start="0.0" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Ra"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.S.im" description="Imaginary part of complex number" valueReference="83" variability="parameter" causality="internal" alias="">
+      <Real start="0.027890940625" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="S"/>
+        <exp:QualifiedNamePart name="im"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.S.re" description="Real part of complex number" valueReference="84" variability="parameter" causality="internal" alias="">
+      <Real start="0.509375" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="S"/>
+        <exp:QualifiedNamePart name="re"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Sbase" description="System base power rating MVA" valueReference="85" variability="parameter" causality="internal" alias="">
+      <Real start="100.0" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Sbase"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Tpd0" description="d-axis transient open-circuit time constant s" valueReference="86" variability="parameter" causality="internal" alias="">
+      <Real start="6.0" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Tpd0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Tppd0" description="d-axis sub-transient open-circuit time constant s" valueReference="87" variability="parameter" causality="internal" alias="">
+      <Real start="0.05" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Tppd0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Tppq0" description="q-axis transient open-circuit time constant s" valueReference="88" variability="parameter" causality="internal" alias="">
+      <Real start="0.05" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Tppq0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Tpq0" description="q-axis transient open-circuit time constant s" valueReference="89" variability="parameter" causality="internal" alias="">
+      <Real start="0.535" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Tpq0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.VT.im" description="Imaginary part of complex number" valueReference="90" variability="parameter" causality="internal" alias="">
+      <Real start="0.1643616719789144" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="VT"/>
+        <exp:QualifiedNamePart name="im"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.VT.re" description="Real part of complex number" valueReference="91" variability="parameter" causality="internal" alias="">
+      <Real start="1.016801475600963" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="VT"/>
+        <exp:QualifiedNamePart name="re"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Xd" description="d-axis reactance pu" valueReference="92" variability="parameter" causality="internal" alias="">
+      <Real start="1.72" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xd"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Xl" description="Leakage reactance pu" valueReference="93" variability="parameter" causality="internal" alias="">
+      <Real start="0.1" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xl"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Xpd" description="d-axis transient reactance pu" valueReference="94" variability="parameter" causality="internal" alias="">
+      <Real start="0.23" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xpd"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Xpp" description="Sub-transient reactance pu" valueReference="95" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xpp"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Xppd" description="d-axis sub-transient reactance pu" valueReference="96" variability="parameter" causality="internal" alias="">
+      <Real start="0.21" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xppd"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Xppq" description="q-axis sub-transient reactance pu" valueReference="97" variability="parameter" causality="internal" alias="">
+      <Real start="0.21" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xppq"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Xpq" description="d-axis transient reactance pu" valueReference="98" variability="parameter" causality="internal" alias="">
+      <Real start="0.37" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xpq"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Xq" description="q-axis reactance pu" valueReference="99" variability="parameter" causality="internal" alias="">
+      <Real start="1.66" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xq"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Zs.im" description="Imaginary part of complex number" valueReference="100" variability="parameter" causality="internal" alias="">
+      <Real start="0.21" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Zs"/>
+        <exp:QualifiedNamePart name="im"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.Zs.re" description="Real part of complex number" valueReference="101" variability="parameter" causality="internal" alias="">
+      <Real start="0.0" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Zs"/>
+        <exp:QualifiedNamePart name="re"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.a"  valueReference="102" variability="parameter" causality="internal" alias="">
+      <Real start="2.053986145809599" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="a"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.abs_PSIpp0" description="magnitude of sub-transient flux linkage" valueReference="103" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="abs_PSIpp0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.ang_It" description="current angle" valueReference="104" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="ang_It"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.ang_PSIpp0" description="flux angle" valueReference="105" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="ang_PSIpp0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.ang_PSIpp0andIt" description="angle difference" valueReference="106" variability="parameter" causality="internal" alias="">
+      <Real start="0.1546412251269784" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="ang_PSIpp0andIt"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.anglev0" description="Power flow, node angle in degree" valueReference="107" variability="parameter" causality="internal" alias="">
+      <Real start="9.182195999999999" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="anglev0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.anglev_rad" description="initial value of bus anglev in rad" valueReference="108" variability="parameter" causality="internal" alias="">
+      <Real start="0.1602595527634532" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="anglev_rad"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.b"  valueReference="109" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="b"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.delta0" description="intial rotor angle in radians" valueReference="110" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="delta0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.delta1" description="rotor angle in degrees" valueReference="111" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="delta1"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.dsat" description="To include saturation of during initialization" valueReference="112" variability="parameter" causality="internal" alias="">
+      <Real start="1.010751426685127" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="dsat"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.eterm" description="Terminal voltage" valueReference="113" variability="parameter" causality="internal" alias="">
+      <Real start="1.03" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="eterm"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.id0" description="d-axis component of intitial current" valueReference="114" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="id0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.ii0" description="Imaginary component of initial armature current, systembase" valueReference="115" variability="parameter" causality="internal" alias="">
+      <Real start="-0.1669893172389049" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="ii0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.iq0" description="q-axis component of intitial current" valueReference="116" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="iq0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.ir0" description="Real component of initial armature current, systembase" valueReference="117" variability="parameter" causality="internal" alias="">
+      <Real start="-1.576073004485792" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="ir0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.p0" description="initial value of bus active power in p.u. machinebase" valueReference="118" variability="parameter" causality="internal" alias="">
+      <Real start="0.509375" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="p0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.pelec" description="Active power MW" valueReference="119" variability="parameter" causality="internal" alias="">
+      <Real start="163.0" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="pelec"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.q0" description="initial value of bus reactive power in p.u. machinebase" valueReference="120" variability="parameter" causality="internal" alias="">
+      <Real start="0.027890940625" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="q0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.qelec" description="Reactive power MVAr" valueReference="121" variability="parameter" causality="internal" alias="">
+      <Real start="8.925101" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="qelec"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.s10" description="Saturation factor at 1.0 pu" valueReference="122" variability="parameter" causality="internal" alias="">
+      <Real start="1.01" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="s10"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.s12" description="Saturation factor at 1.2 pu" valueReference="123" variability="parameter" causality="internal" alias="">
+      <Real start="1.02" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="s12"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.ud0" description="d-axis component of intitial voltage" valueReference="124" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="ud0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.uq0" description="q-axis component of intitial voltage" valueReference="125" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="uq0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.v0"  valueReference="126" variability="parameter" causality="internal" alias="">
+      <Real start="1.03" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="v0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.vi0" description="Imaginary component of intitial terminal voltage" valueReference="127" variability="parameter" causality="internal" alias="">
+      <Real start="0.1643616719789144" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="vi0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.vr0" description="Real component of initial terminal voltage" valueReference="128" variability="parameter" causality="internal" alias="">
+      <Real start="1.016801475600963" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="vr0"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="genrou1.wbase" description="System base speed" valueReference="129" variability="parameter" causality="internal" alias="">
+      <Real start="314.1592653589793" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="wbase"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+    <ScalarVariable name="genrou1.pi"  valueReference="130" variability="constant" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="pi"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentConstant</VariableCategory>
+    </ScalarVariable> 
+  </ModelVariables>
+
+  <equ:BindingEquations>
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="CoB"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>3.2</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="D"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.67</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="H"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>3.33</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K1d"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>1.763313609467457</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K1q"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>2.831275720164609</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K2d"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.7149999999999993</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K2q"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.185625</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K3d"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.846153846153846</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K3q"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.4074074074074073</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K4d"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.153846153846154</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="K4q"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.5925925925925926</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Mbase"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>320.0</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Ra"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.0</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="S"/>
+        <exp:QualifiedNamePart name="im"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.027890940625</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="S"/>
+        <exp:QualifiedNamePart name="re"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.509375</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Sbase"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>100.0</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Tpd0"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>6.0</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Tppd0"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.05</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Tppq0"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.05</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Tpq0"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.535</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="VT"/>
+        <exp:QualifiedNamePart name="im"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.1643616719789144</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="VT"/>
+        <exp:QualifiedNamePart name="re"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>1.016801475600963</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xd"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>1.72</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xl"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.1</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xpd"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.23</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xppd"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.21</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xppq"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.21</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xpq"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.37</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Xq"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>1.66</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Zs"/>
+        <exp:QualifiedNamePart name="im"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.21</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="Zs"/>
+        <exp:QualifiedNamePart name="re"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.0</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="a"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>2.053986145809599</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="ang_PSIpp0andIt"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.1546412251269784</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="anglev0"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>9.182195999999999</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="anglev_rad"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.1602595527634532</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="dsat"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>1.010751426685127</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="eterm"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>1.03</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="ii0"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>-0.1669893172389049</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="ir0"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>-1.576073004485792</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="p0"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.509375</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="pelec"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>163.0</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="q0"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.027890940625</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="qelec"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>8.925101</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="s10"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>1.01</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="s12"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>1.02</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="v0"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>1.03</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="vi0"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>0.1643616719789144</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="vr0"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>1.016801475600963</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="genrou1"/>
+        <exp:QualifiedNamePart name="wbase"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>314.1592653589793</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+  </equ:BindingEquations>
+
+  <equ:DynamicEquations>
+    <equ:Equation>
+      <exp:Sub>
+          <exp:Mul>
+            <exp:RealLiteral>3.2</exp:RealLiteral>
+            <exp:Sin>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="delta"/>
+              </exp:Identifier>
+            </exp:Sin>
+          </exp:Mul>
+          <exp:Mul>
+            <exp:RealLiteral>3.2</exp:RealLiteral>
+            <exp:Cos>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="delta"/>
+              </exp:Identifier>
+            </exp:Cos>
+          </exp:Mul>
+          <exp:Mul>
+            <exp:RealLiteral>-3.2</exp:RealLiteral>
+            <exp:Cos>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="delta"/>
+              </exp:Identifier>
+            </exp:Cos>
+          </exp:Mul>
+          <exp:Mul>
+            <exp:RealLiteral>3.2</exp:RealLiteral>
+            <exp:Sin>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="delta"/>
+              </exp:Identifier>
+            </exp:Sin>
+          </exp:Mul>
+           <exp:RealLiteral>0.0</exp:RealLiteral>
+           <exp:RealLiteral>0.0</exp:RealLiteral>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSIppq"/>
+        </exp:Identifier>
+        <exp:Sub>
+          <exp:Mul>
+            <exp:RealLiteral>0.5925925925925926</exp:RealLiteral>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="PSIkq"/>
+            </exp:Identifier>
+          </exp:Mul>
+          <exp:Mul>
+            <exp:RealLiteral>-0.4074074074074073</exp:RealLiteral>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="Epd"/>
+            </exp:Identifier>
+          </exp:Mul>
+        </exp:Sub>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSIppd"/>
+        </exp:Identifier>
+        <exp:Add>
+          <exp:Mul>
+            <exp:RealLiteral>0.846153846153846</exp:RealLiteral>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="Epq"/>
+            </exp:Identifier>
+          </exp:Mul>
+          <exp:Mul>
+            <exp:RealLiteral>0.153846153846154</exp:RealLiteral>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="PSIkd"/>
+            </exp:Identifier>
+          </exp:Mul>
+        </exp:Add>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSIpp"/>
+        </exp:Identifier>
+        <fun:Assertion>
+          <fun:Condition>
+            <exp:BooleanLiteral>1</exp:BooleanLiteral>
+          </fun:Condition>
+          <fun:Message>
+            <exp:StringLiteral>"Model error: Argument of sqrt should be >= 0"</exp:StringLiteral>
+          </fun:Message>
+        </fun:Assertion>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="XaqIlq"/>
+        </exp:Identifier>
+        <exp:Add>
+          <exp:Mul>
+            <exp:RealLiteral>2.831275720164609</exp:RealLiteral>
+            <exp:Add>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="Epd"/>
+              </exp:Identifier>
+              <exp:Sub>
+                <exp:Mul>
+                  <exp:Sub>
+                    <exp:Identifier>
+                      <exp:QualifiedNamePart name="genrou1"/>
+                      <exp:QualifiedNamePart name="Xpq"/>
+                    </exp:Identifier>
+                    <exp:Identifier>
+                      <exp:QualifiedNamePart name="genrou1"/>
+                      <exp:QualifiedNamePart name="Xl"/>
+                    </exp:Identifier>
+                  </exp:Sub>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="genrou1"/>
+                    <exp:QualifiedNamePart name="iq"/>
+                  </exp:Identifier>
+                </exp:Mul>
+                <exp:Identifier>
+                  <exp:QualifiedNamePart name="genrou1"/>
+                  <exp:QualifiedNamePart name="PSIkq"/>
+                </exp:Identifier>
+              </exp:Sub>
+            </exp:Add>
+          </exp:Mul>
+          <exp:Add>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="Epd"/>
+            </exp:Identifier>
+            <exp:Add>
+              <exp:Mul>
+                <exp:Identifier>
+                  <exp:QualifiedNamePart name="genrou1"/>
+                  <exp:QualifiedNamePart name="iq"/>
+                </exp:Identifier>
+                <exp:Sub>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="genrou1"/>
+                    <exp:QualifiedNamePart name="Xpq"/>
+                  </exp:Identifier>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="genrou1"/>
+                    <exp:QualifiedNamePart name="Xq"/>
+                  </exp:Identifier>
+                </exp:Sub>
+              </exp:Mul>
+              <exp:Mul>
+                <exp:FunctionCall>
+                  <exp:Name>
+                    <exp:QualifiedNamePart name="PowerSystems"/>
+                    <exp:QualifiedNamePart name="NonElectrical"/>
+                    <exp:QualifiedNamePart name="Functions"/>
+                    <exp:QualifiedNamePart name="SE"/>
+                  </exp:Name>
+                  <exp:Arguments>
+                    <exp:Identifier>
+                      <exp:QualifiedNamePart name="genrou1"/>
+                      <exp:QualifiedNamePart name="PSIpp"/>
+                    </exp:Identifier>
+                    <exp:Identifier>
+                      <exp:QualifiedNamePart name="genrou1"/>
+                      <exp:QualifiedNamePart name="s10"/>
+                    </exp:Identifier>
+                    <exp:Identifier>
+                      <exp:QualifiedNamePart name="genrou1"/>
+                      <exp:QualifiedNamePart name="s12"/>
+                    </exp:Identifier>
+                    <exp:RealLiteral>1.0</exp:RealLiteral>
+                    <exp:RealLiteral>1.2</exp:RealLiteral>
+                  </exp:Arguments>
+                </exp:FunctionCall>
+                <exp:Mul>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="genrou1"/>
+                    <exp:QualifiedNamePart name="PSIppq"/>
+                  </exp:Identifier>
+                  <exp:Div>
+                    <exp:Sub>
+                      <exp:Identifier>
+                        <exp:QualifiedNamePart name="genrou1"/>
+                        <exp:QualifiedNamePart name="Xq"/>
+                      </exp:Identifier>
+                      <exp:Identifier>
+                        <exp:QualifiedNamePart name="genrou1"/>
+                        <exp:QualifiedNamePart name="Xl"/>
+                      </exp:Identifier>
+                    </exp:Sub>
+                    <exp:Sub>
+                      <exp:Identifier>
+                        <exp:QualifiedNamePart name="genrou1"/>
+                        <exp:QualifiedNamePart name="Xd"/>
+                      </exp:Identifier>
+                      <exp:Identifier>
+                        <exp:QualifiedNamePart name="genrou1"/>
+                        <exp:QualifiedNamePart name="Xl"/>
+                      </exp:Identifier>
+                    </exp:Sub>
+                  </exp:Div>
+                </exp:Mul>
+              </exp:Mul>
+            </exp:Add>
+          </exp:Add>
+        </exp:Add>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="Isource"/>
+        </exp:Identifier>
+        <exp:Add>
+          <exp:Mul>
+            <exp:RealLiteral>1.763313609467457</exp:RealLiteral>
+            <exp:Add>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="Epq"/>
+              </exp:Identifier>
+              <exp:Sub>
+                <exp:Mul>
+                  <exp:Sub>
+                    <exp:Identifier>
+                      <exp:QualifiedNamePart name="genrou1"/>
+                      <exp:QualifiedNamePart name="Xl"/>
+                    </exp:Identifier>
+                    <exp:Identifier>
+                      <exp:QualifiedNamePart name="genrou1"/>
+                      <exp:QualifiedNamePart name="Xpd"/>
+                    </exp:Identifier>
+                  </exp:Sub>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="genrou1"/>
+                    <exp:QualifiedNamePart name="id"/>
+                  </exp:Identifier>
+                </exp:Mul>
+                <exp:Identifier>
+                  <exp:QualifiedNamePart name="genrou1"/>
+                  <exp:QualifiedNamePart name="PSIkd"/>
+                </exp:Identifier>
+              </exp:Sub>
+            </exp:Add>
+          </exp:Mul>
+          <exp:Add>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="Epq"/>
+            </exp:Identifier>
+            <exp:Add>
+              <exp:Mul>
+                <exp:Identifier>
+                  <exp:QualifiedNamePart name="genrou1"/>
+                  <exp:QualifiedNamePart name="id"/>
+                </exp:Identifier>
+                <exp:Sub>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="genrou1"/>
+                    <exp:QualifiedNamePart name="Xd"/>
+                  </exp:Identifier>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="genrou1"/>
+                    <exp:QualifiedNamePart name="Xpd"/>
+                  </exp:Identifier>
+                </exp:Sub>
+              </exp:Mul>
+              <exp:Mul>
+                <exp:FunctionCall>
+                  <exp:Name>
+                    <exp:QualifiedNamePart name="PowerSystems"/>
+                    <exp:QualifiedNamePart name="NonElectrical"/>
+                    <exp:QualifiedNamePart name="Functions"/>
+                    <exp:QualifiedNamePart name="SE"/>
+                  </exp:Name>
+                  <exp:Arguments>
+                    <exp:Identifier>
+                      <exp:QualifiedNamePart name="genrou1"/>
+                      <exp:QualifiedNamePart name="PSIpp"/>
+                    </exp:Identifier>
+                    <exp:Identifier>
+                      <exp:QualifiedNamePart name="genrou1"/>
+                      <exp:QualifiedNamePart name="s10"/>
+                    </exp:Identifier>
+                    <exp:Identifier>
+                      <exp:QualifiedNamePart name="genrou1"/>
+                      <exp:QualifiedNamePart name="s12"/>
+                    </exp:Identifier>
+                    <exp:RealLiteral>1.0</exp:RealLiteral>
+                    <exp:RealLiteral>1.2</exp:RealLiteral>
+                  </exp:Arguments>
+                </exp:FunctionCall>
+                <exp:Identifier>
+                  <exp:QualifiedNamePart name="genrou1"/>
+                  <exp:QualifiedNamePart name="PSIppd"/>
+                </exp:Identifier>
+              </exp:Mul>
+            </exp:Add>
+          </exp:Add>
+        </exp:Add>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSIq"/>
+        </exp:Identifier>
+        <exp:Sub>
+            <exp:Neg>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="PSIppq"/>
+              </exp:Identifier>
+            </exp:Neg>
+          <exp:Mul>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="Xppq"/>
+            </exp:Identifier>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="iq"/>
+            </exp:Identifier>
+          </exp:Mul>
+        </exp:Sub>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="ud"/>
+        </exp:Identifier>
+        <exp:Sub>
+            <exp:Neg>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="PSIq"/>
+              </exp:Identifier>
+            </exp:Neg>
+          <exp:Mul>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="Ra"/>
+            </exp:Identifier>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="id"/>
+            </exp:Identifier>
+          </exp:Mul>
+        </exp:Sub>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSId"/>
+        </exp:Identifier>
+        <exp:Sub>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="PSIppd"/>
+          </exp:Identifier>
+          <exp:Mul>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="Xppd"/>
+            </exp:Identifier>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="id"/>
+            </exp:Identifier>
+          </exp:Mul>
+        </exp:Sub>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="uq"/>
+        </exp:Identifier>
+        <exp:Sub>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="PSId"/>
+          </exp:Identifier>
+          <exp:Mul>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="Ra"/>
+            </exp:Identifier>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="iq"/>
+            </exp:Identifier>
+          </exp:Mul>
+        </exp:Sub>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="pwpin1"/>
+          <exp:QualifiedNamePart name="vr"/>
+        </exp:Identifier>
+        <exp:Add>
+          <exp:Mul>
+            <exp:Sin>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="delta"/>
+              </exp:Identifier>
+            </exp:Sin>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="ud"/>
+            </exp:Identifier>
+          </exp:Mul>
+          <exp:Mul>
+            <exp:Cos>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="delta"/>
+              </exp:Identifier>
+            </exp:Cos>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="uq"/>
+            </exp:Identifier>
+          </exp:Mul>
+        </exp:Add>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="pwpin1"/>
+          <exp:QualifiedNamePart name="vi"/>
+        </exp:Identifier>
+        <exp:Sub>
+          <exp:Mul>
+            <exp:Sin>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="delta"/>
+              </exp:Identifier>
+            </exp:Sin>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="uq"/>
+            </exp:Identifier>
+          </exp:Mul>
+          <exp:Mul>
+            <exp:Cos>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="delta"/>
+              </exp:Identifier>
+            </exp:Cos>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="ud"/>
+            </exp:Identifier>
+          </exp:Mul>
+        </exp:Sub>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="anglev"/>
+        </exp:Identifier>
+        <exp:Builtin Function is not yet implemented >
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="pwpin1"/>
+            <exp:QualifiedNamePart name="vi"/>
+          </exp:Identifier>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="pwpin1"/>
+            <exp:QualifiedNamePart name="vr"/>
+          </exp:Identifier>
+        </exp:Builtin Function is not yet implemented >
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="ETERM"/>
+        </exp:Identifier>
+        <fun:Assertion>
+          <fun:Condition>
+            <exp:BooleanLiteral>1</exp:BooleanLiteral>
+          </fun:Condition>
+          <fun:Message>
+            <exp:StringLiteral>"Model error: Argument of sqrt should be >= 0"</exp:StringLiteral>
+          </fun:Message>
+        </fun:Assertion>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="Te"/>
+        </exp:Identifier>
+        <exp:Sub>
+          <exp:Mul>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="PSId"/>
+            </exp:Identifier>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="iq"/>
+            </exp:Identifier>
+          </exp:Mul>
+          <exp:Mul>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="PSIq"/>
+            </exp:Identifier>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="id"/>
+            </exp:Identifier>
+          </exp:Mul>
+        </exp:Sub>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Der>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="w"/>
+          </exp:Identifier>
+        </exp:Der>
+        <exp:Mul>
+          <exp:RealLiteral>0.5</exp:RealLiteral>
+          <exp:Div>
+            <exp:Sub>
+              <exp:Div>
+                <exp:Sub>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="genrou1"/>
+                    <exp:QualifiedNamePart name="PMECH_0"/>
+                  </exp:Identifier>
+                  <exp:Mul>
+                    <exp:Identifier>
+                      <exp:QualifiedNamePart name="genrou1"/>
+                      <exp:QualifiedNamePart name="D"/>
+                    </exp:Identifier>
+                    <exp:Identifier>
+                      <exp:QualifiedNamePart name="genrou1"/>
+                      <exp:QualifiedNamePart name="w"/>
+                    </exp:Identifier>
+                  </exp:Mul>
+                </exp:Sub>
+                <exp:Add>
+                  <exp:RealLiteral>1.0</exp:RealLiteral>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="genrou1"/>
+                    <exp:QualifiedNamePart name="w"/>
+                  </exp:Identifier>
+                </exp:Add>
+              </exp:Div>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="Te"/>
+              </exp:Identifier>
+            </exp:Sub>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="H"/>
+            </exp:Identifier>
+          </exp:Div>
+        </exp:Mul>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Der>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="PSIkq"/>
+          </exp:Identifier>
+        </exp:Der>
+        <exp:Div>
+          <exp:Add>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="Epd"/>
+            </exp:Identifier>
+            <exp:Sub>
+              <exp:Mul>
+                <exp:Sub>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="genrou1"/>
+                    <exp:QualifiedNamePart name="Xpq"/>
+                  </exp:Identifier>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="genrou1"/>
+                    <exp:QualifiedNamePart name="Xl"/>
+                  </exp:Identifier>
+                </exp:Sub>
+                <exp:Identifier>
+                  <exp:QualifiedNamePart name="genrou1"/>
+                  <exp:QualifiedNamePart name="iq"/>
+                </exp:Identifier>
+              </exp:Mul>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="PSIkq"/>
+              </exp:Identifier>
+            </exp:Sub>
+          </exp:Add>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="Tppq0"/>
+          </exp:Identifier>
+        </exp:Div>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Der>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="PSIkd"/>
+          </exp:Identifier>
+        </exp:Der>
+        <exp:Div>
+          <exp:Add>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="Epq"/>
+            </exp:Identifier>
+            <exp:Sub>
+              <exp:Mul>
+                <exp:Sub>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="genrou1"/>
+                    <exp:QualifiedNamePart name="Xl"/>
+                  </exp:Identifier>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="genrou1"/>
+                    <exp:QualifiedNamePart name="Xpd"/>
+                  </exp:Identifier>
+                </exp:Sub>
+                <exp:Identifier>
+                  <exp:QualifiedNamePart name="genrou1"/>
+                  <exp:QualifiedNamePart name="id"/>
+                </exp:Identifier>
+              </exp:Mul>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="PSIkd"/>
+              </exp:Identifier>
+            </exp:Sub>
+          </exp:Add>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="Tppd0"/>
+          </exp:Identifier>
+        </exp:Div>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Der>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="Epd"/>
+          </exp:Identifier>
+        </exp:Der>
+        <exp:Div>
+            <exp:Neg>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="genrou1"/>
+                <exp:QualifiedNamePart name="XaqIlq"/>
+              </exp:Identifier>
+            </exp:Neg>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="Tpq0"/>
+          </exp:Identifier>
+        </exp:Div>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Der>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="Epq"/>
+          </exp:Identifier>
+        </exp:Der>
+        <exp:Div>
+          <exp:Sub>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="EFD_0"/>
+            </exp:Identifier>
+            <exp:Identifier>
+              <exp:QualifiedNamePart name="genrou1"/>
+              <exp:QualifiedNamePart name="Isource"/>
+            </exp:Identifier>
+          </exp:Sub>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="Tpd0"/>
+          </exp:Identifier>
+        </exp:Div>
+      </exp:Sub>
+    </equ:Equation>  
+    <equ:Equation>
+      <exp:Sub>
+        <exp:Der>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="delta"/>
+          </exp:Identifier>
+        </exp:Der>
+        <exp:Mul>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="wbase"/>
+          </exp:Identifier>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="w"/>
+          </exp:Identifier>
+        </exp:Mul>
+      </exp:Sub>
+    </equ:Equation>  
+  </equ:DynamicEquations>
+
+  <equ:InitialEquations>
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="Epd"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="Epd0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="Epq"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="Epq0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSIkd"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSIkd0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSIkq"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSIkq0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="delta"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="delta0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="w"/>
+        </exp:Identifier>
+        <exp:RealLiteral>0.0</exp:RealLiteral>
+      </equ:Sub>
+    </equ:Equation>
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="ETERM"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="eterm"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="I"/>
+        </exp:Identifier>
+        <exp:RealLiteral>1.584894806459024</exp:RealLiteral>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="Isource"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="EFD_0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="P"/>
+        </exp:Identifier>
+        <exp:Div>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="pelec"/>
+          </exp:Identifier>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="Sbase"/>
+          </exp:Identifier>
+        </exp:Div>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PELEC"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PMECH_0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSId"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSId0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSIppd"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSIppd0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSIppq"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSIppq0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSIq"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PSIq0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="Q"/>
+        </exp:Identifier>
+        <exp:Div>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="qelec"/>
+          </exp:Identifier>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="genrou1"/>
+            <exp:QualifiedNamePart name="Sbase"/>
+          </exp:Identifier>
+        </exp:Div>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="Te"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="PMECH_0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="XaqIlq"/>
+        </exp:Identifier>
+        <exp:RealLiteral>0.0</exp:RealLiteral>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="anglei"/>
+        </exp:Identifier>
+        <exp:RealLiteral>-3.036033698744795</exp:RealLiteral>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="anglev"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="anglev0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="id"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="id0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="iq"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="iq0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="ud"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="ud0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="uq"/>
+        </exp:Identifier>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="genrou1"/>
+          <exp:QualifiedNamePart name="uq0"/>
+        </exp:Identifier>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="pwpin1"/>
+          <exp:QualifiedNamePart name="vi"/>
+        </exp:Identifier>
+        <exp:RealLiteral>0.1643616719789144</exp:RealLiteral>
+      </equ:Sub>
+    </equ:Equation>
+
+    <equ:Equation>
+      <equ:Sub>
+        <exp:Identifier>
+          <exp:QualifiedNamePart name="pwpin1"/>
+          <exp:QualifiedNamePart name="vr"/>
+        </exp:Identifier>
+        <exp:RealLiteral>1.016801475600963</exp:RealLiteral>
+      </equ:Sub>
+    </equ:Equation>
+  </equ:InitialEquations>
+
+  <fun:Algorithm>
+  </fun:Algorithm>
+
+  <fun:RecordsList>
+    <fun:Record>
+      <fun:Name>
+        <exp:QualifiedNamePart  name ='Complex'/>
+      </fun:Name>
+      <fun:Field  type="real">
+        <fun:Name>
+          <exp:QualifiedNamePart name="im"/>
+        </fun:Name>
+      </fun:Field>
+      <fun:Field  type="real">
+        <fun:Name>
+          <exp:QualifiedNamePart name="re"/>
+        </fun:Name>
+      </fun:Field>
+    </fun:Record>
+  </fun:RecordsList>
+
+  <fun:FunctionList>
+    <fun:Function>
+      <fun:Name>
+        <exp:QualifiedNamePart name="PowerSystems"/>
+        <exp:QualifiedNamePart name="NonElectrical"/>
+        <exp:QualifiedNamePart name="Functions"/>
+        <exp:QualifiedNamePart name="SE"/>
+      </fun:Name>
+      <fun:OutputVariable type="real">
+        <fun:Name>
+          <exp:QualifiedNamePart name="sys"/>
+        </fun:Name>
+      </fun:OutputVariable>
+      <fun:InputVariable type="real">
+        <fun:Name>
+          <exp:QualifiedNamePart name="u"/>
+        </fun:Name>
+      </fun:InputVariable>
+      <fun:InputVariable type="real">
+        <fun:Name>
+          <exp:QualifiedNamePart name="SE1"/>
+        </fun:Name>
+      </fun:InputVariable>
+      <fun:InputVariable type="real">
+        <fun:Name>
+          <exp:QualifiedNamePart name="SE2"/>
+        </fun:Name>
+      </fun:InputVariable>
+      <fun:InputVariable type="real">
+        <fun:Name>
+          <exp:QualifiedNamePart name="E1"/>
+        </fun:Name>
+      </fun:InputVariable>
+      <fun:InputVariable type="real">
+        <fun:Name>
+          <exp:QualifiedNamePart name="E2"/>
+        </fun:Name>
+      </fun:InputVariable>
+      <fun:Algorithm>
+        <fun:If>
+          <fun:Condition>
+            <exp:Or>
+              <exp:LogEq>
+                <exp:Identifier>
+                  <exp:QualifiedNamePart name="SE1"/>
+                </exp:Identifier>
+                <exp:RealLiteral>0.0</exp:RealLiteral>
+              </exp:LogEq>
+              <exp:LogLeq>
+                <exp:Identifier>
+                  <exp:QualifiedNamePart name="u"/>
+                </exp:Identifier>
+                <exp:RealLiteral>0.0</exp:RealLiteral>
+              </exp:LogLeq>
+            </exp:Or>
+          </fun:Condition>
+          <fun:Statements>
+            <fun:Assign>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="sys"/>
+              </exp:Identifier>
+              <fun:Expression>
+                <exp:RealLiteral>0.0</exp:RealLiteral>
+              </fun:Expression>
+            </fun:Assign>
+          </fun:Statements>
+          <fun:Else>
+            <fun:If>
+              <fun:Condition>
+                <exp:LogLeq>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="u"/>
+                  </exp:Identifier>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="A"/>
+                  </exp:Identifier>
+                </exp:LogLeq>
+              </fun:Condition>
+              <fun:Statements>
+                <fun:Assign>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="sys"/>
+                  </exp:Identifier>
+                  <fun:Expression>
+                    <exp:RealLiteral>0.0</exp:RealLiteral>
+                  </fun:Expression>
+                </fun:Assign>
+              </fun:Statements>
+              <fun:Else>
+                <fun:Assign>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="sys"/>
+                  </exp:Identifier>
+                  <fun:Expression>
+                    <exp:Mul>
+                      <exp:Identifier>
+                        <exp:QualifiedNamePart name="B"/>
+                      </exp:Identifier>
+                      <exp:Div>
+                        <exp:Pow>
+                          <exp:Sub>
+                            <exp:Identifier>
+                              <exp:QualifiedNamePart name="u"/>
+                            </exp:Identifier>
+                            <exp:Identifier>
+                              <exp:QualifiedNamePart name="A"/>
+                            </exp:Identifier>
+                          </exp:Sub>
+                          <exp:RealLiteral>2.0</exp:RealLiteral>
+                        </exp:Pow>
+                        <exp:Identifier>
+                          <exp:QualifiedNamePart name="u"/>
+                        </exp:Identifier>
+                      </exp:Div>
+                    </exp:Mul>
+                  </fun:Expression>
+                </fun:Assign>
+              </fun:Else>
+            </fun:If>
+          </fun:Else>
+        </fun:If>
+      </fun:Algorithm>
+    </fun:Function> 
+
+    <fun:Function>
+      <fun:Name>
+        <exp:QualifiedNamePart name="Modelica"/>
+        <exp:QualifiedNamePart name="Math"/>
+        <exp:QualifiedNamePart name="atan3"/>
+      </fun:Name>
+      <fun:OutputVariable type="real">
+        <fun:Name>
+          <exp:QualifiedNamePart name="y"/>
+        </fun:Name>
+      </fun:OutputVariable>
+      <fun:InputVariable type="real">
+        <fun:Name>
+          <exp:QualifiedNamePart name="u1"/>
+        </fun:Name>
+      </fun:InputVariable>
+      <fun:InputVariable type="real">
+        <fun:Name>
+          <exp:QualifiedNamePart name="u2"/>
+        </fun:Name>
+      </fun:InputVariable>
+      <fun:InputVariable type="real">
+        <fun:Name>
+          <exp:QualifiedNamePart name="y0"/>
+        </fun:Name>
+      </fun:InputVariable>
+      <fun:Algorithm>
+        <fun:Assign>
+          <exp:Identifier>
+            <exp:QualifiedNamePart name="w"/>
+          </exp:Identifier>
+          <fun:Expression>
+            <exp:Builtin Function is not yet implemented >
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="u1"/>
+              </exp:Identifier>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="u2"/>
+              </exp:Identifier>
+            </exp:Builtin Function is not yet implemented >
+          </fun:Expression>
+        </fun:Assign>
+        <fun:If>
+          <fun:Condition>
+            <exp:LogEq>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="y0"/>
+              </exp:Identifier>
+              <exp:RealLiteral>0.0</exp:RealLiteral>
+            </exp:LogEq>
+          </fun:Condition>
+          <fun:Statements>
+            <fun:Assign>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="y"/>
+              </exp:Identifier>
+              <fun:Expression>
+                <exp:Identifier>
+                  <exp:QualifiedNamePart name="w"/>
+                </exp:Identifier>
+              </fun:Expression>
+            </fun:Assign>
+          </fun:Statements>
+          <fun:Else>
+            <fun:Assign>
+              <exp:Identifier>
+                <exp:QualifiedNamePart name="y"/>
+              </exp:Identifier>
+              <fun:Expression>
+                <exp:Add>
+                  <exp:Identifier>
+                    <exp:QualifiedNamePart name="w"/>
+                  </exp:Identifier>
+                  <exp:Mul>
+                    <exp:RealLiteral>6.283185307179586</exp:RealLiteral>
+                    <exp:Add>
+                      <exp:RealLiteral>0.5</exp:RealLiteral>
+                      <exp:Div>
+                        <exp:Sub>
+                          <exp:Identifier>
+                            <exp:QualifiedNamePart name="y0"/>
+                          </exp:Identifier>
+                          <exp:Identifier>
+                            <exp:QualifiedNamePart name="w"/>
+                          </exp:Identifier>
+                        </exp:Sub>
+                        <exp:RealLiteral>6.283185307179586</exp:RealLiteral>
+                      </exp:Div>
+                    </exp:Add>
+                  </exp:Mul>
+                </exp:Add>
+              </fun:Expression>
+            </fun:Assign>
+          </fun:Else>
+        </fun:If>
+      </fun:Algorithm>
+    </fun:Function> 
+  </fun:FunctionList>
+
+
+</OpenModelicaModelDescription>

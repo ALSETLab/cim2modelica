@@ -12,13 +12,6 @@ import com.hp.hpl.jena.rdf.model.Resource;
 
 public class joke_makeModel {
 	
-	private static final String RDF_NS = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-    private static final String CIM16_NS = "http://iec.ch/TC57/2013/CIM-schema-cim16#";
-    
-    private static final String MD_NS= "http://iec.ch/TC57/61970-552/ModelDescription/1#";
-    
-    private static final String ENTSOE_NS= "http://entsoe.eu/Secretariat/2013/ProfileExtension/3#";
-	
 	public static void main(String[] args) 
 	{
 		Map<Resource, RDFNode> components;
@@ -39,7 +32,7 @@ public class joke_makeModel {
 				String [] equipmentResource, topologyResource;
 //				System.out.println("rfd_id: "+ cimClassResource[0] + " cim name: "+ cimClassResource[1]);
 				CIMTerminal conector= 
-						cartografo.create_TerminalModelicaMap(key, "./res/cim_iteslalibrary_pwpin.xml", cimClassResource);
+						cartografo.create_TerminalModelicaMap(key, "./res/map/cim_iteslalibrary_pwpin.xml", cimClassResource);
 				PwPinMap mapTerminal= conector.get_TerminalMap();
 				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
 				/* after loading terminal, load the resource connected to it, aka, ConductingEquipment */
@@ -50,7 +43,7 @@ public class joke_makeModel {
 				{
 //					System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
 					GENSALMap mapSyncMach= cartografo.create_MachineModelicaMap(conector.get_ConductingEquipmentMap(), 
-							"./res/cim_iteslalibrary_gensal.xml", equipmentResource);
+							"./res/map/cim_iteslalibrary_gensal.xml", equipmentResource);
 					MOClass momachine= constructor.create_MachineComponent(mapSyncMach);
 					momachine.add_Terminal(mopin);
 					//TODO: save this to a file
@@ -61,7 +54,7 @@ public class joke_makeModel {
 				{
 //					System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
 					PwLoadPQMap mapEnergyC= cartografo.create_LoadModelicaMap(conector.get_ConductingEquipmentMap(), 
-							"./res/cim_iteslalibrary_pwloadpq.xml", equipmentResource);
+							"./res/map/cim_iteslalibrary_pwloadpq.xml", equipmentResource);
 					MOClass moload= constructor.create_LoadComponent(mapEnergyC);
 					moload.add_Terminal(mopin);
 					//TODO: save this to a file
@@ -79,7 +72,7 @@ public class joke_makeModel {
 					{/* false, create map of the line and add the first terminal */
 //						System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
 						PwLineMap mapACLine= cartografo.create_LineModelicaMap(conector.get_ConductingEquipmentMap(), 
-								"./res/cim_iteslalibrary_pwline.xml", equipmentResource);
+								"./res/map/cim_iteslalibrary_pwline.xml", equipmentResource);
 						moline= constructor.create_LineComponent(mapACLine);
 						moline.add_Terminal(mopin);
 						constructor.add_deviceNetwork(moline);
@@ -98,7 +91,7 @@ public class joke_makeModel {
 						/* false, create map of the line and add the first terminal */
 //						System.out.println("rfd_id: "+ topologyResource[0] + " cim name: "+ topologyResource[1]);
 						PwBusMap mapTopoNode= cartografo.create_BusModelicaMap(conector.get_TopologicalNodeMap(), 
-										"./res/cim_iteslalibrary_pwbus.xml", topologyResource);
+										"./res/map/cim_iteslalibrary_pwbus.xml", topologyResource);
 						mobus= constructor.create_BusComponent(mapTopoNode);
 						mobus.add_Terminal(mopin);
 						//TODO: save this to a file
@@ -113,14 +106,14 @@ public class joke_makeModel {
 //				System.out.println("rfd_id: "+ cimClassResource[0] + " cim name: "+ cimClassResource[1]);
 				CIMTransformerEnd transformerEnd= 
 						cartografo.create_TransformerModelicaMap(key, 
-								"./res/cim_iteslalibrary_twowindingtransformer.xml", 
+								"./res/map/cim_iteslalibrary_twowindingtransformer.xml", 
 								cimClassResource);
 				TwoWindingTransformerMap mapPowerTrans= transformerEnd.get_TransformerMap();
 				transformerResource= cartografo.get_CIMComponentName(transformerEnd.get_PowerTransformerMap());
 				//processing info from terminalResource, here is to create the MOConnector
 				terminalResource= cartografo.get_CIMComponentName(transformerEnd.get_TerminalMap());
 				CIMTerminal conector= cartografo.create_TerminalModelicaMap(transformerEnd.get_TerminalMap(), 
-								"./res/cim_iteslalibrary_pwpin.xml", terminalResource);
+								"./res/map/cim_iteslalibrary_pwpin.xml", terminalResource);
 				//Create the terminal object associated with this PowerTransformerEnd
 				PwPinMap mapTerminal= conector.get_TerminalMap();
 				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
@@ -145,5 +138,11 @@ public class joke_makeModel {
 		}
 		constructor.connect_Components(cartografo.get_ConnectionMap());
 		constructor.save_ModelicaFile(constructor.get_Network().to_ModelicaClass());
-	}
+		
+		// if using existing library, names of terminal are either p or n
+		//TODO add attribute pin in the map
+		//TODO convert pin name automaticaly in the code
+		//TODO save the already mapped components as an internal package into the model file.
+		// this thirs solution implies TODO do the mapping for the equations.
+}
 }
