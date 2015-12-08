@@ -33,7 +33,9 @@ public class MOConnect
     }
     
     /**
-     * 
+     * Method contain a little trick: 
+     * to convert name of terminal into p or n, depending on T1 or T2
+     * to convert name of terminal from bus, all p
      * @return
      */
     public String to_ModelicaEquation()
@@ -44,11 +46,27 @@ public class MOConnect
 		pencil.append("connect(");
 		pencil.append(this.id_component_u);
 		pencil.append(".");
-		pencil.append(this.pin_component_u);
+		if (this.id_component_u.substring(0, 3).equals("BUS"))
+			pencil.append("p");
+		else
+			if (this.pin_component_u.substring(this.pin_component_u.length()- 2, 
+					this.pin_component_u.length()).equals("T1"))
+				pencil.append("p");
+			else
+				pencil.append("n");
+//		pencil.append(this.pin_component_u);
 		pencil.append(", ");
 		pencil.append(this.id_component_y);
 		pencil.append(".");
-		pencil.append(this.pin_component_y);
+		if (this.id_component_y.substring(0, 3).equals("BUS"))
+			pencil.append("p");
+		else
+			if (this.pin_component_y.substring(this.pin_component_y.length()- 2, 
+					this.pin_component_y.length()).equals("T1"))
+				pencil.append("p");
+			else
+				pencil.append("n");
+//		pencil.append(this.pin_component_y);
 		pencil.append(");"); pencil.append("\n");
 		
 		code= pencil.toString();

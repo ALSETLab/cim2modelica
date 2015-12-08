@@ -283,7 +283,7 @@ public class ModelBuilder
 	}
 	
 	public MOClass create_TransformerComponent(TwoWindingTransformerMap _mapPowTrans)
-	{
+	{//TODO think about TwoWindingTransformer class, responsibilities, two tap changer attributes from two ratio tap changer
 		MOClass twtransformer= new MOClass(_mapPowTrans.getName());
 //		System.out.println("_mapPowTrans.getName() "+ _mapPowTrans.getName());
 //		System.out.println("_mapPowTrans.getPowerTransformer() "+ _mapPowTrans.getPowerTransformer());
