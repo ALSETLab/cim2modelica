@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--Created by Cimphony RDF XML Serialiser from Open Grid Systems Ltd.
 	 Bundle: com.cimphony.core.emf.rdf v1.0.0
-	Created: 2015-12-02T18:06:08-->
+	Created: 2015-12-09T16:12:44-->
 <rdf:RDF xmlns:entsoe="http://entsoe.eu/CIM/SchemaExtension/3/1#" xmlns:cim="http://iec.ch/TC57/2013/CIM-schema-cim16#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
  <cim:OperatingShare rdf:ID="_90b1afb0-8a32-11e5-b5f4-080027008896">
   <cim:OperatingShare.percentage>100</cim:OperatingShare.percentage>
@@ -15,6 +15,25 @@
  <cim:TopologicalIsland rdf:ID="_90b00200-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.name>Island</cim:IdentifiedObject.name>
  </cim:TopologicalIsland>
+ <cim:SynchronousMachineTimeConstantReactance rdf:ID="_fa8ebd20-9e7c-11e5-a1af-080027008896">
+  <entsoe:IdentifiedObject.shortName></entsoe:IdentifiedObject.shortName>
+  <cim:RotatingMachineDynamics.damping>0.6700000166893005</cim:RotatingMachineDynamics.damping>
+  <cim:RotatingMachineDynamics.inertia>3.3299999237060547</cim:RotatingMachineDynamics.inertia>
+  <cim:RotatingMachineDynamics.saturationFactor>1.0099999904632568</cim:RotatingMachineDynamics.saturationFactor>
+  <cim:RotatingMachineDynamics.saturationFactor120>1.0199999809265137</cim:RotatingMachineDynamics.saturationFactor120>
+  <cim:RotatingMachineDynamics.statorLeakageReactance>0.10000000149011612</cim:RotatingMachineDynamics.statorLeakageReactance>
+  <cim:SynchronousMachineDynamics.SynchronousMachine rdf:resource="#_90b2c123-8a32-11e5-b5f4-080027008896"/>
+  <cim:SynchronousMachineTimeConstantReactance.tpdo>6</cim:SynchronousMachineTimeConstantReactance.tpdo>
+  <cim:SynchronousMachineTimeConstantReactance.tppdo>0.05000000074505806</cim:SynchronousMachineTimeConstantReactance.tppdo>
+  <cim:SynchronousMachineTimeConstantReactance.tppqo>0.05000000074505806</cim:SynchronousMachineTimeConstantReactance.tppqo>
+  <cim:SynchronousMachineTimeConstantReactance.tpqo>0.5350000262260437</cim:SynchronousMachineTimeConstantReactance.tpqo>
+  <cim:SynchronousMachineTimeConstantReactance.xDirectSubtrans>0.20999999344348907</cim:SynchronousMachineTimeConstantReactance.xDirectSubtrans>
+  <cim:SynchronousMachineTimeConstantReactance.xDirectSync>1.7200000286102295</cim:SynchronousMachineTimeConstantReactance.xDirectSync>
+  <cim:SynchronousMachineTimeConstantReactance.xDirectTrans>0.23000000417232513</cim:SynchronousMachineTimeConstantReactance.xDirectTrans>
+  <cim:SynchronousMachineTimeConstantReactance.xQuadSubtrans>0.20999999344348907</cim:SynchronousMachineTimeConstantReactance.xQuadSubtrans>
+  <cim:SynchronousMachineTimeConstantReactance.xQuadSync>1.659999966621399</cim:SynchronousMachineTimeConstantReactance.xQuadSync>
+  <cim:SynchronousMachineTimeConstantReactance.xQuadTrans>0.3700000047683716</cim:SynchronousMachineTimeConstantReactance.xQuadTrans>
+ </cim:SynchronousMachineTimeConstantReactance>
  <cim:TopologicalNode rdf:ID="_90b0ec60-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.aliasName>4</cim:IdentifiedObject.aliasName>
   <cim:IdentifiedObject.name>BUS4</cim:IdentifiedObject.name>
@@ -70,7 +89,7 @@
   <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
   <cim:PowerTransformerEnd.ratedS>0</cim:PowerTransformerEnd.ratedS>
   <cim:PowerTransformerEnd.ratedU>230</cim:PowerTransformerEnd.ratedU>
-  <cim:PowerTransformerEnd.x>30.999401092529297</cim:PowerTransformerEnd.x>
+  <cim:PowerTransformerEnd.x>0.0625</cim:PowerTransformerEnd.x>
   <cim:PowerTransformerEnd.PowerTransformer rdf:resource="#_90b3ab85-8a32-11e5-b5f4-080027008896"/>
  </cim:PowerTransformerEnd>
  <cim:BusNameMarker rdf:ID="_90b02911-8a32-11e5-b5f4-080027008896">
@@ -89,9 +108,10 @@
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b4e401-8a32-11e5-b5f4-080027008896"/>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="#_90b0ec61-8a32-11e5-b5f4-080027008896"/>
   <cim:Conductor.length>150</cim:Conductor.length>
-  <cim:ACLineSegment.bch>0.000676748575642705</cim:ACLineSegment.bch>
-  <cim:ACLineSegment.r>20.631000518798828</cim:ACLineSegment.r>
-  <cim:ACLineSegment.x>89.93000030517578</cim:ACLineSegment.x>
+  <cim:ACLineSegment.bch>0.17900000512599945</cim:ACLineSegment.bch>
+  <cim:ACLineSegment.gch>0</cim:ACLineSegment.gch>
+  <cim:ACLineSegment.r>0.039000000804662704</cim:ACLineSegment.r>
+  <cim:ACLineSegment.x>0.17000000178813934</cim:ACLineSegment.x>
  </cim:ACLineSegment>
  <cim:BusNameMarker rdf:ID="_90b1d6c0-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.name>8</cim:IdentifiedObject.name>
@@ -119,9 +139,10 @@
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b53220-8a32-11e5-b5f4-080027008896"/>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="#_90b0ec61-8a32-11e5-b5f4-080027008896"/>
   <cim:Conductor.length>220</cim:Conductor.length>
-  <cim:ACLineSegment.bch>0.00028166352421976626</cim:ACLineSegment.bch>
-  <cim:ACLineSegment.r>4.496500015258789</cim:ACLineSegment.r>
-  <cim:ACLineSegment.x>38.08799743652344</cim:ACLineSegment.x>
+  <cim:ACLineSegment.bch>0.07450000196695328</cim:ACLineSegment.bch>
+  <cim:ACLineSegment.gch>0</cim:ACLineSegment.gch>
+  <cim:ACLineSegment.r>0.008500000461935997</cim:ACLineSegment.r>
+  <cim:ACLineSegment.x>0.07199999690055847</cim:ACLineSegment.x>
  </cim:ACLineSegment>
  <cim:Terminal rdf:ID="_90b224e0-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.name>Ld5_T1</cim:IdentifiedObject.name>
@@ -166,12 +187,15 @@
   <cim:OperatingShare.PowerSystemResource rdf:resource="#_90b46ed1-8a32-11e5-b5f4-080027008896"/>
  </cim:OperatingShare>
  <cim:SynchronousMachine rdf:ID="_90b2c123-8a32-11e5-b5f4-080027008896">
+  <cim:IdentifiedObject.description></cim:IdentifiedObject.description>
   <cim:IdentifiedObject.name>Gn2</cim:IdentifiedObject.name>
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b09e40-8a32-11e5-b5f4-080027008896"/>
+  <cim:RegulatingCondEq.controlEnabled>false</cim:RegulatingCondEq.controlEnabled>
   <cim:RegulatingCondEq.RegulatingControl rdf:resource="#_90b2e830-8a32-11e5-b5f4-080027008896"/>
   <cim:RotatingMachine.ratedS>320</cim:RotatingMachine.ratedS>
   <cim:RotatingMachine.GeneratingUnit rdf:resource="#_90b2c122-8a32-11e5-b5f4-080027008896"/>
   <cim:SynchronousMachine.baseQ>6.65500020980835</cim:SynchronousMachine.baseQ>
+  <cim:SynchronousMachine.coolantType rdf:resource="http://iec.ch/TC57/2013/CIM-schema-cim16#CoolantType.hydrogenGas"/>
   <cim:SynchronousMachine.maxQ>300</cim:SynchronousMachine.maxQ>
   <cim:SynchronousMachine.minQ>-300</cim:SynchronousMachine.minQ>
   <cim:SynchronousMachine.operatingMode rdf:resource="http://iec.ch/TC57/2013/CIM-schema-cim16#SynchronousMachineOperatingMode.generator"/>
@@ -179,6 +203,7 @@
   <cim:SynchronousMachine.r>0.0003239999932702631</cim:SynchronousMachine.r>
   <cim:SynchronousMachine.referencePriority>0</cim:SynchronousMachine.referencePriority>
   <cim:SynchronousMachine.type rdf:resource="http://iec.ch/TC57/2013/CIM-schema-cim16#SynchronousMachineKind.generator"/>
+  <cim:SynchronousMachine.SynchronousMachineDynamics rdf:resource="#_fa8ebd20-9e7c-11e5-a1af-080027008896"/>
  </cim:SynchronousMachine>
  <cim:OperatingShare rdf:ID="_90b495e5-8a32-11e5-b5f4-080027008896">
   <cim:OperatingShare.percentage>100</cim:OperatingShare.percentage>
@@ -206,11 +231,12 @@
   <cim:TopologicalNode.TopologicalIsland rdf:resource="#_90b00200-8a32-11e5-b5f4-080027008896"/>
  </cim:TopologicalNode>
  <cim:PowerTransformer rdf:ID="_90b38470-8a32-11e5-b5f4-080027008896">
-  <cim:IdentifiedObject.name>Tr2</cim:IdentifiedObject.name>
+  <cim:IdentifiedObject.name>T2</cim:IdentifiedObject.name>
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b38471-8a32-11e5-b5f4-080027008896"/>
  </cim:PowerTransformer>
  <cim:GeneratingUnit rdf:ID="_90b27303-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.name>G1</cim:IdentifiedObject.name>
+  <cim:GeneratingUnit.baseP>100</cim:GeneratingUnit.baseP>
   <cim:GeneratingUnit.initialP>71.66100311279297</cim:GeneratingUnit.initialP>
   <cim:GeneratingUnit.maxOperatingP>250</cim:GeneratingUnit.maxOperatingP>
   <cim:GeneratingUnit.minOperatingP>10</cim:GeneratingUnit.minOperatingP>
@@ -265,7 +291,7 @@
   <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
   <cim:PowerTransformerEnd.ratedS>0</cim:PowerTransformerEnd.ratedS>
   <cim:PowerTransformerEnd.ratedU>230</cim:PowerTransformerEnd.ratedU>
-  <cim:PowerTransformerEnd.x>0</cim:PowerTransformerEnd.x>
+  <cim:PowerTransformerEnd.x>0.0575999990105629</cim:PowerTransformerEnd.x>
   <cim:PowerTransformerEnd.PowerTransformer rdf:resource="#_90b38470-8a32-11e5-b5f4-080027008896"/>
  </cim:PowerTransformerEnd>
  <cim:OperatingShare rdf:ID="_90b0c554-8a32-11e5-b5f4-080027008896">
@@ -288,6 +314,7 @@
  </cim:SvVoltage>
  <cim:GeneratingUnit rdf:ID="_90b2c122-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.name>G2</cim:IdentifiedObject.name>
+  <cim:GeneratingUnit.baseP>100</cim:GeneratingUnit.baseP>
   <cim:GeneratingUnit.initialP>163</cim:GeneratingUnit.initialP>
   <cim:GeneratingUnit.maxOperatingP>300</cim:GeneratingUnit.maxOperatingP>
   <cim:GeneratingUnit.minOperatingP>20</cim:GeneratingUnit.minOperatingP>
@@ -306,14 +333,6 @@
   <cim:IdentifiedObject.name>16.5KV</cim:IdentifiedObject.name>
   <cim:BaseVoltage.nominalVoltage>16.5</cim:BaseVoltage.nominalVoltage>
  </cim:BaseVoltage>
- <cim:RegulatingControl rdf:ID="_90b2e830-8a32-11e5-b5f4-080027008896">
-  <cim:IdentifiedObject.name>G2</cim:IdentifiedObject.name>
-  <cim:RegulatingControl.discrete>true</cim:RegulatingControl.discrete>
-  <cim:RegulatingControl.mode rdf:resource="http://iec.ch/TC57/2013/CIM-schema-cim16#RegulatingControlModeKind.voltage"/>
-  <cim:RegulatingControl.targetDeadband>0</cim:RegulatingControl.targetDeadband>
-  <cim:RegulatingControl.targetValue>18.53999900817871</cim:RegulatingControl.targetValue>
-  <cim:RegulatingControl.Terminal rdf:resource="#_90b2c124-8a32-11e5-b5f4-080027008896"/>
- </cim:RegulatingControl>
  <cim:CurrentLimit rdf:ID="_90b495e2-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.name>TrippingCurrent</cim:IdentifiedObject.name>
   <cim:OperationalLimit.OperationalLimitSet rdf:resource="#_90b495e0-8a32-11e5-b5f4-080027008896"/>
@@ -327,6 +346,14 @@
   <cim:EnergyConsumer.qfixed>35</cim:EnergyConsumer.qfixed>
   <cim:EnergyConsumer.LoadResponse rdf:resource="#_90b27300-8a32-11e5-b5f4-080027008896"/>
  </cim:EnergyConsumer>
+ <cim:RegulatingControl rdf:ID="_90b2e830-8a32-11e5-b5f4-080027008896">
+  <cim:IdentifiedObject.name>G2</cim:IdentifiedObject.name>
+  <cim:RegulatingControl.discrete>true</cim:RegulatingControl.discrete>
+  <cim:RegulatingControl.mode rdf:resource="http://iec.ch/TC57/2013/CIM-schema-cim16#RegulatingControlModeKind.voltage"/>
+  <cim:RegulatingControl.targetDeadband>0</cim:RegulatingControl.targetDeadband>
+  <cim:RegulatingControl.targetValue>18.53999900817871</cim:RegulatingControl.targetValue>
+  <cim:RegulatingControl.Terminal rdf:resource="#_90b2c124-8a32-11e5-b5f4-080027008896"/>
+ </cim:RegulatingControl>
  <cim:TopologicalNode rdf:ID="_90b11373-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.aliasName>5</cim:IdentifiedObject.aliasName>
   <cim:IdentifiedObject.name>BUS5</cim:IdentifiedObject.name>
@@ -360,7 +387,7 @@
   <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
   <cim:PowerTransformerEnd.ratedS>0</cim:PowerTransformerEnd.ratedS>
   <cim:PowerTransformerEnd.ratedU>16.5</cim:PowerTransformerEnd.ratedU>
-  <cim:PowerTransformerEnd.x>0.15681599080562592</cim:PowerTransformerEnd.x>
+  <cim:PowerTransformerEnd.x>0.05860000103712082</cim:PowerTransformerEnd.x>
   <cim:PowerTransformerEnd.PowerTransformer rdf:resource="#_90b33652-8a32-11e5-b5f4-080027008896"/>
  </cim:PowerTransformerEnd>
  <cim:Terminal rdf:ID="_90b188a3-8a32-11e5-b5f4-080027008896">
@@ -404,7 +431,7 @@
   <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
   <cim:PowerTransformerEnd.ratedS>0</cim:PowerTransformerEnd.ratedS>
   <cim:PowerTransformerEnd.ratedU>13.800000190734863</cim:PowerTransformerEnd.ratedU>
-  <cim:PowerTransformerEnd.x>0</cim:PowerTransformerEnd.x>
+  <cim:PowerTransformerEnd.x>0.0625</cim:PowerTransformerEnd.x>
   <cim:PowerTransformerEnd.PowerTransformer rdf:resource="#_90b3ab85-8a32-11e5-b5f4-080027008896"/>
  </cim:PowerTransformerEnd>
  <cim:OperatingShare rdf:ID="_90b27302-8a32-11e5-b5f4-080027008896">
@@ -413,7 +440,7 @@
   <cim:OperatingShare.PowerSystemResource rdf:resource="#_90b24bf4-8a32-11e5-b5f4-080027008896"/>
  </cim:OperatingShare>
  <cim:Terminal rdf:ID="_90b3f9a0-8a32-11e5-b5f4-080027008896">
-  <cim:IdentifiedObject.name>Tr3_T2</cim:IdentifiedObject.name>
+  <cim:IdentifiedObject.name>T3_T2</cim:IdentifiedObject.name>
   <cim:ACDCTerminal.connected>true</cim:ACDCTerminal.connected>
   <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
   <cim:Terminal.ConductingEquipment rdf:resource="#_90b3ab85-8a32-11e5-b5f4-080027008896"/>
@@ -485,7 +512,7 @@
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b11370-8a32-11e5-b5f4-080027008896"/>
  </cim:BusbarSection>
  <cim:Terminal rdf:ID="_90b38474-8a32-11e5-b5f4-080027008896">
-  <cim:IdentifiedObject.name>Tr2_T1</cim:IdentifiedObject.name>
+  <cim:IdentifiedObject.name>T2_T1</cim:IdentifiedObject.name>
   <cim:ACDCTerminal.connected>true</cim:ACDCTerminal.connected>
   <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
   <cim:Terminal.ConductingEquipment rdf:resource="#_90b38470-8a32-11e5-b5f4-080027008896"/>
@@ -537,7 +564,7 @@
   <cim:ControlArea.EnergyArea rdf:resource="#_90b2e834-8a32-11e5-b5f4-080027008896"/>
  </cim:ControlArea>
  <cim:Terminal rdf:ID="_90b3ab82-8a32-11e5-b5f4-080027008896">
-  <cim:IdentifiedObject.name>Tr2_T2</cim:IdentifiedObject.name>
+  <cim:IdentifiedObject.name>T2_T2</cim:IdentifiedObject.name>
   <cim:ACDCTerminal.connected>true</cim:ACDCTerminal.connected>
   <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
   <cim:Terminal.ConductingEquipment rdf:resource="#_90b38470-8a32-11e5-b5f4-080027008896"/>
@@ -593,7 +620,7 @@
   <cim:IdentifiedObject.name>OWNER2</cim:IdentifiedObject.name>
  </cim:OperatingParticipant>
  <cim:Terminal rdf:ID="_90b35d60-8a32-11e5-b5f4-080027008896">
-  <cim:IdentifiedObject.name>Tr1_T1</cim:IdentifiedObject.name>
+  <cim:IdentifiedObject.name>T1_T1</cim:IdentifiedObject.name>
   <cim:ACDCTerminal.connected>true</cim:ACDCTerminal.connected>
   <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
   <cim:Terminal.ConductingEquipment rdf:resource="#_90b33652-8a32-11e5-b5f4-080027008896"/>
@@ -658,16 +685,17 @@
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b55933-8a32-11e5-b5f4-080027008896"/>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="#_90b0ec61-8a32-11e5-b5f4-080027008896"/>
   <cim:Conductor.length>220</cim:Conductor.length>
-  <cim:ACLineSegment.bch>0.00039508508052676916</cim:ACLineSegment.bch>
-  <cim:ACLineSegment.r>6.295100212097168</cim:ACLineSegment.r>
-  <cim:ACLineSegment.x>53.32320022583008</cim:ACLineSegment.x>
+  <cim:ACLineSegment.bch>0.10450000315904617</cim:ACLineSegment.bch>
+  <cim:ACLineSegment.gch>0</cim:ACLineSegment.gch>
+  <cim:ACLineSegment.r>0.011900000274181366</cim:ACLineSegment.r>
+  <cim:ACLineSegment.x>0.10080000013113022</cim:ACLineSegment.x>
  </cim:ACLineSegment>
  <cim:BusbarSection rdf:ID="_90b00203-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.name>BUS1</cim:IdentifiedObject.name>
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b02912-8a32-11e5-b5f4-080027008896"/>
  </cim:BusbarSection>
  <cim:Terminal rdf:ID="_90b3d292-8a32-11e5-b5f4-080027008896">
-  <cim:IdentifiedObject.name>Tr3_T1</cim:IdentifiedObject.name>
+  <cim:IdentifiedObject.name>T3_T1</cim:IdentifiedObject.name>
   <cim:ACDCTerminal.connected>true</cim:ACDCTerminal.connected>
   <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
   <cim:Terminal.ConductingEquipment rdf:resource="#_90b3ab85-8a32-11e5-b5f4-080027008896"/>
@@ -717,6 +745,8 @@
   <cim:SynchronousMachine.r>0.00027225000667385757</cim:SynchronousMachine.r>
   <cim:SynchronousMachine.referencePriority>1</cim:SynchronousMachine.referencePriority>
   <cim:SynchronousMachine.type rdf:resource="http://iec.ch/TC57/2013/CIM-schema-cim16#SynchronousMachineKind.generator"/>
+  <cim:SynchronousMachine.x0>0.05999999865889549</cim:SynchronousMachine.x0>
+  <cim:SynchronousMachine.SynchronousMachineDynamics rdf:resource="#_02c873a0-9e7d-11e5-a1af-080027008896"/>
  </cim:SynchronousMachine>
  <cim:Substation rdf:ID="_90b3f9a4-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.name>BUS6</cim:IdentifiedObject.name>
@@ -740,9 +770,10 @@
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b420b0-8a32-11e5-b5f4-080027008896"/>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="#_90b0ec61-8a32-11e5-b5f4-080027008896"/>
   <cim:Conductor.length>110</cim:Conductor.length>
-  <cim:ACLineSegment.bch>0.0003327032027300447</cim:ACLineSegment.bch>
-  <cim:ACLineSegment.r>5.289999961853027</cim:ACLineSegment.r>
-  <cim:ACLineSegment.x>44.96500015258789</cim:ACLineSegment.x>
+  <cim:ACLineSegment.bch>0.08799999952316284</cim:ACLineSegment.bch>
+  <cim:ACLineSegment.gch>0</cim:ACLineSegment.gch>
+  <cim:ACLineSegment.r>0.009999999776482582</cim:ACLineSegment.r>
+  <cim:ACLineSegment.x>0.08500000089406967</cim:ACLineSegment.x>
  </cim:ACLineSegment>
  <cim:PowerTransformerEnd rdf:ID="_90b35d62-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.name>T1 TWT1 Secondary</cim:IdentifiedObject.name>
@@ -756,7 +787,7 @@
   <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
   <cim:PowerTransformerEnd.ratedS>0</cim:PowerTransformerEnd.ratedS>
   <cim:PowerTransformerEnd.ratedU>230</cim:PowerTransformerEnd.ratedU>
-  <cim:PowerTransformerEnd.x>0</cim:PowerTransformerEnd.x>
+  <cim:PowerTransformerEnd.x>0.05860000103712082</cim:PowerTransformerEnd.x>
   <cim:PowerTransformerEnd.PowerTransformer rdf:resource="#_90b33652-8a32-11e5-b5f4-080027008896"/>
  </cim:PowerTransformerEnd>
  <cim:CurrentLimit rdf:ID="_90b55930-8a32-11e5-b5f4-080027008896">
@@ -804,9 +835,10 @@
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b46ed1-8a32-11e5-b5f4-080027008896"/>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="#_90b0ec61-8a32-11e5-b5f4-080027008896"/>
   <cim:Conductor.length>110</cim:Conductor.length>
-  <cim:ACLineSegment.bch>0.0002986767503898591</cim:ACLineSegment.bch>
-  <cim:ACLineSegment.r>8.993000030517578</cim:ACLineSegment.r>
-  <cim:ACLineSegment.x>48.667999267578125</cim:ACLineSegment.x>
+  <cim:ACLineSegment.bch>0.07900000363588333</cim:ACLineSegment.bch>
+  <cim:ACLineSegment.gch>0</cim:ACLineSegment.gch>
+  <cim:ACLineSegment.r>0.017000000923871994</cim:ACLineSegment.r>
+  <cim:ACLineSegment.x>0.09200000017881393</cim:ACLineSegment.x>
  </cim:ACLineSegment>
  <cim:OperationalLimitType rdf:ID="_90b447c0-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.name>ShortTerm</cim:IdentifiedObject.name>
@@ -815,6 +847,7 @@
  </cim:OperationalLimitType>
  <cim:GeneratingUnit rdf:ID="_90b30f40-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.name>G3</cim:IdentifiedObject.name>
+  <cim:GeneratingUnit.baseP>100</cim:GeneratingUnit.baseP>
   <cim:GeneratingUnit.initialP>85</cim:GeneratingUnit.initialP>
   <cim:GeneratingUnit.maxOperatingP>270</cim:GeneratingUnit.maxOperatingP>
   <cim:GeneratingUnit.minOperatingP>30</cim:GeneratingUnit.minOperatingP>
@@ -884,7 +917,7 @@
   <cim:LoadResponseCharacteristic.qConstantPower>1</cim:LoadResponseCharacteristic.qConstantPower>
  </cim:LoadResponseCharacteristic>
  <cim:PowerTransformer rdf:ID="_90b33652-8a32-11e5-b5f4-080027008896">
-  <cim:IdentifiedObject.name>Tr1</cim:IdentifiedObject.name>
+  <cim:IdentifiedObject.name>T1</cim:IdentifiedObject.name>
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b33653-8a32-11e5-b5f4-080027008896"/>
  </cim:PowerTransformer>
  <cim:SvPowerFlow rdf:ID="_90b24bf2-8a32-11e5-b5f4-080027008896">
@@ -906,6 +939,7 @@
   <cim:SynchronousMachine.r>0.0001904399978229776</cim:SynchronousMachine.r>
   <cim:SynchronousMachine.referencePriority>0</cim:SynchronousMachine.referencePriority>
   <cim:SynchronousMachine.type rdf:resource="http://iec.ch/TC57/2013/CIM-schema-cim16#SynchronousMachineKind.generator"/>
+  <cim:SynchronousMachine.SynchronousMachineDynamics rdf:resource="#_08716d20-9e7d-11e5-a1af-080027008896"/>
  </cim:SynchronousMachine>
  <cim:SvPowerFlow rdf:ID="_90b29a11-8a32-11e5-b5f4-080027008896">
   <cim:SvPowerFlow.p>-71.66100311279297</cim:SvPowerFlow.p>
@@ -924,7 +958,7 @@
   <cim:CurrentLimit.value>627.5546264648438</cim:CurrentLimit.value>
  </cim:CurrentLimit>
  <cim:Terminal rdf:ID="_90b35d63-8a32-11e5-b5f4-080027008896">
-  <cim:IdentifiedObject.name>Tr1_T2</cim:IdentifiedObject.name>
+  <cim:IdentifiedObject.name>T1_T2</cim:IdentifiedObject.name>
   <cim:ACDCTerminal.connected>true</cim:ACDCTerminal.connected>
   <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
   <cim:Terminal.ConductingEquipment rdf:resource="#_90b33652-8a32-11e5-b5f4-080027008896"/>
@@ -974,7 +1008,7 @@
   <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
   <cim:PowerTransformerEnd.ratedS>0</cim:PowerTransformerEnd.ratedS>
   <cim:PowerTransformerEnd.ratedU>18</cim:PowerTransformerEnd.ratedU>
-  <cim:PowerTransformerEnd.x>0.20250000059604645</cim:PowerTransformerEnd.x>
+  <cim:PowerTransformerEnd.x>0.0575999990105629</cim:PowerTransformerEnd.x>
   <cim:PowerTransformerEnd.PowerTransformer rdf:resource="#_90b38470-8a32-11e5-b5f4-080027008896"/>
  </cim:PowerTransformerEnd>
  <cim:OperatingShare rdf:ID="_90b2e831-8a32-11e5-b5f4-080027008896">
@@ -1055,7 +1089,7 @@
   <cim:OperatingShare.PowerSystemResource rdf:resource="#_90b30f40-8a32-11e5-b5f4-080027008896"/>
  </cim:OperatingShare>
  <cim:PowerTransformer rdf:ID="_90b3ab85-8a32-11e5-b5f4-080027008896">
-  <cim:IdentifiedObject.name>Tr3</cim:IdentifiedObject.name>
+  <cim:IdentifiedObject.name>T3</cim:IdentifiedObject.name>
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b3d290-8a32-11e5-b5f4-080027008896"/>
  </cim:PowerTransformer>
  <cim:Line rdf:ID="_90b4e401-8a32-11e5-b5f4-080027008896">
@@ -1079,9 +1113,10 @@
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b495e4-8a32-11e5-b5f4-080027008896"/>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="#_90b0ec61-8a32-11e5-b5f4-080027008896"/>
   <cim:Conductor.length>150</cim:Conductor.length>
-  <cim:ACLineSegment.bch>0.0005784499226137996</cim:ACLineSegment.bch>
-  <cim:ACLineSegment.r>16.928001403808594</cim:ACLineSegment.r>
-  <cim:ACLineSegment.x>85.16899871826172</cim:ACLineSegment.x>
+  <cim:ACLineSegment.bch>0.15299999713897705</cim:ACLineSegment.bch>
+  <cim:ACLineSegment.gch>0</cim:ACLineSegment.gch>
+  <cim:ACLineSegment.r>0.03200000151991844</cim:ACLineSegment.r>
+  <cim:ACLineSegment.x>0.16099999845027924</cim:ACLineSegment.x>
  </cim:ACLineSegment>
  <cim:CurrentLimit rdf:ID="_90b495e3-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.name>Alarm</cim:IdentifiedObject.name>
@@ -1148,6 +1183,44 @@
   <cim:TopologicalNode.SvVoltage rdf:resource="#_90b1afb1-8a32-11e5-b5f4-080027008896"/>
   <cim:TopologicalNode.TopologicalIsland rdf:resource="#_90b00200-8a32-11e5-b5f4-080027008896"/>
  </cim:TopologicalNode>
+ <cim:SynchronousMachineTimeConstantReactance rdf:ID="_08716d20-9e7d-11e5-a1af-080027008896">
+  <cim:RotatingMachineDynamics.damping>0.4699999988079071</cim:RotatingMachineDynamics.damping>
+  <cim:RotatingMachineDynamics.inertia>2.3499999046325684</cim:RotatingMachineDynamics.inertia>
+  <cim:RotatingMachineDynamics.saturationFactor>1.0099999904632568</cim:RotatingMachineDynamics.saturationFactor>
+  <cim:RotatingMachineDynamics.saturationFactor120>1.0199999809265137</cim:RotatingMachineDynamics.saturationFactor120>
+  <cim:RotatingMachineDynamics.statorLeakageReactance>0.15360000729560852</cim:RotatingMachineDynamics.statorLeakageReactance>
+  <cim:SynchronousMachineDynamics.SynchronousMachine rdf:resource="#_90b30f41-8a32-11e5-b5f4-080027008896"/>
+  <cim:SynchronousMachineTimeConstantReactance.rotorType rdf:resource="http://iec.ch/TC57/2013/CIM-schema-cim16#RotorKind.roundRotor"/>
+  <cim:SynchronousMachineTimeConstantReactance.tpdo>5.889999866485596</cim:SynchronousMachineTimeConstantReactance.tpdo>
+  <cim:SynchronousMachineTimeConstantReactance.tppdo>0.05000000074505806</cim:SynchronousMachineTimeConstantReactance.tppdo>
+  <cim:SynchronousMachineTimeConstantReactance.tppqo>0.05000000074505806</cim:SynchronousMachineTimeConstantReactance.tppqo>
+  <cim:SynchronousMachineTimeConstantReactance.tpqo>0.6000000238418579</cim:SynchronousMachineTimeConstantReactance.tpqo>
+  <cim:SynchronousMachineTimeConstantReactance.xDirectSubtrans>0.20999999344348907</cim:SynchronousMachineTimeConstantReactance.xDirectSubtrans>
+  <cim:SynchronousMachineTimeConstantReactance.xDirectSync>1.6799999475479126</cim:SynchronousMachineTimeConstantReactance.xDirectSync>
+  <cim:SynchronousMachineTimeConstantReactance.xDirectTrans>0.2320999950170517</cim:SynchronousMachineTimeConstantReactance.xDirectTrans>
+  <cim:SynchronousMachineTimeConstantReactance.xQuadSubtrans>0</cim:SynchronousMachineTimeConstantReactance.xQuadSubtrans>
+  <cim:SynchronousMachineTimeConstantReactance.xQuadSync>1.6100000143051147</cim:SynchronousMachineTimeConstantReactance.xQuadSync>
+  <cim:SynchronousMachineTimeConstantReactance.xQuadTrans>0.3199999928474426</cim:SynchronousMachineTimeConstantReactance.xQuadTrans>
+ </cim:SynchronousMachineTimeConstantReactance>
+ <cim:SynchronousMachineTimeConstantReactance rdf:ID="_02c873a0-9e7d-11e5-a1af-080027008896">
+  <cim:RotatingMachineDynamics.damping>1.600000023841858</cim:RotatingMachineDynamics.damping>
+  <cim:RotatingMachineDynamics.inertia>9.550000190734863</cim:RotatingMachineDynamics.inertia>
+  <cim:RotatingMachineDynamics.saturationFactor>1.0099999904632568</cim:RotatingMachineDynamics.saturationFactor>
+  <cim:RotatingMachineDynamics.saturationFactor120>1.0199999809265137</cim:RotatingMachineDynamics.saturationFactor120>
+  <cim:RotatingMachineDynamics.statorLeakageReactance>0.05999999865889549</cim:RotatingMachineDynamics.statorLeakageReactance>
+  <cim:SynchronousMachineDynamics.SynchronousMachine rdf:resource="#_90b27304-8a32-11e5-b5f4-080027008896"/>
+  <cim:SynchronousMachineTimeConstantReactance.rotorType rdf:resource="http://iec.ch/TC57/2013/CIM-schema-cim16#RotorKind.salientPole"/>
+  <cim:SynchronousMachineTimeConstantReactance.tpdo>8.960000038146973</cim:SynchronousMachineTimeConstantReactance.tpdo>
+  <cim:SynchronousMachineTimeConstantReactance.tppdo>0.05000000074505806</cim:SynchronousMachineTimeConstantReactance.tppdo>
+  <cim:SynchronousMachineTimeConstantReactance.tppqo>0.05000000074505806</cim:SynchronousMachineTimeConstantReactance.tppqo>
+  <cim:SynchronousMachineTimeConstantReactance.tpqo>0</cim:SynchronousMachineTimeConstantReactance.tpqo>
+  <cim:SynchronousMachineTimeConstantReactance.xDirectSubtrans>0.10000000149011612</cim:SynchronousMachineTimeConstantReactance.xDirectSubtrans>
+  <cim:SynchronousMachineTimeConstantReactance.xDirectSync>0.36149999499320984</cim:SynchronousMachineTimeConstantReactance.xDirectSync>
+  <cim:SynchronousMachineTimeConstantReactance.xDirectTrans>0.15080000460147858</cim:SynchronousMachineTimeConstantReactance.xDirectTrans>
+  <cim:SynchronousMachineTimeConstantReactance.xQuadSubtrans>0.10000000149011612</cim:SynchronousMachineTimeConstantReactance.xQuadSubtrans>
+  <cim:SynchronousMachineTimeConstantReactance.xQuadSync>0.23999999463558197</cim:SynchronousMachineTimeConstantReactance.xQuadSync>
+  <cim:SynchronousMachineTimeConstantReactance.xQuadTrans>0</cim:SynchronousMachineTimeConstantReactance.xQuadTrans>
+ </cim:SynchronousMachineTimeConstantReactance>
  <cim:OperationalLimitSet rdf:ID="_90b3ab80-8a32-11e5-b5f4-080027008896">
   <cim:IdentifiedObject.name>T2 TWT2 Primary Limits</cim:IdentifiedObject.name>
   <cim:OperationalLimitSet.Equipment rdf:resource="#_90b38470-8a32-11e5-b5f4-080027008896"/>

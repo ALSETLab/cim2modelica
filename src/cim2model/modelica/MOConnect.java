@@ -46,14 +46,11 @@ public class MOConnect
 		pencil.append("connect(");
 		pencil.append(this.id_component_u);
 		pencil.append(".");
-		if (this.id_component_u.substring(0, 3).equals("BUS"))
+		if (this.pin_component_u.substring(this.pin_component_u.length()- 2, 
+				this.pin_component_u.length()).equals("T1"))
 			pencil.append("p");
 		else
-			if (this.pin_component_u.substring(this.pin_component_u.length()- 2, 
-					this.pin_component_u.length()).equals("T1"))
-				pencil.append("p");
-			else
-				pencil.append("n");
+			pencil.append("n");
 //		pencil.append(this.pin_component_u);
 		pencil.append(", ");
 		pencil.append(this.id_component_y);

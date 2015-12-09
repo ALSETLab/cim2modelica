@@ -108,6 +108,7 @@ public class ModelDesigner
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 		MapAttribute currentmapAtt, newmapAtt;
 		while (imapAttList.hasNext()) {
+			//TODO delete all spaces from the Identified.name attribute
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 //			System.out.println("currentmapAtt "+ currentmapAtt.toString());
@@ -191,12 +192,14 @@ public class ModelDesigner
 	 */
 	public GENSALMap create_MachineModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
+		//TODO rotorType field must be considered for geting instance of GENSAL or GENROU
 		GENSALMap mapSyncMach= gensalXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
 		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapSyncMach.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
+			//TODO delete all spaces from the Identified.name attribute
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
@@ -237,6 +240,7 @@ public class ModelDesigner
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
+			//TODO delete all spaces from the Identified.name attribute
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
@@ -272,6 +276,7 @@ public class ModelDesigner
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
+			//TODO delete all spaces from the Identified.name attribute
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
@@ -307,6 +312,8 @@ public class ModelDesigner
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
+			//TODO delete all spaces from the Identified.name attribute
+			//TODO check if ltcflag cim attribute contains value or not, 
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
@@ -353,6 +360,7 @@ public class ModelDesigner
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
+			//TODO delete all spaces from the Identified.name attribute
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
