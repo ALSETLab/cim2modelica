@@ -92,6 +92,14 @@ public class ObjectFactory {
     }
     
     /**
+     * Create an instance of {@link Ieeet1Map }
+     * 
+     */
+    public Ieeet1Map createIeeet1Map() {
+        return new Ieeet1Map();
+    }
+    
+    /**
      * Create an instance of {@link MapAttribute }
      * 
      */

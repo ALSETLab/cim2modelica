@@ -8,4 +8,27 @@
   <mapAttribute cim_name="ACLineSegment.x" mo_name="X" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="ACLineSegment.gch" mo_name="G" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="ACLineSegment.bch" mo_name="B" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapEquation equation="equ_equal">
+  <!-- P12 = (p.vr*p.ir - p.vi*p.ii)*S_b; -->
+  <equ_left>
+  	<componentAttribute>P_12</componentAttribute>
+  </equ_left>
+  <equ_right>
+  	<mathOperation type="multiply">
+  		<mathWord type="parenthesis">
+  			<mathOperation type="substract">
+  				<mathOperation type="multiply">
+  					<componentAttribute>p.vr</componentAttribute>
+  					<componentAttribute>p.ir</componentAttribute>
+  				</mathOperation>
+  				<mathOperation type="multiply">
+  					<componentAttribute>p.vi</componentAttribute>
+  					<componentAttribute>p.ii</componentAttribute>
+  				</mathOperation>
+  			</mathOperation>
+  		</mathWord>
+  		<componentAttribute>S_b</componentAttribute>
+  	</mathOperation>
+  </equ_right>
+  </mapEquation>
 </pwLineMap>

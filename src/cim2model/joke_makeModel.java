@@ -10,8 +10,8 @@ import cim2model.modelica.ipsl.buses.Bus;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 
-public class joke_makeModel {
-	
+public class joke_makeModel 
+{
 	public static void main(String[] args) 
 	{
 		Map<Resource, RDFNode> components;
@@ -46,7 +46,6 @@ public class joke_makeModel {
 							"./res/map/cim_iteslalibrary_gensal.xml", equipmentResource);
 					MOClass momachine= constructor.create_MachineComponent(mapSyncMach);
 					momachine.add_Terminal(mopin);
-					//TODO: save this to a file
 					constructor.add_deviceNetwork(momachine);
 				}
 				//According to CIM Composer, EC has one terminal
@@ -57,7 +56,6 @@ public class joke_makeModel {
 							"./res/map/cim_iteslalibrary_pwloadpq.xml", equipmentResource);
 					MOClass moload= constructor.create_LoadComponent(mapEnergyC);
 					moload.add_Terminal(mopin);
-					//TODO: save this to a file
 					constructor.add_deviceNetwork(moload);
 				}
 				//According to CIM Composer, ACLineSegment has two terminals
@@ -94,7 +92,6 @@ public class joke_makeModel {
 										"./res/map/cim_iteslalibrary_pwbus.xml", topologyResource);
 						mobus= constructor.create_BusComponent(mapTopoNode);
 						mobus.add_Terminal(mopin);
-						//TODO: save this to a file
 						constructor.add_deviceNetwork(mobus);
 					}
 				}
@@ -138,11 +135,5 @@ public class joke_makeModel {
 		}
 		constructor.connect_Components(cartografo.get_ConnectionMap());
 		constructor.save_ModelicaFile(constructor.get_Network().to_ModelicaClass());
-		
-		// if using existing library, names of terminal are either p or n
-		//TODO add attribute pin in the map
-		//TODO convert pin name automaticaly in the code
-		//TODO save the already mapped components as an internal package into the model file.
-		// this thirs solution implies TODO do the mapping for the equations.
-}
+	}
 }
