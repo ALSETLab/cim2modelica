@@ -1,10 +1,16 @@
-<!ELEMENT pwLineMap (mapAttribute+)>
+<!ELEMENT pwLineMap (mapTerminal+, mapAttribute+, mapEquation+)>
 <!ATTLIST pwLineMap
-		  cim_name CDATA #REQUIRED
-		  rfd_id CDATA #REQUIRED
+          cim_name CDATA #REQUIRED
           name CDATA #REQUIRED
           package CDATA #REQUIRED
+          rfd_id CDATA #REQUIRED
           stereotype CDATA #REQUIRED>
+<!ELEMENT mapTerminal (#PCDATA)>
+<!ATTLIST mapTerminal
+          cim_name CDATA #REQUIRED
+          cim_rfdid CDATA #REQUIRED
+          datatype CDATA #REQUIRED
+          mo_name CDATA #REQUIRED>
 <!ELEMENT mapAttribute (#PCDATA)>
 <!ATTLIST mapAttribute
           cim_name CDATA #REQUIRED
@@ -12,3 +18,15 @@
           mo_name CDATA #REQUIRED
           variability CDATA #REQUIRED
           visibility CDATA #REQUIRED>
+<!ELEMENT mapEquation (componentAttribute?, mathOperation+)>
+<!ATTLIST mapEquation
+          equation CDATA #REQUIRED>
+<!ELEMENT componentAttribute (#PCDATA)>
+<!ATTLIST componentAttribute
+          name CDATA #REQUIRED>
+<!ELEMENT mathOperation (componentAttribute*, mathWord?, mathOperation*)>
+<!ATTLIST mathOperation
+          type CDATA #REQUIRED>
+<!ELEMENT mathWord (componentAttribute, mathOperation+)>
+<!ATTLIST mathWord
+          type CDATA #REQUIRED>

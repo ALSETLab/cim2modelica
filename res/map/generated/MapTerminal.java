@@ -6,14 +6,13 @@
 //
 
 
-package cim2model.mapping.modelica;
+package generated;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
 
 
 /**
@@ -26,10 +25,9 @@ import javax.xml.bind.annotation.XmlValue;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;attribute name="cim_name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="cim_rfdid" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="datatype" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="mo_name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="variability" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="visibility" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -38,48 +36,18 @@ import javax.xml.bind.annotation.XmlValue;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "content"
-})
-@XmlRootElement(name = "mapAttribute")
-public class MapAttribute {
+@XmlType(name = "")
+@XmlRootElement(name = "mapTerminal")
+public class MapTerminal {
 
-    @XmlValue
-    protected String content;
     @XmlAttribute(name = "cim_name", required = true)
     protected String cimName;
+    @XmlAttribute(name = "cim_rfdid", required = true)
+    protected String cimRfdid;
     @XmlAttribute(name = "datatype", required = true)
     protected String datatype;
     @XmlAttribute(name = "mo_name", required = true)
     protected String moName;
-    @XmlAttribute(name = "variability", required = true)
-    protected String variability;
-    @XmlAttribute(name = "visibility", required = true)
-    protected String visibility;
-
-    /**
-     * Gets the value of the content property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getContent() {
-        return content;
-    }
-
-    /**
-     * Sets the value of the content property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setContent(String value) {
-        this.content = value;
-    }
 
     /**
      * Gets the value of the cimName property.
@@ -103,6 +71,30 @@ public class MapAttribute {
      */
     public void setCimName(String value) {
         this.cimName = value;
+    }
+
+    /**
+     * Gets the value of the cimRfdid property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCimRfdid() {
+        return cimRfdid;
+    }
+
+    /**
+     * Sets the value of the cimRfdid property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCimRfdid(String value) {
+        this.cimRfdid = value;
     }
 
     /**
@@ -151,54 +143,6 @@ public class MapAttribute {
      */
     public void setMoName(String value) {
         this.moName = value;
-    }
-
-    /**
-     * Gets the value of the variability property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getVariability() {
-        return variability;
-    }
-
-    /**
-     * Sets the value of the variability property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setVariability(String value) {
-        this.variability = value;
-    }
-
-    /**
-     * Gets the value of the visibility property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getVisibility() {
-        return visibility;
-    }
-
-    /**
-     * Sets the value of the visibility property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setVisibility(String value) {
-        this.visibility = value;
     }
 
 }

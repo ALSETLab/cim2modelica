@@ -48,8 +48,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "mapAttribute"
 })
-@XmlRootElement(name = "GENSALMap")
-public class GENSALMap {
+@XmlRootElement(name = "SynchronousMachineMap")
+public class SynchronousMachineMap {
 
     @XmlElement(required = true)
     protected List<MapAttribute> mapAttribute;

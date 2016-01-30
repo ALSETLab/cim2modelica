@@ -168,14 +168,14 @@ public class ModelDesigner
 		return connection;
 	}
 	
-	private static GENSALMap gensalXMLToObject(String _xmlmap) {
+	private static SynchronousMachineMap gensalXMLToObject(String _xmlmap) {
 		JAXBContext context;
 		Unmarshaller un;
 		
 		try{
-			context = JAXBContext.newInstance(GENSALMap.class);
+			context = JAXBContext.newInstance(SynchronousMachineMap.class);
 	        un = context.createUnmarshaller();
-	        GENSALMap map = (GENSALMap) un.unmarshal(new File(_xmlmap));
+	        SynchronousMachineMap map = (SynchronousMachineMap) un.unmarshal(new File(_xmlmap));
 	        return map;
         } 
         catch (JAXBException e) {
@@ -190,10 +190,9 @@ public class ModelDesigner
 	 * @param _subjectID
 	 * @return
 	 */
-	public GENSALMap create_MachineModelicaMap(Resource key, String _source, String[] _subjectID)
+	public SynchronousMachineMap create_MachineModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
-		//TODO rotorType field must be considered for geting instance of GENSAL or GENROU
-		GENSALMap mapSyncMach= gensalXMLToObject(_source);
+		SynchronousMachineMap mapSyncMach= gensalXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
 		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapSyncMach.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
@@ -202,6 +201,17 @@ public class ModelDesigner
 			//TODO delete all spaces from the Identified.name attribute
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+			//add name of the modelica model according to type of rotor
+			if (currentmapAtt.getCimName().equals("SynchronousMachineTimeConstantReactance.rotorType")){
+				if (currentmapAtt.getContent().equals("RotorKind.roundRotor")){
+					mapSyncMach.setPackage(mapSyncMach.getPackage().concat("GENROU"));
+					mapSyncMach.setName("GENROU");
+				}
+				if (currentmapAtt.getContent().equals("RotorKind.salientPole")){
+					mapSyncMach.setPackage(mapSyncMach.getPackage().concat("GENSAL"));
+					mapSyncMach.setName("GENSAL");
+				}
+			}
 		}
 		mapSyncMach.setRfdId(_subjectID[0]);
 		mapSyncMach.setCimName(_subjectID[1]);
@@ -337,14 +347,14 @@ public class ModelDesigner
 		return transformerEnd;
 	}
 	
-	private static PwBusMap pwbusXMLToObject(String _xmlmap) {
+	private static BusExt2Map pwbusXMLToObject(String _xmlmap) {
 		JAXBContext context;
 		Unmarshaller un;
 		
 		try{
-			context = JAXBContext.newInstance(PwBusMap.class);
+			context = JAXBContext.newInstance(BusExt2Map.class);
 	        un = context.createUnmarshaller();
-	        PwBusMap map = (PwBusMap) un.unmarshal(new File(_xmlmap));
+	        BusExt2Map map = (BusExt2Map) un.unmarshal(new File(_xmlmap));
 	        return map;
         } 
         catch (JAXBException e) {
@@ -352,9 +362,9 @@ public class ModelDesigner
             return null;
         }
     }
-	public PwBusMap create_BusModelicaMap(Resource key, String _source, String[] _subjectID)
-	{//TODO check BusExt2, is a model with nu and no (input terminals and output terminals)
-		PwBusMap mapTopoNode= pwbusXMLToObject(_source);
+	public BusExt2Map create_BusModelicaMap(Resource key, String _source, String[] _subjectID)
+	{
+		BusExt2Map mapTopoNode= pwbusXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTopoNode(key);
 		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapTopoNode.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();

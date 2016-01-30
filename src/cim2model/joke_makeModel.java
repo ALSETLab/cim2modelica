@@ -42,8 +42,8 @@ public class joke_makeModel
 				if (equipmentResource[1].equals("SynchronousMachine"))
 				{
 //					System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
-					GENSALMap mapSyncMach= cartografo.create_MachineModelicaMap(conector.get_ConductingEquipmentMap(), 
-							"./res/map/cim_iteslalibrary_gensal.xml", equipmentResource);
+					SynchronousMachineMap mapSyncMach= cartografo.create_MachineModelicaMap(conector.get_ConductingEquipmentMap(), 
+							"./res/map/cim_iteslalibrary_syncmach.xml", equipmentResource);
 					MOClass momachine= constructor.create_MachineComponent(mapSyncMach);
 					momachine.add_Terminal(mopin);
 					constructor.add_deviceNetwork(momachine);
@@ -88,8 +88,8 @@ public class joke_makeModel
 					{
 						/* false, create map of the line and add the first terminal */
 //						System.out.println("rfd_id: "+ topologyResource[0] + " cim name: "+ topologyResource[1]);
-						PwBusMap mapTopoNode= cartografo.create_BusModelicaMap(conector.get_TopologicalNodeMap(), 
-										"./res/map/cim_iteslalibrary_pwbus.xml", topologyResource);
+						BusExt2Map mapTopoNode= cartografo.create_BusModelicaMap(conector.get_TopologicalNodeMap(), 
+										"./res/map/cim_iteslalibrary_busext2.xml", topologyResource);
 						mobus= constructor.create_BusComponent(mapTopoNode);
 						mobus.add_Terminal(mopin);
 						constructor.add_deviceNetwork(mobus);

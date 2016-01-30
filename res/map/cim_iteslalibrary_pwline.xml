@@ -2,12 +2,15 @@
 <!--Created by fragom-->
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_pwline.dtd">
 <pwLineMap cim_name="ACLineSegment" rfd_id="" package="PowerSystems.Electrical.Branches" name="PwLine" stereotype="class">
+  <mapTerminal cim_name="Terminal" cim_rfdid="" mo_name="p" datatype="PowerSystems.Connectors.PwPin"></mapTerminal>
+  <mapTerminal cim_name="Terminal" cim_rfdid="" mo_name="n" datatype="PowerSystems.Connectors.PwPin"></mapTerminal>
   <mapAttribute cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</mapAttribute>
   <mapAttribute cim_name="Conductor.length" mo_name="length" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="ACLineSegment.r" mo_name="R" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="ACLineSegment.x" mo_name="X" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="ACLineSegment.gch" mo_name="G" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="ACLineSegment.bch" mo_name="B" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+<<<<<<< Updated upstream
   <mapEquation equation="equ_equal">
   <!-- P12 = (p.vr*p.ir - p.vi*p.ii)*S_b; -->
   <equ_left>
@@ -30,5 +33,78 @@
   		<componentAttribute>S_b</componentAttribute>
   	</mathOperation>
   </equ_right>
+=======
+  <mapAttribute cim_name="SvPowerFlow.p" mo_name="S_b" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="none" mo_name="P12" datatype="Real" variability="none" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="none" mo_name="P21" datatype="Real" variability="none" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="none" mo_name="Q12" datatype="Real" variability="none" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="none" mo_name="Q21" datatype="Real" variability="none" visibility="public">0</mapAttribute>
+  <!-- why such a complicated structure? write the string as it is, in the map. The 
+  class only needs to read the whole equation as a string and print it in the modelica 
+  code file, no?-->
+  <!-- or maybe better use LISP syntax? -->
+  <mapEquation>P12=S_b*(p.vr*p.ir - p.vi*p.ii)</mapEquation>
+  <mapEquation equation="equ_equal">
+  	<componentAttribute name="P12">0</componentAttribute>
+  	<mathOperation type="multiply">
+  		<componentAttribute name="S_b">0</componentAttribute>
+  		<mathPolynomio type="parenthesis">
+	  		<mathOperation type="substract">
+		  		<mathOperation type="multiply">
+		  			<componentAttribute name="p.vr">0</componentAttribute>
+		  			<componentAttribute name="p.ir">0</componentAttribute>
+	  			</mathOperation>
+	  			<mathOperation type="multiply">
+		  			<componentAttribute name="p.vi">0</componentAttribute>
+		  			<componentAttribute name="p.ii">0</componentAttribute>
+	  			</mathOperation>
+	  		</mathOperation>
+  		</mathPolynomio>
+  	</mathOperation>
+  </mapEquation>
+  <mapEquation equation="equ_equal">
+  	<mathOperation type="substract">
+  		<mathOperation type="multiply">
+  			<componentAttribute name="R">0</componentAttribute>
+  			<mathPolynomio type="parenthesis">
+  				<componentAttribute name="n.ir">0</componentAttribute>
+	  			<mathOperation type="substract">
+	  				<mathOperation type="multiply">
+	  					<componentAttribute name="G">0</componentAttribute>
+	  					<componentAttribute name="n.vr">0</componentAttribute>
+	  				</mathOperation>
+	  			</mathOperation>
+	  			<mathOperation type="addition">
+	  				<mathOperation type="multiply">
+	  					<componentAttribute name="B">0</componentAttribute>
+	  					<componentAttribute name="n.vi">0</componentAttribute>
+	  				</mathOperation>
+	  			</mathOperation>
+  			</mathPolynomio>
+		</mathOperation>
+		<mathOperation type="multiply">
+  			<componentAttribute name="X">0</componentAttribute>
+  			<mathPolynomio type="parenthesis">
+  				<componentAttribute name="n.ii">0</componentAttribute>
+	  			<mathOperation type="substract">
+	  				<mathOperation type="multiply">
+	  					<componentAttribute name="B">0</componentAttribute>
+	  					<componentAttribute name="n.vr">0</componentAttribute>
+	  				</mathOperation>
+	  			</mathOperation>
+	  			<mathOperation type="substract">
+	  				<mathOperation type="multiply">
+	  					<componentAttribute name="G">0</componentAttribute>
+	  					<componentAttribute name="n.vi">0</componentAttribute>
+	  				</mathOperation>
+	  			</mathOperation>
+  			</mathPolynomio>
+		</mathOperation>
+	</mathOperation>
+	<mathOperation type="substract">
+		<componentAttribute name="n.vr">0</componentAttribute>
+	  	<componentAttribute name="p.vr">0</componentAttribute>
+	</mathOperation>
+>>>>>>> Stashed changes
   </mapEquation>
 </pwLineMap>

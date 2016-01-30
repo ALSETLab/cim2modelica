@@ -9,6 +9,9 @@ import java.util.Iterator;
 import cim2model.modelica.*;
 import cim2model.modelica.ipsl.branches.PwLine;
 import cim2model.modelica.ipsl.buses.Bus;
+import cim2model.modelica.ipsl.buses.BusExt2;
+import cim2model.modelica.ipsl.machines.GENROU;
+import cim2model.modelica.ipsl.machines.GENSAL;
 import cim2model.mapping.modelica.*;
 
 public class ModelBuilder 
@@ -176,9 +179,14 @@ public class ModelBuilder
 			return null;
 	}
 	
-	public MOClass create_MachineComponent(GENSALMap _mapSyncMach)
+	public MOClass create_MachineComponent(SynchronousMachineMap _mapSyncMach)
 	{
-		MOClass syncMach= new MOClass(_mapSyncMach.getName());
+		MOClass syncMach= null;
+		
+		if (_mapSyncMach.getName().equals("GENROU"))
+			syncMach= new GENROU(_mapSyncMach.getName());
+		if (_mapSyncMach.getName().equals("GENSAL"))
+			syncMach= new GENSAL(_mapSyncMach.getName());
 		ArrayList<MapAttribute> mapAttList= 
 				(ArrayList<MapAttribute>)_mapSyncMach.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
@@ -345,9 +353,9 @@ public class ModelBuilder
 		return variable;
 	}
 	
-	public MOClass create_BusComponent(PwBusMap _mapTopoNode)
-	{//TODO BusExt2 is a model with nu and no (input terminals and output terminals
-		Bus pwbus= new Bus(_mapTopoNode.getName());
+	public MOClass create_BusComponent(BusExt2Map _mapTopoNode)
+	{
+		BusExt2 pwbus= new BusExt2(_mapTopoNode.getName());
 		ArrayList<MapAttribute> mapAttList= 
 				(ArrayList<MapAttribute>)_mapTopoNode.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();

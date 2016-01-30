@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenModelicaModelDescription
+  xmlns:exp="https://svn.jmodelica.org/trunk/XML/daeExpressions.xsd"
+  xmlns:equ="https://svn.jmodelica.org/trunk/XML/daeEquations.xsd"
+  xmlns:fun="https://svn.jmodelica.org/trunk/XML/daeFunctions.xsd"
+  xmlns:opt="https://svn.jmodelica.org/trunk/XML/daeOptimization.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  fmiVersion="1.0"
+  modelName="iPSL.Electrical.Branches.PwLine"
+  modelIdentifier="iPSL_Electrical_Branches_PwLine"
+  guid="{8c4e810f-3df3-4a00-8276-176fa3c9f9e0}"
+  generationDateAndTime="2015-12-14T15:30:36"
+  variableNamingConvention="Structured"
+  numberOfContinuousStates="0"
+  numberOfEventIndicators="0"
+  >
+  
+  <VendorAnnotations>
+    <Tool name="OpenModelica Compiler 1.9.3+dev (r25613)"> </Tool>
+  </VendorAnnotations>
+
+
+  <ModelVariables>
+    <ScalarVariable name="P12"  valueReference="0" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="P12"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="P21"  valueReference="1" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="P21"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="Q12"  valueReference="2" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="Q12"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="Q21"  valueReference="3" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="Q21"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="n.ii"  valueReference="4" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="n"/>
+        <exp:QualifiedNamePart name="ii"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="n.ir"  valueReference="5" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="n"/>
+        <exp:QualifiedNamePart name="ir"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="n.vi"  valueReference="6" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="n"/>
+        <exp:QualifiedNamePart name="vi"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="n.vr"  valueReference="7" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="n"/>
+        <exp:QualifiedNamePart name="vr"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="p.ii"  valueReference="8" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="p"/>
+        <exp:QualifiedNamePart name="ii"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="p.ir"  valueReference="9" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="p"/>
+        <exp:QualifiedNamePart name="ir"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="p.vi"  valueReference="10" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="p"/>
+        <exp:QualifiedNamePart name="vi"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="p.vr"  valueReference="11" variability="continuous" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="p"/>
+        <exp:QualifiedNamePart name="vr"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>algebraic</VariableCategory>
+    </ScalarVariable> 
+    <ScalarVariable name="B" description="Shunt half susceptance p.u." valueReference="12" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="B"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="G" description="Shunt half conductance p.u." valueReference="13" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="G"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="R" description="Resistance p.u." valueReference="14" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="R"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="S_b" description="System base power (MVA)" valueReference="15" variability="parameter" causality="internal" alias="">
+      <Real start="100.0" fixed="true"    />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="S_b"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+
+    <ScalarVariable name="X" description="Reactance p.u." valueReference="16" variability="parameter" causality="internal" alias="">
+      <Real     />
+      <QualifiedName>
+        <exp:QualifiedNamePart name="X"/>
+      </QualifiedName>
+    <isLinearTimedVariables>
+      <TimePoint index="0" isLinear="true"/>
+    </isLinearTimedVariables>
+      <VariableCategory>independentParameter</VariableCategory>
+    </ScalarVariable> 
+  </ModelVariables>
+
+  <equ:BindingEquations>
+    <equ:BindingEquation>
+      <equ:Parameter>
+        <exp:QualifiedNamePart name="S_b"/>
+      </equ:Parameter>
+      <equ:BindingExp>
+        <exp:RealLiteral>100.0</exp:RealLiteral>
+      </equ:BindingExp>
+    </equ:BindingEquation>
+  </equ:BindingEquations>
+
+  <equ:DynamicEquations>
+    <equ:Equation>
+      <exp:Sub>
+      </exp:Sub>
+    </equ:Equation>  
+  </equ:DynamicEquations>
+
+  <equ:InitialEquations>
+  </equ:InitialEquations>
+
+  <fun:Algorithm>
+  </fun:Algorithm>
+
+  <fun:RecordsList>
+  </fun:RecordsList>
+
+  <fun:FunctionList>
+  </fun:FunctionList>
+
+  <opt:Optimization>
+    <opt:TimePoints>
+      <opt:TimePoint  >
+      </opt:TimePoint>
+    </opt:TimePoints>
+    <opt:PathConstraints>
+    </opt:PathConstraints>
+  </opt:Optimization>
+
+</OpenModelicaModelDescription>

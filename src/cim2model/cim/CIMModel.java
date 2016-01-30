@@ -241,16 +241,21 @@ public class CIMModel {
 				}
 				if ( attributeClass.getPredicate().getLocalName().equals("SynchronousMachine.SynchronousMachineDynamics"))
 				{
-					//agafar els valor d'aquest component
-					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
-					while( svPowerFlowAtts.hasNext() ) 
+					StmtIterator dynamicAtts= attributeClass.getAlt().listProperties();
+					while( dynamicAtts.hasNext() ) 
 					{
-						classAttribute= svPowerFlowAtts.next();
+						classAttribute= dynamicAtts.next();
+//						System.out.println("In CIM ... "+ classAttribute.getAlt().toString());
 						if (classAttribute.getAlt().isLiteral()) {
 							this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
 						}
+						if(classAttribute.getAlt().isURIResource() && 
+								classAttribute.getPredicate().getLocalName().equals("SynchronousMachineTimeConstantReactance.rotorType")){
+							this.attribute.put(classAttribute.getPredicate().getLocalName(), 
+									classAttribute.getObject().toString().split("#")[1]);
+						}
 					}
-					svPowerFlowAtts.close();
+					dynamicAtts.close();
 				}
 			}
 		}

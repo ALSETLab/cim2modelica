@@ -6,7 +6,7 @@
 //
 
 
-package cim2model.mapping.modelica;
+package generated;
 
 import java.util.ArrayList;
 import java.util.List;
