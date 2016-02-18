@@ -204,6 +204,38 @@ public class CIMModel {
 	}
 	
 	/**
+	 * TODO finalize this function
+	 * @param _subject
+	 * @return
+	 */
+	public String checkSynchronousMachineType(Resource _subject)
+	{
+		Statement attributeClass, classAttribute;
+		String machineType= "";
+		
+		StmtIterator iAttributes= _subject.listProperties();
+		while( iAttributes.hasNext() ) 
+		{
+			attributeClass= iAttributes.next();
+			if ( attributeClass.getPredicate().getLocalName().equals("SynchronousMachine.SynchronousMachineDynamics"))
+			{
+				StmtIterator dynamicAtts= attributeClass.getAlt().listProperties();
+				while( dynamicAtts.hasNext() ) 
+				{
+					classAttribute= dynamicAtts.next();
+					if(classAttribute.getAlt().isURIResource() && 
+							classAttribute.getPredicate().getLocalName().equals("SynchronousMachineTimeConstantReactance.rotorType")){
+						machineType= classAttribute.getObject().toString().split("#")[1];
+					}
+				}
+				dynamicAtts.close();
+			}
+		}
+		
+		return machineType;
+	}
+	
+	/**
 	 * cim_name="SvVoltage.angle" 
 	 * cim_name="SvVoltage.v" 
 	 * cim_name="SvPowerFlow.p" 
@@ -317,6 +349,7 @@ public class CIMModel {
 	}
 	
 	/**
+	 * TODO cim class names that are refered as strings, must be indicated into the mapping
 	 * cim_name="IdentifiedObject.name"
 	 * cim_name="PowerTransformerEnd.r" 
 	 * cim_name="PowerTransformerEnd.x"
@@ -344,7 +377,7 @@ public class CIMModel {
 			{
 				if ( attributeClass.getPredicate().getLocalName().equals("PowerTransformerEnd.PowerTransformer"))
 				{
-					//agafar els valor d'aquest component
+					//From this class, the interest is in the RFD_ID value, since there is one transformer with multiple Ends
 					StmtIterator powTransAtt= attributeClass.getAlt().listProperties();
 					while( powTransAtt.hasNext() ) 
 					{
@@ -357,19 +390,6 @@ public class CIMModel {
 					this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getResource());
 					powTransAtt.close();
 				}
-//				if ( attributeClass.getPredicate().getLocalName().equals("TransformerEnd.BaseVoltage"))
-//				{
-//					//agafar els valor d'aquest component
-//					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
-//					while( svPowerFlowAtts.hasNext() ) 
-//					{
-//						attributeSubClass= svPowerFlowAtts.next();
-//						if (attributeSubClass.getAlt().isLiteral()) {
-//							this.attribute.put(attributeSubClass.getPredicate().getLocalName(), attributeSubClass.getString());
-//						}
-//					}
-//					svPowerFlowAtts.close();
-//				}
 				if ( attributeClass.getPredicate().getLocalName().equals("TransformerEnd.RatioTapChanger"))
 				{
 					//agafar els valor d'aquest component

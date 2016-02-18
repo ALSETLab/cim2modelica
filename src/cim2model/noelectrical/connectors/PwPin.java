@@ -1,5 +1,7 @@
 package cim2model.noelectrical.connectors;
 
+import cim2model.mapping.modelica.MapAttribute;
+
 public class PwPin 
 {
 	private float vr;
@@ -70,4 +72,40 @@ public class PwPin
 	public void setIi(float ii) {
 		this.ii = ii;
 	}
+	
+	/** TODO Update values of ii and ir**/
+//	try 
+//	{ //TODO: calculate value for ii from v,angle,p,q
+//		double voltage= Double.valueOf(mapTerminal.getMapAttribute("vr").getContent());
+//		double apower= Double.valueOf(mapTerminal.getMapAttribute("P").getContent());
+//		double angle= Double.valueOf(mapTerminal.getMapAttribute("vi").getContent());
+//		double current= apower/(voltage*Math.cos(angle));
+//		newmapAtt= new MapAttribute();
+//		newmapAtt.setCimName("ir");
+//		newmapAtt.setMoName("ir");
+//		newmapAtt.setContent(Double.toString(current));
+//		newmapAtt.setDatatype("Real");
+//		newmapAtt.setVariability("none");
+//		newmapAtt.setVisibility("public");
+//		newmapAtt.setFlow("true");
+//		mapTerminal.setMapAttribute(newmapAtt);
+//		newmapAtt= new MapAttribute();
+//		newmapAtt.setCimName("ii");
+//		newmapAtt.setMoName("ii");
+//		newmapAtt.setContent(Double.toString(current));
+//		newmapAtt.setDatatype("Real");
+//		newmapAtt.setVariability("none");
+//		newmapAtt.setVisibility("public");
+//		newmapAtt.setFlow("true");
+//		mapTerminal.setMapAttribute(newmapAtt);
+//	}
+//	catch (NumberFormatException nfe)
+//	{
+//		System.err.println(nfe.getLocalizedMessage());
+//	}
+//	catch (NullPointerException npe)
+//	{
+//		System.out.println("This Terminal does not have power flow associated!");
+//		System.err.println(npe.getLocalizedMessage());
+//	}
 }

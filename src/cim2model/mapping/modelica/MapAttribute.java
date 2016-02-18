@@ -56,6 +56,8 @@ public class MapAttribute {
     protected String variability;
     @XmlAttribute(name = "visibility", required = true)
     protected String visibility;
+    @XmlAttribute(name = "flow", required = true)
+    protected String flow;
 
     /**
      * Gets the value of the content property.
@@ -199,6 +201,30 @@ public class MapAttribute {
      */
     public void setVisibility(String value) {
         this.visibility = value;
+    }
+    
+    /**
+     * Gets the value of the flow property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFlow() {
+        return flow;
+    }
+
+    /**
+     * Sets the value of the flow property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFlow(String value) {
+        this.flow = value;
     }
 
 }

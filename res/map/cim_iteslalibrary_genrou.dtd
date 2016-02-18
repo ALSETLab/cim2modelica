@@ -1,10 +1,9 @@
-<!ELEMENT pwLoadPQMap (mapAttribute+)>
-<!ATTLIST pwLoadPQMap
-		  cim_name CDATA #REQUIRED
-		  rfd_id CDATA #REQUIRED
-		  LoadResponse CDATA #REQUIRED
+<!ELEMENT GENROUMap (mapAttribute+)>
+<!ATTLIST GENROUMap
+          cim_name CDATA #REQUIRED
           name CDATA #REQUIRED
           package CDATA #REQUIRED
+          rfd_id CDATA #REQUIRED
           stereotype CDATA #REQUIRED>
 <!ELEMENT mapAttribute (#PCDATA)>
 <!ATTLIST mapAttribute

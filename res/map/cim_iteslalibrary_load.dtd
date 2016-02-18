@@ -1,7 +1,5 @@
-<!ELEMENT SynchronousMachineMap (mapAttribute+)>
-<!ATTLIST SynchronousMachineMap
-          GeneratingUnit CDATA #REQUIRED
-          SynchronousMachineDynamics CDATA #REQUIRED
+<!ELEMENT constantLoadMap (mapAttribute+)>
+<!ATTLIST constantLoadMap
           cim_name CDATA #REQUIRED
           name CDATA #REQUIRED
           package CDATA #REQUIRED

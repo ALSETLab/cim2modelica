@@ -34,14 +34,22 @@ public class ObjectFactory {
     public ObjectFactory() {
     }
 
-    //MACHINES
+    /* MACHINES */
     /**
-     * Create an instance of {@link GENSALMap }
+     * Create an instance of {@link GENROUMap }
      * 
      */
-    public SynchronousMachineMap createGENSALMap() {
-        return new SynchronousMachineMap();
+    public GENROUMap createGENROUMap() {
+        return new GENROUMap();
     }
+    /**
+     * Create an instance of {@link GENROUMap }
+     * 
+     */
+    public GENSALMap createGENSALMap() {
+        return new GENSALMap();
+    }
+    /* ### */
     
     /**
      * Create an instance of {@link PwPinMap }

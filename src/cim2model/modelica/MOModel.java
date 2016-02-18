@@ -12,6 +12,7 @@ public abstract class MOModel
 	protected String name;
 	protected String stereotype;
 	protected String pakage;
+	protected String comment;
 	protected String annotation;
 	
 	public MOModel(String _name, String _stereotype)
@@ -19,7 +20,8 @@ public abstract class MOModel
 		this.name= _name;
 		this.stereotype= _stereotype;
 		this.pakage= "package";
-		this.annotation= "annotation";
+		this.comment= "something here";
+		this.annotation= "annotation()";
 		this.rfdId= "";
 	}
 	
@@ -60,6 +62,18 @@ public abstract class MOModel
 	 */
 	public void set_Stereotype(String stereotype) {
 		this.stereotype = stereotype;
+	}
+	/**
+	 * @return the comment
+	 */
+	public String get_Comment() {
+		return comment;
+	}
+	/**
+	 * @param comment the comment to set
+	 */
+	public void set_Comment(String comment) {
+		this.comment = comment;
 	}
 	/**
 	 * @return the annotation

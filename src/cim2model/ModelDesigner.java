@@ -108,47 +108,12 @@ public class ModelDesigner
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 		MapAttribute currentmapAtt, newmapAtt;
 		while (imapAttList.hasNext()) {
-			//TODO delete all spaces from the Identified.name attribute
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 //			System.out.println("currentmapAtt "+ currentmapAtt.toString());
 		}
 		mapTerminal.setConductingEquipment(cimClassMap.get("Terminal.ConductingEquipment").toString());
 		mapTerminal.setTopologicalNode(cimClassMap.get("Terminal.TopologicalNode").toString());
-		try 
-		{ //TODO: calculate value for ii from v,angle,p,q
-			double voltage= Double.valueOf(mapTerminal.getMapAttribute("vr").getContent());
-			double apower= Double.valueOf(mapTerminal.getMapAttribute("P").getContent());
-			double angle= Double.valueOf(mapTerminal.getMapAttribute("vi").getContent());
-			double current= apower/(voltage*Math.cos(angle));
-			newmapAtt= new MapAttribute();
-			newmapAtt.setCimName("ir");
-			newmapAtt.setMoName("ir");
-			newmapAtt.setContent(Double.toString(current));
-			newmapAtt.setDatatype("Real");
-			newmapAtt.setVariability("none");
-			newmapAtt.setVisibility("public");
-			newmapAtt.setFlow("true");
-			mapTerminal.setMapAttribute(newmapAtt);
-			newmapAtt= new MapAttribute();
-			newmapAtt.setCimName("ii");
-			newmapAtt.setMoName("ii");
-			newmapAtt.setContent(Double.toString(current));
-			newmapAtt.setDatatype("Real");
-			newmapAtt.setVariability("none");
-			newmapAtt.setVisibility("public");
-			newmapAtt.setFlow("true");
-			mapTerminal.setMapAttribute(newmapAtt);
-		}
-		catch (NumberFormatException nfe)
-		{
-			System.err.println(nfe.getLocalizedMessage());
-		}
-		catch (NullPointerException npe)
-		{
-			System.out.println("This Terminal does not have power flow associated!");
-			System.err.println(npe.getLocalizedMessage());
-		}
 		// add cim id, used as reference from terminal and connections to other components 
 		mapTerminal.setRfdId(_subjectID[0]);
 		mapTerminal.setCimName(_subjectID[1]);
@@ -168,14 +133,14 @@ public class ModelDesigner
 		return connection;
 	}
 	
-	private static SynchronousMachineMap gensalXMLToObject(String _xmlmap) {
+	private static GENROUMap genrouXMLToObject(String _xmlmap) {
 		JAXBContext context;
 		Unmarshaller un;
 		
 		try{
-			context = JAXBContext.newInstance(SynchronousMachineMap.class);
+			context = JAXBContext.newInstance(GENROUMap.class);
 	        un = context.createUnmarshaller();
-	        SynchronousMachineMap map = (SynchronousMachineMap) un.unmarshal(new File(_xmlmap));
+	        GENROUMap map = (GENROUMap) un.unmarshal(new File(_xmlmap));
 	        return map;
         } 
         catch (JAXBException e) {
@@ -183,6 +148,27 @@ public class ModelDesigner
             return null;
         }
     }
+	private static GENSALMap gensalXMLToObject(String _xmlmap) {
+		JAXBContext context;
+		Unmarshaller un;
+		
+		try{
+			context = JAXBContext.newInstance(GENSALMap.class);
+	        un = context.createUnmarshaller();
+	        GENSALMap map = (GENSALMap) un.unmarshal(new File(_xmlmap));
+	        return map;
+        } 
+        catch (JAXBException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+	public String typeOfSynchronousMachine(Resource key)
+	{
+		String rotorKind= modelCIM.checkSynchronousMachineType(key);
+		
+		return rotorKind;
+	}
 	/**
 	 * 
 	 * @param key
@@ -190,29 +176,43 @@ public class ModelDesigner
 	 * @param _subjectID
 	 * @return
 	 */
-	public SynchronousMachineMap create_MachineModelicaMap(Resource key, String _source, String[] _subjectID)
+	public GENROUMap create_GENROUModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
-		SynchronousMachineMap mapSyncMach= gensalXMLToObject(_source);
+		GENROUMap mapSyncMach= genrouXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
 		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapSyncMach.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
-			//TODO delete all spaces from the Identified.name attribute
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
-			//add name of the modelica model according to type of rotor
-			if (currentmapAtt.getCimName().equals("SynchronousMachineTimeConstantReactance.rotorType")){
-				if (currentmapAtt.getContent().equals("RotorKind.roundRotor")){
-					mapSyncMach.setPackage(mapSyncMach.getPackage().concat("GENROU"));
-					mapSyncMach.setName("GENROU");
-				}
-				if (currentmapAtt.getContent().equals("RotorKind.salientPole")){
-					mapSyncMach.setPackage(mapSyncMach.getPackage().concat("GENSAL"));
-					mapSyncMach.setName("GENSAL");
-				}
-			}
 		}
+		mapSyncMach.setName("GENROU");
+		mapSyncMach.setRfdId(_subjectID[0]);
+		mapSyncMach.setCimName(_subjectID[1]);
+		this.equipment.put(mapSyncMach, mapSyncMach.getClass().getName());
+		
+		return mapSyncMach;
+	}
+	/**
+	 * 
+	 * @param key
+	 * @param _source
+	 * @param _subjectID
+	 * @return
+	 */
+	public GENSALMap create_GENSALModelicaMap(Resource key, String _source, String[] _subjectID)
+	{
+		GENSALMap mapSyncMach= gensalXMLToObject(_source);
+		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
+		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapSyncMach.getMapAttribute();
+		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		MapAttribute currentmapAtt;
+		while (imapAttList.hasNext()) {
+			currentmapAtt= imapAttList.next();
+			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+		}
+		mapSyncMach.setName("GENSAL");
 		mapSyncMach.setRfdId(_subjectID[0]);
 		mapSyncMach.setCimName(_subjectID[1]);
 		this.equipment.put(mapSyncMach, mapSyncMach.getClass().getName());
@@ -313,7 +313,7 @@ public class ModelDesigner
         }
     }
 	public CIMTransformerEnd create_TransformerModelicaMap(Resource key, String _source, String[] _subjectID)
-	{
+	{//TODO this function must handle retrieve the terminals and transformerends, return complete map
 		TwoWindingTransformerMap mapPowTrans= twtXMLToObject(_source);
 		CIMTransformerEnd transformerEnd;
 		
@@ -321,13 +321,10 @@ public class ModelDesigner
 		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapPowTrans.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 		MapAttribute currentmapAtt;
-		while (imapAttList.hasNext()) {
-			//TODO delete all spaces from the Identified.name attribute
-			//TODO check if ltcflag cim attribute contains value or not, 
+		while (imapAttList.hasNext()) { //get the values of the attributes
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
-		mapPowTrans.setPowerTransformer(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString());
 		mapPowTrans.setPowerTransformer(cimClassMap.get("TransformerEnd.RatioTapChanger").toString());
 		mapPowTrans.setTerminal(cimClassMap.get("TransformerEnd.Terminal").toString());
 		
@@ -347,14 +344,14 @@ public class ModelDesigner
 		return transformerEnd;
 	}
 	
-	private static BusExt2Map pwbusXMLToObject(String _xmlmap) {
+	private static PwBusMap pwbusXMLToObject(String _xmlmap) {
 		JAXBContext context;
 		Unmarshaller un;
 		
 		try{
-			context = JAXBContext.newInstance(BusExt2Map.class);
+			context = JAXBContext.newInstance(PwBusMap.class);
 	        un = context.createUnmarshaller();
-	        BusExt2Map map = (BusExt2Map) un.unmarshal(new File(_xmlmap));
+	        PwBusMap map = (PwBusMap) un.unmarshal(new File(_xmlmap));
 	        return map;
         } 
         catch (JAXBException e) {
@@ -362,9 +359,9 @@ public class ModelDesigner
             return null;
         }
     }
-	public BusExt2Map create_BusModelicaMap(Resource key, String _source, String[] _subjectID)
+	public PwBusMap create_BusModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
-		BusExt2Map mapTopoNode= pwbusXMLToObject(_source);
+		PwBusMap mapTopoNode= pwbusXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTopoNode(key);
 		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapTopoNode.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();

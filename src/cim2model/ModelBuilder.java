@@ -178,15 +178,43 @@ public class ModelBuilder
 		else
 			return null;
 	}
-	
-	public MOClass create_MachineComponent(SynchronousMachineMap _mapSyncMach)
-	{
-		MOClass syncMach= null;
 		
-		if (_mapSyncMach.getName().equals("GENROU"))
-			syncMach= new GENROU(_mapSyncMach.getName());
-		if (_mapSyncMach.getName().equals("GENSAL"))
-			syncMach= new GENSAL(_mapSyncMach.getName());
+	public MOClass create_GENROUComponent(GENROUMap _mapSyncMach)
+	{
+		MOClass syncMach= new GENROU(_mapSyncMach.getName());
+		ArrayList<MapAttribute> mapAttList= 
+				(ArrayList<MapAttribute>)_mapSyncMach.getMapAttribute();
+		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		imapAttList= mapAttList.iterator();
+		MapAttribute current;
+		while (imapAttList.hasNext()) {
+			current= imapAttList.next();
+			if (current.getCimName().equals("IdentifiedObject.name")){
+				syncMach.set_InstanceName(current.getContent());
+			}
+			else{ //TODO check current.getContent(), if null then 0
+				MOAttribute variable= new MOAttribute();
+				variable.set_Name(current.getMoName());
+				if (current.getContent()== null)
+					variable.set_Value("0");
+				else
+					variable.set_Value(current.getContent());
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+				syncMach.add_Attribute(variable);
+			}
+		}
+		syncMach.set_Stereotype(_mapSyncMach.getStereotype());
+		syncMach.set_Package(_mapSyncMach.getPackage());
+		//for internal identification only
+		syncMach.set_RfdId(_mapSyncMach.getRfdId());
+		
+		return syncMach;
+	}
+	public MOClass create_GENSALComponent(GENSALMap _mapSyncMach)
+	{
+		MOClass syncMach= new GENSAL(_mapSyncMach.getName());
 		ArrayList<MapAttribute> mapAttList= 
 				(ArrayList<MapAttribute>)_mapSyncMach.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
@@ -301,8 +329,9 @@ public class ModelBuilder
 		MapAttribute current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
+			//first check for TransformerEnd and RatioTapChanger attributes, this are added later
 			if (!current.getCimName().equals("TransformerEnd.endNumber") &&
-					!current.getCimName().equals("TapChanger.step")){
+					!current.getCimName().equals("RatioTapChanger.stepVoltageIncrement")){
 				if (current.getCimName().equals("IdentifiedObject.name")){
 					twtransformer.set_InstanceName(current.getContent());
 				}
@@ -327,8 +356,8 @@ public class ModelBuilder
 		
 		return twtransformer;
 	}
-	public MOAttribute create_TransformerEndAttribute(TwoWindingTransformerMap _mapPowTrans) {
-		// TODO create a new attribute with 
+	public MOAttribute create_TransformerEndRatioAttribute(TwoWindingTransformerMap _mapPowTrans) 
+	{
 		MOAttribute variable= new MOAttribute();
 		String sequenceEnd= "0";
 		ArrayList<MapAttribute> mapAttList= 
@@ -339,7 +368,7 @@ public class ModelBuilder
 			current= imapAttList.next();
 			if (current.getCimName().equals("TransformerEnd.endNumber"))
 				sequenceEnd= current.getContent();
-			if (current.getCimName().equals("TapChanger.step")){
+			if (current.getCimName().equals("RatioTapChanger.stepVoltageIncrement")){
 				variable.set_Name(current.getMoName()+ sequenceEnd);
 				if (current.getContent()== null)
 					variable.set_Value("0");
@@ -352,10 +381,33 @@ public class ModelBuilder
 		}
 		return variable;
 	}
-	
-	public MOClass create_BusComponent(BusExt2Map _mapTopoNode)
+	public MOAttribute create_TransformerEndPrimarySideAttribute(TwoWindingTransformerMap _mapPowTrans)
 	{
-		BusExt2 pwbus= new BusExt2(_mapTopoNode.getName());
+		MOAttribute variable= new MOAttribute();
+		ArrayList<MapAttribute> mapAttList= 
+				(ArrayList<MapAttribute>)_mapPowTrans.getMapAttribute();
+		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		MapAttribute current;
+		while (imapAttList.hasNext()) {
+			current= imapAttList.next();
+			if (current.getCimName().equals("TransformerEnd.endNumber"))
+			{
+				variable.set_Name(current.getMoName());
+				if (!current.getContent().equals("1"))
+					variable.set_Value("false");
+				else
+					variable.set_Value("true");
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+			}
+		}
+		return variable;
+	}
+	
+	public MOClass create_BusComponent(PwBusMap _mapTopoNode)
+	{
+		Bus pwbus= new Bus(_mapTopoNode.getName());
 		ArrayList<MapAttribute> mapAttList= 
 				(ArrayList<MapAttribute>)_mapTopoNode.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
@@ -378,7 +430,7 @@ public class ModelBuilder
 				pwbus.add_Attribute(variable);
 			}
 		}
-		pwbus.set_Stereotype(_mapTopoNode.getStereotype());
+		pwbus.setStereotype(_mapTopoNode.getStereotype());
 		pwbus.set_Package(_mapTopoNode.getPackage());
 		//for internal identification only
 		pwbus.set_RfdId(_mapTopoNode.getRfdId());

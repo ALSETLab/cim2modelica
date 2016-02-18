@@ -1,6 +1,5 @@
-<!ELEMENT constantLoadMap (mapAttribute+)>
-<!ATTLIST constantLoadMap
-          LoadResponse CDATA #REQUIRED
+<!ELEMENT GENSALMap (mapAttribute+)>
+<!ATTLIST GENSALMap
           cim_name CDATA #REQUIRED
           name CDATA #REQUIRED
           package CDATA #REQUIRED

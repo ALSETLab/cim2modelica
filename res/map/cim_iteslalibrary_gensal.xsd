@@ -1,12 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
-  <xs:element name="SynchronousMachineMap">
+  <xs:element name="GENSALMap">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="mapAttribute" maxOccurs="unbounded"/>
       </xs:sequence>
-      <xs:attribute name="GeneratingUnit" type="xs:string" use="required"/>
-      <xs:attribute name="SynchronousMachineDynamics" type="xs:string" use="required"/>
       <xs:attribute name="cim_name" type="xs:string" use="required"/>
       <xs:attribute name="name" type="xs:string" use="required"/>
       <xs:attribute name="package" type="xs:string" use="required"/>

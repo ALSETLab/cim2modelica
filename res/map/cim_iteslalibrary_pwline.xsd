@@ -3,23 +3,13 @@
   <xs:element name="pwLineMap">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="mapTerminal" maxOccurs="unbounded"/>
         <xs:element ref="mapAttribute" maxOccurs="unbounded"/>
-        <xs:element ref="mapEquation" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attribute name="cim_name" type="xs:string" use="required"/>
+      <xs:attribute name="rfd_id" type="xs:string" use="required"/>
       <xs:attribute name="name" type="xs:string" use="required"/>
       <xs:attribute name="package" type="xs:string" use="required"/>
-      <xs:attribute name="rfd_id" type="xs:string" use="required"/>
       <xs:attribute name="stereotype" type="xs:string" use="required"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="mapTerminal">
-    <xs:complexType>
-      <xs:attribute name="cim_name" type="xs:string" use="required"/>
-      <xs:attribute name="cim_rfdid" type="xs:string" use="required"/>
-      <xs:attribute name="datatype" type="xs:string" use="required"/>
-      <xs:attribute name="mo_name" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="mapAttribute">
@@ -29,39 +19,6 @@
       <xs:attribute name="mo_name" type="xs:string" use="required"/>
       <xs:attribute name="variability" type="xs:string" use="required"/>
       <xs:attribute name="visibility" type="xs:string" use="required"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="mapEquation">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="componentAttribute" minOccurs="0"/>
-        <xs:element ref="mathOperation" maxOccurs="unbounded"/>
-      </xs:sequence>
-      <xs:attribute name="equation" type="xs:string" use="required"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="componentAttribute">
-    <xs:complexType mixed="true">
-      <xs:attribute name="name" type="xs:string" use="required"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="mathOperation">
-    <xs:complexType>
-      <xs:sequence minOccurs="0">
-        <xs:element ref="componentAttribute" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="mathWord" minOccurs="0"/>
-        <xs:element ref="mathOperation" minOccurs="0" maxOccurs="unbounded"/>
-      </xs:sequence>
-      <xs:attribute name="type" type="xs:string" use="required"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="mathWord">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="componentAttribute"/>
-        <xs:element ref="mathOperation" maxOccurs="unbounded"/>
-      </xs:sequence>
-      <xs:attribute name="type" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
 </xs:schema>
