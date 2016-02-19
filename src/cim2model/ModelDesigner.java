@@ -220,14 +220,14 @@ public class ModelDesigner
 		return mapSyncMach;
 	}
 	
-	private static PwLoadPQMap pwloadpqXMLToObject(String _xmlmap) {
+	private static LoadMap loadXMLToObject(String _xmlmap) {
 		JAXBContext context;
 		Unmarshaller un;
 		
 		try{
-			context = JAXBContext.newInstance(PwLoadPQMap.class);
+			context = JAXBContext.newInstance(LoadMap.class);
 	        un = context.createUnmarshaller();
-	        PwLoadPQMap map = (PwLoadPQMap) un.unmarshal(new File(_xmlmap));
+	        LoadMap map = (LoadMap) un.unmarshal(new File(_xmlmap));
 	        return map;
         } 
         catch (JAXBException e) {
@@ -242,9 +242,9 @@ public class ModelDesigner
 	 * @param _subjectID
 	 * @return
 	 */
-	public PwLoadPQMap create_LoadModelicaMap(Resource key, String _source, String[] _subjectID)
+	public LoadMap create_LoadModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
-		PwLoadPQMap mapEnergyC= pwloadpqXMLToObject(_source);
+		LoadMap mapEnergyC= loadXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesEnergyC(key);
 		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapEnergyC.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();

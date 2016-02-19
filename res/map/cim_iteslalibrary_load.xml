@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_load.dtd">
-<constantLoadMap cim_name="EnergyConsumer" rfd_id="" package="PowerSystems.Electrical.Loads.PSSE" name="Load" stereotype="class">
+<loadMap cim_name="EnergyConsumer" rfd_id="" package="iPSL.Electrical.Loads.PSSE" name="Load" stereotype="class">
   <mapAttribute cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</mapAttribute>
   <mapAttribute cim_name="LoadResponseCharacteristic.pConstantCurrent" mo_name="S_i.re" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
   <mapAttribute cim_name="LoadResponseCharacteristic.qConstantCurrent" mo_name="S_i.im" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
@@ -13,11 +13,11 @@
   <mapAttribute cim_name="LoadResponseCharacteristic.pVoltageExponent" mo_name="a.im" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
   <mapAttribute cim_name="LoadResponseCharacteristic.qVoltageExponent" mo_name="b.re" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
   <mapAttribute cim_name="LoadResponseCharacteristic.qVoltageExponent" mo_name="b.im" datatype="Complex" variability="parameter" visibility="none">1</mapAttribute>
-  -->
-  <mapAttribute cim_name="SvVoltage.angle" mo_name="angle_0" datatype="Real" variability="none" visibility="public">0</mapAttribute>
-  <mapAttribute cim_name="SvVoltage.v" mo_name="V_0" datatype="Real" variability="none" visibility="public">0</mapAttribute>
-  <mapAttribute cim_name="SvPowerFlow.p" mo_name="P_0" datatype="Real" variability="none" visibility="public">0</mapAttribute>
-  <mapAttribute cim_name="SvPowerFlow.q" mo_name="Q_0" datatype="Real" variability="none" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="LoadComposite.pfrac" mo_name="PQBRAK" datatype="Real" variability="parameter" visibility="none">0</mapAttribute>
-  <mapAttribute cim_name="BaseVoltage.nominalVoltage" mo_name="V_b" datatype="Real" variability="parameter" visibility="none">0</mapAttribute>
-</constantLoadMap>
+  -->
+  <mapAttribute cim_name="SvVoltage.angle" mo_name="angle_0" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="SvVoltage.v" mo_name="V_0" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="SvPowerFlow.p" mo_name="P_0" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="SvPowerFlow.q" mo_name="Q_0" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="BaseVoltage.nominalVoltage" mo_name="V_b" datatype="parameter" variability="parameter" visibility="none">0</mapAttribute>
+</loadMap>

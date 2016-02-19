@@ -246,12 +246,7 @@ public class ModelBuilder
 		return syncMach;
 	}
 	
-//	public MOClass create_LoadComponent(ConstantLoadMap _mapEnergyC)
-//	{
-//		
-//	}
-	
-	public MOClass create_LoadComponent(PwLoadPQMap _mapEnergyC)
+	public MOClass create_LoadComponent(LoadMap _mapEnergyC)
 	{//TODO values for pfixed/qfixed in CIM are in %, convert to p.u. in code
 		MOClass pwLoad= new MOClass(_mapEnergyC.getName());
 		ArrayList<MapAttribute> mapAttList= 
@@ -264,17 +259,40 @@ public class ModelBuilder
 			if (current.getCimName().equals("IdentifiedObject.name")){
 				pwLoad.set_InstanceName(current.getContent());
 			}
-			else{
-				MOAttribute variable= new MOAttribute();
-				variable.set_Name(current.getMoName());
-				if (current.getContent()== null)
-					variable.set_Value("0");
-				else
-					variable.set_Value(current.getContent());
-				variable.set_Variability(current.getVariability());
-				variable.set_Visibility(current.getVisibility());
-				variable.set_Flow(Boolean.valueOf(current.getFlow()));
-				pwLoad.add_Attribute(variable);
+			else {
+				if (current.getDatatype().equals("Complex")) {
+					MOAttributeComplex complejo= null;
+					String nombre= current.getMoName().split("[.]")[0];
+					String parte= current.getMoName().split("[.]")[1];
+					if (!pwLoad.exist_Attribute(nombre))
+						complejo= new MOAttributeComplex();
+					else
+						complejo= (MOAttributeComplex)pwLoad.get_Attribute(nombre);
+					complejo.set_Name(nombre);
+					if (parte.equals("re"))
+						complejo.set_Real(current.getContent());
+					else {
+						complejo.set_Imaginary(current.getContent());
+						complejo.set_Datatype(current.getDatatype());
+						complejo.set_Variability(current.getVariability());
+						complejo.set_Visibility(current.getVisibility());
+						complejo.set_Flow(Boolean.valueOf(current.getFlow()));
+						pwLoad.add_Attribute(complejo);
+					}
+				}
+				else {
+					MOAttribute variable= new MOAttribute();
+					variable.set_Name(current.getMoName());
+					if (current.getContent()== null)
+						variable.set_Value("0");
+					else
+						variable.set_Value(current.getContent());
+					variable.set_Datatype(current.getDatatype());
+					variable.set_Variability(current.getVariability());
+					variable.set_Visibility(current.getVisibility());
+					variable.set_Flow(Boolean.valueOf(current.getFlow()));
+					pwLoad.add_Attribute(variable);
+				}
 			}
 		}
 		pwLoad.set_Stereotype(_mapEnergyC.getStereotype());

@@ -84,19 +84,11 @@ public class ObjectFactory {
     }
     
     /**
-     * Create an instance of {@link PwLoadPQMap }
+     * Create an instance of {@link LoadMap }
      * 
      */
-    public PwLoadPQMap createPwLoadPQMap() {
-        return new PwLoadPQMap();
-    }
-    
-    /**
-     * Create an instance of {@link PwLoadPQMap }
-     * 
-     */
-    public ConstantLoadMap createConstantLoadMap() {
-        return new ConstantLoadMap();
+    public LoadMap createLoadMap() {
+        return new LoadMap();
     }
     
     /**

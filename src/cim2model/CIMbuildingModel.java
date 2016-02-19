@@ -105,7 +105,21 @@ public class CIMbuildingModel
 						constructor.add_deviceNetwork(mobus);
 					}
 				}
+				
+				//According to CIM Composer, EC has one terminal
+				if (equipmentResource[1].equals("EnergyConsumer"))
+				{
+//					System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
+					LoadMap mapEnergyC= cartografo.create_LoadModelicaMap(conector.get_ConductingEquipmentMap(), 
+							"./res/map/cim_iteslalibrary_load.xml", equipmentResource);
+					MOClass moload= constructor.create_LoadComponent(mapEnergyC);
+					moload.add_Terminal(mopin);
+					constructor.add_deviceNetwork(moload);
+					System.out.println(moload.to_ModelicaClass());
+					System.out.println(moload.to_ModelicaInstance());
+				}
 			}
+			
 			if (cimClassResource[1].equals("PowerTransformerEnd"))
 			{
 				String [] transformerResource, terminalResource;
@@ -115,7 +129,7 @@ public class CIMbuildingModel
 								cimClassResource);
 				TwoWindingTransformerMap mapPowerTrans= transformerEnd.get_TransformerMap();
 				transformerResource= cartografo.get_CIMComponentName(transformerEnd.get_PowerTransformerMap());
-				System.out.println("rfd_id: "+ transformerResource[0] + " cim name: "+ transformerResource[1]);
+//				System.out.println("rfd_id: "+ transformerResource[0] + " cim name: "+ transformerResource[1]);
 				//processing info from terminalResource, here is to create the MOConnector
 				terminalResource= cartografo.get_CIMComponentName(transformerEnd.get_TerminalMap());
 				CIMTerminal conector= cartografo.create_TerminalModelicaMap(transformerEnd.get_TerminalMap(), 

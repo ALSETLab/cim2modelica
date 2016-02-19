@@ -1,5 +1,5 @@
-<!ELEMENT constantLoadMap (mapAttribute+)>
-<!ATTLIST constantLoadMap
+<!ELEMENT loadMap (mapAttribute+)>
+<!ATTLIST loadMap
           cim_name CDATA #REQUIRED
           name CDATA #REQUIRED
           package CDATA #REQUIRED

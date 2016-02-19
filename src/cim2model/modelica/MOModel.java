@@ -99,7 +99,4 @@ public abstract class MOModel
 	public void set_Package(String pakage) {
 		this.pakage = pakage;
 	}
-	
-	
-	public void from_XMLMapping(){}
 }

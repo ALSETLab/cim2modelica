@@ -83,6 +83,29 @@ public class MOClass extends MOModel
 		this.stereotype = stereotype;
 	}
 	
+	public boolean exist_Attribute(String _name){
+		boolean exists= false;
+		MOAttribute current;
+		
+		Iterator<MOAttribute> iconnections= this.attributes.iterator();
+		while (!exists && iconnections.hasNext()) {
+			current= iconnections.next();
+			exists= (current.get_Name().equals(_name));
+		}
+		
+		return exists;
+	}
+	public MOAttribute get_Attribute(String _name){
+		boolean exists= false;
+		MOAttribute current= null;
+		
+		Iterator<MOAttribute> iconnections= this.attributes.iterator();
+		while (!exists && iconnections.hasNext()) {
+			current= iconnections.next();
+			exists= (current.get_Name().equals(_name));
+		}
+		return current;
+	}
 	/**
 	 * @return the attributes
 	 */
@@ -229,11 +252,18 @@ public class MOClass extends MOModel
 		pencil.append("(");
 		for (MOAttribute item: this.attributes)
 		{
-			if (item.get_Variability().equals("parameter")){
+			if (item.get_Datatype().equals("Complex")) {
 				pencil.append(item.get_Name());
-				pencil.append("=");
-				pencil.append(item.get_Value());
-				pencil.append(",");
+				pencil.append("(re= "); pencil.append(((MOAttributeComplex)item).get_Real()); pencil.append(",");
+				pencil.append("im= "); pencil.append(((MOAttributeComplex)item).get_Imaginary()); pencil.append("), ");
+			}
+			else {
+				if (item.get_Variability().equals("parameter")){
+					pencil.append(item.get_Name());
+					pencil.append("=");
+					pencil.append(item.get_Value());
+					pencil.append(",");
+				}
 			}
 		}
 		pencil.deleteCharAt(pencil.lastIndexOf(","));

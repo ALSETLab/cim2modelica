@@ -7,14 +7,14 @@ package cim2model.modelica;
  */
 public class MOAttribute 
 {
-	private String visibility;
-	private String variability;
-	private String datatype;
-	private String name;
-	private String value;
-	private String annotation;
-	private Boolean fixed;
-	private Boolean flow;
+	protected String visibility;
+	protected String variability;
+	protected String datatype;
+	protected String name;
+	protected String value;
+	protected String annotation;
+	protected Boolean fixed;
+	protected Boolean flow;
 	
 	public MOAttribute() {
 		this.variability= "parameter";
