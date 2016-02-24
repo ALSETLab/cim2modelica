@@ -161,6 +161,29 @@ public class MOClass extends MOModel
 		else
 			return null;
 	}
+	/**
+	 * For some devices, there are power flow values that are mapped by Sv classes, and these classes are available either by 
+	 * Terminal or TopologicalNode Class. The Modelica class of these devices need this Sv values as parameter. 
+	 * SvPowerFlow (P,Q) are included in the classes
+	 * SvVoltage (V, angle) are not included and need to be updated from the corresponding Pin component
+	 * @param _component
+	 * @param _pin
+	 */
+	public void update_powerFlow(MOConnector _pin)
+	{
+		//look for attributes SvVoltage.v and SvVoltage.angle
+		Iterator<MOAttribute> iAttributes;
+		MOAttribute currentAtt= null;
+		iAttributes= this.attributes.iterator();
+		while (iAttributes.hasNext())
+		{//update this attribute values with pin values vr and vi
+			currentAtt= iAttributes.next();
+			if (currentAtt.get_Name().equals("V_0"))
+				currentAtt.set_Value(_pin.get_Attribute("vr").get_Value());
+			if (currentAtt.get_Name().equals("angle_0"))
+				currentAtt.set_Value(_pin.get_Attribute("vi").get_Value());
+		}
+	}
 	
 	/**
 	 * class name "some comments"

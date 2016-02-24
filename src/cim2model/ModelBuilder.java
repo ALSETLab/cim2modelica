@@ -178,7 +178,7 @@ public class ModelBuilder
 		else
 			return null;
 	}
-		
+	
 	public MOClass create_GENROUComponent(GENROUMap _mapSyncMach)
 	{
 		MOClass syncMach= new GENROU(_mapSyncMach.getName());
@@ -249,6 +249,7 @@ public class ModelBuilder
 	public MOClass create_LoadComponent(LoadMap _mapEnergyC)
 	{//TODO values for pfixed/qfixed in CIM are in %, convert to p.u. in code
 		MOClass pwLoad= new MOClass(_mapEnergyC.getName());
+		MOAttributeComplex complejo= null;
 		ArrayList<MapAttribute> mapAttList= 
 				(ArrayList<MapAttribute>)_mapEnergyC.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
@@ -261,7 +262,6 @@ public class ModelBuilder
 			}
 			else {
 				if (current.getDatatype().equals("Complex")) {
-					MOAttributeComplex complejo= null;
 					String nombre= current.getMoName().split("[.]")[0];
 					String parte= current.getMoName().split("[.]")[1];
 					if (!pwLoad.exist_Attribute(nombre))
@@ -269,15 +269,16 @@ public class ModelBuilder
 					else
 						complejo= (MOAttributeComplex)pwLoad.get_Attribute(nombre);
 					complejo.set_Name(nombre);
-					if (parte.equals("re"))
+					if (parte.equals("re")){
 						complejo.set_Real(current.getContent());
+						pwLoad.add_Attribute(complejo);
+					}
 					else {
 						complejo.set_Imaginary(current.getContent());
 						complejo.set_Datatype(current.getDatatype());
 						complejo.set_Variability(current.getVariability());
 						complejo.set_Visibility(current.getVisibility());
 						complejo.set_Flow(Boolean.valueOf(current.getFlow()));
-						pwLoad.add_Attribute(complejo);
 					}
 				}
 				else {
@@ -456,13 +457,45 @@ public class ModelBuilder
 		return pwbus;
 	}
 	
+	public MOClass create_FaultComponent(PwFaultMap _mapFault)
+	{
+		PwLine pwline= new PwLine(_mapFault.getName());
+		ArrayList<MapAttribute> mapAttList= 
+				(ArrayList<MapAttribute>)_mapFault.getMapAttribute();
+		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		MapAttribute current;
+		while (imapAttList.hasNext()) {
+			current= imapAttList.next();
+			if (current.getCimName().equals("IdentifiedObject.name")){
+				pwline.set_InstanceName(current.getContent());
+			}
+			else{
+				MOAttribute variable= new MOAttribute();
+				variable.set_Name(current.getMoName());
+				if (current.getContent()== null)
+					variable.set_Value("0");
+				else
+					variable.set_Value(current.getContent());
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+				pwline.add_Attribute(variable);
+			}
+		}
+		pwline.set_Stereotype(_mapFault.getStereotype());
+		pwline.set_Package(_mapFault.getPackage());
+		//for internal identification only
+		pwline.set_RfdId(_mapFault.getRfdId());
+		
+		return pwline;
+	}
+	
 	public void connect_Components(ArrayList<ConnectionMap> _connectmap)
 	{
 		Iterator<ConnectionMap> iConnections= _connectmap.iterator();
 		ConnectionMap current;
 		MOClass equipment, bus; 
 		MOConnect conexio;
-		
 		
 		while(iConnections.hasNext())
 		{

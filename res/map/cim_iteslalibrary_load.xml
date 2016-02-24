@@ -17,7 +17,7 @@
   -->
   <mapAttribute cim_name="SvVoltage.angle" mo_name="angle_0" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="SvVoltage.v" mo_name="V_0" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
-  <mapAttribute cim_name="SvPowerFlow.p" mo_name="P_0" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
-  <mapAttribute cim_name="SvPowerFlow.q" mo_name="Q_0" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="EnergyConsumer.p" mo_name="P_0" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="EnergyConsumer.q" mo_name="Q_0" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <mapAttribute cim_name="BaseVoltage.nominalVoltage" mo_name="V_b" datatype="parameter" variability="parameter" visibility="none">0</mapAttribute>
 </loadMap>

@@ -471,9 +471,50 @@ public class CIMModel {
 		return this.attribute;
 	}
 	
+	/**
+	 * cim_name="Fault.rGround" 
+	 * cim_name="Fault.xGround" 
+	 * cim_name="modelica R" 
+	 * cim_name="modelica X" 
+	 * @param _subject
+	 * @return
+	 */
+	public Map<String,Object> retrieveAttributesFault(Resource _subject)
+	{ 
+		Statement attributeClass, classAttribute;
+		
+		StmtIterator iAttributes= _subject.listProperties();
+		while( iAttributes.hasNext() ) 
+		{
+			attributeClass= iAttributes.next();
+			if (attributeClass.getAlt().isLiteral())
+			{
+				this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getLiteral().getValue());
+			}
+			if (attributeClass.getAlt().isURIResource())
+			{
+				if ( attributeClass.getPredicate().getLocalName().equals("Fault.FaultyEquipment"))
+				{
+					//agafar els valor d'aquest component
+					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+					while( svPowerFlowAtts.hasNext() ) 
+					{
+						classAttribute= svPowerFlowAtts.next();
+						if (classAttribute.getAlt().isLiteral())
+						{
+							System.out.println("puta "+ classAttribute.getPredicate().getURI());
+							this.attribute.put(classAttribute.getPredicate().getURI(), classAttribute.getString());
+						}
+					}
+					svPowerFlowAtts.close();
+				}
+			}
+		}
+		return this.attribute;
+	}
+	
 	public void clearAttributes()
 	{
 		this.attribute.clear();
-		this.component.clear();
 	}
 }

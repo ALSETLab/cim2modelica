@@ -146,5 +146,13 @@ public class ObjectFactory {
     public MathWord createMathWord() {
         return new MathWord();
     }
-
+    
+    /**
+     * Create an instance of {@link PwFaultMap }
+     * 
+     */
+    public PwFaultMap createPwFaultMap() {
+        return new PwFaultMap();
+    }
+    
 }

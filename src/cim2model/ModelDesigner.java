@@ -106,7 +106,7 @@ public class ModelDesigner
 		/* iterate through map attributes, for storing proper cim values */
 		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapTerminal.getMapAttribute();
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
-		MapAttribute currentmapAtt, newmapAtt;
+		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
@@ -129,6 +129,8 @@ public class ModelDesigner
 				(Resource)cimClassMap.get("Terminal.TopologicalNode"));
 		connection.set_Ce_id(cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1]);
 		connection.set_Tn_id(cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]);
+		
+		modelCIM.clearAttributes();
 		
 		return connection;
 	}
@@ -191,6 +193,8 @@ public class ModelDesigner
 		mapSyncMach.setRfdId(_subjectID[0]);
 		mapSyncMach.setCimName(_subjectID[1]);
 		this.equipment.put(mapSyncMach, mapSyncMach.getClass().getName());
+
+		modelCIM.clearAttributes();
 		
 		return mapSyncMach;
 	}
@@ -216,6 +220,8 @@ public class ModelDesigner
 		mapSyncMach.setRfdId(_subjectID[0]);
 		mapSyncMach.setCimName(_subjectID[1]);
 		this.equipment.put(mapSyncMach, mapSyncMach.getClass().getName());
+
+		modelCIM.clearAttributes();
 		
 		return mapSyncMach;
 	}
@@ -259,6 +265,8 @@ public class ModelDesigner
 		mapEnergyC.setRfdId(_subjectID[0]);
 		mapEnergyC.setCimName(_subjectID[1]);
 		this.equipment.put(mapEnergyC, mapEnergyC.getClass().getName());
+
+		modelCIM.clearAttributes();
 		
 		return mapEnergyC;
 	}
@@ -294,6 +302,8 @@ public class ModelDesigner
 		mapACLine.setCimName(_subjectID[1]);
 		this.equipment.put(mapACLine, mapACLine.getClass().getName());
 
+		modelCIM.clearAttributes();
+		
 		return mapACLine;
 	}
 	
@@ -340,6 +350,8 @@ public class ModelDesigner
 		transformerEnd.set_Pt_id(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
 		transformerEnd.set_Rtc_id(cimClassMap.get("TransformerEnd.RatioTapChanger").toString().split("#")[1]);
 		transformerEnd.set_Te_id(cimClassMap.get("TransformerEnd.Terminal").toString().split("#")[1]);
+
+		modelCIM.clearAttributes();
 		
 		return transformerEnd;
 	}
@@ -374,8 +386,53 @@ public class ModelDesigner
 		mapTopoNode.setRfdId(_subjectID[0]);
 		mapTopoNode.setCimName(_subjectID[1]);
 		this.equipment.put(mapTopoNode, mapTopoNode.getClass().getName());
+
+		modelCIM.clearAttributes();
 		
 		return mapTopoNode;
+	}
+
+	private static PwFaultMap pwfaultXMLToObject(String _xmlmap) {
+		JAXBContext context;
+		Unmarshaller un;
+		
+		try{
+			context = JAXBContext.newInstance(PwFaultMap.class);
+	        un = context.createUnmarshaller();
+	        PwFaultMap map = (PwFaultMap) un.unmarshal(new File(_xmlmap));
+	        return map;
+        } 
+        catch (JAXBException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+	public PwFaultMap create_FaultModelicaMap(Resource key, String _source, String[] _subjectID) 
+	{
+		PwFaultMap mapFault= pwfaultXMLToObject(_source);
+		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesFault(key);
+		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapFault.getMapAttribute();
+		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		MapAttribute currentmapAtt;
+		while (imapAttList.hasNext()) {
+			//TODO delete all spaces from the Identified.name attribute
+			currentmapAtt= imapAttList.next();
+			// condition to process attributes from ipsl not present in CIM
+			if (!currentmapAtt.getCimName().equals("none"))
+				currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+		}
+		mapFault.setRfdId(_subjectID[0]);
+		mapFault.setCimName(_subjectID[1]);
+		this.equipment.put(mapFault, mapFault.getClass().getName());
+
+		// create the connection here
+//		this.connections.add(new ConnectionMap(mapTerminal.getRfdId(),
+//				cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1],
+//				cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]));
+		
+		modelCIM.clearAttributes();
+		
+		return mapFault;
 	}
 	
 	/* extends QuiescentModelWithInheritance(gamma=0.3, delta=0.01); 

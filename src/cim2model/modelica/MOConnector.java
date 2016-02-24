@@ -1,6 +1,8 @@
 package cim2model.modelica;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import cim2model.model.xml.*;
 
 /**
@@ -64,6 +66,23 @@ public class MOConnector extends MOModel
 		this.visibility = visibility;
 	}
 
+	/**
+	 * get attribute by name
+	 * @param _name
+	 * @return
+	 */
+	public MOAttribute get_Attribute(String _name){
+		boolean exists= false;
+		MOAttribute current= null;
+		
+		Iterator<MOAttribute> iconnections= this.attributes.iterator();
+		while (!exists && iconnections.hasNext()) {
+			current= iconnections.next();
+			exists= (current.get_Name().equals(_name));
+		}
+		return current;
+	}
+	
 	/**
 	 * @return the attributes
 	 */

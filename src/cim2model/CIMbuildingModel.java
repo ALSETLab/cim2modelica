@@ -63,7 +63,21 @@ public class CIMbuildingModel
 						momachine= constructor.create_GENSALComponent(mapSyncMach);
 					}
 					momachine.add_Terminal(mopin);
+					momachine.update_powerFlow(mopin);
 					constructor.add_deviceNetwork(momachine);
+				}
+				//According to CIM Composer, EC has one terminal
+				if (equipmentResource[1].equals("EnergyConsumer"))
+				{
+//					System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
+					LoadMap mapEnergyC= cartografo.create_LoadModelicaMap(conector.get_ConductingEquipmentMap(), 
+							"./res/map/cim_iteslalibrary_load.xml", equipmentResource);
+					MOClass moload= constructor.create_LoadComponent(mapEnergyC);
+					moload.add_Terminal(mopin);
+					moload.update_powerFlow(mopin);
+					constructor.add_deviceNetwork(moload);
+//					System.out.println(moload.to_ModelicaClass());
+//					System.out.println(moload.to_ModelicaInstance());
 				}
 				
 				//According to CIM Composer, ACLineSegment has two terminals
@@ -105,19 +119,6 @@ public class CIMbuildingModel
 						constructor.add_deviceNetwork(mobus);
 					}
 				}
-				
-				//According to CIM Composer, EC has one terminal
-				if (equipmentResource[1].equals("EnergyConsumer"))
-				{
-//					System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
-					LoadMap mapEnergyC= cartografo.create_LoadModelicaMap(conector.get_ConductingEquipmentMap(), 
-							"./res/map/cim_iteslalibrary_load.xml", equipmentResource);
-					MOClass moload= constructor.create_LoadComponent(mapEnergyC);
-					moload.add_Terminal(mopin);
-					constructor.add_deviceNetwork(moload);
-					System.out.println(moload.to_ModelicaClass());
-					System.out.println(moload.to_ModelicaInstance());
-				}
 			}
 			
 			if (cimClassResource[1].equals("PowerTransformerEnd"))
@@ -155,6 +156,17 @@ public class CIMbuildingModel
 					moTransformer.add_Attribute(moPrimarySide);
 					constructor.add_deviceNetwork(moTransformer);
 				}
+			}
+			if (cimClassResource[1].equals("Fault"))
+			{
+				System.out.println("rfd_id: "+ cimClassResource[0] + " cim name: "+ cimClassResource[1]);
+				PwFaultMap mapFault= cartografo.create_FaultModelicaMap(key, "./res/map/cim_iteslalibrary_pwfault.xml", cimClassResource);
+				MOClass mofault= constructor.create_FaultComponent(mapFault);
+//				TODO mofault.add_Terminal(mopin); or how to add the pin to this component
+				
+				constructor.add_deviceNetwork(mofault);
+				System.out.println(mofault.to_ModelicaClass());
+				System.out.println(mofault.to_ModelicaInstance());
 			}
 		}
 		constructor.connect_Components(cartografo.get_ConnectionMap());
