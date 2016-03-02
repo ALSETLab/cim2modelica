@@ -1,0 +1,14 @@
+<!ELEMENT pwLineMap (mapAttribute+)>
+<!ATTLIST pwLineMap
+		  cim_name CDATA #REQUIRED
+		  cim_mRID CDATA #REQUIRED
+          mo_name CDATA #REQUIRED
+          mo_package CDATA #REQUIRED
+          mo_stereotype CDATA #REQUIRED>
+<!ELEMENT attributeMap (#PCDATA)>
+<!ATTLIST attributeMap
+          cim_name CDATA #REQUIRED
+          datatype CDATA #REQUIRED
+          mo_name CDATA #REQUIRED
+          variability CDATA #REQUIRED
+          visibility CDATA #REQUIRED>

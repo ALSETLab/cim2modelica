@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_modelica_terminal.dtd">
+<terminalMap cim_name="IdentifiedObject.name" cim_mRID="IdentifiedObject.mRID" mo_package="Connectors" mo_stereotype="connector">
+	<svPowerFlowMap cim_name="IdentifiedObject.name" cim_mRID="IdentifiedObject.mRID">
+ 		<modelVariableMap cim_name="SvPowerFlow.p" mo_datatype="Real" mo_variability="variable" mo_visibility="public">-1</modelVariableMap>
+ 		<modelVariableMap cim_name="SvPowerFlow.q" mo_datatype="Real" mo_variability="variable" mo_visibility="public">-1</modelVariableMap>
+	</svPowerFlowMap>
+	<topologicalNodeMap cim_name="IdentifiedObject.name" cim_mRID="IdentifiedObject.mRID">
+		<svVoltageMap cim_name="IdentifiedObject.name" cim_mRID="IdentifiedObject.mRID">
+			<modelVariableMap cim_name="SvVoltage.v" mo_datatype="Real" mo_variability="variable" mo_visibility="public">-1</modelVariableMap>
+			<modelVariableMap cim_name="SvVoltage.angle" mo_datatype="Real" mo_variability="variable" mo_visibility="public">-1</modelVariableMap>
+		</svVoltageMap>
+	</topologicalNodeMap>
+</terminalMap>

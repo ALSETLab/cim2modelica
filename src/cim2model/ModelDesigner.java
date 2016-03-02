@@ -17,7 +17,7 @@ import cim2model.cim.CIMModel;
 import cim2model.cim.CIMTerminal;
 import cim2model.cim.CIMTransformerEnd;
 import cim2model.io.CIMReaderJENA;
-import cim2model.mapping.modelica.*;
+import cim2model.ipsl.cimmap.*;
 
 //TODO in the map, the content of the tags mapAttribute are the default values from iPSL
 

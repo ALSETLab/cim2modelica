@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_ipsl_pwline.dtd">
+<pwLineMap cim_name="ACLineSegment" cim_mRID="" mo_name="ACLineSegment" package="iPSL.Electrical.Branches" stereotype="class">
+  <attributeMap cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
+  <attributeMap cim_name="IdentifiedObject.mRID" mo_name="InstanceName" datatype="String" variability="none" visibility="none">mRID</attributeMap>
+  <attributeMap cim_name="ACLineSegment.r" mo_name="R" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+  <attributeMap cim_name="ACLineSegment.x" mo_name="X" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+  <attributeMap cim_name="ACLineSegment.gch" mo_name="G" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+  <attributeMap cim_name="ACLineSegment.bch" mo_name="B" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+  <attributeMap cim_name="none" mo_name="t1" datatype="Real" variability="parameter" visibility="public">Modelica.Constants.inf</attributeMap>
+  <attributeMap cim_name="none" mo_name="t2" datatype="Real" variability="parameter" visibility="public">Modelica.Constants.inf</attributeMap>
+  <attributeMap cim_name="none" mo_name="opening" datatype="String" variability="none" visibility="none">1</attributeMap>
+  <attributeMap cim_name="none" mo_name="displayPF" datatype="String" variability="none" visibility="none">true</attributeMap>
+</pwLineMap>

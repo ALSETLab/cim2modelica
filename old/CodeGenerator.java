@@ -8,7 +8,7 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import org.jdom2.Element;
 
 import cim2model.io.CIMReaderJENA;
-import cim2model.mapping.modelica.*;
+import cim2model.ipsl.cimmap.*;
 import cim2model.model.cim.CIMModel;
 import cim2model.model.modelica.MOClass;
 import cim2model.model.modelica.MOConnector;

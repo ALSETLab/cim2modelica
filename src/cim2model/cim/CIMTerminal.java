@@ -1,6 +1,6 @@
 package cim2model.cim;
 
-import cim2model.mapping.modelica.PwPinMap;
+import cim2model.ipsl.cimmap.PwPinMap;
 
 import com.hp.hpl.jena.rdf.model.Resource;
 

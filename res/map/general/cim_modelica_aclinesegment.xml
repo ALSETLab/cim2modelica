@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_modelica_aclinesegment.dtd">
+<aCLineSegmentMap cim_name="IdentifiedObject.name" cim_mRID="IdentifiedObject.mRID" mo_package="Branches" mo_stereotype="class">
+  	<modelVariableMap cim_name="ACLineSegment.r" mo_datatype="Real" mo_variability="parameter" mo_visibility="public">-1</modelVariableMap>
+  	<modelVariableMap cim_name="ACLineSegment.x" mo_datatype="Real" mo_variability="parameter" mo_visibility="public">-1</modelVariableMap>
+  	<modelVariableMap cim_name="ACLineSegment.gch" mo_datatype="Real" mo_variability="parameter" mo_visibility="public">-1</modelVariableMap>
+  	<modelVariableMap cim_name="ACLineSegment.bch" mo_datatype="Real" mo_variability="parameter" mo_visibility="public">-1</modelVariableMap>
+  	<modelVariableMap mo_name="vs" mo_datatype="Complex" mo_variability="variable" mo_visibility="public">(re = p.V.re, im = p.V.im)</modelVariableMap>
+	<modelVariableMap mo_name="is" mo_datatype="Complex" mo_variability="variable" mo_visibility="public">(re = p.I.re, im = p.I.im)</modelVariableMap>
+	<modelVariableMap mo_name="vr" mo_datatype="Complex" mo_variability="variable" mo_visibility="public">(re = n.V.re, im = n.V.im)</modelVariableMap>
+	<modelVariableMap mo_name="ir" mo_datatype="Complex" mo_variability="variable" mo_visibility="public">(re = n.I.re, im = n.I.im)</modelVariableMap>
+	<modelVariableMap mo_name="Y" mo_datatype="Complex" mo_variability="parameter" mo_visibility="protected">(re = gch, im = bch)</modelVariableMap>
+	<modelVariableMap mo_name="Z" mo_datatype="Complex" mo_variability="parameter" mo_visibility="protected">(re = r, im = x)</modelVariableMap>
+ 	<terminalMap cim_name="IdentifiedObject.name" cim_mRID="IdentifiedObject.mRID" mo_package="Connectors" mo_stereotype="connector">IdentifiedObject.mRID</terminalMap>
+	<terminalMap cim_name="IdentifiedObject.name" cim_mRID="IdentifiedObject.mRID" mo_package="Connectors" mo_stereotype="connector">IdentifiedObject.mRID</terminalMap>
+	<dynamicEquationMap>vs - vr = (is - vs * Y) * Z;</dynamicEquationMap>
+	<dynamicEquationMap>ir = -(is - vs * Y - vr * Y);</dynamicEquationMap>
+	<basePowerMap cim_name="IdentifiedObject.name" cim_mRID="IdentifiedObject.mRID" mo_package="SystemBase" mo_stereotype="class">
+		<modelVariableMap cim_name="BasePower.basePower" mo_datatype="Real" mo_variability="parameter" mo_visibility="public">-1</modelVariableMap>
+	</basePowerMap>
+	<baseFrequencyMap cim_name="IdentifiedObject.name" cim_mRID="IdentifiedObject.mRID" mo_package="SystemBase" mo_stereotype="class">
+		<modelVariableMap cim_name="BaseFrequency.baseFrequency" mo_datatype="Real" mo_variability="parameter" mo_visibility="public">-1</modelVariableMap>
+	</baseFrequencyMap>
+</aCLineSegmentMap>

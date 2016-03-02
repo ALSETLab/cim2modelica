@@ -3,8 +3,6 @@ package cim2model.modelica;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import cim2model.model.xml.*;
-
 /**
  * Generic class for implementation the declaration of modelica connectors
  * @author fragom

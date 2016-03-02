@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import cim2model.ipsl.branches.PwLine;
+import cim2model.ipsl.buses.Bus;
+import cim2model.ipsl.buses.BusExt2;
+import cim2model.ipsl.cimmap.*;
+import cim2model.ipsl.machines.GENROU;
+import cim2model.ipsl.machines.GENSAL;
 import cim2model.modelica.*;
-import cim2model.modelica.ipsl.branches.PwLine;
-import cim2model.modelica.ipsl.buses.Bus;
-import cim2model.modelica.ipsl.buses.BusExt2;
-import cim2model.modelica.ipsl.machines.GENROU;
-import cim2model.modelica.ipsl.machines.GENSAL;
-import cim2model.mapping.modelica.*;
 
 public class ModelBuilder 
 {

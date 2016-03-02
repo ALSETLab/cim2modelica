@@ -1,0 +1,24 @@
+<!ELEMENT terminalMap (svPowerFlowMap, topologicalNodeMap)>
+<!ATTLIST terminalMap
+          cim_mRID CDATA #REQUIRED
+          cim_name CDATA #REQUIRED
+          mo_package CDATA #REQUIRED
+          mo_stereotype CDATA #REQUIRED>
+<!ELEMENT svPowerFlowMap (modelVariableMap+)>
+<!ATTLIST svPowerFlowMap
+          cim_mRID CDATA #REQUIRED
+          cim_name CDATA #REQUIRED>
+<!ELEMENT modelVariableMap (#PCDATA)>
+<!ATTLIST modelVariableMap
+          cim_name CDATA #REQUIRED
+          mo_datatype CDATA #REQUIRED
+          mo_variability CDATA #REQUIRED
+          mo_visibility CDATA #REQUIRED>
+<!ELEMENT topologicalNodeMap (svVoltageMap)>
+<!ATTLIST topologicalNodeMap
+          cim_mRID CDATA #REQUIRED
+          cim_name CDATA #REQUIRED>
+<!ELEMENT svVoltageMap (modelVariableMap+)>
+<!ATTLIST svVoltageMap
+          cim_mRID CDATA #REQUIRED
+          cim_name CDATA #REQUIRED>
