@@ -1,14 +1,20 @@
-<!ELEMENT aCLineSegmentMap (modelVariableMap+, terminalMap+, dynamicEquationMap+, basePowerMap, baseFrequencyMap)>
+<!ELEMENT aCLineSegmentMap (modelVariableMap+, bindingVariableMap+, terminalMap+, dynamicEquationMap+, basePowerMap, baseFrequencyMap)>
 <!ATTLIST aCLineSegmentMap
           cim_mRID CDATA #REQUIRED
           cim_name CDATA #REQUIRED
           mo_package CDATA #REQUIRED
-          mo_stereotype CDATA #REQUIRED>
+          mo_stereotype CDATA #REQUIRED
+          rfd_id CDATA #REQUIRED>
 <!ELEMENT modelVariableMap (#PCDATA)>
 <!ATTLIST modelVariableMap
-          cim_name CDATA #IMPLIED
+          cim_name CDATA #REQUIRED
           mo_datatype CDATA #REQUIRED
-          mo_name CDATA #IMPLIED
+          mo_variability CDATA #REQUIRED
+          mo_visibility CDATA #REQUIRED>
+<!ELEMENT bindingVariableMap (#PCDATA)>
+<!ATTLIST bindingVariableMap
+          mo_datatype CDATA #REQUIRED
+          mo_name CDATA #REQUIRED
           mo_variability CDATA #REQUIRED
           mo_visibility CDATA #REQUIRED>
 <!ELEMENT terminalMap (#PCDATA)>
@@ -18,15 +24,19 @@
           mo_package CDATA #REQUIRED
           mo_stereotype CDATA #REQUIRED>
 <!ELEMENT dynamicEquationMap (#PCDATA)>
+<!ATTLIST dynamicEquationMap
+          type CDATA #REQUIRED>
 <!ELEMENT basePowerMap (modelVariableMap)>
 <!ATTLIST basePowerMap
           cim_mRID CDATA #REQUIRED
           cim_name CDATA #REQUIRED
           mo_package CDATA #REQUIRED
-          mo_stereotype CDATA #REQUIRED>
+          mo_stereotype CDATA #REQUIRED
+          rfd_id CDATA #REQUIRED>
 <!ELEMENT baseFrequencyMap (modelVariableMap)>
 <!ATTLIST baseFrequencyMap
           cim_mRID CDATA #REQUIRED
           cim_name CDATA #REQUIRED
           mo_package CDATA #REQUIRED
-          mo_stereotype CDATA #REQUIRED>
+          mo_stereotype CDATA #REQUIRED
+          rfd_id CDATA #REQUIRED>

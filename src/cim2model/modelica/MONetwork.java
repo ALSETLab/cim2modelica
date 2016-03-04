@@ -11,13 +11,13 @@ import java.util.Iterator;
 public class MONetwork extends MOModel
 {
 	protected ArrayList<MOClass> components;
-	protected ArrayList<MOConnect> conexions;
+	protected ArrayList<MOConnectNode> conexions;
 		
 	public MONetwork(String _name) 
 	{
 		super(_name, "model");
 		this.components= new ArrayList<MOClass>();
-		this.conexions= new ArrayList<MOConnect>();
+		this.conexions= new ArrayList<MOConnectNode>();
 	}
 
 	/**
@@ -43,21 +43,21 @@ public class MONetwork extends MOModel
 	/**
 	 * @return the connections
 	 */
-	public ArrayList<MOConnect> get_Connections() {
+	public ArrayList<MOConnectNode> get_Connections() {
 		return this.conexions;
 	}
 	/**
 	 * 
 	 * @param component
 	 */
-	public void add_Connection(MOConnect _value){
+	public void add_Connection(MOConnectNode _value){
 		this.conexions.add(_value);
 	}
-	public boolean exist_Connection(MOConnect _value){
+	public boolean exist_Connection(MOConnectNode _value){
 		boolean exists= false;
-		MOConnect current;
+		MOConnectNode current;
 		
-		Iterator<MOConnect> iconnections= this.conexions.iterator();
+		Iterator<MOConnectNode> iconnections= this.conexions.iterator();
 		while (!exists && iconnections.hasNext())
 		{
 			current= iconnections.next();
@@ -89,7 +89,7 @@ public class MONetwork extends MOModel
 		}
 		/* EQUATION SECTION */
 		pencil.append("equation\n");
-		for (MOConnect conexio: this.conexions)
+		for (MOConnectNode conexio: this.conexions)
 		{
 			pencil.append("\t");
 			pencil.append(conexio.to_ModelicaEquation());

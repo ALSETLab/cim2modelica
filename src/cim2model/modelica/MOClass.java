@@ -179,9 +179,9 @@ public class MOClass extends MOModel
 		{//update this attribute values with pin values vr and vi
 			currentAtt= iAttributes.next();
 			if (currentAtt.get_Name().equals("V_0"))
-				currentAtt.set_Value(_pin.get_Attribute("vr").get_Value());
+				currentAtt.set_Value((String)_pin.get_Attribute("vr").get_Value());
 			if (currentAtt.get_Name().equals("angle_0"))
-				currentAtt.set_Value(_pin.get_Attribute("vi").get_Value());
+				currentAtt.set_Value((String)_pin.get_Attribute("vi").get_Value());
 		}
 	}
 	

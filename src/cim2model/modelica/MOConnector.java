@@ -160,6 +160,13 @@ public class MOConnector extends MOModel
 				pencil.append(item.get_Value());
 				pencil.append(",");
 			}
+			if (item instanceof MOAttributeComplex){
+				pencil.append(item.get_Name());
+				pencil.append("(");
+				pencil.append("re= "); pencil.append(((MOAttributeComplex)item).get_Real()); pencil.append(",");
+				pencil.append("im= "); pencil.append(((MOAttributeComplex)item).get_Imaginary()); 
+				pencil.append("), ");
+			}
 		}
 		pencil.deleteCharAt(pencil.lastIndexOf(","));
 		pencil.append(") ");

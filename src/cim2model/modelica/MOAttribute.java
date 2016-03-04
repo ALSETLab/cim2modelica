@@ -11,7 +11,7 @@ public class MOAttribute
 	protected String variability;
 	protected String datatype;
 	protected String name;
-	protected String value;
+	protected Object value;
 	protected String annotation;
 	protected Boolean fixed;
 	protected Boolean flow;
@@ -79,13 +79,13 @@ public class MOAttribute
 	/**
 	 * @return the value
 	 */
-	public String get_Value() {
+	public Object get_Value() {
 		return value;
 	}
 	/**
 	 * @param value the value to set
 	 */
-	public void set_Value(String value) {
+	public void set_Value(Object value) {
 		this.value = value;
 	}
 	/**
@@ -131,7 +131,7 @@ public class MOAttribute
 		StringBuilder line= new StringBuilder();
 		
 		if (this.flow) {
-			line.append("flow "); line.append(" ");
+			line.append("flow ");
 		}
 		line.append(this.variability); line.append(" ");
 		line.append(this.datatype); line.append(" ");

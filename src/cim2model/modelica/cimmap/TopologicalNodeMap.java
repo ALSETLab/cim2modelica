@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="cim_mRID" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="cim_name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *       &lt;attribute name="rfd_id" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -50,6 +51,8 @@ public class TopologicalNodeMap {
     protected String cimMRID;
     @XmlAttribute(name = "cim_name", required = true)
     protected String cimName;
+    @XmlAttribute(name = "rfd_id", required = true)
+    protected String rfdId;
 
     /**
      * Gets the value of the svVoltageMap property.
@@ -123,4 +126,34 @@ public class TopologicalNodeMap {
         this.cimName = value;
     }
 
+    /**
+     * Gets the value of the rfdId property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getRfdId() {
+        return rfdId;
+    }
+
+    /**
+     * Sets the value of the rfdId property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setRfdId(String value) {
+        this.rfdId = value;
+    }
+
+    @Override
+    public String toString()
+    {
+    	return this.getClass().getName()+ " "+ this.cimName+ " with id "+ this.cimMRID;
+    }
+    
 }

@@ -8,13 +8,13 @@ import java.util.AbstractMap;
  * @author fragom
  *
  */
-public class MOConnect 
+public class MOConnectNode 
 {
 	private Map.Entry<String, String> conexio;
 	public final String id_component_u, pin_component_u;
 	public final String id_component_y, pin_component_y;
     
-    public MOConnect(String _u, String _pin_u, String _y, String _pin_y) 
+    public MOConnectNode(String _u, String _pin_u, String _y, String _pin_y) 
     {
       this.id_component_u = _u;
       this.pin_component_u = _pin_u;

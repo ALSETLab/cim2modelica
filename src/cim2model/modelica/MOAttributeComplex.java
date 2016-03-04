@@ -27,7 +27,12 @@ public class MOAttributeComplex extends MOAttribute
 	public void set_Real(String _re) {
 		this.re = _re;
 	}
-	
+	/**
+	 * @param paramtype the re to set
+	 */
+	public void set_Real(double _re) {
+		this.re = String.valueOf(_re);
+	}
 	/**
 	 * @return the im
 	 */
@@ -40,6 +45,12 @@ public class MOAttributeComplex extends MOAttribute
 	public void set_Imaginary(String _im) {
 		this.im= _im;
 	}
+	/**
+	 * @param paramtype the im to set
+	 */
+	public void set_Imaginary(double _im) {
+		this.im= String.valueOf(_im);
+	}
 	
 	@Override
 	public String to_Modelica()
@@ -48,7 +59,7 @@ public class MOAttributeComplex extends MOAttribute
 		StringBuilder pencil= new StringBuilder();
 		
 		if (this.flow) {
-			pencil.append("flow "); pencil.append(" ");
+			pencil.append("flow ");
 		}
 		pencil.append(this.variability); pencil.append(" ");
 		pencil.append(this.datatype); pencil.append(" ");

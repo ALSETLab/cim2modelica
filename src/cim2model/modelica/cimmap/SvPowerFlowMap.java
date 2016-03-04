@@ -10,6 +10,7 @@ package cim2model.modelica.cimmap;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -32,6 +33,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="cim_mRID" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="cim_name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *       &lt;attribute name="rfd_id" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -52,6 +54,8 @@ public class SvPowerFlowMap {
     protected String cimMRID;
     @XmlAttribute(name = "cim_name", required = true)
     protected String cimName;
+    @XmlAttribute(name = "rfd_id", required = true)
+    protected String rfdId;
 
     /**
      * Gets the value of the modelVariableMap property.
@@ -128,6 +132,60 @@ public class SvPowerFlowMap {
      */
     public void setCimName(String value) {
         this.cimName = value;
+    }
+
+    /**
+     * Gets the value of the rfdId property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getRfdId() {
+        return rfdId;
+    }
+
+    /**
+     * Sets the value of the rfdId property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setRfdId(String value) {
+        this.rfdId = value;
+    }
+    
+    @Override
+    public String toString()
+    {
+    	String code= "";
+		StringBuilder pencil= new StringBuilder();
+		
+		pencil.append(this.getClass().getName());
+		pencil.append(" ");
+		pencil.append(this.cimName);
+		pencil.append(" ");
+		pencil.append(this.cimMRID);
+		pencil.append("(");
+		for (ModelVariableMap item: this.modelVariableMap)
+		{
+			pencil.append(item.getMoVisibility());
+			pencil.append(" ");
+			pencil.append(item.getMoVariability());
+			pencil.append(" ");
+			pencil.append(item.getCimName());
+			pencil.append("= ");
+			pencil.append(item.getContent());
+			pencil.append("; ");
+		}
+		pencil.deleteCharAt(pencil.lastIndexOf(";"));
+		pencil.append(") ");
+		code= pencil.toString();
+		
+		return code;
     }
 
 }

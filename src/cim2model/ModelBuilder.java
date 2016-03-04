@@ -495,7 +495,7 @@ public class ModelBuilder
 		Iterator<ConnectionMap> iConnections= _connectmap.iterator();
 		ConnectionMap current;
 		MOClass equipment, bus; 
-		MOConnect conexio;
+		MOConnectNode conexio;
 		
 		while(iConnections.hasNext())
 		{
@@ -506,7 +506,7 @@ public class ModelBuilder
 			bus= this.get_equipmentNetwork(current.get_Tn_id());
 			equipment.get_Terminal(current.get_T_id());
 			bus.get_Terminal(current.get_T_id());
-			conexio= new MOConnect(equipment.get_InstanceName(), equipment.get_Terminal(current.get_T_id()).get_InstanceName(),
+			conexio= new MOConnectNode(equipment.get_InstanceName(), equipment.get_Terminal(current.get_T_id()).get_InstanceName(),
 					bus.get_InstanceName(), bus.get_Terminal(current.get_T_id()).get_InstanceName());
 			if (!this.powsys.exist_Connection(conexio))
 				this.powsys.add_Connection(conexio);

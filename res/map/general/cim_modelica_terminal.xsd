@@ -5,11 +5,13 @@
       <xs:sequence>
         <xs:element ref="svPowerFlowMap"/>
         <xs:element ref="topologicalNodeMap"/>
+        <xs:element ref="conductingEquipmentMap"/>
       </xs:sequence>
       <xs:attribute name="cim_mRID" type="xs:string" use="required"/>
       <xs:attribute name="cim_name" type="xs:string" use="required"/>
       <xs:attribute name="mo_package" type="xs:string" use="required"/>
       <xs:attribute name="mo_stereotype" type="xs:string" use="required"/>
+      <xs:attribute name="rfd_id" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="svPowerFlowMap">
@@ -19,6 +21,7 @@
       </xs:sequence>
       <xs:attribute name="cim_mRID" type="xs:string" use="required"/>
       <xs:attribute name="cim_name" type="xs:string" use="required"/>
+      <xs:attribute name="rfd_id" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="modelVariableMap">
@@ -36,6 +39,7 @@
       </xs:sequence>
       <xs:attribute name="cim_mRID" type="xs:string" use="required"/>
       <xs:attribute name="cim_name" type="xs:string" use="required"/>
+      <xs:attribute name="rfd_id" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="svVoltageMap">
@@ -45,6 +49,14 @@
       </xs:sequence>
       <xs:attribute name="cim_mRID" type="xs:string" use="required"/>
       <xs:attribute name="cim_name" type="xs:string" use="required"/>
+      <xs:attribute name="rfd_id" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="conductingEquipmentMap">
+    <xs:complexType>
+      <xs:attribute name="cim_mRID" type="xs:string" use="required"/>
+      <xs:attribute name="cim_name" type="xs:string" use="required"/>
+      <xs:attribute name="rfd_id" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
 </xs:schema>
