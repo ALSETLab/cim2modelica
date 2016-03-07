@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<topologicalNodeMap cim_name="IdentifiedObject.name" cim_mRID="IdentifiedObject.mRID" rfd_id="" mo_package="Buses" mo_stereotype="class">
+	<svVoltageMap cim_name="IdentifiedObject.name" cim_mRID="IdentifiedObject.mRID" rfd_id="">
+		<modelVariableMap cim_name="SvVoltage.v" mo_datatype="Real" mo_variability="variable" mo_visibility="public">-1</modelVariableMap>
+		<modelVariableMap cim_name="SvVoltage.angle" mo_datatype="Real" mo_variability="variable" mo_visibility="public">-1</modelVariableMap>
+	</svVoltageMap>
+	<bindingVariableMap mo_name="V" mo_datatype="Real" mo_variability="variable" mo_visibility="public">v</bindingVariableMap>
+	<bindingVariableMap mo_name="angle" mo_datatype="Real" mo_variability="variable" mo_visibility="public">angle</bindingVariableMap>
+</topologicalNodeMap>

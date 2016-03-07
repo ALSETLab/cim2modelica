@@ -161,27 +161,137 @@ public class FactoryBuilder
 			this.powsys.add_Component(_component);
 	}
 	
-//	/**
-//	 * 
-//	 * @param _rfdId
-//	 * @return
-//	 */
-//	public MOClass get_equipmentNetwork(String _rfdId)
-//	{
-//		MOClass current= new MOClass("void");
-//		Iterator<MOClass> iComponents;
-//		
-//		iComponents= this.powsys.get_Components().iterator();
-//		boolean exists= false;
-//		while (!exists && iComponents.hasNext()){
-//			current= iComponents.next();
-//			exists= current.get_RfdId().equals(_rfdId);
-//		}
-//		if (exists)
-//			return current;
-//		else
-//			return null;
-//	}
+	/**
+	 * 
+	 * @param _rfdId
+	 * @return
+	 */
+	public MOClass get_equipmentNetwork(String _rfdId)
+	{
+		MOClass current= null;
+		Iterator<MOClass> iComponents;
+		
+		iComponents= this.powsys.get_Components().iterator();
+		boolean exists= false;
+		while (!exists && iComponents.hasNext()){
+			current= iComponents.next();
+			exists= current.get_RfdId().equals(_rfdId);
+		}
+		if (exists)
+			return current;
+		else
+			return null;
+	}
+	public MOClass create_ACLineComponent(ACLineSegmentMap _mapACLine)
+	{
+		MOClass pwline= new MOClass(_mapACLine.getCimName());
+		ModelVariableMap currentVar;
+		BindingVariableMap currentBindVar; 
+		/* Create the variables that come from CIM, with CIM values */
+		Iterator<ModelVariableMap> iVar= _mapACLine.getModelVariableMap().iterator();
+		while (iVar.hasNext()) {
+			currentVar= iVar.next();
+			if (currentVar.getCimName().equals("IdentifiedObject.name")){
+				pwline.set_InstanceName(currentVar.getContent());
+			}
+			else{
+				MOAttribute variable= new MOAttribute();
+				String[] splitName= currentVar.getCimName().split("[.]");
+				variable.set_Name(splitName[1]);
+				if (currentVar.getContent()== null)
+					variable.set_Value("0");
+				else
+					variable.set_Value(currentVar.getContent());
+				variable.set_Variability(currentVar.getMoVariability());
+				variable.set_Visibility(currentVar.getMoVisibility());
+				pwline.add_Attribute(variable);
+			}
+		}
+		/* Create the variables specific for the component, from the map */
+		Iterator<BindingVariableMap> iBindVar= _mapACLine.getBindingVariableMap().iterator();
+		while (iBindVar.hasNext()) {
+			currentBindVar= iBindVar.next();
+			if (currentBindVar.getMoDatatype().equals("Complex")){
+				MOAttributeComplex variable= new MOAttributeComplex();
+				String[] splitContent= currentBindVar.getContent().split(";");
+				variable.set_Real(splitContent[0]);
+				variable.set_Imaginary(splitContent[1]);
+				variable.set_Name(currentBindVar.getMoName());
+				variable.set_Datatype(currentBindVar.getMoDatatype());
+				variable.set_Variability(currentBindVar.getMoVariability());
+				variable.set_Visibility(currentBindVar.getMoVisibility());
+				pwline.add_Attribute(variable);
+			}
+			if (currentBindVar.getMoDatatype().equals("Real")){
+				MOAttribute variable= new MOAttribute();
+				variable.set_Value(currentBindVar.getContent());
+				variable.set_Name(currentBindVar.getMoName());
+				variable.set_Datatype(currentBindVar.getMoDatatype());
+				variable.set_Variability(currentBindVar.getMoVariability());
+				variable.set_Visibility(currentBindVar.getMoVisibility());
+				pwline.add_Attribute(variable);
+			}
+		}
+		/* Create the equations for the component, from the map */
+		Iterator<DynamicEquationMap> iEquation= _mapACLine.getDynamicEquationMap().iterator();
+		while (iEquation.hasNext()) {
+			MOEquation equ= new MOEquation("");
+			equ.setEquation(iEquation.next().getContent());
+			pwline.add_Equation(equ);
+		}
+		/* Base power and base frequency attributes */
+		MOAttribute variable= new MOAttribute();
+		variable.set_Name(_mapACLine.getBasePowerMap().getModelVariableMap().getCimName());
+		variable.set_Value(_mapACLine.getBasePowerMap().getModelVariableMap().getContent());
+		variable.set_Datatype(_mapACLine.getBasePowerMap().getModelVariableMap().getMoDatatype());
+		variable.set_Variability(_mapACLine.getBasePowerMap().getModelVariableMap().getMoVariability());
+		variable.set_Visibility(_mapACLine.getBasePowerMap().getModelVariableMap().getMoVisibility());
+		pwline.add_Attribute(variable);
+		
+		pwline.set_Name("ACLineSegment");
+		pwline.set_InstanceName(_mapACLine.getCimName());
+		pwline.set_Stereotype(_mapACLine.getMoStereotype());
+		pwline.set_Package(_mapACLine.getMoPackage());
+		//for internal identification only
+		pwline.set_RfdId(_mapACLine.getRfdId());
+		
+		return pwline;
+	}
+	
+	public MOClass create_BusComponent(TopologicalNodeMap _mapTopoNode)
+	{
+		MOClass pwbus= new MOClass(_mapTopoNode.getCimName());
+		MOAttribute variable;
+		
+		SvVoltageMap svVolt= _mapTopoNode.getSvVoltageMap();
+		for (ModelVariableMap att : svVolt.getModelVariableMap()){
+			variable= new MOAttribute();
+			variable.set_Name(att.getMoName());
+			if (att.getContent()== null)
+				variable.set_Value("0");
+			else
+				variable.set_Value(att.getContent());
+			variable.set_Variability(att.getMoVariability());
+			variable.set_Visibility(att.getMoVisibility());
+			pwbus.add_Attribute(variable);
+		}
+		/* Create the variables specific for the component, from the map */
+		for (BindingVariableMap bindVar: _mapTopoNode.getBindingVariableMap()) {
+			variable= new MOAttribute();
+			variable.set_Value(bindVar.getContent());
+			variable.set_Name(bindVar.getMoName());
+			variable.set_Datatype(bindVar.getMoDatatype());
+			variable.set_Variability(bindVar.getMoVariability());
+			variable.set_Visibility(bindVar.getMoVisibility());
+			pwbus.add_Attribute(variable);
+		}
+		pwbus.setStereotype(_mapTopoNode.getMoStereotype());
+		pwbus.set_Package(_mapTopoNode.getMoPackage());
+		//for internal identification only
+		pwbus.set_RfdId(_mapTopoNode.getRfdId());
+		
+		return pwbus;
+	}
 //	
 //	public MOClass create_GENROUComponent(GENROUMap _mapSyncMach)
 //	{
@@ -308,38 +418,7 @@ public class FactoryBuilder
 //		return pwLoad;
 //	}
 //	
-//	public MOClass create_LineComponent(PwLineMap _mapACLine)
-//	{
-//		PwLine pwline= new PwLine(_mapACLine.getName());
-//		ArrayList<MapAttribute> mapAttList= 
-//				(ArrayList<MapAttribute>)_mapACLine.getMapAttribute();
-//		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
-//		MapAttribute current;
-//		while (imapAttList.hasNext()) {
-//			current= imapAttList.next();
-//			if (current.getCimName().equals("IdentifiedObject.name")){
-//				pwline.set_InstanceName(current.getContent());
-//			}
-//			else{
-//				MOAttribute variable= new MOAttribute();
-//				variable.set_Name(current.getMoName());
-//				if (current.getContent()== null)
-//					variable.set_Value("0");
-//				else
-//					variable.set_Value(current.getContent());
-//				variable.set_Variability(current.getVariability());
-//				variable.set_Visibility(current.getVisibility());
-//				variable.set_Flow(Boolean.valueOf(current.getFlow()));
-//				pwline.add_Attribute(variable);
-//			}
-//		}
-//		pwline.set_Stereotype(_mapACLine.getStereotype());
-//		pwline.set_Package(_mapACLine.getPackage());
-//		//for internal identification only
-//		pwline.set_RfdId(_mapACLine.getRfdId());
-//		
-//		return pwline;
-//	}
+
 //	
 //	public MOClass create_TransformerComponent(TwoWindingTransformerMap _mapPowTrans)
 //	{//TODO think about TwoWindingTransformer class, responsibilities, two tap changer attributes from two ratio tap changer
@@ -428,38 +507,7 @@ public class FactoryBuilder
 //		return variable;
 //	}
 //	
-//	public MOClass create_BusComponent(PwBusMap _mapTopoNode)
-//	{
-//		Bus pwbus= new Bus(_mapTopoNode.getName());
-//		ArrayList<MapAttribute> mapAttList= 
-//				(ArrayList<MapAttribute>)_mapTopoNode.getMapAttribute();
-//		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
-//		MapAttribute current;
-//		while (imapAttList.hasNext()) {
-//			current= imapAttList.next();
-//			if (current.getCimName().equals("IdentifiedObject.name")){
-//				pwbus.set_InstanceName(current.getContent());
-//			}
-//			else {
-//				MOAttribute variable= new MOAttribute();
-//				variable.set_Name(current.getMoName());
-//				if (current.getContent()== null)
-//					variable.set_Value("0");
-//				else
-//					variable.set_Value(current.getContent());
-//				variable.set_Variability(current.getVariability());
-//				variable.set_Visibility(current.getVisibility());
-//				variable.set_Flow(Boolean.valueOf(current.getFlow()));
-//				pwbus.add_Attribute(variable);
-//			}
-//		}
-//		pwbus.setStereotype(_mapTopoNode.getStereotype());
-//		pwbus.set_Package(_mapTopoNode.getPackage());
-//		//for internal identification only
-//		pwbus.set_RfdId(_mapTopoNode.getRfdId());
-//		
-//		return pwbus;
-//	}
+
 //	
 //	public MOClass create_FaultComponent(PwFaultMap _mapFault)
 //	{

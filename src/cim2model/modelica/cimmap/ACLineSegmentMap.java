@@ -10,6 +10,7 @@ package cim2model.modelica.cimmap;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -364,6 +365,25 @@ public class ACLineSegmentMap {
      */
     public void setRfdId(String value) {
         this.rfdId = value;
+    }
+    
+    @Override
+    public String toString()
+    {
+    	String code= "";
+		StringBuilder pencil= new StringBuilder();
+		
+		pencil.append(this.rfdId);
+		pencil.append(" ");
+		pencil.append(this.cimName);
+		pencil.append("\n\t");
+		pencil.append(this.baseFrequencyMap.getRfdId());
+		pencil.append(" - ");
+		pencil.append(this.basePowerMap.getRfdId());
+		pencil.append(") ");
+		code= pencil.toString();
+		
+		return code;
     }
 
 }

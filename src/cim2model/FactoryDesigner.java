@@ -15,6 +15,8 @@ import com.hp.hpl.jena.rdf.model.Resource;
 
 import cim2model.cim.CIMModel;
 import cim2model.io.CIMReaderJENA;
+import cim2model.ipsl.cimmap.MapAttribute;
+import cim2model.ipsl.cimmap.PwBusMap;
 import cim2model.modelica.cimmap.*;
 
 /**
@@ -126,21 +128,26 @@ public class FactoryDesigner
 		cimTopoNodeMap= modelCIM.retrieveAttributesTopoNode((Resource)cimTerminalMap.get("Terminal.TopologicalNode"));
 		topoMap.setCimMRID((String)cimTopoNodeMap.get(topoMap.getCimMRID()));
 		topoMap.setCimName((String)cimTopoNodeMap.get(topoMap.getCimName()));
-		/* equpiment main data, related with this terminal */
+		/* equipment main data, related with this terminal */
 		ConductingEquipmentMap equipMap= mapTerminal.getConductingEquipmentMap();
 		String[] subjectEquipment= this.get_CIMComponentName((Resource)cimTerminalMap.get("Terminal.ConductingEquipment"));
 		equipMap.setRfdId(subjectEquipment[0]);
 		cimEquipMap= modelCIM.retrieveAttributesTopoNode((Resource)cimTerminalMap.get("Terminal.ConductingEquipment"));
 		equipMap.setCimMRID((String)cimEquipMap.get(equipMap.getCimMRID()));
 		equipMap.setCimName((String)cimEquipMap.get(equipMap.getCimName()));
-		System.out.println(mapTerminal.toString());
-		System.out.println(svPF.toString());
-		System.out.println(svVolt.toString());
+//		System.out.println(mapTerminal.toString());
+//		System.out.println(svPF.toString());
+//		System.out.println(svVolt.toString());
+		this.connections.add(new TopologyMap(key,
+				(Resource)cimTerminalMap.get("Terminal.ConductingEquipment"),
+				(Resource)cimTerminalMap.get("Terminal.TopologicalNode")));
 		
 		iVarList= null; 
 		cimTerminalMap.clear(); cimTerminalMap= null;
 		cimTopoNodeMap.clear(); cimTopoNodeMap= null; 
 		cimEquipMap.clear(); cimEquipMap= null;
+		modelCIM.clearAttributes();
+		
 		return mapTerminal;
 	}
 	
@@ -164,19 +171,64 @@ public class FactoryDesigner
 		ACLineSegmentMap mapACLine= pwlineXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributes(key);
 		Iterator<ModelVariableMap> imapAttList= mapACLine.getModelVariableMap().iterator();
-		ModelVariableMap currentmapAtt;
+		ModelVariableMap currentVarMap;
 		while (imapAttList.hasNext()) {
-			//TODO delete all spaces from the Identified.name attribute
-			currentmapAtt= imapAttList.next();
-			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+			currentVarMap= imapAttList.next();
+			currentVarMap.setContent((String)cimClassMap.get(currentVarMap.getCimName()));
 		}
+		imapAttList= null;
+		/* no need to process BuindingVariableMap, it will be processed when building the component
+		 * because there is no value in CIM for these varaibles */
+		mapACLine.setCimMRID((String)cimClassMap.get(mapACLine.getCimMRID()));
+		mapACLine.setCimName((String)cimClassMap.get(mapACLine.getCimName()));
 		mapACLine.setRfdId(_subjectID[0]);
-		mapACLine.setCimName(_subjectID[1]);
+		
 		this.equipment.put(mapACLine, mapACLine.getClass().getName());
-	
 		modelCIM.clearAttributes();
 		
 		return mapACLine;
+	}
+	
+	private static TopologicalNodeMap pwbusXMLToObject(String _xmlmap) {
+		JAXBContext context;
+		Unmarshaller un;
+		
+		try{
+			context = JAXBContext.newInstance(TopologicalNodeMap.class);
+	        un = context.createUnmarshaller();
+	        TopologicalNodeMap map = (TopologicalNodeMap) un.unmarshal(new File(_xmlmap));
+	        return map;
+	    } 
+	    catch (JAXBException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+	public TopologicalNodeMap create_BusModelicaMap(Resource key, String _source, String[] _subjectID)
+	{
+		TopologicalNodeMap mapTopoNode= pwbusXMLToObject(_source);
+		Iterator<ModelVariableMap> iVarList;
+		ModelVariableMap currentmapAtt;
+		
+		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTopoNode(key);
+		/* values of power flow from SvVoltage */
+		SvVoltageMap svVolt= mapTopoNode.getSvVoltageMap();
+		iVarList= svVolt.getModelVariableMap().iterator();
+		while (iVarList.hasNext()) {
+			currentmapAtt= iVarList.next();
+			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+		}
+		iVarList= null;
+		/* no need to process BuindingVariableMap, it will be processed when building the component
+		 * because there is no value in CIM for these varaibles */
+		svVolt.setCimMRID((String)cimClassMap.get(mapTopoNode.getCimMRID()));
+		mapTopoNode.setRfdId(_subjectID[0]);
+		mapTopoNode.setCimName(_subjectID[1]);
+		
+		this.equipment.put(mapTopoNode, mapTopoNode.getClass().getName());
+		modelCIM.clearAttributes();
+		
+		return mapTopoNode;
 	}
 	
 //	private static GENROUMap genrouXMLToObject(String _xmlmap) {
@@ -366,21 +418,7 @@ public class FactoryDesigner
 //		return transformerEnd;
 //	}
 //	
-//	private static PwBusMap pwbusXMLToObject(String _xmlmap) {
-//		JAXBContext context;
-//		Unmarshaller un;
-//		
-//		try{
-//			context = JAXBContext.newInstance(PwBusMap.class);
-//	        un = context.createUnmarshaller();
-//	        PwBusMap map = (PwBusMap) un.unmarshal(new File(_xmlmap));
-//	        return map;
-//        } 
-//        catch (JAXBException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+
 //	public PwBusMap create_BusModelicaMap(Resource key, String _source, String[] _subjectID)
 //	{
 //		PwBusMap mapTopoNode= pwbusXMLToObject(_source);

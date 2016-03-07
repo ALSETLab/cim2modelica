@@ -15,13 +15,9 @@
  	<terminalMap cim_name="IdentifiedObject.name" cim_mRID="IdentifiedObject.mRID" mo_package="Connectors" mo_stereotype="connector">IdentifiedObject.mRID</terminalMap>
 	<terminalMap cim_name="IdentifiedObject.name" cim_mRID="IdentifiedObject.mRID" mo_package="Connectors" mo_stereotype="connector">IdentifiedObject.mRID</terminalMap>
 	<!-- ; -->
-	<dynamicEquationMap type="eq_equal"> 
-		vs - vr = (is - vs * Y) * Z
-	</dynamicEquationMap>
+	<dynamicEquationMap type="eq_equal">vs - vr = (is - vs * Y) * Z</dynamicEquationMap>
 	<!-- >; -->
-	<dynamicEquationMap type="eq_equal">
-		ir = -(is - vs * Y - vr * Y)
-	</dynamicEquationMap>
+	<dynamicEquationMap type="eq_equal">ir = -(is - vs * Y - vr * Y)</dynamicEquationMap>
 	<basePowerMap cim_name="IdentifiedObject.name" cim_mRID="IdentifiedObject.mRID" rfd_id="" mo_package="SystemBase" mo_stereotype="class">
 		<modelVariableMap cim_name="BasePower.basePower" mo_datatype="Real" mo_variability="parameter" mo_visibility="public">100</modelVariableMap>
 	</basePowerMap>

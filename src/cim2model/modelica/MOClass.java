@@ -162,6 +162,13 @@ public class MOClass extends MOModel
 			return null;
 	}
 	/**
+	 * 
+	 * @param variable
+	 */
+	public void add_Equation(MOEquation equation){
+		this.equations.add(equation);
+	}
+	/**
 	 * For some devices, there are power flow values that are mapped by Sv classes, and these classes are available either by 
 	 * Terminal or TopologicalNode Class. The Modelica class of these devices need this Sv values as parameter. 
 	 * SvPowerFlow (P,Q) are included in the classes
@@ -212,37 +219,37 @@ public class MOClass extends MOModel
 		}
 		for (MOAttribute item: this.attributes)
 		{
-			pencil.append("\t");
-			if (!item.get_Variability().equals("none"))
-				pencil.append(item.get_Variability()); pencil.append(" ");
-			pencil.append(item.get_Datatype()); pencil.append(" ");
-			pencil.append(item.get_Name());
-			if (item.get_Variability().equals("parameter") || 
-					item.get_Variability().equals("constant"))
-			{// write initialization according to variability of the attribute
-				pencil.append("=");
-				pencil.append(item.get_Value());
-				pencil.append(" ");
-			}
-			else{
-				pencil.append("(start=");
-				pencil.append(item.get_Value());
-				pencil.append(", fixed=");
-				if (item.is_Fixed())
-					pencil.append("true");
+			if (item.get_Visibility().equals("public")){
+				pencil.append("\t");
+				if (item.get_Datatype().equals("Complex"))
+					pencil.append(((MOAttributeComplex)item).to_Modelica());
 				else
-					pencil.append("false");
-				pencil.append(") ");
+					pencil.append(item.to_Modelica());
+				pencil.append("\n");
 			}
-			pencil.append('"');
-			pencil.append(item.get_Annotation());
-			pencil.append('"');
-			pencil.append(";\n");
+		}
+		boolean firstIteration= true;
+		for (MOAttribute item: this.attributes)
+		{
+			if (item.get_Visibility().equals("protected")){
+				if (firstIteration)
+					pencil.append("protected\n");
+				pencil.append("\t");
+				if (item.get_Datatype().equals("Complex"))
+					pencil.append(((MOAttributeComplex)item).to_Modelica());
+				else
+					pencil.append(item.to_Modelica());
+				pencil.append("\n");
+				firstIteration= false;
+			}
 		}
 		/* EQUATION SECTION */
-		pencil.append("\t");
 		pencil.append("equation\n");
-		
+		for (MOEquation equ: this.equations){
+			pencil.append("\t");
+			pencil.append(equ.getEquation());
+			pencil.append(";\n");
+		}
 		pencil.append("end ");
 		pencil.append(this.name);
 		pencil.append(";");
@@ -275,19 +282,20 @@ public class MOClass extends MOModel
 		pencil.append("(");
 		for (MOAttribute item: this.attributes)
 		{
-			if (item.get_Datatype().equals("Complex")) {
-				pencil.append(item.get_Name());
-				pencil.append("(re= "); pencil.append(((MOAttributeComplex)item).get_Real()); pencil.append(",");
-				pencil.append("im= "); pencil.append(((MOAttributeComplex)item).get_Imaginary()); pencil.append("), ");
-			}
-			else {
-				if (item.get_Variability().equals("parameter")){
+			if (item.get_Visibility().equals("public"))
+				if (item.get_Datatype().equals("Complex") && item.get_Variability().equals("parameter")) {
 					pencil.append(item.get_Name());
-					pencil.append("=");
-					pencil.append(item.get_Value());
-					pencil.append(",");
+					pencil.append("(re= "); pencil.append(((MOAttributeComplex)item).get_Real()); pencil.append(",");
+					pencil.append("im= "); pencil.append(((MOAttributeComplex)item).get_Imaginary()); pencil.append("), ");
 				}
-			}
+				else {
+					if (item.get_Variability().equals("parameter")){
+						pencil.append(item.get_Name());
+						pencil.append("=");
+						pencil.append(item.get_Value());
+						pencil.append(",");
+					}
+				}
 		}
 		pencil.deleteCharAt(pencil.lastIndexOf(","));
 		pencil.append(") ");
