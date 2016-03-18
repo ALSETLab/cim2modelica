@@ -10,7 +10,7 @@ import cim2model.modelica.cimmap.*;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 
-public class CIMFactory 
+public class BetaFactoryCIMOD 
 {
 	public static void main(String[] args) 
 	{

@@ -1,5 +1,5 @@
-<!ELEMENT iEEET1Map (mapAttribute+)>
-<!ATTLIST iEEET1Map
+<!ELEMENT eSDC1AMap (mapAttribute+)>
+<!ATTLIST eSDC1AMap
           cim_name CDATA #REQUIRED
           name CDATA #REQUIRED
           package CDATA #REQUIRED

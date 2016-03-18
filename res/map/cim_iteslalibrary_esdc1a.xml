@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_esdc1a.dtd">
+<!-- CIM class to be included into ExcitationSystemDynamics packages, instance of the CIM class ExcitationSystemDynamics class -->
+<eSDC1AMap cim_name="ExcIEEEDC1A" rfd_id="" package="iPSL.Electrical.Controls.PSSE.ES.ESDC1A" name="ESDC1A" stereotype="class">
+  <mapAttribute cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</mapAttribute>
+   <mapAttribute cim_name="tr" mo_name="T_R" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+   <mapAttribute cim_name="ka" mo_name="K_A" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+   <mapAttribute cim_name="ta" mo_name="T_A" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+   <mapAttribute cim_name="tb" mo_name="T_B" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+   <mapAttribute cim_name="tc" mo_name="T_C" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+   <mapAttribute cim_name="ke" mo_name="K_E" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+   <mapAttribute cim_name="te" mo_name="T_E" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+   <mapAttribute cim_name="kf" mo_name="K_F" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+   <mapAttribute cim_name="tf" mo_name="T_F1" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+   <mapAttribute cim_name="efd1" mo_name="E_1" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+   <mapAttribute cim_name="efd2" mo_name="E_2" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+   <mapAttribute cim_name="seefd1" mo_name="S_EE_1" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+   <mapAttribute cim_name="seefd2" mo_name="S_EE_2" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+   <mapAttribute cim_name="vrmin" mo_name="V_RMIN" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+   <mapAttribute cim_name="vrmax" mo_name="V_RMAX" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+</eSDC1AMap>

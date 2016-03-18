@@ -165,6 +165,21 @@ public class ModelDesigner
             return null;
         }
     }
+	private static GENROEMap genroeXMLToObject(String _xmlmap) {
+		JAXBContext context;
+		Unmarshaller un;
+		
+		try{
+			context = JAXBContext.newInstance(GENROEMap.class);
+	        un = context.createUnmarshaller();
+	        GENROEMap map = (GENROEMap) un.unmarshal(new File(_xmlmap));
+	        return map;
+        } 
+        catch (JAXBException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 	public String typeOfSynchronousMachine(Resource key)
 	{
 		String rotorKind= modelCIM.checkSynchronousMachineType(key);
@@ -182,8 +197,7 @@ public class ModelDesigner
 	{
 		GENROUMap mapSyncMach= genrouXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
-		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapSyncMach.getMapAttribute();
-		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		Iterator<MapAttribute> imapAttList= mapSyncMach.getMapAttribute().iterator();
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -209,14 +223,39 @@ public class ModelDesigner
 	{
 		GENSALMap mapSyncMach= gensalXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
-		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapSyncMach.getMapAttribute();
-		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		Iterator<MapAttribute> imapAttList= mapSyncMach.getMapAttribute().iterator();
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
 		mapSyncMach.setName("GENSAL");
+		mapSyncMach.setRfdId(_subjectID[0]);
+		mapSyncMach.setCimName(_subjectID[1]);
+		this.equipment.put(mapSyncMach, mapSyncMach.getClass().getName());
+
+		modelCIM.clearAttributes();
+		
+		return mapSyncMach;
+	}
+	/**
+	 * 
+	 * @param key
+	 * @param _source
+	 * @param _subjectID
+	 * @return
+	 */
+	public GENROEMap create_GENROEModelicaMap(Resource key, String _source, String[] _subjectID)
+	{
+		GENROEMap mapSyncMach= genroeXMLToObject(_source);
+		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
+		Iterator<MapAttribute> imapAttList= mapSyncMach.getMapAttribute().iterator();
+		MapAttribute currentmapAtt;
+		while (imapAttList.hasNext()) {
+			currentmapAtt= imapAttList.next();
+			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+		}
+		mapSyncMach.setName("GENROE");
 		mapSyncMach.setRfdId(_subjectID[0]);
 		mapSyncMach.setCimName(_subjectID[1]);
 		this.equipment.put(mapSyncMach, mapSyncMach.getClass().getName());

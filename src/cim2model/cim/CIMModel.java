@@ -212,20 +212,23 @@ public class CIMModel {
 	{
 		Statement attributeClass, classAttribute;
 		String machineType= "";
+		boolean attfound= false;
 		
 		StmtIterator iAttributes= _subject.listProperties();
-		while( iAttributes.hasNext() ) 
+		while( !attfound && iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
 			if ( attributeClass.getPredicate().getLocalName().equals("SynchronousMachine.SynchronousMachineDynamics"))
 			{
 				StmtIterator dynamicAtts= attributeClass.getAlt().listProperties();
-				while( dynamicAtts.hasNext() ) 
+				while(!attfound && dynamicAtts.hasNext() ) 
 				{
 					classAttribute= dynamicAtts.next();
-					if(classAttribute.getAlt().isURIResource() && 
-							classAttribute.getPredicate().getLocalName().equals("SynchronousMachineTimeConstantReactance.rotorType")){
-						machineType= classAttribute.getObject().toString().split("#")[1];
+					if(classAttribute.getAlt().isLiteral() && 
+							classAttribute.getPredicate().getLocalName().equals("IdentifiedObject.name")){
+						System.out.println(classAttribute.getString());
+						machineType= classAttribute.getString();
+						attfound= true;
 					}
 				}
 				dynamicAtts.close();

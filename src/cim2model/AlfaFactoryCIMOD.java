@@ -3,14 +3,13 @@ package cim2model;
 import java.util.Map;
 
 import cim2model.cim.*;
-import cim2model.ipsl.buses.Bus;
 import cim2model.ipsl.cimmap.*;
 import cim2model.modelica.*;
 
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 
-public class CIMbuildingModel 
+public class AlfaFactoryCIMOD 
 {
 	public static void main(String[] args) 
 	{
@@ -21,7 +20,7 @@ public class CIMbuildingModel
 		ModelBuilder constructor;
 		
 		cartografo= new ModelDesigner(_cimSource);
-		constructor= new ModelBuilder("CIM_IEE_9Bus");
+		constructor= new ModelBuilder("CIM_KundurKTH_SMIB");
 		components= cartografo.load_CIMModel();
 		for (Resource key : components.keySet())
 		{	
@@ -52,15 +51,20 @@ public class CIMbuildingModel
 //					System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
 					MOClass momachine= null;
 					String machineType= cartografo.typeOfSynchronousMachine(conector.get_ConductingEquipmentMap());
-					if (machineType.equals("RotorKind.roundRotor")) {
+					if (machineType.equals("GENROU")) {
 						GENROUMap mapSyncMach= cartografo.create_GENROUModelicaMap(conector.get_ConductingEquipmentMap(), 
 								"./res/map/cim_iteslalibrary_genrou.xml", equipmentResource);
 						momachine= constructor.create_GENROUComponent(mapSyncMach);
 					}
-					if (machineType.equals("RotorKind.salientPole")){
+					if (machineType.equals("GENSAL")){
 						GENSALMap mapSyncMach= cartografo.create_GENSALModelicaMap(conector.get_ConductingEquipmentMap(), 
 								"./res/map/cim_iteslalibrary_gensal.xml", equipmentResource);
 						momachine= constructor.create_GENSALComponent(mapSyncMach);
+					}
+					if (machineType.equals("GENROE")){
+						GENROEMap mapSyncMach= cartografo.create_GENROEModelicaMap(conector.get_ConductingEquipmentMap(), 
+								"./res/map/cim_iteslalibrary_genroe.xml", equipmentResource);
+						momachine= constructor.create_GENROEComponent(mapSyncMach);
 					}
 					momachine.add_Terminal(mopin);
 					momachine.update_powerFlow(mopin);
@@ -121,53 +125,51 @@ public class CIMbuildingModel
 				}
 			}
 			
-			if (cimClassResource[1].equals("PowerTransformerEnd"))
-			{
-				String [] transformerResource, terminalResource;
+//			if (cimClassResource[1].equals("PowerTransformerEnd"))
+//			{
+//				String [] transformerResource, terminalResource;
+////				System.out.println("rfd_id: "+ cimClassResource[0] + " cim name: "+ cimClassResource[1]);
+//				CIMTransformerEnd transformerEnd= cartografo.create_TransformerModelicaMap(key, 
+//								"./res/map/cim_iteslalibrary_twowindingtransformer.xml", 
+//								cimClassResource);
+//				TwoWindingTransformerMap mapPowerTrans= transformerEnd.get_TransformerMap();
+//				transformerResource= cartografo.get_CIMComponentName(transformerEnd.get_PowerTransformerMap());
+////				System.out.println("rfd_id: "+ transformerResource[0] + " cim name: "+ transformerResource[1]);
+//				//processing info from terminalResource, here is to create the MOConnector
+//				terminalResource= cartografo.get_CIMComponentName(transformerEnd.get_TerminalMap());
+//				CIMTerminal conector= cartografo.create_TerminalModelicaMap(transformerEnd.get_TerminalMap(), 
+//								"./res/map/cim_iteslalibrary_pwpin.xml", terminalResource);
+//				//Create the terminal object associated with this PowerTransformerEnd
+//				PwPinMap mapTerminal= conector.get_TerminalMap();
+//				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
+//				//Create additional attribute for the ratio tap changer associated with the PowerTransformerEnd
+//				MOAttribute moRatio= constructor.create_TransformerEndRatioAttribute(mapPowerTrans);
+//				//check if the PowerTransformer is already in the network
+//				MOClass moTransformer= constructor.get_equipmentNetwork(transformerResource[0]);
+//				if (moTransformer!= null) {
+//					moTransformer.add_Terminal(mopin);
+//					moTransformer.add_Attribute(moRatio);
+////					System.out.println(moTransformer.to_ModelicaClass());
+////					System.out.println(moTransformer.to_ModelicaInstance());
+//				}
+//				else {
+//					moTransformer= constructor.create_TransformerComponent(mapPowerTrans);
+//					moTransformer.add_Terminal(mopin);
+//					moTransformer.add_Attribute(moRatio);
+//					constructor.add_deviceNetwork(moTransformer);
+//				}
+//			}
+//			if (cimClassResource[1].equals("Fault"))
+//			{
 //				System.out.println("rfd_id: "+ cimClassResource[0] + " cim name: "+ cimClassResource[1]);
-				CIMTransformerEnd transformerEnd= cartografo.create_TransformerModelicaMap(key, 
-								"./res/map/cim_iteslalibrary_twowindingtransformer.xml", 
-								cimClassResource);
-				TwoWindingTransformerMap mapPowerTrans= transformerEnd.get_TransformerMap();
-				transformerResource= cartografo.get_CIMComponentName(transformerEnd.get_PowerTransformerMap());
-//				System.out.println("rfd_id: "+ transformerResource[0] + " cim name: "+ transformerResource[1]);
-				//processing info from terminalResource, here is to create the MOConnector
-				terminalResource= cartografo.get_CIMComponentName(transformerEnd.get_TerminalMap());
-				CIMTerminal conector= cartografo.create_TerminalModelicaMap(transformerEnd.get_TerminalMap(), 
-								"./res/map/cim_iteslalibrary_pwpin.xml", terminalResource);
-				//Create the terminal object associated with this PowerTransformerEnd
-				PwPinMap mapTerminal= conector.get_TerminalMap();
-				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
-				//Create additional attribute for the ratio tap changer associated with the PowerTransformerEnd
-				MOAttribute moRatio= constructor.create_TransformerEndRatioAttribute(mapPowerTrans);
-				MOAttribute moPrimarySide= constructor.create_TransformerEndPrimarySideAttribute(mapPowerTrans);
-				//check if the PowerTransformer is already in the network
-				MOClass moTransformer= constructor.get_equipmentNetwork(transformerResource[0]);
-				if (moTransformer!= null) {
-					moTransformer.add_Terminal(mopin);
-					moTransformer.add_Attribute(moRatio);
-//					System.out.println(moTransformer.to_ModelicaClass());
-//					System.out.println(moTransformer.to_ModelicaInstance());
-				}
-				else {
-					moTransformer= constructor.create_TransformerComponent(mapPowerTrans);
-					moTransformer.add_Terminal(mopin);
-					moTransformer.add_Attribute(moRatio);
-					moTransformer.add_Attribute(moPrimarySide);
-					constructor.add_deviceNetwork(moTransformer);
-				}
-			}
-			if (cimClassResource[1].equals("Fault"))
-			{
-				System.out.println("rfd_id: "+ cimClassResource[0] + " cim name: "+ cimClassResource[1]);
-				PwFaultMap mapFault= cartografo.create_FaultModelicaMap(key, "./res/map/cim_iteslalibrary_pwfault.xml", cimClassResource);
-				MOClass mofault= constructor.create_FaultComponent(mapFault);
-//				TODO mofault.add_Terminal(mopin); or how to add the pin to this component
-				
-				constructor.add_deviceNetwork(mofault);
-				System.out.println(mofault.to_ModelicaClass());
-				System.out.println(mofault.to_ModelicaInstance());
-			}
+//				PwFaultMap mapFault= cartografo.create_FaultModelicaMap(key, "./res/map/cim_iteslalibrary_pwfault.xml", cimClassResource);
+//				MOClass mofault= constructor.create_FaultComponent(mapFault);
+////				TODO mofault.add_Terminal(mopin); or how to add the pin to this component
+//				
+//				constructor.add_deviceNetwork(mofault);
+//				System.out.println(mofault.to_ModelicaClass());
+//				System.out.println(mofault.to_ModelicaInstance());
+//			}
 		}
 		constructor.connect_Components(cartografo.get_ConnectionMap());
 		constructor.save_ModelicaFile(constructor.get_Network().to_ModelicaClass());

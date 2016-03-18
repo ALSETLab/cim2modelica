@@ -36,6 +36,13 @@ public class ObjectFactory {
 
     /* MACHINES */
     /**
+     * Create an instance of {@link GENROEMap }
+     * 
+     */
+    public GENROEMap createGENROEMap() {
+        return new GENROEMap();
+    }
+    /**
      * Create an instance of {@link GENROUMap }
      * 
      */
@@ -100,11 +107,11 @@ public class ObjectFactory {
     }
     
     /**
-     * Create an instance of {@link Ieeet1Map }
+     * Create an instance of {@link IEEET1Map }
      * 
      */
-    public Ieeet1Map createIeeet1Map() {
-        return new Ieeet1Map();
+    public IEEET1Map createIeeet1Map() {
+        return new IEEET1Map();
     }
     
     /**
@@ -155,4 +162,11 @@ public class ObjectFactory {
         return new PwFaultMap();
     }
     
+    /**
+     * Create an instance of {@link ESDC1Amap }
+     * 
+     */
+    public ESDC1AMap createESDC1Amap() {
+        return new ESDC1AMap();
+    }
 }
