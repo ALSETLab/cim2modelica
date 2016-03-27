@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlType;
     "mapAttribute"
 })
 @XmlRootElement(name = "ieeet1map")
-public class Ieeet1Map {
+public class IEEET1Map {
 
     @XmlElement(required = true)
     protected List<MapAttribute> mapAttribute;

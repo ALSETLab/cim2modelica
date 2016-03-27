@@ -204,7 +204,7 @@ public class CIMModel {
 	}
 	
 	/**
-	 * TODO finalize this function
+	 * 
 	 * @param _subject
 	 * @return
 	 */
@@ -237,7 +237,6 @@ public class CIMModel {
 		
 		return machineType;
 	}
-	
 	/**
 	 * cim_name="SvVoltage.angle" 
 	 * cim_name="SvVoltage.v" 
@@ -281,7 +280,8 @@ public class CIMModel {
 					{
 						classAttribute= dynamicAtts.next();
 //						System.out.println("In CIM ... "+ classAttribute.getAlt().toString());
-						if (classAttribute.getAlt().isLiteral()) {
+						if (classAttribute.getAlt().isLiteral() && 
+								!classAttribute.getPredicate().getLocalName().equals("IdentifiedObject.name")) {
 							this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
 						}
 						if(classAttribute.getAlt().isURIResource() && 
@@ -412,6 +412,7 @@ public class CIMModel {
 				{
 					/* Add the rfd_id of the CondictingEquipment which Terminal is related to */
 					this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getResource());
+					this.retrieveAttributesTerminal(attributeClass.getResource());
 				}
 			}
 		}

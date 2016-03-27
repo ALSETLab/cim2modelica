@@ -366,49 +366,63 @@ public class ModelBuilder
 		MOClass twtransformer= new MOClass(_mapPowTrans.getName());
 //		System.out.println("_mapPowTrans.getName() "+ _mapPowTrans.getName());
 //		System.out.println("_mapPowTrans.getPowerTransformer() "+ _mapPowTrans.getPowerTransformer());
+		MapAttribute current;
+		
 		Iterator<MapAttribute> imapAttList= _mapPowTrans.getMapAttribute().iterator();
-		MapAttribute current, endNumber= null, ratioTapChanger= null, powerTransEnd= null, svvoltage= null;
-		//1 get transformer end number (from class)
-		//TODO Create attributes VNOM1 & VNOM2
-		// 1 get ratedU class
-		//TODO Create attributes VB1 & VB2
-		// 1 get svvoltage.v attribute (from class )
-		//TODO Create attributes t1 & t2
-		// 1 get stepvoltageincrement
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
-			if (current.getCimName().equals("TransformerEnd.endNumber"))
-				endNumber= current;
-			else if (current.getCimName().equals("RatioTapChanger.stepVoltageIncrement"))
-				ratioTapChanger= current;
-			else if (current.getCimName().equals("PowerTransformerEnd.ratedU"))
-				powerTransEnd= current;
-			else if (current.getCimName().equals("IdentifiedObject.name"))
-				twtransformer.set_InstanceName(current.getContent());
-			else
+			if (!current.getCimName().equals("TransformerEnd.endNumber") && 
+				!current.getCimName().equals("RatioTapChanger.stepVoltageIncrement") &&
+				!current.getCimName().equals("PowerTransformerEnd.ratedU") &&
+				!current.getCimName().equals("SvVoltage.v"))
 			{
-				MOAttribute variable= new MOAttribute();
-				variable.set_Name(current.getMoName());
-				if (current.getContent()== null)
-					variable.set_Value("0");
+				if (current.getCimName().equals("IdentifiedObject.name"))
+					twtransformer.set_InstanceName(current.getContent());
 				else
-					variable.set_Value(current.getContent());
-				variable.set_Variability(current.getVariability());
-				variable.set_Visibility(current.getVisibility());
-				variable.set_Flow(Boolean.valueOf(current.getFlow()));
-				twtransformer.add_Attribute(variable);
+				{
+					MOAttribute variable= new MOAttribute();
+					variable.set_Name(current.getMoName());
+					if (current.getContent()== null)
+						variable.set_Value("0");
+					else
+						variable.set_Value(current.getContent());
+					variable.set_Variability(current.getVariability());
+					variable.set_Visibility(current.getVisibility());
+					variable.set_Flow(Boolean.valueOf(current.getFlow()));
+					twtransformer.add_Attribute(variable);
+				}
 			}
 		}
-		twtransformer.add_Attribute(this.create_TransformerEndAttribute(endNumber, ratioTapChanger));
-		twtransformer.add_Attribute(this.create_TransformerEndAttribute(endNumber, powerTransEnd));
-		// TODO como tratar este attributo
-		twtransformer.add_Attribute(this.create_TransformerEndAttribute(endNumber, svvoltage));
 		twtransformer.set_Stereotype(_mapPowTrans.getStereotype());
 		twtransformer.set_Package(_mapPowTrans.getPackage());
 		//for internal identification only
 		twtransformer.set_RfdId(_mapPowTrans.getRfdId());
 		
 		return twtransformer;
+	}
+	public ArrayList<MOAttribute> create_AttTransformerEnd(TwoWindingTransformerMap _mapPowTrans)
+	{
+		MapAttribute current, endNumber= null;
+		MOAttribute ratioTapChanger= null, powerTransEnd= null, svvoltage= null;
+		ArrayList<MOAttribute> endAttributes= new ArrayList<MOAttribute>();
+		
+		Iterator<MapAttribute> imapAttList= _mapPowTrans.getMapAttribute().iterator();
+		while (imapAttList.hasNext()) {
+			current= imapAttList.next();
+			if (current.getCimName().equals("TransformerEnd.endNumber"))
+				endNumber= current;
+			else if (current.getCimName().equals("RatioTapChanger.stepVoltageIncrement"))
+				ratioTapChanger= this.create_TransformerEndAttribute(endNumber, current);
+			else if (current.getCimName().equals("PowerTransformerEnd.ratedU"))
+				powerTransEnd= this.create_TransformerEndAttribute(endNumber, current);
+			else if (current.getCimName().equals("SvVoltage.v"))
+				svvoltage= this.create_TransformerEndAttribute(endNumber, current);
+		}
+		endAttributes.add(ratioTapChanger);
+		endAttributes.add(powerTransEnd);
+		endAttributes.add(svvoltage);
+		
+		return endAttributes;
 	}
 	private MOAttribute create_TransformerEndAttribute(MapAttribute _endNumber, MapAttribute _currentAtt) 
 	{// creates attribute t1, t2 for the twt modelica model, _currentAtt can be:
@@ -508,10 +522,10 @@ public class ModelBuilder
 //			System.out.println(current.toString());
 			equipment= this.get_equipmentNetwork(current.get_Ce_id());
 			bus= this.get_equipmentNetwork(current.get_Tn_id());
-			equipment.get_Terminal(current.get_T_id());
-			bus.get_Terminal(current.get_T_id());
-			conexio= new MOConnectNode(equipment.get_InstanceName(), equipment.get_Terminal(current.get_T_id()).get_InstanceName(),
-					bus.get_InstanceName(), bus.get_Terminal(current.get_T_id()).get_InstanceName());
+			conexio= new MOConnectNode(equipment.get_InstanceName(), 
+					equipment.get_Terminal(current.get_T_id()).get_InstanceName(),
+					bus.get_InstanceName(), 
+					bus.get_Terminal(current.get_T_id()).get_InstanceName());
 			if (!this.powsys.exist_Connection(conexio))
 				this.powsys.add_Connection(conexio);
 			}

@@ -1,5 +1,6 @@
 package cim2model;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import cim2model.cim.*;
@@ -20,7 +21,7 @@ public class AlfaFactoryCIMOD
 		ModelBuilder constructor;
 		
 		cartografo= new ModelDesigner(_cimSource);
-		constructor= new ModelBuilder("CIM_KundurKTH_SMIB");
+		constructor= new ModelBuilder(args[1]);
 		components= cartografo.load_CIMModel();
 		for (Resource key : components.keySet())
 		{	
@@ -33,16 +34,18 @@ public class AlfaFactoryCIMOD
 				// TODO topology must be processed separately, in another function, so let's create two functions here
 				// 1st create component instances using map
 				// 2nd create connections
-				CIMTerminal conector= 
+				PwPinMap mapTerminal= 
 						cartografo.create_TerminalModelicaMap(key, "./res/map/cim_iteslalibrary_pwpin.xml", cimClassResource);
-				PwPinMap mapTerminal= conector.get_TerminalMap();
+//				PwPinMap mapTerminal= conector.get_TerminalMap();
 				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
 //				System.out.println(mopin.to_ModelicaClass());
 //				System.out.println(mopin.to_ModelicaInstance());
 				/* after loading terminal, load the resource connected to it, aka, ConductingEquipment */
-				equipmentResource= cartografo.get_CIMComponentName(conector.get_ConductingEquipmentMap());
+				equipmentResource= cartografo.get_CIMComponentName(
+						cartografo.get_CurrentConnectionMap().getConductingEquipment());
 //				System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
-				topologyResource= cartografo.get_CIMComponentName(conector.get_TopologicalNodeMap());
+				topologyResource= cartografo.get_CIMComponentName(
+						cartografo.get_CurrentConnectionMap().getTopologicalNode());
 //				System.out.println("rfd_id: "+ topologyResource[0] + " cim name: "+ topologyResource[1]);
 				
 				//According to CIM Composer, EC has one terminal
@@ -50,19 +53,23 @@ public class AlfaFactoryCIMOD
 				{
 //					System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
 					MOClass momachine= null;
-					String machineType= cartografo.typeOfSynchronousMachine(conector.get_ConductingEquipmentMap());
+					String machineType= cartografo.typeOfSynchronousMachine(
+							cartografo.get_CurrentConnectionMap().getConductingEquipment());
 					if (machineType.equals("GENROU")) {
-						GENROUMap mapSyncMach= cartografo.create_GENROUModelicaMap(conector.get_ConductingEquipmentMap(), 
+						GENROUMap mapSyncMach= cartografo.create_GENROUModelicaMap(
+								cartografo.get_CurrentConnectionMap().getConductingEquipment(), 
 								"./res/map/cim_iteslalibrary_genrou.xml", equipmentResource);
 						momachine= constructor.create_GENROUComponent(mapSyncMach);
 					}
 					if (machineType.equals("GENSAL")){
-						GENSALMap mapSyncMach= cartografo.create_GENSALModelicaMap(conector.get_ConductingEquipmentMap(), 
+						GENSALMap mapSyncMach= cartografo.create_GENSALModelicaMap(
+								cartografo.get_CurrentConnectionMap().getConductingEquipment(), 
 								"./res/map/cim_iteslalibrary_gensal.xml", equipmentResource);
 						momachine= constructor.create_GENSALComponent(mapSyncMach);
 					}
 					if (machineType.equals("GENROE")){
-						GENROEMap mapSyncMach= cartografo.create_GENROEModelicaMap(conector.get_ConductingEquipmentMap(), 
+						GENROEMap mapSyncMach= cartografo.create_GENROEModelicaMap(
+								cartografo.get_CurrentConnectionMap().getConductingEquipment(), 
 								"./res/map/cim_iteslalibrary_genroe.xml", equipmentResource);
 						momachine= constructor.create_GENROEComponent(mapSyncMach);
 					}
@@ -74,7 +81,8 @@ public class AlfaFactoryCIMOD
 				if (equipmentResource[1].equals("EnergyConsumer"))
 				{
 //					System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
-					LoadMap mapEnergyC= cartografo.create_LoadModelicaMap(conector.get_ConductingEquipmentMap(), 
+					LoadMap mapEnergyC= cartografo.create_LoadModelicaMap(
+							cartografo.get_CurrentConnectionMap().getConductingEquipment(), 
 							"./res/map/cim_iteslalibrary_load.xml", equipmentResource);
 					MOClass moload= constructor.create_LoadComponent(mapEnergyC);
 					moload.add_Terminal(mopin);
@@ -88,7 +96,8 @@ public class AlfaFactoryCIMOD
 				if (equipmentResource[1].equals("ACLineSegment"))
 				{
 					MOClass moline= constructor.get_equipmentNetwork(equipmentResource[0]);
-					if (moline!= null){/* condition to check if the line already exist in the model, true, add the second terminal */
+					if (moline!= null)
+					{/* condition to check if the line already exist in the model, true, add the second terminal */
 						moline.add_Terminal(mopin);
 //						System.out.println(moline.to_ModelicaClass());
 //						System.out.println(moline.to_ModelicaInstance());
@@ -96,7 +105,8 @@ public class AlfaFactoryCIMOD
 					else 
 					{/* false, create map of the line and add the first terminal */
 //						System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
-						PwLineMap mapACLine= cartografo.create_LineModelicaMap(conector.get_ConductingEquipmentMap(), 
+						PwLineMap mapACLine= cartografo.create_LineModelicaMap(
+								cartografo.get_CurrentConnectionMap().getConductingEquipment(), 
 								"./res/map/cim_iteslalibrary_pwline.xml", equipmentResource);
 						moline= constructor.create_LineComponent(mapACLine);
 						moline.add_Terminal(mopin);
@@ -116,7 +126,8 @@ public class AlfaFactoryCIMOD
 					else
 					{/* false, create map of the line and add the first terminal */
 //						System.out.println("rfd_id: "+ topologyResource[0] + " cim name: "+ topologyResource[1]);
-						PwBusMap mapTopoNode= cartografo.create_BusModelicaMap(conector.get_TopologicalNodeMap(), 
+						PwBusMap mapTopoNode= cartografo.create_BusModelicaMap(
+								cartografo.get_CurrentConnectionMap().getTopologicalNode(), 
 										"./res/map/cim_iteslalibrary_pwbus.xml", topologyResource);
 						mobus= constructor.create_BusComponent(mapTopoNode);
 						mobus.add_Terminal(mopin);
@@ -124,41 +135,41 @@ public class AlfaFactoryCIMOD
 					}
 				}
 			}
-			
-//			if (cimClassResource[1].equals("PowerTransformerEnd"))
-//			{
-//				String [] transformerResource, terminalResource;
-////				System.out.println("rfd_id: "+ cimClassResource[0] + " cim name: "+ cimClassResource[1]);
-//				CIMTransformerEnd transformerEnd= cartografo.create_TransformerModelicaMap(key, 
-//								"./res/map/cim_iteslalibrary_twowindingtransformer.xml", 
-//								cimClassResource);
-//				TwoWindingTransformerMap mapPowerTrans= transformerEnd.get_TransformerMap();
-//				transformerResource= cartografo.get_CIMComponentName(transformerEnd.get_PowerTransformerMap());
-////				System.out.println("rfd_id: "+ transformerResource[0] + " cim name: "+ transformerResource[1]);
-//				//processing info from terminalResource, here is to create the MOConnector
-//				terminalResource= cartografo.get_CIMComponentName(transformerEnd.get_TerminalMap());
-//				CIMTerminal conector= cartografo.create_TerminalModelicaMap(transformerEnd.get_TerminalMap(), 
-//								"./res/map/cim_iteslalibrary_pwpin.xml", terminalResource);
-//				//Create the terminal object associated with this PowerTransformerEnd
-//				PwPinMap mapTerminal= conector.get_TerminalMap();
-//				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
+			if (cimClassResource[1].equals("PowerTransformerEnd"))
+			{
+				String [] transformerResource, terminalResource;
+//				System.out.println("rfd_id: "+ cimClassResource[0] + " cim name: "+ cimClassResource[1]);
+				CIMTransformerEnd transformerEnd= cartografo.create_TransformerModelicaMap(key, 
+								"./res/map/cim_iteslalibrary_twowindingtransformer.xml", 
+								cimClassResource);
+				TwoWindingTransformerMap mapPowerTrans= transformerEnd.get_TransformerMap();
+				transformerResource= cartografo.get_CIMComponentName(transformerEnd.get_PowerTransformerMap());
+				//processing info from terminalResource, here is to create the MOConnector
+				terminalResource= cartografo.get_CIMComponentName(transformerEnd.get_TerminalMap());
+				PwPinMap mapTerminal= cartografo.create_TerminalModelicaMap(transformerEnd.get_TerminalMap(), 
+								"./res/map/cim_iteslalibrary_pwpin.xml", terminalResource);
+				//Create the terminal object associated with this PowerTransformerEnd
+				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
 //				//Create additional attribute for the ratio tap changer associated with the PowerTransformerEnd
-//				MOAttribute moRatio= constructor.create_TransformerEndRatioAttribute(mapPowerTrans);
-//				//check if the PowerTransformer is already in the network
-//				MOClass moTransformer= constructor.get_equipmentNetwork(transformerResource[0]);
-//				if (moTransformer!= null) {
-//					moTransformer.add_Terminal(mopin);
-//					moTransformer.add_Attribute(moRatio);
-////					System.out.println(moTransformer.to_ModelicaClass());
-////					System.out.println(moTransformer.to_ModelicaInstance());
-//				}
-//				else {
-//					moTransformer= constructor.create_TransformerComponent(mapPowerTrans);
-//					moTransformer.add_Terminal(mopin);
-//					moTransformer.add_Attribute(moRatio);
-//					constructor.add_deviceNetwork(moTransformer);
-//				}
-//			}
+				ArrayList<MOAttribute> moPowTransEnd= constructor.create_AttTransformerEnd(mapPowerTrans);
+				//check if the PowerTransformer is already in the network
+				MOClass moTransformer= constructor.get_equipmentNetwork(transformerResource[0]);
+				if (moTransformer!= null) {
+					moTransformer.add_Terminal(mopin);
+					for(MOAttribute moparam: moPowTransEnd)
+						moTransformer.add_Attribute(moparam);
+					System.out.println(moTransformer.to_ModelicaClass());
+//					System.out.println(moTransformer.to_ModelicaInstance());
+				}
+				else {
+					moTransformer= constructor.create_TransformerComponent(mapPowerTrans);
+					moTransformer.add_Terminal(mopin);
+					for(MOAttribute moparam: moPowTransEnd)
+						moTransformer.add_Attribute(moparam);
+					constructor.add_deviceNetwork(moTransformer);
+				}
+				moPowTransEnd.clear(); moPowTransEnd= null;
+			}
 //			if (cimClassResource[1].equals("Fault"))
 //			{
 //				System.out.println("rfd_id: "+ cimClassResource[0] + " cim name: "+ cimClassResource[1]);

@@ -2,6 +2,7 @@ package cim2model;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
@@ -22,9 +23,8 @@ import cim2model.ipsl.cimmap.*;
 //TODO in the map, the content of the tags mapAttribute are the default values from iPSL
 
 /**
- * Read mapping files and create appropriate objects ComponentMap, 
- * Get corresponding values from CIM model, into objects ComponentMap
- * Save objects ComponentMap in memory
+ * Read mapping files and create appropriate objects ComponentMap, Get corresponding values from CIM model 
+ * into objects ComponentMap, Save objects ComponentMap in memory
  * @author fran_jo
  *
  */
@@ -62,14 +62,23 @@ public class ModelDesigner
 	{
 		return modelCIM.retrieveComponentName(_key);
 	}
-	
+
+	/**
+	 * 
+	 * @return
+	 */
+	public ConnectionMap get_CurrentConnectionMap(){
+		int last= this.connections.size()- 1;
+		return this.connections.get(last);
+	}
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrayList<ConnectionMap> get_ConnectionMap(){
 		return this.connections;
 	}
-	
-//	public ArrayList<CIMTerminal> get_ConnectionMap(){
-//		return this.connections;
-//	}
+
 	
 	public Map<Object, String> get_EquipmentMap(){
 		return this.equipment;
@@ -90,6 +99,23 @@ public class ModelDesigner
             return null;
         }
     }
+	
+	private void add_newConnectionMap(PwPinMap _mapTerminal, Hashtable<String,Resource> _pinComponents){
+		//object with pin rfdif, conducting equipment and topologicalnode
+		//rfdid use, by modelbuilder, to retrieve instanc_name of pin
+		ConnectionMap nuevaConnection = new ConnectionMap(
+				_mapTerminal.getRfdId(),
+				_pinComponents.get("ConductingEquipment").toString().split("#")[1],
+				_pinComponents.get("TopologicalNode").toString().split("#")[1]);
+		nuevaConnection.setConductingEquipment(_pinComponents.get("ConductingEquipment"));
+		nuevaConnection.setTopologicalNode(_pinComponents.get("TopologicalNode"));
+		
+//		this.connections.add(new ConnectionMap(,
+//				_cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1],
+//				_cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]));
+		
+		this.connections.add(nuevaConnection);
+	}
 	/**
 	 * 
 	 * @param key
@@ -97,10 +123,9 @@ public class ModelDesigner
 	 * @param _subjectID
 	 * @return
 	 */
-	public CIMTerminal create_TerminalModelicaMap(Resource key, String _source, String[] _subjectID)
+	public PwPinMap create_TerminalModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
 		PwPinMap mapTerminal= pwpinXMLToObject(_source);
-		CIMTerminal connection;
 		/* load corresponding tag cim:Terminal */
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTerminal(key);
 		/* iterate through map attributes, for storing proper cim values */
@@ -117,23 +142,60 @@ public class ModelDesigner
 		// add cim id, used as reference from terminal and connections to other components 
 		mapTerminal.setRfdId(_subjectID[0]);
 		mapTerminal.setCimName(_subjectID[1]);
-		
-		//object with pin rfdif, conducting equipment and topologicalnode
-		//rfdid use, by modelbuilder, to retrieve instanc_name of pin
-		this.connections.add(new ConnectionMap(mapTerminal.getRfdId(),
-				cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1],
-				cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]));
-		
-		connection= new CIMTerminal(mapTerminal, 
-				(Resource)cimClassMap.get("Terminal.ConductingEquipment"),
-				(Resource)cimClassMap.get("Terminal.TopologicalNode"));
-		connection.set_Ce_id(cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1]);
-		connection.set_Tn_id(cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]);
+		// create new entrance to the connection map, is used to draw the connections between components
+		Hashtable<String,Resource> pinComponents= new Hashtable<String,Resource>();
+		pinComponents.put("ConductingEquipment", (Resource)cimClassMap.get("Terminal.ConductingEquipment"));
+		pinComponents.put("TopologicalNode", (Resource)cimClassMap.get("Terminal.TopologicalNode"));
+		this.add_newConnectionMap(mapTerminal, pinComponents);
 		
 		modelCIM.clearAttributes();
 		
-		return connection;
+		return mapTerminal;
 	}
+//	/**
+//	 * 
+//	 * @param key
+//	 * @param _source
+//	 * @param _subjectID
+//	 * @return
+//	 */
+//	public CIMTerminal create_TerminalModelicaMap(Resource key, String _source, String[] _subjectID)
+//	{
+//		PwPinMap mapTerminal= pwpinXMLToObject(_source);
+//		CIMTerminal connection;
+//		/* load corresponding tag cim:Terminal */
+//		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTerminal(key);
+//		/* iterate through map attributes, for storing proper cim values */
+//		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapTerminal.getMapAttribute();
+//		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+//		MapAttribute currentmapAtt;
+//		while (imapAttList.hasNext()) {
+//			currentmapAtt= imapAttList.next();
+//			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+////			System.out.println("currentmapAtt "+ currentmapAtt.toString());
+//		}
+//		mapTerminal.setConductingEquipment(cimClassMap.get("Terminal.ConductingEquipment").toString());
+//		mapTerminal.setTopologicalNode(cimClassMap.get("Terminal.TopologicalNode").toString());
+//		// add cim id, used as reference from terminal and connections to other components 
+//		mapTerminal.setRfdId(_subjectID[0]);
+//		mapTerminal.setCimName(_subjectID[1]);
+//		
+//		//object with pin rfdif, conducting equipment and topologicalnode
+//		//rfdid use, by modelbuilder, to retrieve instanc_name of pin
+//		this.connections.add(new ConnectionMap(mapTerminal.getRfdId(),
+//				cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1],
+//				cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]));
+//		
+//		connection= new CIMTerminal(mapTerminal, 
+//				(Resource)cimClassMap.get("Terminal.ConductingEquipment"),
+//				(Resource)cimClassMap.get("Terminal.TopologicalNode"));
+//		connection.set_Ce_id(cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1]);
+//		connection.set_Tn_id(cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]);
+//		
+//		modelCIM.clearAttributes();
+//		
+//		return connection;
+//	}
 	
 	private static GENROUMap genrouXMLToObject(String _xmlmap) {
 		JAXBContext context;
@@ -367,16 +429,16 @@ public class ModelDesigner
 		CIMTransformerEnd transformerEnd;
 		
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTransformer(key);
-		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapPowTrans.getMapAttribute();
-		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		Iterator<MapAttribute> imapAttList= mapPowTrans.getMapAttribute().iterator();
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) { //get the values of the attributes
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+			System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+ "= "+ currentmapAtt.getContent());
 		}
 		mapPowTrans.setPowerTransformer(cimClassMap.get("TransformerEnd.RatioTapChanger").toString());
 		mapPowTrans.setTerminal(cimClassMap.get("TransformerEnd.Terminal").toString());
-		
+//		System.out.println("TwT terminal: "+ mapPowTrans.getTerminal());
 		// add cim id, used as reference from terminal and connections to other components 
 		mapPowTrans.setRfdId(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
 		mapPowTrans.setCimName(_subjectID[1]);
