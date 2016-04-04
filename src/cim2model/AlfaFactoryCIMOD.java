@@ -7,8 +7,8 @@ import cim2model.cim.*;
 import cim2model.ipsl.cimmap.*;
 import cim2model.modelica.*;
 
-import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.Resource;
 
 public class AlfaFactoryCIMOD 
 {
@@ -31,9 +31,6 @@ public class AlfaFactoryCIMOD
 			{
 				String [] equipmentResource, topologyResource;
 //				System.out.println("rfd_id: "+ cimClassResource[0] + " cim name: "+ cimClassResource[1]);
-				// TODO topology must be processed separately, in another function, so let's create two functions here
-				// 1st create component instances using map
-				// 2nd create connections
 				PwPinMap mapTerminal= 
 						cartografo.create_TerminalModelicaMap(key, "./res/map/cim_iteslalibrary_pwpin.xml", cimClassResource);
 //				PwPinMap mapTerminal= conector.get_TerminalMap();
@@ -47,14 +44,18 @@ public class AlfaFactoryCIMOD
 				topologyResource= cartografo.get_CIMComponentName(
 						cartografo.get_CurrentConnectionMap().getTopologicalNode());
 //				System.out.println("rfd_id: "+ topologyResource[0] + " cim name: "+ topologyResource[1]);
-				
-				//According to CIM Composer, EC has one terminal
+				/* According to CIM Composer, SynchMachine has one terminal */
 				if (equipmentResource[1].equals("SynchronousMachine"))
 				{
-//					System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
 					MOClass momachine= null;
 					String machineType= cartografo.typeOfSynchronousMachine(
 							cartografo.get_CurrentConnectionMap().getConductingEquipment());
+					if (machineType.equals("GENCLS")) {
+						GENCLSMap mapSyncMach= cartografo.create_GENCLSModelicaMap(
+								cartografo.get_CurrentConnectionMap().getConductingEquipment(), 
+								"./res/map/cim_iteslalibrary_gencls.xml", equipmentResource);
+						momachine= constructor.create_GENCLSComponent(mapSyncMach);
+					}
 					if (machineType.equals("GENROU")) {
 						GENROUMap mapSyncMach= cartografo.create_GENROUModelicaMap(
 								cartografo.get_CurrentConnectionMap().getConductingEquipment(), 
@@ -77,10 +78,9 @@ public class AlfaFactoryCIMOD
 					momachine.update_powerFlow(mopin);
 					constructor.add_deviceNetwork(momachine);
 				}
-				//According to CIM Composer, EC has one terminal
+				/* According to CIM Composer, EnergyConsumer has one terminal */
 				if (equipmentResource[1].equals("EnergyConsumer"))
 				{
-//					System.out.println("rfd_id: "+ equipmentResource[0] + " cim name: "+ equipmentResource[1]);
 					LoadMap mapEnergyC= cartografo.create_LoadModelicaMap(
 							cartografo.get_CurrentConnectionMap().getConductingEquipment(), 
 							"./res/map/cim_iteslalibrary_load.xml", equipmentResource);
@@ -91,8 +91,7 @@ public class AlfaFactoryCIMOD
 //					System.out.println(moload.to_ModelicaClass());
 //					System.out.println(moload.to_ModelicaInstance());
 				}
-				
-				//According to CIM Composer, ACLineSegment has two terminals
+				/* According to CIM Composer, ACLineSegment has two terminals */
 				if (equipmentResource[1].equals("ACLineSegment"))
 				{
 					MOClass moline= constructor.get_equipmentNetwork(equipmentResource[0]);
@@ -113,12 +112,12 @@ public class AlfaFactoryCIMOD
 						constructor.add_deviceNetwork(moline);
 					}
 				}
-				
-				//According to CIM Composer, TN has 1..N terminals
+				/* According to CIM Composer, TN has 1..N terminals */
 				if (topologyResource[1].equals("TopologicalNode"))
 				{
 					MOClass mobus= constructor.get_equipmentNetwork(topologyResource[0]);
-					if (mobus!= null){/* condition to check if the line already exist in the model, true, add the second terminal */
+					if (mobus!= null)
+					{/* condition to check if the line already exist in the model, true, add the second terminal */
 						mobus.add_Terminal(mopin);
 //						System.out.println(mobus.to_ModelicaClass());
 //						System.out.println(mobus.to_ModelicaInstance());
@@ -158,7 +157,7 @@ public class AlfaFactoryCIMOD
 					moTransformer.add_Terminal(mopin);
 					for(MOAttribute moparam: moPowTransEnd)
 						moTransformer.add_Attribute(moparam);
-					System.out.println(moTransformer.to_ModelicaClass());
+//					System.out.println(moTransformer.to_ModelicaClass());
 //					System.out.println(moTransformer.to_ModelicaInstance());
 				}
 				else {

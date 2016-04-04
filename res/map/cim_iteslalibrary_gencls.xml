@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_gencls.dtd">
+<GENCLSMap cim_name="SynchronousMachine" rfd_id="" package="iPSL.Electrical.Machines.PSSE.GENCLS" name="GENCLS" stereotype="class">
+  <mapAttribute cim_name="BasePower.basePower" mo_name="S_b" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="RotatingMachine.ratedS" mo_name="M_b" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="RotatingMachine.ratedU" mo_name="V_b" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">GENCLS</mapAttribute>
+  <mapAttribute cim_name="SvVoltage.v" mo_name="V_0" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="SvVoltage.angle" mo_name="angle_0" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="RotatingMachine.p" mo_name="P_0" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="RotatingMachine.q" mo_name="Q_0" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="RotatingMachineDynamics.statorResistance" mo_name="R_a" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="RotatingMachineDynamics.inertia" mo_name="H" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="RotatingMachineDynamics.damping" mo_name="D" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+  <mapAttribute cim_name="SynchronousMachineTimeConstantReactance.xDirectSync" mo_name="X_d" datatype="Real" variability="parameter" visibility="public"></mapAttribute>
+</GENCLSMap>

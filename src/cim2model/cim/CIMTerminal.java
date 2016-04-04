@@ -2,7 +2,7 @@ package cim2model.cim;
 
 import cim2model.ipsl.cimmap.PwPinMap;
 
-import com.hp.hpl.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Resource;
 
 /**
  * Keeps the relationship of Terminal class with ConductingEquipment and TopologicalNode

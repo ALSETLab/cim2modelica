@@ -8,7 +8,6 @@ import java.util.Iterator;
 
 import cim2model.ipsl.branches.PwLine;
 import cim2model.ipsl.buses.Bus;
-import cim2model.ipsl.buses.BusExt2;
 import cim2model.ipsl.cimmap.*;
 import cim2model.ipsl.machines.GENROU;
 import cim2model.ipsl.machines.GENSAL;
@@ -179,6 +178,36 @@ public class ModelBuilder
 			return null;
 	}
 	
+	public MOClass create_GENCLSComponent(GENCLSMap _mapSyncMach)
+	{
+		MOClass syncMach= new GENSAL(_mapSyncMach.getName());
+		Iterator<MapAttribute> imapAttList= _mapSyncMach.getMapAttribute().iterator();
+		MapAttribute current;
+		while (imapAttList.hasNext()) {
+			current= imapAttList.next();
+			if (current.getCimName().equals("IdentifiedObject.name")){
+				syncMach.set_InstanceName(current.getContent());
+			}
+			else{ //TODO check current.getContent(), if null then 0
+				MOAttribute variable= new MOAttribute();
+				variable.set_Name(current.getMoName());
+				if (current.getContent()== null)
+					variable.set_Value("0");
+				else
+					variable.set_Value(current.getContent());
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+				syncMach.add_Attribute(variable);
+			}
+		}
+		syncMach.set_Stereotype(_mapSyncMach.getStereotype());
+		syncMach.set_Package(_mapSyncMach.getPackage());
+		//for internal identification only
+		syncMach.set_RfdId(_mapSyncMach.getRfdId());
+		
+		return syncMach;
+	}
 	public MOClass create_GENROUComponent(GENROUMap _mapSyncMach)
 	{
 		MOClass syncMach= new GENROU(_mapSyncMach.getName());

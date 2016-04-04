@@ -36,6 +36,13 @@ public class ObjectFactory {
 
     /* MACHINES */
     /**
+     * Create an instance of {@link GENCLSMap }
+     * 
+     */
+    public GENCLSMap createGENCLSMap() {
+        return new GENCLSMap();
+    }
+    /**
      * Create an instance of {@link GENROEMap }
      * 
      */

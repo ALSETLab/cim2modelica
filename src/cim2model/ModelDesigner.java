@@ -11,16 +11,13 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.Resource;
 
 import cim2model.cim.CIMModel;
-import cim2model.cim.CIMTerminal;
 import cim2model.cim.CIMTransformerEnd;
 import cim2model.io.CIMReaderJENA;
 import cim2model.ipsl.cimmap.*;
-
-//TODO in the map, the content of the tags mapAttribute are the default values from iPSL
 
 /**
  * Read mapping files and create appropriate objects ComponentMap, Get corresponding values from CIM model 
@@ -147,56 +144,27 @@ public class ModelDesigner
 		pinComponents.put("ConductingEquipment", (Resource)cimClassMap.get("Terminal.ConductingEquipment"));
 		pinComponents.put("TopologicalNode", (Resource)cimClassMap.get("Terminal.TopologicalNode"));
 		this.add_newConnectionMap(mapTerminal, pinComponents);
-		
+		pinComponents.clear(); pinComponents= null;
 		modelCIM.clearAttributes();
 		
 		return mapTerminal;
 	}
-//	/**
-//	 * 
-//	 * @param key
-//	 * @param _source
-//	 * @param _subjectID
-//	 * @return
-//	 */
-//	public CIMTerminal create_TerminalModelicaMap(Resource key, String _source, String[] _subjectID)
-//	{
-//		PwPinMap mapTerminal= pwpinXMLToObject(_source);
-//		CIMTerminal connection;
-//		/* load corresponding tag cim:Terminal */
-//		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTerminal(key);
-//		/* iterate through map attributes, for storing proper cim values */
-//		ArrayList<MapAttribute> mapAttList= (ArrayList<MapAttribute>)mapTerminal.getMapAttribute();
-//		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
-//		MapAttribute currentmapAtt;
-//		while (imapAttList.hasNext()) {
-//			currentmapAtt= imapAttList.next();
-//			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
-////			System.out.println("currentmapAtt "+ currentmapAtt.toString());
-//		}
-//		mapTerminal.setConductingEquipment(cimClassMap.get("Terminal.ConductingEquipment").toString());
-//		mapTerminal.setTopologicalNode(cimClassMap.get("Terminal.TopologicalNode").toString());
-//		// add cim id, used as reference from terminal and connections to other components 
-//		mapTerminal.setRfdId(_subjectID[0]);
-//		mapTerminal.setCimName(_subjectID[1]);
-//		
-//		//object with pin rfdif, conducting equipment and topologicalnode
-//		//rfdid use, by modelbuilder, to retrieve instanc_name of pin
-//		this.connections.add(new ConnectionMap(mapTerminal.getRfdId(),
-//				cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1],
-//				cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]));
-//		
-//		connection= new CIMTerminal(mapTerminal, 
-//				(Resource)cimClassMap.get("Terminal.ConductingEquipment"),
-//				(Resource)cimClassMap.get("Terminal.TopologicalNode"));
-//		connection.set_Ce_id(cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1]);
-//		connection.set_Tn_id(cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]);
-//		
-//		modelCIM.clearAttributes();
-//		
-//		return connection;
-//	}
 	
+	private static GENCLSMap genclsXMLToObject(String _xmlmap) {
+		JAXBContext context;
+		Unmarshaller un;
+		
+		try{
+			context = JAXBContext.newInstance(GENCLSMap.class);
+	        un = context.createUnmarshaller();
+	        GENCLSMap map = (GENCLSMap) un.unmarshal(new File(_xmlmap));
+	        return map;
+        } 
+        catch (JAXBException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 	private static GENROUMap genrouXMLToObject(String _xmlmap) {
 		JAXBContext context;
 		Unmarshaller un;
@@ -247,6 +215,32 @@ public class ModelDesigner
 		String rotorKind= modelCIM.checkSynchronousMachineType(key);
 		
 		return rotorKind;
+	}
+	/**
+	 * 
+	 * @param key
+	 * @param _source
+	 * @param _subjectID
+	 * @return
+	 */
+	public GENCLSMap create_GENCLSModelicaMap(Resource key, String _source, String[] _subjectID)
+	{
+		GENCLSMap mapSyncMach= genclsXMLToObject(_source);
+		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
+		Iterator<MapAttribute> imapAttList= mapSyncMach.getMapAttribute().iterator();
+		MapAttribute currentmapAtt;
+		while (imapAttList.hasNext()) {
+			currentmapAtt= imapAttList.next();
+			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+		}
+		mapSyncMach.setName("GENCLS");
+		mapSyncMach.setRfdId(_subjectID[0]);
+		mapSyncMach.setCimName(_subjectID[1]);
+		this.equipment.put(mapSyncMach, mapSyncMach.getClass().getName());
+
+		modelCIM.clearAttributes();
+		
+		return mapSyncMach;
 	}
 	/**
 	 * 
@@ -357,7 +351,6 @@ public class ModelDesigner
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
-			//TODO delete all spaces from the Identified.name attribute
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
@@ -395,7 +388,6 @@ public class ModelDesigner
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
-			//TODO delete all spaces from the Identified.name attribute
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
@@ -433,10 +425,11 @@ public class ModelDesigner
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) { //get the values of the attributes
 			currentmapAtt= imapAttList.next();
-			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+			if (cimClassMap.get(currentmapAtt.getCimName())!= null)
+				currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 			System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+ "= "+ currentmapAtt.getContent());
 		}
-		mapPowTrans.setPowerTransformer(cimClassMap.get("TransformerEnd.RatioTapChanger").toString());
+//		mapPowTrans.setPowerTransformer(cimClassMap.get("TransformerEnd.RatioTapChanger").toString());
 		mapPowTrans.setTerminal(cimClassMap.get("TransformerEnd.Terminal").toString());
 //		System.out.println("TwT terminal: "+ mapPowTrans.getTerminal());
 		// add cim id, used as reference from terminal and connections to other components 
@@ -446,10 +439,11 @@ public class ModelDesigner
 		
 		transformerEnd= new CIMTransformerEnd(mapPowTrans, 
 				(Resource)cimClassMap.get("PowerTransformerEnd.PowerTransformer"),
-				(Resource)cimClassMap.get("TransformerEnd.RatioTapChanger"),
+//				(Resource)cimClassMap.get("TransformerEnd.RatioTapChanger"),
+				null,
 				(Resource)cimClassMap.get("TransformerEnd.Terminal"));
 		transformerEnd.set_Pt_id(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
-		transformerEnd.set_Rtc_id(cimClassMap.get("TransformerEnd.RatioTapChanger").toString().split("#")[1]);
+//		transformerEnd.set_Rtc_id(cimClassMap.get("TransformerEnd.RatioTapChanger").toString().split("#")[1]);
 		transformerEnd.set_Te_id(cimClassMap.get("TransformerEnd.Terminal").toString().split("#")[1]);
 
 		modelCIM.clearAttributes();
@@ -480,7 +474,6 @@ public class ModelDesigner
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
-			//TODO delete all spaces from the Identified.name attribute
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
@@ -516,7 +509,6 @@ public class ModelDesigner
 		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 		MapAttribute currentmapAtt;
 		while (imapAttList.hasNext()) {
-			//TODO delete all spaces from the Identified.name attribute
 			currentmapAtt= imapAttList.next();
 			// condition to process attributes from ipsl not present in CIM
 			if (!currentmapAtt.getCimName().equals("none"))

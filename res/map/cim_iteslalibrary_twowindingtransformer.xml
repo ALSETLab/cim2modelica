@@ -10,7 +10,7 @@
   <mapAttribute cim_name="PowerTransformerEnd.b" mo_name="B" datatype="Real" variability="parameter" visibility="public">0.1</mapAttribute>
   <mapAttribute cim_name="TransformerEnd.endNumber" mo_name="" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
   <!-- stepVoltageIncrement attribute of each TransformerEnd as param t in the model (t1,t2) -->
-  <mapAttribute cim_name="RatioTapChanger.stepVoltageIncrement" mo_name="t" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
+  <mapAttribute cim_name="RatioTapChanger.stepVoltageIncrement" mo_name="t" datatype="Real" variability="parameter" visibility="public">1</mapAttribute>
   <mapAttribute cim_name="PowerTransformerEnd.phaseAngleClock" mo_name="ANG1" datatype="Real" variability="parameter" visibility="public">0.1</mapAttribute>
   <!-- ratedU attribute of each PowerTransformerEnd as param VB "Bus Base kV on the side of winding 1" in the model (VB1,VB2) -->
   <mapAttribute cim_name="SvVoltage.v" mo_name="VB" datatype="Real" variability="parameter" visibility="public">0.1</mapAttribute>

@@ -1,6 +1,6 @@
 package cim2model.ipsl.cimmap;
 
-import com.hp.hpl.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Resource;
 
 /**
  * Stores the relation of conducting equipment and topological node through the name of the terminal

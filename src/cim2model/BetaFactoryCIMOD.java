@@ -7,8 +7,8 @@ import cim2model.ipsl.cimmap.PwBusMap;
 import cim2model.modelica.*;
 import cim2model.modelica.cimmap.*;
 
-import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.Resource;
 
 public class BetaFactoryCIMOD 
 {
