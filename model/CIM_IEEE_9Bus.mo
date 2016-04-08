@@ -1,4 +1,4 @@
-model CIM_IEEE9Bus "annotation()"
+model CIM_IEEE_9Bus "annotation()"
 	iPSL.Electrical.Branches.PwLine Ln46(R=0.017000000923871994,X=0.09200000017881393,G=0,B=0.07900000363588333) "annotation()";
 	iPSL.Electrical.Buses.Bus BUS4"annotation()";
 	iPSL.Electrical.Buses.Bus BUS2"annotation()";
@@ -14,9 +14,9 @@ model CIM_IEEE9Bus "annotation()"
 	iPSL.Electrical.Loads.PSSE.Load Ld5(angle_0=-97.19761657714844,V_0=0.993704617023468,P_0=1,Q_0=0) "something here" annotation();
 	iPSL.Electrical.Branches.PwLine Ln89(R=0.011900000274181366,X=0.10080000013113022,G=0,B=0.10450000315904617) "annotation()";
 	iPSL.Electrical.Buses.Bus BUS9"annotation()";
-	iPSL.Electrical.Branches.PSSE.TwoWindingTransformer T3(R=0,X=0.0625,G=0,B=0,ANG1=0,S_n=0,CW=0,CZ=0,t2=1,VNOM2=13.800000190734863,VB2=1.0229270458221436,t1=1,VNOM1=230,VB1=237.44049072265625) "something here" annotation();
-	iPSL.Electrical.Branches.PSSE.TwoWindingTransformer T1(R=0,X=0.05860000103712082,G=0,B=0,ANG1=0,S_n=0,CW=0,CZ=0,t2=1,VNOM2=230,VB2=235.93170166015625,t1=1,VNOM1=16.5,VB1=1.0381430387496948) "something here" annotation();
-	iPSL.Electrical.Branches.PSSE.TwoWindingTransformer T2(R=0,X=0.0575999990105629,G=0,B=0,ANG1=0,S_n=0,CW=0,CZ=0,t1=1,VNOM1=18,VB1=1.030107021331787,t2=1,VNOM2=230,VB2=235.92709350585938) "something here" annotation();
+	iPSL.Electrical.Branches.PSSE.TwoWindingTransformer T3(R=0,X=0.0625,G=0,B=0,ANG1=0.1,S_n=0,CW=1,CZ=1,t2=1,VB2=13.800000190734863,VNOM2=13.800000190734863,t1=1,VB1=230,VNOM1=230) "something here" annotation();
+	iPSL.Electrical.Branches.PSSE.TwoWindingTransformer T1(R=0,X=0.05860000103712082,G=0,B=0,ANG1=0.1,S_n=0,CW=1,CZ=1,t2=1,VB2=230,VNOM2=230,t1=1,VB1=16.5,VNOM1=16.5) "something here" annotation();
+	iPSL.Electrical.Branches.PSSE.TwoWindingTransformer T2(R=0,X=0.0575999990105629,G=0,B=0,ANG1=0.1,S_n=0,CW=1,CZ=1,t1=1,VB1=18,VNOM1=18,t2=1,VB2=230,VNOM2=230) "something here" annotation();
 	iPSL.Electrical.Buses.Bus BUS3"annotation()";
 	iPSL.Electrical.Machines.PSSE.GENSAL.GENSAL Gn1(S_b=0,M_b=275,V_b=16.5,V_0=1.0381430387496948,angle_0=-94.33999633789062,P_0=58.78450012207031,Q_0=27.511499404907227,R_a=0,Xl=0.05999999865889549,H=9.550000190734863,D=1.600000023841858,S10=1.0099999904632568,S12=1.0199999809265137,Tpd0=8.960000038146973,Tppd0=0.05000000074505806,Tppq0=0.05000000074505806,Xd=0.36149999499320984,Xpd=0.15080000460147858,Xppd=0.10000000149011612,Xq=0.23999999463558197,Xppq=0.10000000149011612) "something here" annotation();
 	iPSL.Electrical.Buses.Bus BUS1"annotation()";
@@ -48,4 +48,4 @@ equation
 	connect(Ln69.n, BUS9.p);
 	connect(Ln78.p, BUS7.p);
 	connect(T3.p, BUS9.p);
-end CIM_IEEE9Bus;
+end CIM_IEEE_9Bus;

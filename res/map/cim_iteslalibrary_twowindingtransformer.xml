@@ -13,7 +13,7 @@
   <mapAttribute cim_name="RatioTapChanger.stepVoltageIncrement" mo_name="t" datatype="Real" variability="parameter" visibility="public">1</mapAttribute>
   <mapAttribute cim_name="PowerTransformerEnd.phaseAngleClock" mo_name="ANG1" datatype="Real" variability="parameter" visibility="public">0.1</mapAttribute>
   <!-- ratedU attribute of each PowerTransformerEnd as param VB "Bus Base kV on the side of winding 1" in the model (VB1,VB2) -->
-  <mapAttribute cim_name="SvVoltage.v" mo_name="VB" datatype="Real" variability="parameter" visibility="public">0.1</mapAttribute>
+  <mapAttribute cim_name="PowerTransformerEnd.ratedU" mo_name="VB" datatype="Real" variability="parameter" visibility="public">0.1</mapAttribute>
   <!-- ratedU attribute of each PowerTransformerEnd as param VNOM in the model (VNOM1,VNOM2) -->
   <mapAttribute cim_name="PowerTransformerEnd.ratedU" mo_name="VNOM" datatype="Real" variability="parameter" visibility="public">0.1</mapAttribute>
   <mapAttribute cim_name="PowerTransformerEnd.ratedS" mo_name="S_n" datatype="Real" variability="parameter" visibility="public">0.1</mapAttribute>

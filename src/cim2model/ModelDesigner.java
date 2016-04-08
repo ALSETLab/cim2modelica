@@ -427,7 +427,7 @@ public class ModelDesigner
 			currentmapAtt= imapAttList.next();
 			if (cimClassMap.get(currentmapAtt.getCimName())!= null)
 				currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
-			System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+ "= "+ currentmapAtt.getContent());
+//			System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+ "= "+ currentmapAtt.getContent()+ "; "+ currentmapAtt.getMoName());
 		}
 //		mapPowTrans.setPowerTransformer(cimClassMap.get("TransformerEnd.RatioTapChanger").toString());
 		mapPowTrans.setTerminal(cimClassMap.get("TransformerEnd.Terminal").toString());
@@ -439,8 +439,7 @@ public class ModelDesigner
 		
 		transformerEnd= new CIMTransformerEnd(mapPowTrans, 
 				(Resource)cimClassMap.get("PowerTransformerEnd.PowerTransformer"),
-//				(Resource)cimClassMap.get("TransformerEnd.RatioTapChanger"),
-				null,
+//				(Resource)cimClassMap.get("TransformerEnd.RatioTapChanger")
 				(Resource)cimClassMap.get("TransformerEnd.Terminal"));
 		transformerEnd.set_Pt_id(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
 //		transformerEnd.set_Rtc_id(cimClassMap.get("TransformerEnd.RatioTapChanger").toString().split("#")[1]);

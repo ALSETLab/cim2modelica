@@ -14,22 +14,17 @@ public class CIMTransformerEnd
 	private TwoWindingTransformerMap twtmap;
 	private Resource powerTransformer;
 	private String pt_id;
-	private Resource ratioTapChanger;
-	private String rtc_id;
 	private Resource terminal;
 	private String t_id;
 	
 	public CIMTransformerEnd(TwoWindingTransformerMap _twtmap, 
-			Resource _powerTransformer, 
-			Resource _ratioTapChanger, 
+			Resource _powerTransformer,  
 			Resource _terminal) {
 		super();
 		this.twtmap = _twtmap;
 		this.powerTransformer = _powerTransformer;
-		this.ratioTapChanger = _ratioTapChanger;
 		this.terminal = _terminal;
 		this.pt_id= ""; 
-		this.rtc_id= "";
 		this.t_id= "";
 	}
 	
@@ -57,18 +52,6 @@ public class CIMTransformerEnd
 	public void set_PowerTransformerMap(Resource _powerTransformer) {
 		this.powerTransformer = _powerTransformer;
 	}
-	/**
-	 * @return the topologicalNode
-	 */
-	public Resource get_RatioTapChangerNodeMap() {
-		return ratioTapChanger;
-	}
-	/**
-	 * @param topologicalNode the topologicalNode to set
-	 */
-	public void set_TopologicalNodeMap(Resource _ratioTapChanger) {
-		this.ratioTapChanger = _ratioTapChanger;
-	}
 	
 	/**
 	 * @return the terminalEnd
@@ -94,18 +77,6 @@ public class CIMTransformerEnd
 	 */
 	public void set_Pt_id(String _pt_id) {
 		this.pt_id = _pt_id;
-	}
-	/**
-	 * @return the tn_id
-	 */
-	public String get_Rtc_id() {
-		return rtc_id;
-	}
-	/**
-	 * @param tn_id the tn_id to set
-	 */
-	public void set_Rtc_id(String _rtc_id) {
-		this.rtc_id = _rtc_id;
 	}
 	/**
 	 * @return the te_id

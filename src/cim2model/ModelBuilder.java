@@ -402,8 +402,7 @@ public class ModelBuilder
 			current= imapAttList.next();
 			if (!current.getCimName().equals("TransformerEnd.endNumber") && 
 				!current.getCimName().equals("RatioTapChanger.stepVoltageIncrement") &&
-				!current.getCimName().equals("PowerTransformerEnd.ratedU") &&
-				!current.getCimName().equals("SvVoltage.v"))
+				!current.getCimName().equals("PowerTransformerEnd.ratedU"))
 			{
 				if (current.getCimName().equals("IdentifiedObject.name"))
 					twtransformer.set_InstanceName(current.getContent());
@@ -432,7 +431,7 @@ public class ModelBuilder
 	public ArrayList<MOAttribute> create_AttTransformerEnd(TwoWindingTransformerMap _mapPowTrans)
 	{
 		MapAttribute current, endNumber= null;
-		MOAttribute ratioTapChanger= null, powerTransEnd= null, svvoltage= null;
+		MOAttribute ratioTapChanger= null, powerTransEnd= null;
 		ArrayList<MOAttribute> endAttributes= new ArrayList<MOAttribute>();
 		
 		Iterator<MapAttribute> imapAttList= _mapPowTrans.getMapAttribute().iterator();
@@ -440,16 +439,19 @@ public class ModelBuilder
 			current= imapAttList.next();
 			if (current.getCimName().equals("TransformerEnd.endNumber"))
 				endNumber= current;
-			else if (current.getCimName().equals("RatioTapChanger.stepVoltageIncrement"))
+			else if (current.getCimName().equals("RatioTapChanger.stepVoltageIncrement")){
 				ratioTapChanger= this.create_TransformerEndAttribute(endNumber, current);
-			else if (current.getCimName().equals("PowerTransformerEnd.ratedU"))
+				endAttributes.add(ratioTapChanger);
+			}
+			else if (current.getCimName().equals("PowerTransformerEnd.ratedU")){
+				System.out.println(current.getCimName()+ "; "+ current.getMoName());
 				powerTransEnd= this.create_TransformerEndAttribute(endNumber, current);
-			else if (current.getCimName().equals("SvVoltage.v"))
-				svvoltage= this.create_TransformerEndAttribute(endNumber, current);
+				endAttributes.add(powerTransEnd);
+			}
+//			else if (current.getCimName().equals("SvVoltage.v"))
+//				svvoltage= this.create_TransformerEndAttribute(endNumber, current);
 		}
-		endAttributes.add(ratioTapChanger);
-		endAttributes.add(powerTransEnd);
-		endAttributes.add(svvoltage);
+		
 		
 		return endAttributes;
 	}
@@ -457,7 +459,6 @@ public class ModelBuilder
 	{// creates attribute t1, t2 for the twt modelica model, _currentAtt can be:
 		// RatioTapChanger.stepVoltageIncrement
 		// PowerTransformerEnd.ratedU
-		// SvVoltage.v
 		MOAttribute variable= new MOAttribute();
 		variable.set_Name(_currentAtt.getMoName()+ _endNumber.getContent());
 		if (_currentAtt.getContent()== null)
