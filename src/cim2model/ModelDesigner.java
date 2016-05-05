@@ -416,7 +416,7 @@ public class ModelDesigner
         }
     }
 	public CIMTransformerEnd create_TransformerModelicaMap(Resource key, String _source, String[] _subjectID)
-	{//TODO this function must handle retrieve the terminals and transformerends, return complete map
+	{
 		TwoWindingTransformerMap mapPowTrans= twtXMLToObject(_source);
 		CIMTransformerEnd transformerEnd;
 		

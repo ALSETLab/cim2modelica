@@ -352,7 +352,6 @@ public class FactoryDesigner
 //		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 //		MapAttribute currentmapAtt;
 //		while (imapAttList.hasNext()) {
-//			//TODO delete all spaces from the Identified.name attribute
 //			currentmapAtt= imapAttList.next();
 //			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 //		}
@@ -385,7 +384,6 @@ public class FactoryDesigner
 //        }
 //    }
 //	public CIMTransformerEnd create_TransformerModelicaMap(Resource key, String _source, String[] _subjectID)
-//	{//TODO this function must handle retrieve the terminals and transformerends, return complete map
 //		TwoWindingTransformerMap mapPowTrans= twtXMLToObject(_source);
 //		CIMTransformerEnd transformerEnd;
 //		
@@ -427,7 +425,6 @@ public class FactoryDesigner
 //		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 //		MapAttribute currentmapAtt;
 //		while (imapAttList.hasNext()) {
-//			//TODO delete all spaces from the Identified.name attribute
 //			currentmapAtt= imapAttList.next();
 //			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 //		}
@@ -463,7 +460,6 @@ public class FactoryDesigner
 //		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
 //		MapAttribute currentmapAtt;
 //		while (imapAttList.hasNext()) {
-//			//TODO delete all spaces from the Identified.name attribute
 //			currentmapAtt= imapAttList.next();
 //			// condition to process attributes from ipsl not present in CIM
 //			if (!currentmapAtt.getCimName().equals("none"))

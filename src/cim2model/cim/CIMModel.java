@@ -352,7 +352,7 @@ public class CIMModel {
 	}
 	
 	/**
-	 * TODO cim class names that are refered as strings, must be indicated into the mapping
+	 * 
 	 * cim_name="IdentifiedObject.name"
 	 * cim_name="PowerTransformerEnd.r" 
 	 * cim_name="PowerTransformerEnd.x"

@@ -174,7 +174,6 @@ public class AlfaFactoryCIMOD
 //				System.out.println("rfd_id: "+ cimClassResource[0] + " cim name: "+ cimClassResource[1]);
 //				PwFaultMap mapFault= cartografo.create_FaultModelicaMap(key, "./res/map/cim_iteslalibrary_pwfault.xml", cimClassResource);
 //				MOClass mofault= constructor.create_FaultComponent(mapFault);
-////				TODO mofault.add_Terminal(mopin); or how to add the pin to this component
 //				
 //				constructor.add_deviceNetwork(mofault);
 //				System.out.println(mofault.to_ModelicaClass());

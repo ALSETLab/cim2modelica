@@ -140,24 +140,6 @@ public class ModelBuilder
 	}
 	/**
 	 * 
-	 * @param _component
-	 */
-//	public void update_deviceNetwork(MOClass _component, MOConnector _terminal)
-//	{
-//		MOClass current;
-//		Iterator<MOClass> iComponents;
-//		
-//		iComponents= this.powsys.get_Components().iterator();
-//		boolean exists= false;
-//		do {
-//			current= iComponents.next();
-//			exists= current.get_InstanceName().equals(_component.get_InstanceName());
-//		} while (!exists && iComponents.hasNext());
-//		if (exists)
-//			current.add_Terminal(_terminal);
-//	}
-	/**
-	 * 
 	 * @param _rfdId
 	 * @return
 	 */
@@ -188,7 +170,7 @@ public class ModelBuilder
 			if (current.getCimName().equals("IdentifiedObject.name")){
 				syncMach.set_InstanceName(current.getContent());
 			}
-			else{ //TODO check current.getContent(), if null then 0
+			else{
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getMoName());
 				if (current.getContent()== null)
@@ -218,7 +200,7 @@ public class ModelBuilder
 			if (current.getCimName().equals("IdentifiedObject.name")){
 				syncMach.set_InstanceName(current.getContent());
 			}
-			else{ //TODO check current.getContent(), if null then 0
+			else{ 
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getMoName());
 				if (current.getContent()== null)
@@ -248,7 +230,7 @@ public class ModelBuilder
 			if (current.getCimName().equals("IdentifiedObject.name")){
 				syncMach.set_InstanceName(current.getContent());
 			}
-			else{ //TODO check current.getContent(), if null then 0
+			else{ 
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getMoName());
 				if (current.getContent()== null)
@@ -278,7 +260,7 @@ public class ModelBuilder
 			if (current.getCimName().equals("IdentifiedObject.name")){
 				syncMach.set_InstanceName(current.getContent());
 			}
-			else{ //TODO check current.getContent(), if null then 0
+			else{ 
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getMoName());
 				if (current.getContent()== null)
@@ -300,13 +282,10 @@ public class ModelBuilder
 	}
 	
 	public MOClass create_LoadComponent(LoadMap _mapEnergyC)
-	{//TODO values for pfixed/qfixed in CIM are in %, convert to p.u. in code
+	{
 		MOClass pwLoad= new MOClass(_mapEnergyC.getName());
 		MOAttributeComplex complejo= null;
-		ArrayList<MapAttribute> mapAttList= 
-				(ArrayList<MapAttribute>)_mapEnergyC.getMapAttribute();
-		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
-		imapAttList= mapAttList.iterator();
+		Iterator<MapAttribute> imapAttList= ((ArrayList<MapAttribute>)_mapEnergyC.getMapAttribute()).iterator();
 		MapAttribute current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
@@ -393,8 +372,6 @@ public class ModelBuilder
 	public MOClass create_TransformerComponent(TwoWindingTransformerMap _mapPowTrans)
 	{
 		MOClass twtransformer= new MOClass(_mapPowTrans.getName());
-//		System.out.println("_mapPowTrans.getName() "+ _mapPowTrans.getName());
-//		System.out.println("_mapPowTrans.getPowerTransformer() "+ _mapPowTrans.getPowerTransformer());
 		MapAttribute current;
 		
 		Iterator<MapAttribute> imapAttList= _mapPowTrans.getMapAttribute().iterator();
@@ -428,6 +405,13 @@ public class ModelBuilder
 		
 		return twtransformer;
 	}
+	/**
+	 * Creates differnte attributes for the TwoWindingTransformer model of the Library. This attributes represent values for each winding, and
+	 * each winding in CIM is represented by different class instances, for exemple:
+	 * attribute t1 corresponds to one instance of PowerTransformerEnd, attribute t2 corresponds another instance of PowerTransformerEnd 
+	 * @param _mapPowTrans
+	 * @return
+	 */
 	public ArrayList<MOAttribute> create_AttTransformerEnd(TwoWindingTransformerMap _mapPowTrans)
 	{
 		MapAttribute current, endNumber= null;
@@ -451,10 +435,14 @@ public class ModelBuilder
 //			else if (current.getCimName().equals("SvVoltage.v"))
 //				svvoltage= this.create_TransformerEndAttribute(endNumber, current);
 		}
-		
-		
 		return endAttributes;
 	}
+	/**
+	 * Creates one attribute for each cim PowerTransformerEnd instance
+	 * @param _endNumber - Value for Power transformer ending number
+	 * @param _currentAtt - cim:RatioTapChanger.stepVoltageIncrement = mod:(t1,t2); cim:PowerTransformerEnd.ratedU = mod:(VNOM1,VNOM2)
+	 * @return modelica attribute for each instance of cim:PowerTransformerEnd
+	 */
 	private MOAttribute create_TransformerEndAttribute(MapAttribute _endNumber, MapAttribute _currentAtt) 
 	{// creates attribute t1, t2 for the twt modelica model, _currentAtt can be:
 		// RatioTapChanger.stepVoltageIncrement
@@ -538,6 +526,11 @@ public class ModelBuilder
 		return pwline;
 	}
 	
+	/**
+	 * Sets the connection for all the components in the network model. It creates the connect equation for 
+	 * the high-level model 
+	 * @param _connectmap - structure with references and ids for Terminal, ConductingEquipment and TopologicalNode
+	 */
 	public void connect_Components(ArrayList<ConnectionMap> _connectmap)
 	{
 		Iterator<ConnectionMap> iConnections= _connectmap.iterator();
@@ -547,9 +540,10 @@ public class ModelBuilder
 		
 		while(iConnections.hasNext())
 		{
-			try { //TODO: check equipment not null, still some equipment missing to map
+			try {
 			current= iConnections.next();
-//			System.out.println(current.toString());
+			// TODO identify machine from equipment, set machine connections
+			// TODO identify machine and controls equipment, set control connections with machine
 			equipment= this.get_equipmentNetwork(current.get_Ce_id());
 			bus= this.get_equipmentNetwork(current.get_Tn_id());
 			conexio= new MOConnectNode(equipment.get_InstanceName(), 

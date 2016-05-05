@@ -306,7 +306,7 @@ public class FactoryBuilder
 //			if (current.getCimName().equals("IdentifiedObject.name")){
 //				syncMach.set_InstanceName(current.getContent());
 //			}
-//			else{ //TODO check current.getContent(), if null then 0
+//			else{ 
 //				MOAttribute variable= new MOAttribute();
 //				variable.set_Name(current.getMoName());
 //				if (current.getContent()== null)
@@ -339,7 +339,7 @@ public class FactoryBuilder
 //			if (current.getCimName().equals("IdentifiedObject.name")){
 //				syncMach.set_InstanceName(current.getContent());
 //			}
-//			else{ //TODO check current.getContent(), if null then 0
+//			else{ 
 //				MOAttribute variable= new MOAttribute();
 //				variable.set_Name(current.getMoName());
 //				if (current.getContent()== null)
@@ -361,7 +361,7 @@ public class FactoryBuilder
 //	}
 //	
 //	public MOClass create_LoadComponent(LoadMap _mapEnergyC)
-//	{//TODO values for pfixed/qfixed in CIM are in %, convert to p.u. in code
+//	{
 //		MOClass pwLoad= new MOClass(_mapEnergyC.getName());
 //		MOAttributeComplex complejo= null;
 //		ArrayList<MapAttribute> mapAttList= 
@@ -421,7 +421,6 @@ public class FactoryBuilder
 
 //	
 //	public MOClass create_TransformerComponent(TwoWindingTransformerMap _mapPowTrans)
-//	{//TODO think about TwoWindingTransformer class, responsibilities, two tap changer attributes from two ratio tap changer
 //		MOClass twtransformer= new MOClass(_mapPowTrans.getName());
 ////		System.out.println("_mapPowTrans.getName() "+ _mapPowTrans.getName());
 ////		System.out.println("_mapPowTrans.getPowerTransformer() "+ _mapPowTrans.getPowerTransformer());
@@ -551,7 +550,7 @@ public class FactoryBuilder
 //		
 //		while(iConnections.hasNext())
 //		{
-//			try { //TODO: check equipment not null, still some equipment missing to map
+//			try { 
 //			current= iConnections.next();
 ////			System.out.println(current.toString());
 //			equipment= this.get_equipmentNetwork(current.get_Ce_id());

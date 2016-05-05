@@ -73,9 +73,8 @@ public class PwPin
 		this.ii = ii;
 	}
 	
-	/** TODO Update values of ii and ir**/
 //	try 
-//	{ //TODO: calculate value for ii from v,angle,p,q
+//	{ 
 //		double voltage= Double.valueOf(mapTerminal.getMapAttribute("vr").getContent());
 //		double apower= Double.valueOf(mapTerminal.getMapAttribute("P").getContent());
 //		double angle= Double.valueOf(mapTerminal.getMapAttribute("vi").getContent());

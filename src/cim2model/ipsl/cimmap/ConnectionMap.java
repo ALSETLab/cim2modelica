@@ -12,6 +12,7 @@ public class ConnectionMap
 	private String t_id;
 	private String ce_id;
 	private String tn_id;
+	// TODO review this, better store componentmap object, 
 	private Resource conductingEquipment;
 	private Resource topologicalNode;
 	
