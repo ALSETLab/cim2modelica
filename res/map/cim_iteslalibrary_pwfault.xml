@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_pwfault.dtd">
 <pwFaultMap cim_name="Fault" rfd_id="" package="iPSL.Electrical.Events" name="PwFault" stereotype="class">
-  <mapAttribute cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</mapAttribute>
-  <mapAttribute cim_name="Fault.rGround" mo_name="R" datatype="Real" variability="parameter" visibility="none">0</mapAttribute>
-  <mapAttribute cim_name="Fault.xGround" mo_name="X" datatype="Real" variability="parameter" visibility="none">0</mapAttribute>
-  <mapAttribute cim_name="none" mo_name="t1" datatype="Real" variability="parameter" visibility="none">0.9</mapAttribute>
-  <mapAttribute cim_name="none" mo_name="t2" datatype="Real" variability="parameter" visibility="none">1.2</mapAttribute>
+  <attributeMap cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
+  <attributeMap cim_name="Fault.rGround" mo_name="R" datatype="Real" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="Fault.xGround" mo_name="X" datatype="Real" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="none" mo_name="t1" datatype="Real" variability="parameter" visibility="none">0.9</attributeMap>
+  <attributeMap cim_name="none" mo_name="t2" datatype="Real" variability="parameter" visibility="none">1.2</attributeMap>
 </pwFaultMap>

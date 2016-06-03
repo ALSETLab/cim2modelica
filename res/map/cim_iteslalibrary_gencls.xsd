@@ -3,7 +3,7 @@
   <xs:element name="GENCLSMap">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="mapAttribute" maxOccurs="unbounded"/>
+        <xs:element ref="attributeMap" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attribute name="cim_name" type="xs:string" use="required"/>
       <xs:attribute name="name" type="xs:string" use="required"/>
@@ -12,7 +12,7 @@
       <xs:attribute name="stereotype" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="mapAttribute">
+  <xs:element name="attributeMap">
     <xs:complexType mixed="true">
       <xs:attribute name="cim_name" type="xs:string" use="required"/>
       <xs:attribute name="datatype" type="xs:string" use="required"/>

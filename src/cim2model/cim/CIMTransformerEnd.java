@@ -1,6 +1,6 @@
 package cim2model.cim;
 
-import cim2model.ipsl.cimmap.TwoWindingTransformerMap;
+import cim2model.cim.map.ipsl.transformers.TwoWindingTransformerMap;
 
 import org.apache.jena.rdf.model.Resource;
 

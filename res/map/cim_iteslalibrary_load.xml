@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_load.dtd">
 <loadMap cim_name="EnergyConsumer" rfd_id="" package="iPSL.Electrical.Loads.PSSE" name="Load" stereotype="class">
-  <mapAttribute cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</mapAttribute>
-  <mapAttribute cim_name="LoadResponseCharacteristic.pConstantCurrent" mo_name="S_i.re" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
-  <mapAttribute cim_name="LoadResponseCharacteristic.qConstantCurrent" mo_name="S_i.im" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
-  <mapAttribute cim_name="LoadResponseCharacteristic.pConstantImpedance" mo_name="S_y.re" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
-  <mapAttribute cim_name="LoadResponseCharacteristic.qConstantImpedance" mo_name="S_y.im" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
-  <mapAttribute cim_name="LoadResponseCharacteristic.pConstantPower" mo_name="S_p.re" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
-  <mapAttribute cim_name="LoadResponseCharacteristic.qConstantPower" mo_name="S_p.im" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
+  <attributeMap cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.pConstantCurrent" mo_name="S_i.re" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.qConstantCurrent" mo_name="S_i.im" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.pConstantImpedance" mo_name="S_y.re" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.qConstantImpedance" mo_name="S_y.im" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.pConstantPower" mo_name="S_p.re" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.qConstantPower" mo_name="S_p.im" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
   <!--  
-  <mapAttribute cim_name="LoadResponseCharacteristic.pVoltageExponent" mo_name="a.re" datatype="Complex" variability="parameter" visibility="none">1</mapAttribute>
-  <mapAttribute cim_name="LoadResponseCharacteristic.pVoltageExponent" mo_name="a.im" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
-  <mapAttribute cim_name="LoadResponseCharacteristic.qVoltageExponent" mo_name="b.re" datatype="Complex" variability="parameter" visibility="none">0</mapAttribute>
-  <mapAttribute cim_name="LoadResponseCharacteristic.qVoltageExponent" mo_name="b.im" datatype="Complex" variability="parameter" visibility="none">1</mapAttribute>
-  <mapAttribute cim_name="LoadComposite.pfrac" mo_name="PQBRAK" datatype="Real" variability="parameter" visibility="none">0</mapAttribute>
+  <attributeMap cim_name="LoadResponseCharacteristic.pVoltageExponent" mo_name="a.re" datatype="Complex" variability="parameter" visibility="none">1</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.pVoltageExponent" mo_name="a.im" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.qVoltageExponent" mo_name="b.re" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.qVoltageExponent" mo_name="b.im" datatype="Complex" variability="parameter" visibility="none">1</attributeMap>
+  <attributeMap cim_name="LoadComposite.pfrac" mo_name="PQBRAK" datatype="Real" variability="parameter" visibility="none">0</attributeMap>
   -->
-  <mapAttribute cim_name="SvVoltage.angle" mo_name="angle_0" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
-  <mapAttribute cim_name="SvVoltage.v" mo_name="V_0" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
-  <mapAttribute cim_name="EnergyConsumer.p" mo_name="P_0" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
-  <mapAttribute cim_name="EnergyConsumer.q" mo_name="Q_0" datatype="Real" variability="parameter" visibility="public">0</mapAttribute>
-  <mapAttribute cim_name="BaseVoltage.nominalVoltage" mo_name="V_b" datatype="parameter" variability="parameter" visibility="none">0</mapAttribute>
+  <attributeMap cim_name="SvVoltage.angle" mo_name="angle_0" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+  <attributeMap cim_name="SvVoltage.v" mo_name="V_0" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+  <attributeMap cim_name="EnergyConsumer.p" mo_name="P_0" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+  <attributeMap cim_name="EnergyConsumer.q" mo_name="Q_0" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+  <attributeMap cim_name="BaseVoltage.nominalVoltage" mo_name="V_b" datatype="parameter" variability="parameter" visibility="none">0</attributeMap>
 </loadMap>

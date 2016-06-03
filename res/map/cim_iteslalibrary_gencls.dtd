@@ -1,12 +1,12 @@
-<!ELEMENT GENCLSMap (mapAttribute+)>
+<!ELEMENT GENCLSMap (attributeMap+)>
 <!ATTLIST GENCLSMap
           cim_name CDATA #REQUIRED
           name CDATA #REQUIRED
           package CDATA #REQUIRED
           rfd_id CDATA #REQUIRED
           stereotype CDATA #REQUIRED>
-<!ELEMENT mapAttribute (#PCDATA)>
-<!ATTLIST mapAttribute
+<!ELEMENT attributeMap (#PCDATA)>
+<!ATTLIST attributeMap
           cim_name CDATA #REQUIRED
           datatype CDATA #REQUIRED
           mo_name CDATA #REQUIRED

@@ -10,7 +10,6 @@ import java.util.AbstractMap;
  */
 public class MOConnectNode 
 {
-	private Map.Entry<String, String> conexio;
 	public final String id_component_u, pin_component_u;
 	public final String id_component_y, pin_component_y;
     
@@ -20,25 +19,53 @@ public class MOConnectNode
       this.pin_component_u = _pin_u;
       this.id_component_y = _y;
       this.pin_component_y = _pin_y;
-      this.conexio= new AbstractMap.SimpleEntry<String, String>(
-    			_u+ "."+ _pin_u, _y+ "."+ _pin_y);
-    }
-    
-    public String get_connection_U(){
-    	return this.conexio.getKey();
-    }
-    
-    public String get_connection_Y(){
-    	return this.conexio.getValue();
     }
     
     /**
+	 * @return the id_component_u
+	 */
+	public String getId_component_u() {
+		return id_component_u;
+	}
+
+	/**
+	 * @return the pin_component_u
+	 */
+	public String getPin_component_u() {
+		return pin_component_u;
+	}
+
+	/**
+	 * @return the id_component_y
+	 */
+	public String getId_component_y() {
+		return id_component_y;
+	}
+
+	/**
+	 * @return the pin_component_y
+	 */
+	public String getPin_component_y() {
+		return pin_component_y;
+	}
+
+	public String to_ModelicaEquation(String isNetwork)
+	{
+		String code= "";
+		if (isNetwork.equals("network"))
+			code= this.connect_equipmentNetwork();
+		if (isNetwork.equals("plant"))
+			code= this.connect_equipmentPlant();
+		return code;
+	}
+	/**
+     * Writes connect equation between network equipment, at network level, 
      * Method contain a little trick: 
      * to convert name of terminal into p or n, depending on T1 or T2
      * to convert name of terminal from bus, all p
      * @return
      */
-    public String to_ModelicaEquation()
+    private String connect_equipmentNetwork()
     {
     	String code= "";
 		StringBuilder pencil= new StringBuilder();
@@ -64,6 +91,27 @@ public class MOConnectNode
 			else
 				pencil.append("n");
 //		pencil.append(this.pin_component_y);
+		pencil.append(");"); pencil.append("\n");
+		
+		code= pencil.toString();
+		pencil= null;
+		
+		return code;
+    }
+    
+    private String connect_equipmentPlant()
+    {
+    	String code= "";
+		StringBuilder pencil= new StringBuilder();
+		
+		pencil.append("connect(");
+		pencil.append(this.id_component_u);
+		pencil.append(".");
+		pencil.append(this.pin_component_u);
+		pencil.append(", ");
+		pencil.append(this.id_component_y);
+		pencil.append(".");
+		pencil.append(this.pin_component_y);
 		pencil.append(");"); pencil.append("\n");
 		
 		code= pencil.toString();

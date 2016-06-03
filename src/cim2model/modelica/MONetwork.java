@@ -10,34 +10,56 @@ import java.util.Iterator;
  */
 public class MONetwork extends MOModel
 {
-	protected ArrayList<MOClass> components;
+	protected ArrayList<MOPlant> planta;
+	protected ArrayList<MOClass> equipment;
 	protected ArrayList<MOConnectNode> conexions;
 		
 	public MONetwork(String _name) 
 	{
 		super(_name, "model");
-		this.components= new ArrayList<MOClass>();
+		this.planta= new ArrayList<MOPlant>();
+		this.equipment= new ArrayList<MOClass>();
 		this.conexions= new ArrayList<MOConnectNode>();
 	}
 
 	/**
-	 * @return the components
+	 * @return the equipment
 	 */
-	public ArrayList<MOClass> get_Components() {
-		return this.components;
+	public ArrayList<MOPlant> get_planta() {
+		return this.planta;
+	}
+	/**
+	 * 
+	 * @param component
+	 */
+	public void add_Plant(MOPlant _plant){
+		this.planta.add(_plant);
+	}
+	/**
+	 * @param attributes the equipment to set
+	 */
+	public void add_Plant(ArrayList<MOPlant> _planta) {
+		this.planta = _planta;
+	}
+	
+	/**
+	 * @return the equipment
+	 */
+	public ArrayList<MOClass> get_Equipment() {
+		return this.equipment;
 	}
 	/**
 	 * 
 	 * @param component
 	 */
 	public void add_Component(MOClass _value){
-		this.components.add(_value);
+		this.equipment.add(_value);
 	}
 	/**
-	 * @param attributes the components to set
+	 * @param attributes the equipment to set
 	 */
-	public void add_Component(ArrayList<MOClass> components) {
-		this.components = components;
+	public void add_Component(ArrayList<MOClass> equipment) {
+		this.equipment = equipment;
 	}
 	
 	/**
@@ -61,10 +83,10 @@ public class MONetwork extends MOModel
 		while (!exists && iconnections.hasNext())
 		{
 			current= iconnections.next();
-			exists= (current.get_connection_U().equals(_value.get_connection_U()) &&
-					current.get_connection_Y().equals(_value.get_connection_Y())) ||
-					(current.get_connection_U().equals(_value.get_connection_Y()) &&
-					current.get_connection_Y().equals(_value.get_connection_U()));
+			exists= (current.getId_component_u().equals(_value.getId_component_u()) &&
+					current.getId_component_y().equals(_value.getId_component_y())) ||
+					(current.getId_component_u().equals(_value.getId_component_y()) &&
+					current.getId_component_y().equals(_value.getId_component_u()));
 		}
 		
 		return exists;
@@ -82,7 +104,7 @@ public class MONetwork extends MOModel
 		pencil.append(this.annotation);
 		pencil.append('"'); pencil.append("\n");
 		/* VARIABLE SECTION */
-		for (MOClass component: this.components)
+		for (MOClass component: this.equipment)
 		{
 			pencil.append("\t");
 			pencil.append(component.to_ModelicaInstance());
@@ -92,8 +114,10 @@ public class MONetwork extends MOModel
 		for (MOConnectNode conexio: this.conexions)
 		{
 			pencil.append("\t");
-			pencil.append(conexio.to_ModelicaEquation());
+			pencil.append(conexio.to_ModelicaEquation("network"));
 		}
+		/* PLANT CONNECTIONS */
+		
 		pencil.append("end ");
 		pencil.append(this.name);
 		pencil.append(";");

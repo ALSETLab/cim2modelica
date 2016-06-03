@@ -1,6 +1,6 @@
 package cim2model.cim;
 
-import cim2model.ipsl.cimmap.PwPinMap;
+import cim2model.cim.map.ipsl.connectors.PwPinMap;
 
 import org.apache.jena.rdf.model.Resource;
 

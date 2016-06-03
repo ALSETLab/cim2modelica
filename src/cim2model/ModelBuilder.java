@@ -6,12 +6,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import cim2model.ipsl.branches.PwLine;
-import cim2model.ipsl.buses.Bus;
-import cim2model.ipsl.cimmap.*;
-import cim2model.ipsl.machines.GENROU;
-import cim2model.ipsl.machines.GENSAL;
+import cim2model.cim.map.*;
+import cim2model.cim.map.ipsl.base.*;
+import cim2model.cim.map.ipsl.branches.*;
+import cim2model.cim.map.ipsl.buses.*;
+import cim2model.cim.map.ipsl.connectors.*;
+import cim2model.cim.map.ipsl.loads.*;
+import cim2model.cim.map.ipsl.machines.*;
+import cim2model.cim.map.ipsl.transformers.*;
 import cim2model.modelica.*;
+import cim2model.modelica.ipsl.branches.PwLine;
+import cim2model.modelica.ipsl.machines.GENROU;
+import cim2model.modelica.ipsl.machines.GENSAL;
 
 public class ModelBuilder 
 {
@@ -96,11 +102,11 @@ public class ModelBuilder
 	public MOConnector create_PinConnector(PwPinMap _terminalMap)
 	{
 		MOConnector pin= new MOConnector(_terminalMap.getName());
-		ArrayList<MapAttribute> mapAttList= 
-				(ArrayList<MapAttribute>)_terminalMap.getMapAttribute();
-		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
+		ArrayList<AttributeMap> mapAttList= 
+				(ArrayList<AttributeMap>)_terminalMap.getMapAttribute();
+		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		imapAttList= mapAttList.iterator();
-		MapAttribute current;
+		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
@@ -163,8 +169,8 @@ public class ModelBuilder
 	public MOClass create_GENCLSComponent(GENCLSMap _mapSyncMach)
 	{
 		MOClass syncMach= new GENSAL(_mapSyncMach.getName());
-		Iterator<MapAttribute> imapAttList= _mapSyncMach.getMapAttribute().iterator();
-		MapAttribute current;
+		Iterator<AttributeMap> imapAttList= _mapSyncMach.getMapAttribute().iterator();
+		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
@@ -193,8 +199,8 @@ public class ModelBuilder
 	public MOClass create_GENROUComponent(GENROUMap _mapSyncMach)
 	{
 		MOClass syncMach= new GENROU(_mapSyncMach.getName());
-		Iterator<MapAttribute> imapAttList= _mapSyncMach.getMapAttribute().iterator();
-		MapAttribute current;
+		Iterator<AttributeMap> imapAttList= _mapSyncMach.getMapAttribute().iterator();
+		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
@@ -223,8 +229,8 @@ public class ModelBuilder
 	public MOClass create_GENSALComponent(GENSALMap _mapSyncMach)
 	{
 		MOClass syncMach= new GENSAL(_mapSyncMach.getName());
-		Iterator<MapAttribute> imapAttList= _mapSyncMach.getMapAttribute().iterator();
-		MapAttribute current;
+		Iterator<AttributeMap> imapAttList= _mapSyncMach.getMapAttribute().iterator();
+		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
@@ -253,8 +259,8 @@ public class ModelBuilder
 	public MOClass create_GENROEComponent(GENROEMap _mapSyncMach)
 	{
 		MOClass syncMach= new GENSAL(_mapSyncMach.getName());
-		Iterator<MapAttribute> imapAttList= _mapSyncMach.getMapAttribute().iterator();
-		MapAttribute current;
+		Iterator<AttributeMap> imapAttList= _mapSyncMach.getMapAttribute().iterator();
+		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
@@ -285,8 +291,8 @@ public class ModelBuilder
 	{
 		MOClass pwLoad= new MOClass(_mapEnergyC.getName());
 		MOAttributeComplex complejo= null;
-		Iterator<MapAttribute> imapAttList= ((ArrayList<MapAttribute>)_mapEnergyC.getMapAttribute()).iterator();
-		MapAttribute current;
+		Iterator<AttributeMap> imapAttList= ((ArrayList<AttributeMap>)_mapEnergyC.getMapAttribute()).iterator();
+		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
@@ -339,10 +345,10 @@ public class ModelBuilder
 	public MOClass create_LineComponent(PwLineMap _mapACLine)
 	{
 		PwLine pwline= new PwLine(_mapACLine.getName());
-		ArrayList<MapAttribute> mapAttList= 
-				(ArrayList<MapAttribute>)_mapACLine.getMapAttribute();
-		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
-		MapAttribute current;
+		ArrayList<AttributeMap> mapAttList= 
+				(ArrayList<AttributeMap>)_mapACLine.getMapAttribute();
+		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
+		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
@@ -372,9 +378,9 @@ public class ModelBuilder
 	public MOClass create_TransformerComponent(TwoWindingTransformerMap _mapPowTrans)
 	{
 		MOClass twtransformer= new MOClass(_mapPowTrans.getName());
-		MapAttribute current;
+		AttributeMap current;
 		
-		Iterator<MapAttribute> imapAttList= _mapPowTrans.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= _mapPowTrans.getMapAttribute().iterator();
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (!current.getCimName().equals("TransformerEnd.endNumber") && 
@@ -414,11 +420,11 @@ public class ModelBuilder
 	 */
 	public ArrayList<MOAttribute> create_AttTransformerEnd(TwoWindingTransformerMap _mapPowTrans)
 	{
-		MapAttribute current, endNumber= null;
+		AttributeMap current, endNumber= null;
 		MOAttribute ratioTapChanger= null, powerTransEnd= null;
 		ArrayList<MOAttribute> endAttributes= new ArrayList<MOAttribute>();
 		
-		Iterator<MapAttribute> imapAttList= _mapPowTrans.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= _mapPowTrans.getMapAttribute().iterator();
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("TransformerEnd.endNumber"))
@@ -443,7 +449,7 @@ public class ModelBuilder
 	 * @param _currentAtt - cim:RatioTapChanger.stepVoltageIncrement = mod:(t1,t2); cim:PowerTransformerEnd.ratedU = mod:(VNOM1,VNOM2)
 	 * @return modelica attribute for each instance of cim:PowerTransformerEnd
 	 */
-	private MOAttribute create_TransformerEndAttribute(MapAttribute _endNumber, MapAttribute _currentAtt) 
+	private MOAttribute create_TransformerEndAttribute(AttributeMap _endNumber, AttributeMap _currentAtt) 
 	{// creates attribute t1, t2 for the twt modelica model, _currentAtt can be:
 		// RatioTapChanger.stepVoltageIncrement
 		// PowerTransformerEnd.ratedU
@@ -463,10 +469,10 @@ public class ModelBuilder
 	public MOClass create_BusComponent(PwBusMap _mapTopoNode)
 	{
 		Bus pwbus= new Bus(_mapTopoNode.getName());
-		ArrayList<MapAttribute> mapAttList= 
-				(ArrayList<MapAttribute>)_mapTopoNode.getMapAttribute();
-		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
-		MapAttribute current;
+		ArrayList<AttributeMap> mapAttList= 
+				(ArrayList<AttributeMap>)_mapTopoNode.getMapAttribute();
+		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
+		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
@@ -496,10 +502,10 @@ public class ModelBuilder
 	public MOClass create_FaultComponent(PwFaultMap _mapFault)
 	{
 		PwLine pwline= new PwLine(_mapFault.getName());
-		ArrayList<MapAttribute> mapAttList= 
-				(ArrayList<MapAttribute>)_mapFault.getMapAttribute();
-		Iterator<MapAttribute> imapAttList= mapAttList.iterator();
-		MapAttribute current;
+		ArrayList<AttributeMap> mapAttList= 
+				(ArrayList<AttributeMap>)_mapFault.getMapAttribute();
+		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
+		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
@@ -527,8 +533,8 @@ public class ModelBuilder
 	}
 	
 	/**
-	 * Sets the connection for all the components in the network model. It creates the connect equation for 
-	 * the high-level model 
+	 * Sets the connection between all the components in the network model. 
+	 * It creates the connect equation to be written in the network model.
 	 * @param _connectmap - structure with references and ids for Terminal, ConductingEquipment and TopologicalNode
 	 */
 	public void connect_Components(ArrayList<ConnectionMap> _connectmap)
