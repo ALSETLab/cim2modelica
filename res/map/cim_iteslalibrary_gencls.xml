@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_gencls.dtd">
-<GENCLSMap cim_name="SynchronousMachine" rfd_id="" package="iPSL.Electrical.Machines.PSSE.GENCLS" name="GENCLS" stereotype="class">
+<GENCLSMap cim_name="SynchronousMachine" rfd_id="" package="OpenIPSL.Electrical.Machines.PSSE" name="GENCLS" stereotype="class">
   <attributeMap cim_name="BasePower.basePower" mo_name="S_b" datatype="Real" variability="parameter" visibility="public"></attributeMap>
   <attributeMap cim_name="RotatingMachine.ratedS" mo_name="M_b" datatype="Real" variability="parameter" visibility="public"></attributeMap>
   <attributeMap cim_name="RotatingMachine.ratedU" mo_name="V_b" datatype="Real" variability="parameter" visibility="public"></attributeMap>

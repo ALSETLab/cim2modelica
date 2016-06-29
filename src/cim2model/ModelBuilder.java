@@ -136,7 +136,7 @@ public class ModelBuilder
 	 */
 	public void add_deviceNetwork(MOClass _component)
 	{
-		Iterator<MOClass> iComponents= this.powsys.get_Components().iterator();
+		Iterator<MOClass> iComponents= this.powsys.get_Equipment().iterator();
 		boolean exists= false;
 		while (!exists && iComponents.hasNext()){
 			exists= iComponents.next().get_InstanceName().equals(_component.get_InstanceName());
@@ -154,7 +154,7 @@ public class ModelBuilder
 		MOClass current= new MOClass("void");
 		Iterator<MOClass> iComponents;
 		
-		iComponents= this.powsys.get_Components().iterator();
+		iComponents= this.powsys.get_Equipment().iterator();
 		boolean exists= false;
 		while (!exists && iComponents.hasNext()){
 			current= iComponents.next();

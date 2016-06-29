@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_excsexs.dtd">
+<excSEXSMap cim_name="ExcSEXS" rfd_id="" package="OpenIPSL.Electrical.Controls.CGMES.ES" name="ExcSEXS" stereotype="class">
+  <attributeMap cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
+   <attributeMap cim_name="tatb" mo_name="T_AT_B" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="tb" mo_name="T_B" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="k" mo_name="K" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="te" mo_name="T_E" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="kc" mo_name="K_C" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="tc" mo_name="T_C" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="emin" mo_name="E_MIN" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="emax" mo_name="E_MAX" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="efdmin" mo_name="EFD_MIN" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="efdmax" mo_name="EFD_MAX" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+</excSEXSMap>
