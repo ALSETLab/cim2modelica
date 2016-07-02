@@ -34,7 +34,7 @@ import cim2model.cim.map.MapTerminal;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element ref="{}mapTerminal" maxOccurs="unbounded"/>
- *         &lt;element ref="{}mapAttribute" maxOccurs="unbounded"/>
+ *         &lt;element ref="{}attributeMap" maxOccurs="unbounded"/>
  *         &lt;element ref="{}mapEquation" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *       &lt;attribute name="cim_name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -52,7 +52,7 @@ import cim2model.cim.map.MapTerminal;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "mapTerminal",
-    "mapAttribute",
+    "attributeMap",
     "mapEquation"
 })
 @XmlRootElement(name = "pwLineMap")
@@ -61,7 +61,7 @@ public class PwLineMap {
     @XmlElement(required = true)
     protected List<MapTerminal> mapTerminal;
     @XmlElement(required = true)
-    protected List<AttributeMap> mapAttribute;
+    protected List<AttributeMap> attributeMap;
     @XmlElement(required = true)
     protected List<MapEquation> mapEquation;
     @XmlAttribute(name = "cim_name", required = true)
@@ -105,18 +105,18 @@ public class PwLineMap {
     }
 
     /**
-     * Gets the value of the mapAttribute property.
+     * Gets the value of the attributeMap property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the mapAttribute property.
+     * This is why there is not a <CODE>set</CODE> method for the attributeMap property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getMapAttribute().add(newItem);
+     *    getAttributeMap().add(newItem);
      * </pre>
      * 
      * 
@@ -126,11 +126,11 @@ public class PwLineMap {
      * 
      * 
      */
-    public List<AttributeMap> getMapAttribute() {
-        if (mapAttribute == null) {
-            mapAttribute = new ArrayList<AttributeMap>();
+    public List<AttributeMap> getAttributeMap() {
+        if (attributeMap == null) {
+            attributeMap = new ArrayList<AttributeMap>();
         }
-        return this.mapAttribute;
+        return this.attributeMap;
     }
 
     /**

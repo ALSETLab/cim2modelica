@@ -12,6 +12,7 @@ public class MOAttribute
 	protected String datatype;
 	protected String name;
 	protected Object value;
+	protected String comment;
 	protected String annotation;
 	protected Boolean fixed;
 	protected Boolean flow;
@@ -22,7 +23,8 @@ public class MOAttribute
 		this.name = "name";
 		this.value = "0";
 		this.fixed = false;
-		this.annotation= "annotation";
+		this.comment= "something here";
+		this.annotation= "annotation ()";
 		this.flow= false;
 	}
 	/**
@@ -128,32 +130,36 @@ public class MOAttribute
 	public String to_Modelica()
 	{
 		String code= "";
-		StringBuilder line= new StringBuilder();
+		StringBuilder pencil= new StringBuilder();
 		
 		if (this.flow) {
-			line.append("flow ");
+			pencil.append("flow ");
 		}
-		line.append(this.variability); line.append(" ");
-		line.append(this.datatype); line.append(" ");
-		line.append(this.name); line.append(" ");
+		pencil.append(this.variability); pencil.append(" ");
+		pencil.append(this.datatype); pencil.append(" ");
+		pencil.append(this.name); pencil.append(" ");
 		if (this.variability.equals("variable"))
 		{
-			line.append("(start="); line.append(" ");
-			line.append(value); line.append(", fixed=");
+			pencil.append("(start="); pencil.append(" ");
+			pencil.append(value); pencil.append(", fixed=");
 			if(this.fixed){
-				line.append("True)"); line.append(" ");
+				pencil.append("True)"); pencil.append(" ");
 			}
 			else {
-				line.append("False)"); line.append(" ");
+				pencil.append("False)"); pencil.append(" ");
 			}
 		}
 		else {
-			line.append("= ");
-			line.append(value); line.append(" ");
+			pencil.append("= ");
+			pencil.append(value); pencil.append(" ");
 		}
-		line.append('"'+ this.annotation+ '"');
-		line.append(";");
-		code= line.toString();
+		pencil.append('"');
+		pencil.append(this.comment);
+		pencil.append('"'); 
+		pencil.append(" ");
+		pencil.append(this.annotation);
+		pencil.append(";");
+		code= pencil.toString();
 		
 		return code;
 	}

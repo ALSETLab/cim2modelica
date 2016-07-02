@@ -10,14 +10,14 @@ import java.util.Iterator;
  */
 public class MONetwork extends MOModel
 {
-	protected ArrayList<MOPlant> planta;
+	protected ArrayList<MOPlant> elecPlants;
 	protected ArrayList<MOClass> equipment;
 	protected ArrayList<MOConnectNode> conexions;
 		
 	public MONetwork(String _name) 
 	{
 		super(_name, "model");
-		this.planta= new ArrayList<MOPlant>();
+		this.elecPlants= new ArrayList<MOPlant>();
 		this.equipment= new ArrayList<MOClass>();
 		this.conexions= new ArrayList<MOConnectNode>();
 	}
@@ -26,20 +26,20 @@ public class MONetwork extends MOModel
 	 * @return the equipment
 	 */
 	public ArrayList<MOPlant> get_planta() {
-		return this.planta;
+		return this.elecPlants;
 	}
 	/**
 	 * 
 	 * @param component
 	 */
 	public void add_Plant(MOPlant _plant){
-		this.planta.add(_plant);
+		this.elecPlants.add(_plant);
 	}
 	/**
 	 * @param attributes the equipment to set
 	 */
 	public void add_Plant(ArrayList<MOPlant> _planta) {
-		this.planta = _planta;
+		this.elecPlants = _planta;
 	}
 	
 	/**
@@ -99,15 +99,21 @@ public class MONetwork extends MOModel
 		
 		/* HEADER */
 		pencil.append(this.stereotype); pencil.append(" ");
-		pencil.append(this.name); pencil.append(" ");
+		pencil.append(this.name); 
+		pencil.append(" ");
 		pencil.append('"');
-		pencil.append(this.annotation);
+		pencil.append(this.comment);
 		pencil.append('"'); pencil.append("\n");
 		/* VARIABLE SECTION */
 		for (MOClass component: this.equipment)
 		{
 			pencil.append("\t");
 			pencil.append(component.to_ModelicaInstance());
+		}
+		for (MOPlant plant: this.elecPlants)
+		{
+			pencil.append("\t");
+			pencil.append(plant.to_ModelicaInstance());
 		}
 		/* EQUATION SECTION */
 		pencil.append("equation\n");
@@ -117,7 +123,10 @@ public class MONetwork extends MOModel
 			pencil.append(conexio.to_ModelicaEquation("network"));
 		}
 		/* PLANT CONNECTIONS */
-		
+		for (MOPlant plant: this.elecPlants)
+		{
+			pencil.append(plant.to_ModelicaConnection());
+		}
 		pencil.append("end ");
 		pencil.append(this.name);
 		pencil.append(";");

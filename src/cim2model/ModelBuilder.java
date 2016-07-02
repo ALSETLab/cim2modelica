@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import cim2model.cim.map.*;
-import cim2model.cim.map.ipsl.base.*;
 import cim2model.cim.map.ipsl.branches.*;
 import cim2model.cim.map.ipsl.buses.*;
 import cim2model.cim.map.ipsl.connectors.*;
@@ -103,7 +102,7 @@ public class ModelBuilder
 	{
 		MOConnector pin= new MOConnector(_terminalMap.getName());
 		ArrayList<AttributeMap> mapAttList= 
-				(ArrayList<AttributeMap>)_terminalMap.getMapAttribute();
+				(ArrayList<AttributeMap>)_terminalMap.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		imapAttList= mapAttList.iterator();
 		AttributeMap current;
@@ -169,7 +168,7 @@ public class ModelBuilder
 	public MOClass create_GENCLSComponent(GENCLSMap _mapSyncMach)
 	{
 		MOClass syncMach= new GENSAL(_mapSyncMach.getName());
-		Iterator<AttributeMap> imapAttList= _mapSyncMach.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= _mapSyncMach.getAttributeMap().iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
@@ -199,7 +198,7 @@ public class ModelBuilder
 	public MOClass create_GENROUComponent(GENROUMap _mapSyncMach)
 	{
 		MOClass syncMach= new GENROU(_mapSyncMach.getName());
-		Iterator<AttributeMap> imapAttList= _mapSyncMach.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= _mapSyncMach.getAttributeMap().iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
@@ -229,7 +228,7 @@ public class ModelBuilder
 	public MOClass create_GENSALComponent(GENSALMap _mapSyncMach)
 	{
 		MOClass syncMach= new GENSAL(_mapSyncMach.getName());
-		Iterator<AttributeMap> imapAttList= _mapSyncMach.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= _mapSyncMach.getAttributeMap().iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
@@ -259,7 +258,7 @@ public class ModelBuilder
 	public MOClass create_GENROEComponent(GENROEMap _mapSyncMach)
 	{
 		MOClass syncMach= new GENSAL(_mapSyncMach.getName());
-		Iterator<AttributeMap> imapAttList= _mapSyncMach.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= _mapSyncMach.getAttributeMap().iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
@@ -291,7 +290,7 @@ public class ModelBuilder
 	{
 		MOClass pwLoad= new MOClass(_mapEnergyC.getName());
 		MOAttributeComplex complejo= null;
-		Iterator<AttributeMap> imapAttList= ((ArrayList<AttributeMap>)_mapEnergyC.getMapAttribute()).iterator();
+		Iterator<AttributeMap> imapAttList= ((ArrayList<AttributeMap>)_mapEnergyC.getAttributeMap()).iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
@@ -346,7 +345,7 @@ public class ModelBuilder
 	{
 		PwLine pwline= new PwLine(_mapACLine.getName());
 		ArrayList<AttributeMap> mapAttList= 
-				(ArrayList<AttributeMap>)_mapACLine.getMapAttribute();
+				(ArrayList<AttributeMap>)_mapACLine.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
@@ -380,7 +379,7 @@ public class ModelBuilder
 		MOClass twtransformer= new MOClass(_mapPowTrans.getName());
 		AttributeMap current;
 		
-		Iterator<AttributeMap> imapAttList= _mapPowTrans.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= _mapPowTrans.getAttributeMap().iterator();
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (!current.getCimName().equals("TransformerEnd.endNumber") && 
@@ -424,7 +423,7 @@ public class ModelBuilder
 		MOAttribute ratioTapChanger= null, powerTransEnd= null;
 		ArrayList<MOAttribute> endAttributes= new ArrayList<MOAttribute>();
 		
-		Iterator<AttributeMap> imapAttList= _mapPowTrans.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= _mapPowTrans.getAttributeMap().iterator();
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("TransformerEnd.endNumber"))
@@ -470,7 +469,7 @@ public class ModelBuilder
 	{
 		Bus pwbus= new Bus(_mapTopoNode.getName());
 		ArrayList<AttributeMap> mapAttList= 
-				(ArrayList<AttributeMap>)_mapTopoNode.getMapAttribute();
+				(ArrayList<AttributeMap>)_mapTopoNode.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
@@ -503,7 +502,7 @@ public class ModelBuilder
 	{
 		PwLine pwline= new PwLine(_mapFault.getName());
 		ArrayList<AttributeMap> mapAttList= 
-				(ArrayList<AttributeMap>)_mapFault.getMapAttribute();
+				(ArrayList<AttributeMap>)_mapFault.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {

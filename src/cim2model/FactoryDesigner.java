@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.Map.Entry;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -17,10 +17,10 @@ import org.apache.jena.rdf.model.Resource;
 import cim2model.cim.CIMModel;
 import cim2model.cim.CIMTransformerEnd;
 import cim2model.cim.map.*;
-import cim2model.cim.map.ipsl.base.*;
 import cim2model.cim.map.ipsl.branches.*;
 import cim2model.cim.map.ipsl.buses.*;
 import cim2model.cim.map.ipsl.connectors.*;
+import cim2model.cim.map.ipsl.controls.es.ESDC1AMap;
 import cim2model.cim.map.ipsl.loads.*;
 import cim2model.cim.map.ipsl.machines.*;
 import cim2model.cim.map.ipsl.transformers.*;
@@ -124,7 +124,7 @@ public class FactoryDesigner
 		/* load corresponding tag cim:Terminal */
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTerminal(key);
 		/* iterate through map attributes, for storing proper cim values */
-		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapTerminal.getMapAttribute();
+		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapTerminal.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
@@ -210,9 +210,9 @@ public class FactoryDesigner
     }
 	public String typeOfSynchronousMachine(Resource key)
 	{
-		String rotorKind= modelCIM.checkSynchronousMachineType(key);
+		String rotorType= modelCIM.checkSynchronousMachineType(key);
 		
-		return rotorKind;
+		return rotorType;
 	}
 	/**
 	 * 
@@ -225,7 +225,7 @@ public class FactoryDesigner
 	{
 		GENCLSMap mapSyncMach= genclsXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
-		Iterator<AttributeMap> imapAttList= mapSyncMach.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= mapSyncMach.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -250,7 +250,7 @@ public class FactoryDesigner
 	{
 		GENROUMap mapSyncMach= genrouXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
-		Iterator<AttributeMap> imapAttList= mapSyncMach.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= mapSyncMach.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -275,7 +275,7 @@ public class FactoryDesigner
 	{
 		GENSALMap mapSyncMach= gensalXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
-		Iterator<AttributeMap> imapAttList= mapSyncMach.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= mapSyncMach.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -300,7 +300,7 @@ public class FactoryDesigner
 	{
 		GENROEMap mapSyncMach= genroeXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
-		Iterator<AttributeMap> imapAttList= mapSyncMach.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= mapSyncMach.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -313,6 +313,53 @@ public class FactoryDesigner
 		modelCIM.clearAttributes();
 		
 		return mapSyncMach;
+	}
+	
+	public Entry<String, Resource> typeOfExcitationSystem(Resource key)
+	{
+		Entry<String, Resource> excsData= modelCIM.checkExcitationSystemType(key);
+		
+		return excsData;
+	}
+	private static ESDC1AMap esdc1aXMLToObject(String _xmlmap) {
+		JAXBContext context;
+		Unmarshaller un;
+		
+		try{
+			context = JAXBContext.newInstance(ESDC1AMap.class);
+	        un = context.createUnmarshaller();
+	        ESDC1AMap map = (ESDC1AMap) un.unmarshal(new File(_xmlmap));
+	        return map;
+        } 
+        catch (JAXBException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+	/**
+	 * 
+	 * @param key
+	 * @param _source
+	 * @param _subjectID
+	 * @return
+	 */
+	public ESDC1AMap create_ESDC1ModelicaMap(Resource _key, String _source, String _subjectName)
+	{
+		ESDC1AMap mapExcSys= esdc1aXMLToObject(_source);
+		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesExcSys(_key);
+		Iterator<AttributeMap> imapAttList= mapExcSys.getAttributeMap().iterator();
+		AttributeMap currentmapAtt;
+		while (imapAttList.hasNext()) {
+			currentmapAtt= imapAttList.next();
+			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+		}
+		String[] dynamicResource= modelCIM.retrieveComponentName(_key);
+		mapExcSys.setRfdId(dynamicResource[0]);
+		mapExcSys.setCimName(dynamicResource[1]);
+
+		modelCIM.clearAttributes();
+		
+		return mapExcSys;
 	}
 	
 	private static LoadMap loadXMLToObject(String _xmlmap) {
@@ -341,8 +388,7 @@ public class FactoryDesigner
 	{
 		LoadMap mapEnergyC= loadXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesEnergyC(key);
-		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapEnergyC.getMapAttribute();
-		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
+		Iterator<AttributeMap> imapAttList= mapEnergyC.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -377,8 +423,7 @@ public class FactoryDesigner
 	{
 		PwLineMap mapACLine= pwlineXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributes(key);
-		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapACLine.getMapAttribute();
-		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
+		Iterator<AttributeMap> imapAttList= mapACLine.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -413,7 +458,7 @@ public class FactoryDesigner
 		CIMTransformerEnd transformerEnd;
 		
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTransformer(key);
-		Iterator<AttributeMap> imapAttList= mapPowTrans.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= mapPowTrans.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) { //get the values of the attributes
 			currentmapAtt= imapAttList.next();
@@ -460,8 +505,7 @@ public class FactoryDesigner
 	{
 		PwBusMap mapTopoNode= pwbusXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTopoNode(key);
-		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapTopoNode.getMapAttribute();
-		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
+		Iterator<AttributeMap> imapAttList= mapTopoNode.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -494,8 +538,7 @@ public class FactoryDesigner
 	{
 		PwFaultMap mapFault= pwfaultXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesFault(key);
-		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapFault.getMapAttribute();
-		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
+		Iterator<AttributeMap> imapAttList= mapFault.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();

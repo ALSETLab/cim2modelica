@@ -26,9 +26,13 @@ public class Bus extends MOClass
 		pencil.append(this.name);
 		pencil.append(" ");
 		pencil.append(this.instanceName);
+		pencil.append(" ");
 		pencil.append('"');
+		pencil.append(this.comment);
+		pencil.append('"'); 
+		pencil.append(" ");
 		pencil.append(this.annotation);
-		pencil.append('"'); pencil.append(";\n");
+		pencil.append(";\n");
 		code= pencil.toString();
 		
 		code= pencil.toString();

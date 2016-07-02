@@ -17,7 +17,6 @@ import org.apache.jena.rdf.model.Resource;
 import cim2model.cim.CIMModel;
 import cim2model.cim.CIMTransformerEnd;
 import cim2model.cim.map.*;
-import cim2model.cim.map.ipsl.base.*;
 import cim2model.cim.map.ipsl.branches.*;
 import cim2model.cim.map.ipsl.buses.*;
 import cim2model.cim.map.ipsl.connectors.*;
@@ -129,7 +128,7 @@ public class ModelDesigner
 		/* load corresponding tag cim:Terminal */
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTerminal(key);
 		/* iterate through map attributes, for storing proper cim values */
-		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapTerminal.getMapAttribute();
+		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapTerminal.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
@@ -230,7 +229,7 @@ public class ModelDesigner
 	{
 		GENCLSMap mapSyncMach= genclsXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
-		Iterator<AttributeMap> imapAttList= mapSyncMach.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= mapSyncMach.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -256,7 +255,7 @@ public class ModelDesigner
 	{
 		GENROUMap mapSyncMach= genrouXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
-		Iterator<AttributeMap> imapAttList= mapSyncMach.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= mapSyncMach.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -283,7 +282,7 @@ public class ModelDesigner
 	{
 		GENSALMap mapSyncMach= gensalXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
-		Iterator<AttributeMap> imapAttList= mapSyncMach.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= mapSyncMach.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -309,7 +308,7 @@ public class ModelDesigner
 	{
 		GENROEMap mapSyncMach= genroeXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
-		Iterator<AttributeMap> imapAttList= mapSyncMach.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= mapSyncMach.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -351,7 +350,7 @@ public class ModelDesigner
 	{
 		LoadMap mapEnergyC= loadXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesEnergyC(key);
-		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapEnergyC.getMapAttribute();
+		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapEnergyC.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
@@ -388,7 +387,7 @@ public class ModelDesigner
 	{
 		PwLineMap mapACLine= pwlineXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributes(key);
-		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapACLine.getMapAttribute();
+		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapACLine.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
@@ -425,7 +424,7 @@ public class ModelDesigner
 		CIMTransformerEnd transformerEnd;
 		
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTransformer(key);
-		Iterator<AttributeMap> imapAttList= mapPowTrans.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= mapPowTrans.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) { //get the values of the attributes
 			currentmapAtt= imapAttList.next();
@@ -473,7 +472,7 @@ public class ModelDesigner
 	{
 		PwBusMap mapTopoNode= pwbusXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTopoNode(key);
-		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapTopoNode.getMapAttribute();
+		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapTopoNode.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
@@ -508,7 +507,7 @@ public class ModelDesigner
 	{
 		PwFaultMap mapFault= pwfaultXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesFault(key);
-		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapFault.getMapAttribute();
+		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapFault.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {

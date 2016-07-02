@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import cim2model.cim.*;
-import cim2model.cim.map.*;
-import cim2model.cim.map.ipsl.base.*;
 import cim2model.cim.map.ipsl.branches.*;
 import cim2model.cim.map.ipsl.buses.*;
 import cim2model.cim.map.ipsl.connectors.*;

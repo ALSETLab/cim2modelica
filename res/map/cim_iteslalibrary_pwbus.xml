@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!--Created by fragom-->
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_pwbus.dtd">
-<pwBusMap cim_name="TopologicalNode" rfd_id="" package="iPSL.Electrical.Buses" name="Bus" stereotype="class">
+<pwBusMap cim_name="TopologicalNode" rfd_id="" package="OpenIPSL.Electrical.Buses" name="Bus" stereotype="class">
   <attributeMap cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
   <attributeMap cim_name="SvVoltage.v" mo_name="V_0" datatype="Real" variability="none" visibility="public">0</attributeMap>
   <attributeMap cim_name="SvVoltage.angle" mo_name="angle_0" datatype="Real" variability="none" visibility="public">0</attributeMap>

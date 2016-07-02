@@ -1,0 +1,5 @@
+./res/network/ieee_9bus_cim16_basic.xml
+CIM_IEEE_9Bus
+
+./res/network/kundur_kth_smib.xml
+CIM_SMIB

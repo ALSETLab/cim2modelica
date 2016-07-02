@@ -32,7 +32,7 @@ import cim2model.cim.map.AttributeMap;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element ref="{}mapAttribute" maxOccurs="unbounded"/&gt;
+ *         &lt;element ref="{}attributeMap" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="_package" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
@@ -46,13 +46,13 @@ import cim2model.cim.map.AttributeMap;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "mapAttribute"
+    "attributeMap"
 })
 @XmlRootElement(name = "pwBusMap")
 public class PwBusMap {
 
     @XmlElement(required = true)
-    protected List<AttributeMap> mapAttribute;
+    protected List<AttributeMap> attributeMap;
     @XmlAttribute(name = "cim_name", required = true)
     protected String cimName;
     @XmlAttribute(name = "rfd_id", required = true)
@@ -65,18 +65,18 @@ public class PwBusMap {
     protected String stereotype;
 
     /**
-     * Gets the value of the mapAttribute property.
+     * Gets the value of the attributeMap property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the mapAttribute property.
+     * This is why there is not a <CODE>set</CODE> method for the attributeMap property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getMapAttribute().add(newItem);
+     *    getAttributeMap().add(newItem);
      * </pre>
      * 
      * 
@@ -86,16 +86,16 @@ public class PwBusMap {
      * 
      * 
      */
-    public List<AttributeMap> getMapAttribute() {
-        if (mapAttribute == null) {
-            mapAttribute = new ArrayList<AttributeMap>();
+    public List<AttributeMap> getAttributeMap() {
+        if (attributeMap == null) {
+        	attributeMap = new ArrayList<AttributeMap>();
         }
-        return this.mapAttribute;
+        return this.attributeMap;
     }
 
-    public AttributeMap getMapAttribute(String _name)
+    public AttributeMap getAttributeMap(String _name)
     {
-    	Iterator<AttributeMap> atributos= this.mapAttribute.iterator();
+    	Iterator<AttributeMap> atributos= this.attributeMap.iterator();
     	AttributeMap atributo;
     	do
     		atributo= atributos.next();
@@ -104,10 +104,10 @@ public class PwBusMap {
     	return atributo;
     }
     
-    public void updateMapAttribute(AttributeMap _old, AttributeMap _new)
+    public void updateAttributeMap(AttributeMap _old, AttributeMap _new)
     {
-    	int index= this.mapAttribute.indexOf(_old);
-    	this.mapAttribute.set(index, _new);
+    	int index= this.attributeMap.indexOf(_old);
+    	this.attributeMap.set(index, _new);
     }
     
     /**

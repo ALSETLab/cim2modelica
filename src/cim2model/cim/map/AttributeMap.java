@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlType(name = "", propOrder = {
     "content"
 })
-@XmlRootElement(name = "mapAttribute")
+@XmlRootElement(name = "attributeMap")
 public class AttributeMap {
 
     @XmlValue

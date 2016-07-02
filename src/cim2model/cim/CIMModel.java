@@ -1,7 +1,9 @@
 package cim2model.cim;
 
+import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
@@ -220,30 +222,73 @@ public class CIMModel {
 			attributeClass= iAttributes.next();
 			if ( attributeClass.getPredicate().getLocalName().equals("SynchronousMachine.SynchronousMachineDynamics"))
 			{
-				StmtIterator dynamicAtts= attributeClass.getAlt().listProperties();
-				while(!attfound && dynamicAtts.hasNext() ) 
+				StmtIterator machDynamicAtts= attributeClass.getAlt().listProperties();
+				while(!attfound && machDynamicAtts.hasNext() ) 
 				{
-					classAttribute= dynamicAtts.next();
+					classAttribute= machDynamicAtts.next();
 					if(classAttribute.getAlt().isLiteral() && 
 							classAttribute.getPredicate().getLocalName().equals("IdentifiedObject.name")){
-						System.out.println(classAttribute.getString());
 						machineType= classAttribute.getString();
 						attfound= true;
 					}
 				}
-				dynamicAtts.close();
+				machDynamicAtts.close();
 			}
 		}
 		
 		return machineType;
 	}
+	
 	/**
-	 * cim_name="SvVoltage.angle" 
-	 * cim_name="SvVoltage.v" 
-	 * cim_name="SvPowerFlow.p" 
-	 * cim_name="SvPowerFlow.q" 
-	 * cim_name="BaseVoltage.nominalVoltage"
-	 * cim_name="BasePower.basePower"
+	 * 
+	 * @param _subject
+	 * @return
+	 */
+	public Entry<String, Resource> checkExcitationSystemType(Resource _subject)
+	{
+		Statement attributeClass, machAttribute, classAttribute;
+		String excsType= "";
+		Entry<String, Resource> excsData= null;
+		
+		boolean attfound= false;
+		
+		StmtIterator iAttributes= _subject.listProperties();
+		while( !attfound && iAttributes.hasNext() ) 
+		{
+			attributeClass= iAttributes.next();
+			if ( attributeClass.getPredicate().getLocalName().equals("SynchronousMachine.SynchronousMachineDynamics"))
+			{
+				StmtIterator machDynamicAtts= attributeClass.getAlt().listProperties();
+				while(!attfound && machDynamicAtts.hasNext() ) 
+				{
+					machAttribute= machDynamicAtts.next();
+					if ( machAttribute.getPredicate().getLocalName().equals("SynchronousMachineDynamics.ExcitationSystemDynamics"))
+					{
+						StmtIterator excsDynAttribute= machAttribute.getAlt().listProperties();
+						while(!attfound && excsDynAttribute.hasNext() ) 
+						{
+							classAttribute= excsDynAttribute.next();
+							if(classAttribute.getAlt().isLiteral() && 
+									classAttribute.getPredicate().getLocalName().equals("IdentifiedObject.name")){
+								excsType= classAttribute.getString();
+								attfound= true;
+							}
+						}
+						excsData= new AbstractMap.SimpleEntry<String, Resource>(
+								excsType, machAttribute.getResource());
+						System.out.println("ExcS type> "+ excsType);
+						System.out.println("Resource> "+ machAttribute.getResource());
+						excsDynAttribute.close();
+					}
+				}
+				machDynamicAtts.close();
+			}
+		}
+		return excsData;
+	}
+	
+	/**
+	 * 
 	 * @param _subject
 	 * @return
 	 */
@@ -292,6 +337,28 @@ public class CIMModel {
 					}
 					dynamicAtts.close();
 				}
+			}
+		}
+		return this.attribute;
+	}
+	
+	/**
+	 * 
+	 * @param _subject
+	 * @return
+	 */
+	public Map<String,Object> retrieveAttributesExcSys(Resource _subject)
+	{ 
+		Statement attributeClass;
+		
+		StmtIterator iAttributes= _subject.listProperties();
+		while( iAttributes.hasNext() ) 
+		{
+			attributeClass= iAttributes.next();
+			if (attributeClass.getAlt().isLiteral())
+			{
+				this.attribute.put(attributeClass.getPredicate().getLocalName(), 
+						attributeClass.getLiteral().getValue());
 			}
 		}
 		return this.attribute;

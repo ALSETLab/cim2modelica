@@ -279,7 +279,7 @@ public class MOClass extends MOModel
 		pencil.append(this.name);
 		pencil.append(" ");
 		pencil.append(this.instanceName);
-		pencil.append("(");
+		pencil.append(" (");
 		for (MOAttribute item: this.attributes)
 		{
 			if (item.get_Visibility().equals("public"))
@@ -301,7 +301,8 @@ public class MOClass extends MOModel
 		pencil.append(") ");
 		pencil.append('"');
 		pencil.append(this.comment);
-		pencil.append('"'); pencil.append(" ");
+		pencil.append('"'); 
+		pencil.append(" ");
 		pencil.append(this.annotation);
 		pencil.append(";\n");
 		code= pencil.toString();

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
+import cim2model.modelica.ipsl.controls.es.IPSLExcitationSystem;
 import cim2model.modelica.ipsl.machines.IPSLMachine;
 
 /**
@@ -18,13 +19,13 @@ public class MOPlant extends MOModel
 	private String variability;
 	private String instanceName; 
 	private IPSLMachine machine;
-	private MOClass excitationSystem;
+	private IPSLExcitationSystem excitationSystem;
 	private MOClass turbineGovernor;
 	private MOClass stabilizer;
 	private MOConnector outpin;
 	private ArrayList<MOConnectNode> conexions;
 		
-	public MOPlant(IPSLMachine _mach, MOClass _es, MOClass _tg, MOClass _stab) 
+	public MOPlant(IPSLMachine _mach, IPSLExcitationSystem _es, MOClass _tg, MOClass _stab) 
 	{
 		super(_mach.instanceName, "model");
 		this.machine= _mach;
@@ -32,6 +33,7 @@ public class MOPlant extends MOModel
 		this.turbineGovernor= _tg;
 		this.stabilizer= _stab;
 		this.outpin= null;
+		this.conexions= new ArrayList<MOConnectNode>();
 	}
 	
 	/**
@@ -102,12 +104,12 @@ public class MOPlant extends MOModel
 	 * @return
 	 */
 	public boolean has_excitationSystem(){
-		return this.excitationSystem== null;
+		return this.excitationSystem!= null;
 	}
 	/**
 	 * @return the excitationSystem
 	 */
-	public MOClass getExcitationSystem() {
+	public IPSLExcitationSystem getExcitationSystem() {
 		return excitationSystem;
 	}
 
@@ -116,7 +118,7 @@ public class MOPlant extends MOModel
 	 * @return
 	 */
 	public boolean has_turbineGovernor(){
-		return this.turbineGovernor== null;
+		return this.turbineGovernor!= null;
 	}
 	/**
 	 * @return the turbineGovernor
@@ -130,7 +132,7 @@ public class MOPlant extends MOModel
 	 * @return
 	 */
 	public boolean has_powerStabilizer(){
-		return this.stabilizer== null;
+		return this.stabilizer!= null;
 	}
 	/**
 	 * @return the stabilizer
@@ -154,6 +156,8 @@ public class MOPlant extends MOModel
 	public void add_Connection(MOConnectNode _value){
 		this.conexions.add(_value);
 	}
+	
+	
 	public boolean exist_Connection(MOConnectNode _value){
 		boolean exists= false;
 		MOConnectNode current;
@@ -199,9 +203,46 @@ public class MOPlant extends MOModel
 		return code;
 	}
 	
+	/**
+	 * generates the code for the instances of the objects with in the plant 
+	 * object
+	 * @return
+	 */
 	public String to_ModelicaInstance(){
 		String code= "";
 		StringBuilder pencil= new StringBuilder();
+		
+		// print machine component
+		pencil.append(this.machine.to_ModelicaInstance());
+		// print excitation system component
+		if (this.has_excitationSystem()){
+			pencil.append("\t");
+			pencil.append(this.excitationSystem.to_ModelicaInstance());
+		}
+		// print turbine governor component
+		if (this.has_turbineGovernor()){}
+		// print stabilizer component
+		if (this.has_powerStabilizer()){}
+		
+		code= pencil.toString(); pencil= null;
+		
+		return code;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String to_ModelicaConnection(){
+		String code= "";
+		StringBuilder pencil= new StringBuilder();
+		
+		for (MOConnectNode conexio: this.conexions)
+		{
+			pencil.append("\t");
+			pencil.append(conexio.to_ModelicaEquation("plant"));
+		}
+		code= pencil.toString(); pencil= null;
 		
 		return code;
 	}

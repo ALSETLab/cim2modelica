@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_load.dtd">
-<loadMap cim_name="EnergyConsumer" rfd_id="" package="iPSL.Electrical.Loads.PSSE" name="Load" stereotype="class">
+<loadMap cim_name="EnergyConsumer" rfd_id="" package="OpenIPSL.Electrical.Loads.PSSE" name="Load" stereotype="class">
   <attributeMap cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
   <attributeMap cim_name="LoadResponseCharacteristic.pConstantCurrent" mo_name="S_i.re" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
   <attributeMap cim_name="LoadResponseCharacteristic.qConstantCurrent" mo_name="S_i.im" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>

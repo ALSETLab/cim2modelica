@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!--Created by fragom-->
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_pwline.dtd">
-<pwLineMap cim_name="ACLineSegment" rfd_id="" package="iPSL.Electrical.Branches" name="PwLine" stereotype="class">
+<pwLineMap cim_name="ACLineSegment" rfd_id="" package="OpenIPSL.Electrical.Branches" name="PwLine" stereotype="class">
   <attributeMap cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
   <attributeMap cim_name="ACLineSegment.r" mo_name="R" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
   <attributeMap cim_name="ACLineSegment.x" mo_name="X" datatype="Real" variability="parameter" visibility="public">0</attributeMap>

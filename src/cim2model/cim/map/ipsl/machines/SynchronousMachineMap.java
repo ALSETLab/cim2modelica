@@ -19,5 +19,5 @@ public interface SynchronousMachineMap {
 	public String getName();
 	public String getPackage();
 	public String getStereotype();
-	public List<AttributeMap> getMapAttribute();
+	public List<AttributeMap> getAttributeMap();
 }

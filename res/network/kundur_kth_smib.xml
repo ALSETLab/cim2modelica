@@ -598,7 +598,7 @@
  </cim:SynchronousMachineTimeConstantReactance>
  <cim:ExcIEEEDC1A rdf:ID="_312c5440-ec6c-11e5-ad9e-080027008896">
   <entsoe:IdentifiedObject.energyIdentCodeEic></entsoe:IdentifiedObject.energyIdentCodeEic>
-  <cim:IdentifiedObject.name>ESDC1A</cim:IdentifiedObject.name>
+  <cim:IdentifiedObject.name>ExcSysG1</cim:IdentifiedObject.name>
   <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_592c12d0-ec69-11e5-ad9e-080027008896"/>
   <cim:ExcIEEEDC1A.efd1>2.4700000286102295</cim:ExcIEEEDC1A.efd1>
   <cim:ExcIEEEDC1A.efd2>4.5</cim:ExcIEEEDC1A.efd2>

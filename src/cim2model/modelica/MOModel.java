@@ -21,7 +21,7 @@ public abstract class MOModel
 		this.stereotype= _stereotype;
 		this.pakage= "package";
 		this.comment= "something here";
-		this.annotation= "annotation()";
+		this.annotation= "annotation ()";
 		this.rfdId= "";
 	}
 	

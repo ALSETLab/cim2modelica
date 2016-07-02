@@ -173,8 +173,11 @@ public class MOConnector extends MOModel
 		pencil.deleteCharAt(pencil.lastIndexOf(","));
 		pencil.append(") ");
 		pencil.append('"');
+		pencil.append(this.comment);
+		pencil.append('"'); 
+		pencil.append(" ");
 		pencil.append(this.annotation);
-		pencil.append('"'); pencil.append(";\n");
+		pencil.append(";\n");
 		code= pencil.toString();
 		
 		return code;

@@ -7,15 +7,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import cim2model.cim.map.*;
-import cim2model.cim.map.ipsl.base.*;
 import cim2model.cim.map.ipsl.branches.*;
 import cim2model.cim.map.ipsl.buses.*;
 import cim2model.cim.map.ipsl.connectors.*;
+import cim2model.cim.map.ipsl.controls.es.ESDC1AMap;
 import cim2model.cim.map.ipsl.loads.*;
 import cim2model.cim.map.ipsl.machines.*;
 import cim2model.cim.map.ipsl.transformers.*;
 import cim2model.modelica.*;
 import cim2model.modelica.ipsl.branches.PwLine;
+import cim2model.modelica.ipsl.controls.es.IPSLExcitationSystem;
 import cim2model.modelica.ipsl.machines.IPSLMachine;
 
 public class FactoryBuilder 
@@ -102,7 +103,7 @@ public class FactoryBuilder
 	{
 		MOConnector pin= new MOConnector(_terminalMap.getName());
 		ArrayList<AttributeMap> mapAttList= 
-				(ArrayList<AttributeMap>)_terminalMap.getMapAttribute();
+				(ArrayList<AttributeMap>)_terminalMap.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		imapAttList= mapAttList.iterator();
 		AttributeMap current;
@@ -169,7 +170,7 @@ public class FactoryBuilder
 	public IPSLMachine create_MachineComponent(SynchronousMachineMap _mapSyncMach)
 	{
 		IPSLMachine syncMach= new IPSLMachine(_mapSyncMach.getName());
-		Iterator<AttributeMap> imapAttList= _mapSyncMach.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= _mapSyncMach.getAttributeMap().iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
@@ -197,11 +198,42 @@ public class FactoryBuilder
 		return syncMach;
 	}
 	
+	public IPSLExcitationSystem create_ExcSysComponent(ESDC1AMap _mapExcSys) 
+	{
+		IPSLExcitationSystem excSys= new IPSLExcitationSystem(_mapExcSys.getName());
+		Iterator<AttributeMap> imapAttList= _mapExcSys.getAttributeMap().iterator();
+		AttributeMap current;
+		while (imapAttList.hasNext()) {
+			current= imapAttList.next();
+			if (current.getCimName().equals("IdentifiedObject.name")){
+				excSys.set_InstanceName(current.getContent());
+			}
+			else{
+				MOAttribute variable= new MOAttribute();
+				variable.set_Name(current.getMoName());
+				if (current.getContent()== null)
+					variable.set_Value("0");
+				else
+					variable.set_Value(current.getContent());
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+				excSys.add_Attribute(variable);
+			}
+		}
+		excSys.set_Stereotype(_mapExcSys.getStereotype());
+		excSys.set_Package(_mapExcSys.getPackage());
+		//for internal identification only
+		excSys.set_RfdId(_mapExcSys.getRfdId());
+		
+		return excSys;
+	}
+	
 	public MOClass create_LoadComponent(LoadMap _mapEnergyC)
 	{
 		MOClass pwLoad= new MOClass(_mapEnergyC.getName());
 		MOAttributeComplex complejo= null;
-		Iterator<AttributeMap> imapAttList= ((ArrayList<AttributeMap>)_mapEnergyC.getMapAttribute()).iterator();
+		Iterator<AttributeMap> imapAttList= ((ArrayList<AttributeMap>)_mapEnergyC.getAttributeMap()).iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
@@ -256,7 +288,7 @@ public class FactoryBuilder
 	{
 		PwLine pwline= new PwLine(_mapACLine.getName());
 		ArrayList<AttributeMap> mapAttList= 
-				(ArrayList<AttributeMap>)_mapACLine.getMapAttribute();
+				(ArrayList<AttributeMap>)_mapACLine.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
@@ -290,7 +322,7 @@ public class FactoryBuilder
 		MOClass twtransformer= new MOClass(_mapPowTrans.getName());
 		AttributeMap current;
 		
-		Iterator<AttributeMap> imapAttList= _mapPowTrans.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= _mapPowTrans.getAttributeMap().iterator();
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (!current.getCimName().equals("TransformerEnd.endNumber") && 
@@ -334,7 +366,7 @@ public class FactoryBuilder
 		MOAttribute ratioTapChanger= null, powerTransEnd= null;
 		ArrayList<MOAttribute> endAttributes= new ArrayList<MOAttribute>();
 		
-		Iterator<AttributeMap> imapAttList= _mapPowTrans.getMapAttribute().iterator();
+		Iterator<AttributeMap> imapAttList= _mapPowTrans.getAttributeMap().iterator();
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("TransformerEnd.endNumber"))
@@ -344,7 +376,7 @@ public class FactoryBuilder
 				endAttributes.add(ratioTapChanger);
 			}
 			else if (current.getCimName().equals("PowerTransformerEnd.ratedU")){
-				System.out.println(current.getCimName()+ "; "+ current.getMoName());
+//				System.out.println(current.getCimName()+ "; "+ current.getMoName());
 				powerTransEnd= this.create_TransformerEndAttribute(endNumber, current);
 				endAttributes.add(powerTransEnd);
 			}
@@ -356,13 +388,12 @@ public class FactoryBuilder
 	/**
 	 * Creates one attribute for each cim PowerTransformerEnd instance
 	 * @param _endNumber - Value for Power transformer ending number
-	 * @param _currentAtt - cim:RatioTapChanger.stepVoltageIncrement = mod:(t1,t2); cim:PowerTransformerEnd.ratedU = mod:(VNOM1,VNOM2)
+	 * @param _currentAtt - cim:RatioTapChanger.stepVoltageIncrement = mod:(t1,t2); 
+	 * cim:PowerTransformerEnd.ratedU = mod:(VNOM1,VNOM2)
 	 * @return modelica attribute for each instance of cim:PowerTransformerEnd
 	 */
 	private MOAttribute create_TransformerEndAttribute(AttributeMap _endNumber, AttributeMap _currentAtt) 
-	{// creates attribute t1, t2 for the twt modelica model, _currentAtt can be:
-		// RatioTapChanger.stepVoltageIncrement
-		// PowerTransformerEnd.ratedU
+	{
 		MOAttribute variable= new MOAttribute();
 		variable.set_Name(_currentAtt.getMoName()+ _endNumber.getContent());
 		if (_currentAtt.getContent()== null)
@@ -376,11 +407,16 @@ public class FactoryBuilder
 		return variable;
 	}
 	
+	/**
+	 * Creates an OpenIPSL Bus component from the map of cim:TopologicalNode
+	 * @param _mapTopoNode - map structure with the data from the cim:TopologicalNode class
+	 * @return
+	 */
 	public MOClass create_BusComponent(PwBusMap _mapTopoNode)
 	{
 		Bus pwbus= new Bus(_mapTopoNode.getName());
 		ArrayList<AttributeMap> mapAttList= 
-				(ArrayList<AttributeMap>)_mapTopoNode.getMapAttribute();
+				(ArrayList<AttributeMap>)_mapTopoNode.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
@@ -413,7 +449,7 @@ public class FactoryBuilder
 	{
 		PwLine pwline= new PwLine(_mapFault.getName());
 		ArrayList<AttributeMap> mapAttList= 
-				(ArrayList<AttributeMap>)_mapFault.getMapAttribute();
+				(ArrayList<AttributeMap>)_mapFault.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
@@ -454,7 +490,8 @@ public class FactoryBuilder
 //		while (!exists && iComponents.hasNext()){
 //			exists= iComponents.next().get_InstanceName().equals(_component.get_InstanceName());
 //		}
-		if (!exists)
+		if (!exists){
+		}
 			this.powsys.add_Plant(_plant);
 	}
 	

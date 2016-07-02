@@ -1,16 +1,15 @@
 package cim2model;
 
-import java.util.ArrayList;
-
 import cim2model.modelica.MOClass;
 import cim2model.modelica.MOConnectNode;
 import cim2model.modelica.MOPlant;
+import cim2model.modelica.ipsl.controls.es.IPSLExcitationSystem;
 import cim2model.modelica.ipsl.machines.IPSLMachine;
 
 public class PlantBuilder 
 {
 	private IPSLMachine machine= null;
-	private MOClass excitationSystem= null;
+	private IPSLExcitationSystem excitationSystem= null;
 	private MOClass turbineGovernor= null;
 	private MOClass stabilizer= null;
 	
@@ -31,7 +30,7 @@ public class PlantBuilder
         return this;
     }
 
-    public PlantBuilder excitationSystem(MOClass _excitationSystem)
+    public PlantBuilder excitationSystem(IPSLExcitationSystem _excitationSystem)
     {
         this.excitationSystem = _excitationSystem;
         return this;
@@ -53,7 +52,21 @@ public class PlantBuilder
     {
     	MOConnectNode connect;
     	if (_planta.has_excitationSystem()){
-    		// connect es with machine
+    		connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
+    				_planta.getMachine().EFD0,
+    				_planta.getExcitationSystem().get_InstanceName(),
+    				_planta.getExcitationSystem().EFD0);
+    		_planta.add_Connection(connect);
+    		connect= new MOConnectNode(_planta.getExcitationSystem().get_InstanceName(), 
+    				_planta.getExcitationSystem().EFD,
+    				_planta.getMachine().get_InstanceName(),
+    				_planta.getMachine().EFD);
+    		_planta.add_Connection(connect);
+    		connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
+    				_planta.getMachine().PMECH0,
+    				_planta.getMachine().get_InstanceName(),
+    				_planta.getMachine().PMECH);
+    		_planta.add_Connection(connect);
     	}
     	else if (_planta.has_turbineGovernor()){
 			//connect tg with machine
@@ -63,14 +76,14 @@ public class PlantBuilder
     		//connect es with machine
     	}
     	else{
-    		connect= new MOConnectNode(_planta.getMachine().get_Name(), 
+    		connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
     				_planta.getMachine().PMECH0,
-    				_planta.getMachine().get_Name(),
+    				_planta.getMachine().get_InstanceName(),
     				_planta.getMachine().PMECH);
     		_planta.add_Connection(connect);
-    		connect= new MOConnectNode(_planta.getMachine().get_Name(), 
+    		connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
     				_planta.getMachine().EFD0,
-    				_planta.getMachine().get_Name(),
+    				_planta.getMachine().get_InstanceName(),
     				_planta.getMachine().EFD);
     		_planta.add_Connection(connect);
     	}

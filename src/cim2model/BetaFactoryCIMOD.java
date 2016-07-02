@@ -2,17 +2,18 @@ package cim2model;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import cim2model.cim.*;
-import cim2model.cim.map.*;
-import cim2model.cim.map.ipsl.base.*;
 import cim2model.cim.map.ipsl.branches.*;
 import cim2model.cim.map.ipsl.buses.*;
 import cim2model.cim.map.ipsl.connectors.*;
+import cim2model.cim.map.ipsl.controls.es.ESDC1AMap;
 import cim2model.cim.map.ipsl.loads.*;
 import cim2model.cim.map.ipsl.machines.*;
 import cim2model.cim.map.ipsl.transformers.*;
 import cim2model.modelica.*;
+import cim2model.modelica.ipsl.controls.es.IPSLExcitationSystem;
 import cim2model.modelica.ipsl.machines.IPSLMachine;
 
 import org.apache.jena.rdf.model.RDFNode;
@@ -27,6 +28,7 @@ public class BetaFactoryCIMOD
 		String _cimSource= args[0];
 		FactoryDesigner cartografo;
 		FactoryBuilder constructor;
+		String [] equipmentResource, topologyResource;
 		
 		cartografo= new FactoryDesigner(_cimSource);
 		constructor= new FactoryBuilder(args[1]);
@@ -37,7 +39,6 @@ public class BetaFactoryCIMOD
 			/* subjectResource[0] is the rfd_id, subjectResource[1] is the CIM name */
 			if (cimClassResource[1].equals("Terminal"))
 			{
-				String [] equipmentResource, topologyResource;
 				PwPinMap mapTerminal= 
 						cartografo.create_TerminalModelicaMap(key, "./res/map/cim_iteslalibrary_pwpin.xml", cimClassResource);
 				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
@@ -50,6 +51,7 @@ public class BetaFactoryCIMOD
 				if (equipmentResource[1].equals("SynchronousMachine"))
 				{
 					IPSLMachine momachine= null;
+					IPSLExcitationSystem moexcsys= null;
 					String machineType= cartografo.typeOfSynchronousMachine(
 							cartografo.get_CurrentConnectionMap().getConductingEquipment());
 					if (machineType.equals("GENCLS")) {
@@ -76,14 +78,31 @@ public class BetaFactoryCIMOD
 								"./res/map/cim_iteslalibrary_genroe.xml", equipmentResource);
 						momachine= constructor.create_MachineComponent(mapSyncMach);
 					}
-					//TODO with the object map, look and create object map for ES, TG and Stab objects
-					//TODO create plant object, name of generator instance name, with genmap, esmap, tgmap and stabmap
-					//genmap can contain ES[0..1], TG[0..1], PSS[0..1]
 					momachine.add_Terminal(mopin);
 					momachine.update_powerFlow(mopin);
-					MOPlant moplanta= new PlantBuilder().machine(momachine).buildPlant();
-					moplanta.add_Terminal(mopin);
-					constructor.add_plantNetwork(moplanta);
+					constructor.add_equipmentNetwork(momachine);
+					//TODO with the object map, look and create object map for ES, TG and Stab objects
+					MOPlant moplanta;
+					Entry<String, Resource> excsData= cartografo.typeOfExcitationSystem(
+							cartografo.get_CurrentConnectionMap().getConductingEquipment());
+					if (excsData!= null & !machineType.equals("GENCLS")){
+						ESDC1AMap mapExcSys= cartografo.create_ESDC1ModelicaMap(
+							excsData.getValue(),
+							"./res/map/cim_iteslalibrary_esdc1a.xml", excsData.getKey());
+						moexcsys= constructor.create_ExcSysComponent(mapExcSys);
+						moplanta= new PlantBuilder().machine(momachine).excitationSystem(moexcsys).buildPlant();
+						moplanta.add_Terminal(mopin);
+						constructor.add_plantNetwork(moplanta);
+					}
+					else
+						if (!machineType.equals("GENCLS")){
+							moplanta= new PlantBuilder().machine(momachine).buildPlant();
+							moplanta.add_Terminal(mopin);
+							constructor.add_plantNetwork(moplanta);
+						}
+							
+					//TODO create plant object, name of generator instance name, with genmap, esmap, tgmap and stabmap
+					//genmap can contain ES[0..1], TG[0..1], PSS[0..1]
 				}
 				/* According to CIM Composer, EnergyConsumer has one terminal */
 				if (equipmentResource[1].equals("EnergyConsumer"))
