@@ -21,6 +21,9 @@ public class PlantBuilder
     {
 		MOPlant newPlant= new MOPlant(machine, excitationSystem, turbineGovernor, stabilizer);
 		this.connect_plant(newPlant);
+		//TODO check input connections (boolean variables) for each regulator equipment
+		//TODO create Modelica.Blocks.Sources.Constant const(k=0) for VOTHSG, VOEL and the rest
+		//TODO create Modelica.Blocks.Sources.Constant const1(k=-Modelica.Constants.inf) for VUEL
 		return newPlant;
     }
 
@@ -57,6 +60,13 @@ public class PlantBuilder
     				_planta.getExcitationSystem().get_InstanceName(),
     				_planta.getExcitationSystem().EFD0);
     		_planta.add_Connection(connect);
+    		_planta.getExcitationSystem().setConnected("EFD0");
+    		connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
+    				_planta.getMachine().ETERM,
+    				_planta.getExcitationSystem().get_InstanceName(),
+    				_planta.getExcitationSystem().ECOMP);
+    		_planta.add_Connection(connect);
+    		_planta.getExcitationSystem().setConnected("ECOMP");
     		connect= new MOConnectNode(_planta.getExcitationSystem().get_InstanceName(), 
     				_planta.getExcitationSystem().EFD,
     				_planta.getMachine().get_InstanceName(),

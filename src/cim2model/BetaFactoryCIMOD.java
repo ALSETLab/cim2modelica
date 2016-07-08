@@ -80,7 +80,6 @@ public class BetaFactoryCIMOD
 					}
 					momachine.add_Terminal(mopin);
 					momachine.update_powerFlow(mopin);
-					constructor.add_equipmentNetwork(momachine);
 					//TODO with the object map, look and create object map for ES, TG and Stab objects
 					MOPlant moplanta;
 					Entry<String, Resource> excsData= cartografo.typeOfExcitationSystem(
@@ -100,6 +99,8 @@ public class BetaFactoryCIMOD
 							moplanta.add_Terminal(mopin);
 							constructor.add_plantNetwork(moplanta);
 						}
+						else
+							constructor.add_equipmentNetwork(momachine);
 							
 					//TODO create plant object, name of generator instance name, with genmap, esmap, tgmap and stabmap
 					//genmap can contain ES[0..1], TG[0..1], PSS[0..1]
