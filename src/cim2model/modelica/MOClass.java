@@ -168,6 +168,25 @@ public class MOClass extends MOModel
 	public void add_Equation(MOEquation equation){
 		this.equations.add(equation);
 	}
+	
+	/**
+	 * 
+	 * @param _pin
+	 */
+	private void update_pin_current(MOConnector _pin)
+	{
+		double v, angle, p, q, ir, ii;
+		
+		v= Double.parseDouble((String)_pin.get_Attribute("vr").get_Value());
+		angle= Double.parseDouble((String)_pin.get_Attribute("vi").get_Value());
+		p= Double.parseDouble((String)_pin.get_Attribute("ir").get_Value());
+		q= Double.parseDouble((String)_pin.get_Attribute("ii").get_Value());
+		
+		ir= p/(v*Math.cos(angle));
+		ii= q/(v*Math.sin(angle));
+		_pin.get_Attribute("ir").set_Value(ir);
+		_pin.get_Attribute("ii").set_Value(ii);
+	}
 	/**
 	 * For some devices, there are power flow values that are mapped by Sv classes, and these classes are available either by 
 	 * Terminal or TopologicalNode Class. The Modelica class of these devices need this Sv values as parameter. 
@@ -189,7 +208,12 @@ public class MOClass extends MOModel
 				currentAtt.set_Value((String)_pin.get_Attribute("vr").get_Value());
 			if (currentAtt.get_Name().equals("angle_0"))
 				currentAtt.set_Value((String)_pin.get_Attribute("vi").get_Value());
+			if (currentAtt.get_Name().equals("P_0"))
+				currentAtt.set_Value((String)_pin.get_Attribute("ir").get_Value());
+			if (currentAtt.get_Name().equals("Q_0"))
+				currentAtt.set_Value((String)_pin.get_Attribute("ii").get_Value());
 		}
+		update_pin_current(_pin);
 	}
 	
 	/**

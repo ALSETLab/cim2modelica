@@ -195,8 +195,6 @@
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b09e40-8a32-11e5-b5f4-080027008896"/>
   <cim:RegulatingCondEq.controlEnabled>false</cim:RegulatingCondEq.controlEnabled>
   <cim:RegulatingCondEq.RegulatingControl rdf:resource="#_90b2e830-8a32-11e5-b5f4-080027008896"/>
-  <cim:RotatingMachine.p>177.21009826660156</cim:RotatingMachine.p>
-  <cim:RotatingMachine.q>12.977800369262695</cim:RotatingMachine.q>
   <cim:RotatingMachine.ratedS>320</cim:RotatingMachine.ratedS>
   <cim:RotatingMachine.ratedU>18</cim:RotatingMachine.ratedU>
   <cim:RotatingMachine.GeneratingUnit rdf:resource="#_90b2c122-8a32-11e5-b5f4-080027008896"/>
@@ -752,8 +750,6 @@
   <cim:IdentifiedObject.name>Gn1</cim:IdentifiedObject.name>
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b02912-8a32-11e5-b5f4-080027008896"/>
   <cim:RegulatingCondEq.RegulatingControl rdf:resource="#_90b29a12-8a32-11e5-b5f4-080027008896"/>
-  <cim:RotatingMachine.p>58.78450012207031</cim:RotatingMachine.p>
-  <cim:RotatingMachine.q>27.511499404907227</cim:RotatingMachine.q>
   <cim:RotatingMachine.ratedS>275</cim:RotatingMachine.ratedS>
   <cim:RotatingMachine.ratedU>16.5</cim:RotatingMachine.ratedU>
   <cim:RotatingMachine.GeneratingUnit rdf:resource="#_90b27303-8a32-11e5-b5f4-080027008896"/>
@@ -953,8 +949,6 @@
   <cim:IdentifiedObject.name>Gn3</cim:IdentifiedObject.name>
   <cim:Equipment.EquipmentContainer rdf:resource="#_90b0c553-8a32-11e5-b5f4-080027008896"/>
   <cim:RegulatingCondEq.RegulatingControl rdf:resource="#_90b30f44-8a32-11e5-b5f4-080027008896"/>
-  <cim:RotatingMachine.p>89.55909729003906</cim:RotatingMachine.p>
-  <cim:RotatingMachine.q>-12.135199546813965</cim:RotatingMachine.q>
   <cim:RotatingMachine.ratedS>300</cim:RotatingMachine.ratedS>
   <cim:RotatingMachine.ratedU>13</cim:RotatingMachine.ratedU>
   <cim:RotatingMachine.GeneratingUnit rdf:resource="#_90b30f40-8a32-11e5-b5f4-080027008896"/>

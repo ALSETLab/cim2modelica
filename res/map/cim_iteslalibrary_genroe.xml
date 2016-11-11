@@ -7,8 +7,8 @@
   <attributeMap cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">GENROE</attributeMap>
   <attributeMap cim_name="SvVoltage.v" mo_name="V_0" datatype="Real" variability="parameter" visibility="public"></attributeMap>
   <attributeMap cim_name="SvVoltage.angle" mo_name="angle_0" datatype="Real" variability="parameter" visibility="public"></attributeMap>
-  <attributeMap cim_name="RotatingMachine.p" mo_name="P_0" datatype="Real" variability="parameter" visibility="public"></attributeMap>
-  <attributeMap cim_name="RotatingMachine.q" mo_name="Q_0" datatype="Real" variability="parameter" visibility="public"></attributeMap>
+  <attributeMap cim_name="SvPowerFlow.p" mo_name="P_0" datatype="Real" variability="parameter" visibility="public"></attributeMap>
+  <attributeMap cim_name="SvPowerFlow.q" mo_name="Q_0" datatype="Real" variability="parameter" visibility="public"></attributeMap>
   <attributeMap cim_name="RotatingMachineDynamics.statorResistance" mo_name="R_a" datatype="Real" variability="parameter" visibility="public"></attributeMap>
   <attributeMap cim_name="RotatingMachineDynamics.statorLeakageReactance" mo_name="Xl" datatype="Real" variability="parameter" visibility="public"></attributeMap>
   <attributeMap cim_name="RotatingMachineDynamics.inertia" mo_name="H" datatype="Real" variability="parameter" visibility="public"></attributeMap>
