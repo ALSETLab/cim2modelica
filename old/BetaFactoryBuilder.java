@@ -19,13 +19,13 @@ import cim2model.modelica.ipsl.branches.PwLine;
 import cim2model.modelica.ipsl.controls.es.IPSLExcitationSystem;
 import cim2model.modelica.ipsl.machines.IPSLMachine;
 
-public class FactoryBuilder 
+public class GammaFactoryBuilder 
 {
 	private MONetwork powsys;
 	private MOClass _currentEquipment, _currentNode;
 	private String _currentIDEquipment, _currentIDNode;
 	
-	public FactoryBuilder(String _network)
+	public GammaFactoryBuilder(String _network)
 	{
 		powsys= new MONetwork(_network);
 		this._currentEquipment= null;

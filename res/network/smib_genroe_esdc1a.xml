@@ -577,7 +577,7 @@
  <cim:SynchronousMachineTimeConstantReactance rdf:ID="_592c12d0-ec69-11e5-ad9e-080027008896">
   <cim:IdentifiedObject.name>GENROE</cim:IdentifiedObject.name>
   <cim:RotatingMachineDynamics.damping>0</cim:RotatingMachineDynamics.damping>
-  <cim:RotatingMachineDynamics.inertia>4</cim:RotatingMachineDynamics.inertia>
+  <cim:RotatingMachineDynamics.inertia>4.28</cim:RotatingMachineDynamics.inertia>
   <cim:RotatingMachineDynamics.saturationFactor>0.10000000149011612</cim:RotatingMachineDynamics.saturationFactor>
   <cim:RotatingMachineDynamics.saturationFactor120>0.5</cim:RotatingMachineDynamics.saturationFactor120>
   <cim:RotatingMachineDynamics.statorLeakageReactance>0.11999999731779099</cim:RotatingMachineDynamics.statorLeakageReactance>

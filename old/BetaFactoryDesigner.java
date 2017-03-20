@@ -32,14 +32,14 @@ import cim2model.io.CIMReaderJENA;
  * @author fran_jo
  *
  */
-public class FactoryDesigner 
+public class GammaFactoryDesigner 
 {
 	ArrayList<ConnectionMap> connections;
 	Map<Resource, RDFNode> components;
 	CIMReaderJENA cimReader;
 	CIMModel modelCIM;
 	
-	public FactoryDesigner(String _cimSource)
+	public GammaFactoryDesigner(String _cimSource)
 	{
 		cimReader= new CIMReaderJENA(_cimSource);
 	}

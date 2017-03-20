@@ -26,12 +26,12 @@ public class BetaFactoryCIMOD
 		Map<Resource, RDFNode> components;
 		String [] cimClassResource;
 		String _cimSource= args[0];
-		FactoryDesigner cartografo;
-		FactoryBuilder constructor;
+		GammaFactoryDesigner cartografo;
+		GammaFactoryBuilder constructor;
 		String [] equipmentResource, topologyResource;
 		
-		cartografo= new FactoryDesigner(_cimSource);
-		constructor= new FactoryBuilder(args[1]);
+		cartografo= new GammaFactoryDesigner(_cimSource);
+		constructor= new GammaFactoryBuilder(args[1]);
 		components= cartografo.load_CIMModel();
 		for (Resource key : components.keySet())
 		{	

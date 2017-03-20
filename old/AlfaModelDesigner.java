@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.HashMap;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -20,11 +20,10 @@ import cim2model.cim.map.*;
 import cim2model.cim.map.ipsl.branches.*;
 import cim2model.cim.map.ipsl.buses.*;
 import cim2model.cim.map.ipsl.connectors.*;
-import cim2model.cim.map.ipsl.controls.es.ESDC1AMap;
 import cim2model.cim.map.ipsl.loads.*;
 import cim2model.cim.map.ipsl.machines.*;
 import cim2model.cim.map.ipsl.transformers.*;
-import cim2model.io.ReaderCIM;
+import cim2model.io.CIMReaderJENA;
 
 /**
  * Read mapping files and create appropriate objects ComponentMap, Get corresponding values from CIM model 
@@ -35,42 +34,24 @@ import cim2model.io.ReaderCIM;
 public class ModelDesigner 
 {
 	ArrayList<ConnectionMap> connections;
+//	ArrayList<CIMTerminal> connections;
+	Map<Object, String> equipment;
 	Map<Resource, RDFNode> components;
-	ReaderCIM reader_EQ_profile;
-	ReaderCIM reader_TP_profile;
-	ReaderCIM reader_SV_profile;
-	CIMModel profile_EQ;
-	CIMModel profile_TP;
-	CIMModel profile_SV;
+	CIMReaderJENA cimReader;
+	CIMModel modelCIM;
 	
-	public ModelDesigner(String _source_EQ_profile, String _source_TP_profile, String _source_SV_profile)
+	public ModelDesigner(String _cimSource)
 	{
-		reader_EQ_profile= new ReaderCIM(_source_EQ_profile);
-		reader_TP_profile= new ReaderCIM(_source_TP_profile);
-		reader_SV_profile= new ReaderCIM(_source_SV_profile);
+		cimReader= new CIMReaderJENA(_cimSource);
+	}
+	
+	public Map<Resource, RDFNode> load_CIMModel()
+	{
+		modelCIM = new CIMModel(cimReader.readModel());
+		components = modelCIM.gatherComponents();
 		this.connections= new ArrayList<ConnectionMap>();
-	}
-	
-	public Map<Resource, RDFNode> load_EQ_profile(String _xmlns_cim)
-	{
-		profile_EQ = new CIMModel(reader_EQ_profile.read_profile(_xmlns_cim));
-		components = profile_EQ.gatherComponents();
-		
-		return components;
-	}
-	
-	public Map<Resource, RDFNode> load_TP_profile(String _xmlns_cim)
-	{
-		profile_TP = new CIMModel(reader_TP_profile.read_profile(_xmlns_cim));
-		components = profile_TP.gatherComponents();
-		
-		return components;
-	}
-	
-	public Map<Resource, RDFNode> load_SV_profile(String _xmlns_cim)
-	{
-		profile_SV = new CIMModel(reader_SV_profile.read_profile(_xmlns_cim));
-		components = profile_SV.gatherComponents();
+//		this.connections= new ArrayList<CIMTerminal>();
+		this.equipment= new HashMap<Object, String>();
 		
 		return components;
 	}
@@ -100,6 +81,11 @@ public class ModelDesigner
 	public ArrayList<ConnectionMap> get_ConnectionMap(){
 		return this.connections;
 	}
+
+	
+	public Map<Object, String> get_EquipmentMap(){
+		return this.equipment;
+	}
 	
 	private static PwPinMap pwpinXMLToObject(String _xmlmap) {
 		JAXBContext context;
@@ -126,10 +112,6 @@ public class ModelDesigner
 				_pinComponents.get("TopologicalNode").toString().split("#")[1]);
 		nuevaConnection.setConductingEquipment(_pinComponents.get("ConductingEquipment"));
 		nuevaConnection.setTopologicalNode(_pinComponents.get("TopologicalNode"));
-		
-//		this.connections.add(new ConnectionMap(,
-//				_cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1],
-//				_cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]));
 		
 		this.connections.add(nuevaConnection);
 	}
@@ -232,9 +214,9 @@ public class ModelDesigner
     }
 	public String typeOfSynchronousMachine(Resource key)
 	{
-		String rotorType= modelCIM.checkSynchronousMachineType(key);
+		String rotorKind= modelCIM.checkSynchronousMachineType(key);
 		
-		return rotorType;
+		return rotorKind;
 	}
 	/**
 	 * 
@@ -256,6 +238,7 @@ public class ModelDesigner
 		mapSyncMach.setName("GENCLS");
 		mapSyncMach.setRfdId(_subjectID[0]);
 		mapSyncMach.setCimName(_subjectID[1]);
+		this.equipment.put(mapSyncMach, mapSyncMach.getClass().getName());
 
 		modelCIM.clearAttributes();
 		
@@ -278,9 +261,11 @@ public class ModelDesigner
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
+		//TODO: Include reference to ES[0..1], TG[0..1] and Stab[0..1]
 		mapSyncMach.setName("GENROU");
 		mapSyncMach.setRfdId(_subjectID[0]);
 		mapSyncMach.setCimName(_subjectID[1]);
+		this.equipment.put(mapSyncMach, mapSyncMach.getClass().getName());
 
 		modelCIM.clearAttributes();
 		
@@ -306,6 +291,7 @@ public class ModelDesigner
 		mapSyncMach.setName("GENSAL");
 		mapSyncMach.setRfdId(_subjectID[0]);
 		mapSyncMach.setCimName(_subjectID[1]);
+		this.equipment.put(mapSyncMach, mapSyncMach.getClass().getName());
 
 		modelCIM.clearAttributes();
 		
@@ -331,57 +317,11 @@ public class ModelDesigner
 		mapSyncMach.setName("GENROE");
 		mapSyncMach.setRfdId(_subjectID[0]);
 		mapSyncMach.setCimName(_subjectID[1]);
+		this.equipment.put(mapSyncMach, mapSyncMach.getClass().getName());
 
 		modelCIM.clearAttributes();
 		
 		return mapSyncMach;
-	}
-	
-	public Entry<String, Resource> typeOfExcitationSystem(Resource key)
-	{
-		Entry<String, Resource> excsData= modelCIM.checkExcitationSystemType(key);
-		
-		return excsData;
-	}
-	private static ESDC1AMap esdc1aXMLToObject(String _xmlmap) {
-		JAXBContext context;
-		Unmarshaller un;
-		
-		try{
-			context = JAXBContext.newInstance(ESDC1AMap.class);
-	        un = context.createUnmarshaller();
-	        ESDC1AMap map = (ESDC1AMap) un.unmarshal(new File(_xmlmap));
-	        return map;
-        } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-	/**
-	 * 
-	 * @param key
-	 * @param _source
-	 * @param _subjectID
-	 * @return
-	 */
-	public ESDC1AMap create_ESDC1ModelicaMap(Resource _key, String _source, String _subjectName)
-	{
-		ESDC1AMap mapExcSys= esdc1aXMLToObject(_source);
-		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesExcSys(_key);
-		Iterator<AttributeMap> imapAttList= mapExcSys.getAttributeMap().iterator();
-		AttributeMap currentmapAtt;
-		while (imapAttList.hasNext()) {
-			currentmapAtt= imapAttList.next();
-			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
-		}
-		String[] dynamicResource= modelCIM.retrieveComponentName(_key);
-		mapExcSys.setRfdId(dynamicResource[0]);
-		mapExcSys.setCimName(dynamicResource[1]);
-
-		modelCIM.clearAttributes();
-		
-		return mapExcSys;
 	}
 	
 	private static LoadMap loadXMLToObject(String _xmlmap) {
@@ -410,7 +350,8 @@ public class ModelDesigner
 	{
 		LoadMap mapEnergyC= loadXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesEnergyC(key);
-		Iterator<AttributeMap> imapAttList= mapEnergyC.getAttributeMap().iterator();
+		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapEnergyC.getAttributeMap();
+		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -420,6 +361,7 @@ public class ModelDesigner
 		// add cim id, used as reference from terminal and connections to other components 
 		mapEnergyC.setRfdId(_subjectID[0]);
 		mapEnergyC.setCimName(_subjectID[1]);
+		this.equipment.put(mapEnergyC, mapEnergyC.getClass().getName());
 
 		modelCIM.clearAttributes();
 		
@@ -445,7 +387,8 @@ public class ModelDesigner
 	{
 		PwLineMap mapACLine= pwlineXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributes(key);
-		Iterator<AttributeMap> imapAttList= mapACLine.getAttributeMap().iterator();
+		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapACLine.getAttributeMap();
+		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -453,6 +396,7 @@ public class ModelDesigner
 		}
 		mapACLine.setRfdId(_subjectID[0]);
 		mapACLine.setCimName(_subjectID[1]);
+		this.equipment.put(mapACLine, mapACLine.getClass().getName());
 
 		modelCIM.clearAttributes();
 		
@@ -494,6 +438,7 @@ public class ModelDesigner
 		// add cim id, used as reference from terminal and connections to other components 
 		mapPowTrans.setRfdId(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
 		mapPowTrans.setCimName(_subjectID[1]);
+		this.equipment.put(mapPowTrans, mapPowTrans.getClass().getName());
 		
 		transformerEnd= new CIMTransformerEnd(mapPowTrans, 
 				(Resource)cimClassMap.get("PowerTransformerEnd.PowerTransformer"),
@@ -527,7 +472,8 @@ public class ModelDesigner
 	{
 		PwBusMap mapTopoNode= pwbusXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesTopoNode(key);
-		Iterator<AttributeMap> imapAttList= mapTopoNode.getAttributeMap().iterator();
+		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapTopoNode.getAttributeMap();
+		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -535,6 +481,7 @@ public class ModelDesigner
 		}
 		mapTopoNode.setRfdId(_subjectID[0]);
 		mapTopoNode.setCimName(_subjectID[1]);
+		this.equipment.put(mapTopoNode, mapTopoNode.getClass().getName());
 
 		modelCIM.clearAttributes();
 		
@@ -560,7 +507,8 @@ public class ModelDesigner
 	{
 		PwFaultMap mapFault= pwfaultXMLToObject(_source);
 		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesFault(key);
-		Iterator<AttributeMap> imapAttList= mapFault.getAttributeMap().iterator();
+		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapFault.getAttributeMap();
+		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
@@ -570,6 +518,7 @@ public class ModelDesigner
 		}
 		mapFault.setRfdId(_subjectID[0]);
 		mapFault.setCimName(_subjectID[1]);
+		this.equipment.put(mapFault, mapFault.getClass().getName());
 
 		// create the connection here
 //		this.connections.add(new ConnectionMap(mapTerminal.getRfdId(),
@@ -580,4 +529,12 @@ public class ModelDesigner
 		
 		return mapFault;
 	}
+	
+	/* extends QuiescentModelWithInheritance(gamma=0.3, delta=0.01); 
+	 * will focus on create the high level model from cim, with
+	 * component instances
+	 * connect equations
+	 * loading the components from the library, that means that the first step of the conversion
+	 * will use the components of the library
+	 */
 }

@@ -10,14 +10,13 @@ import cim2model.cim.map.*;
 import cim2model.cim.map.ipsl.branches.*;
 import cim2model.cim.map.ipsl.buses.*;
 import cim2model.cim.map.ipsl.connectors.*;
-import cim2model.cim.map.ipsl.controls.es.ESDC1AMap;
 import cim2model.cim.map.ipsl.loads.*;
 import cim2model.cim.map.ipsl.machines.*;
 import cim2model.cim.map.ipsl.transformers.*;
 import cim2model.modelica.*;
 import cim2model.modelica.ipsl.branches.PwLine;
-import cim2model.modelica.ipsl.controls.es.IPSLExcitationSystem;
-import cim2model.modelica.ipsl.machines.IPSLMachine;
+import cim2model.modelica.ipsl.machines.GENROU;
+import cim2model.modelica.ipsl.machines.GENSAL;
 
 public class ModelBuilder 
 {
@@ -134,7 +133,7 @@ public class ModelBuilder
 	 * 
 	 * @param _component
 	 */
-	public void add_equipmentNetwork(MOClass _component)
+	public void add_deviceNetwork(MOClass _component)
 	{
 		Iterator<MOClass> iComponents= this.powsys.get_Equipment().iterator();
 		boolean exists= false;
@@ -144,7 +143,6 @@ public class ModelBuilder
 		if (!exists)
 			this.powsys.add_Component(_component);
 	}
-
 	/**
 	 * 
 	 * @param _rfdId
@@ -167,9 +165,9 @@ public class ModelBuilder
 			return null;
 	}
 	
-	public IPSLMachine create_MachineComponent(SynchronousMachineMap _mapSyncMach)
+	public MOClass create_GENCLSComponent(GENCLSMap _mapSyncMach)
 	{
-		IPSLMachine syncMach= new IPSLMachine(_mapSyncMach.getName());
+		MOClass syncMach= new GENSAL(_mapSyncMach.getName());
 		Iterator<AttributeMap> imapAttList= _mapSyncMach.getAttributeMap().iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
@@ -197,18 +195,17 @@ public class ModelBuilder
 		
 		return syncMach;
 	}
-	
-	public IPSLExcitationSystem create_ExcSysComponent(ESDC1AMap _mapExcSys) 
+	public MOClass create_GENROUComponent(GENROUMap _mapSyncMach)
 	{
-		IPSLExcitationSystem excSys= new IPSLExcitationSystem(_mapExcSys.getName());
-		Iterator<AttributeMap> imapAttList= _mapExcSys.getAttributeMap().iterator();
+		MOClass syncMach= new GENROU(_mapSyncMach.getName());
+		Iterator<AttributeMap> imapAttList= _mapSyncMach.getAttributeMap().iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
-				excSys.set_InstanceName(current.getContent());
+				syncMach.set_InstanceName(current.getContent());
 			}
-			else{
+			else{ 
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getMoName());
 				if (current.getContent()== null)
@@ -218,15 +215,75 @@ public class ModelBuilder
 				variable.set_Variability(current.getVariability());
 				variable.set_Visibility(current.getVisibility());
 				variable.set_Flow(Boolean.valueOf(current.getFlow()));
-				excSys.add_Attribute(variable);
+				syncMach.add_Attribute(variable);
 			}
 		}
-		excSys.set_Stereotype(_mapExcSys.getStereotype());
-		excSys.set_Package(_mapExcSys.getPackage());
+		syncMach.set_Stereotype(_mapSyncMach.getStereotype());
+		syncMach.set_Package(_mapSyncMach.getPackage());
 		//for internal identification only
-		excSys.set_RfdId(_mapExcSys.getRfdId());
+		syncMach.set_RfdId(_mapSyncMach.getRfdId());
 		
-		return excSys;
+		return syncMach;
+	}
+	public MOClass create_GENSALComponent(GENSALMap _mapSyncMach)
+	{
+		MOClass syncMach= new GENSAL(_mapSyncMach.getName());
+		Iterator<AttributeMap> imapAttList= _mapSyncMach.getAttributeMap().iterator();
+		AttributeMap current;
+		while (imapAttList.hasNext()) {
+			current= imapAttList.next();
+			if (current.getCimName().equals("IdentifiedObject.name")){
+				syncMach.set_InstanceName(current.getContent());
+			}
+			else{ 
+				MOAttribute variable= new MOAttribute();
+				variable.set_Name(current.getMoName());
+				if (current.getContent()== null)
+					variable.set_Value("0");
+				else
+					variable.set_Value(current.getContent());
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+				syncMach.add_Attribute(variable);
+			}
+		}
+		syncMach.set_Stereotype(_mapSyncMach.getStereotype());
+		syncMach.set_Package(_mapSyncMach.getPackage());
+		//for internal identification only
+		syncMach.set_RfdId(_mapSyncMach.getRfdId());
+		
+		return syncMach;
+	}
+	public MOClass create_GENROEComponent(GENROEMap _mapSyncMach)
+	{
+		MOClass syncMach= new GENSAL(_mapSyncMach.getName());
+		Iterator<AttributeMap> imapAttList= _mapSyncMach.getAttributeMap().iterator();
+		AttributeMap current;
+		while (imapAttList.hasNext()) {
+			current= imapAttList.next();
+			if (current.getCimName().equals("IdentifiedObject.name")){
+				syncMach.set_InstanceName(current.getContent());
+			}
+			else{ 
+				MOAttribute variable= new MOAttribute();
+				variable.set_Name(current.getMoName());
+				if (current.getContent()== null)
+					variable.set_Value("0");
+				else
+					variable.set_Value(current.getContent());
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+				syncMach.add_Attribute(variable);
+			}
+		}
+		syncMach.set_Stereotype(_mapSyncMach.getStereotype());
+		syncMach.set_Package(_mapSyncMach.getPackage());
+		//for internal identification only
+		syncMach.set_RfdId(_mapSyncMach.getRfdId());
+		
+		return syncMach;
 	}
 	
 	public MOClass create_LoadComponent(LoadMap _mapEnergyC)
@@ -376,7 +433,7 @@ public class ModelBuilder
 				endAttributes.add(ratioTapChanger);
 			}
 			else if (current.getCimName().equals("PowerTransformerEnd.ratedU")){
-//				System.out.println(current.getCimName()+ "; "+ current.getMoName());
+				System.out.println(current.getCimName()+ "; "+ current.getMoName());
 				powerTransEnd= this.create_TransformerEndAttribute(endNumber, current);
 				endAttributes.add(powerTransEnd);
 			}
@@ -388,12 +445,13 @@ public class ModelBuilder
 	/**
 	 * Creates one attribute for each cim PowerTransformerEnd instance
 	 * @param _endNumber - Value for Power transformer ending number
-	 * @param _currentAtt - cim:RatioTapChanger.stepVoltageIncrement = mod:(t1,t2); 
-	 * cim:PowerTransformerEnd.ratedU = mod:(VNOM1,VNOM2)
+	 * @param _currentAtt - cim:RatioTapChanger.stepVoltageIncrement = mod:(t1,t2); cim:PowerTransformerEnd.ratedU = mod:(VNOM1,VNOM2)
 	 * @return modelica attribute for each instance of cim:PowerTransformerEnd
 	 */
 	private MOAttribute create_TransformerEndAttribute(AttributeMap _endNumber, AttributeMap _currentAtt) 
-	{
+	{// creates attribute t1, t2 for the twt modelica model, _currentAtt can be:
+		// RatioTapChanger.stepVoltageIncrement
+		// PowerTransformerEnd.ratedU
 		MOAttribute variable= new MOAttribute();
 		variable.set_Name(_currentAtt.getMoName()+ _endNumber.getContent());
 		if (_currentAtt.getContent()== null)
@@ -407,11 +465,6 @@ public class ModelBuilder
 		return variable;
 	}
 	
-	/**
-	 * Creates an OpenIPSL Bus component from the map of cim:TopologicalNode
-	 * @param _mapTopoNode - map structure with the data from the cim:TopologicalNode class
-	 * @return
-	 */
 	public MOClass create_BusComponent(PwBusMap _mapTopoNode)
 	{
 		Bus pwbus= new Bus(_mapTopoNode.getName());
@@ -477,24 +530,6 @@ public class ModelBuilder
 		
 		return pwline;
 	}
-	
-	
-	/**
-	 * 
-	 * @param _component
-	 */
-	public void add_plantNetwork(MOPlant _plant)
-	{
-//		Iterator<MOPlant> iComponents= this.powsys.get_Equipment().iterator();
-		boolean exists= false;
-//		while (!exists && iComponents.hasNext()){
-//			exists= iComponents.next().get_InstanceName().equals(_component.get_InstanceName());
-//		}
-		if (!exists){
-		}
-			this.powsys.add_Plant(_plant);
-	}
-	
 	
 	/**
 	 * Sets the connection between all the components in the network model. 

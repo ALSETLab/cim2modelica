@@ -4,7 +4,6 @@ import java.io.InputStream;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.StmtIterator;
@@ -26,11 +25,11 @@ public class CIMReaderJENA {
 	 * @param path
 	 * @param file
 	 */
-	public CIMReaderJENA(String _file)
+	public CIMReaderJENA(String _source_CIM_profile)
 	{
 		//open CIM/XML file
 		model = ModelFactory.createDefaultModel();
-		File xmlFile = new File(_file);
+		File xmlFile = new File(_source_CIM_profile);
 		System.out.println(xmlFile.getAbsolutePath());
 		try
 		{
@@ -49,9 +48,7 @@ public class CIMReaderJENA {
 	 */
 	public Model readModel()
 	{
-		// read the RDF/XML file
-//		model.read(in, "RDF/XML");
-		model.read(in, "http://iec.ch/TC57/2012/CIM-schema-cim16#");
+		model.read(in, "http://iec.ch/TC57/2009/CIM-schema-cim14#");
 		
 		return model;
 	}
