@@ -4,7 +4,9 @@
 		  rfd_id CDATA #REQUIRED
           name CDATA #REQUIRED
           package CDATA #REQUIRED
-          stereotype CDATA #REQUIRED>
+          stereotype CDATA #REQUIRED
+          ConductingEquipment CDATA #REQUIRED
+          TopologicalNode CDATA #REQUIRED>
 <!ELEMENT attributeMap (#PCDATA)>
 <!ATTLIST attributeMap
           cim_name CDATA #REQUIRED

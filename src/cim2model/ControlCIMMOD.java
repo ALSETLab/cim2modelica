@@ -35,21 +35,21 @@ public class ControlCIMMOD
 		String [] equipmentResource, topologyResource;
 		
 		cartografo= new ModelDesigner(_source_EQ_profile, _source_TP_profile, _source_SV_profile);
-		constructor= new ModelBuilder(args[4]);
-		// load the CIM model from three files, EQ, TP, SV
+		constructor= new ModelBuilder(args[3]);
 		String xmlns_cim= "http://iec.ch/TC57/2009/CIM-schema-cim14#";
 		profile_EQ= cartografo.load_EQ_profile(xmlns_cim);
 		profile_TP= cartografo.load_TP_profile(xmlns_cim);
 		profile_SV= cartografo.load_SV_profile(xmlns_cim);
 		// verify 
-//		for (Resource key : components.keySet())
-//		{	
-//			cimClassResource= cartografo.get_CIMComponentName(key);
+		for (Resource key : profile_EQ.keySet())
+		{	
+			cimClassResource= cartografo.get_CIMComponentName(key);
 //			/* subjectResource[0] is the rfd_id, subjectResource[1] is the CIM name */
-//			if (cimClassResource[1].equals("Terminal"))
-//			{
-//				PwPinMap mapTerminal= 
-//						cartografo.create_TerminalModelicaMap(key, "./res/map/cim_iteslalibrary_pwpin.xml", cimClassResource);
+			if (cimClassResource[1].equals("Terminal"))
+			{
+				System.out.println(cimClassResource[0]+ " is the rfd_id; "+ cimClassResource[1]+ " is the CIM name");
+				PwPinMap mapTerminal= 
+						cartografo.create_TerminalModelicaMap(key, "./res/map/cim_iteslalibrary_pwpin.xml", cimClassResource);
 //				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
 //				/* after loading terminal, load the resource connected to it, aka, ConductingEquipment */
 //				equipmentResource= cartografo.get_CIMComponentName(
@@ -192,19 +192,9 @@ public class ControlCIMMOD
 //					constructor.add_equipmentNetwork(moTransformer);
 //				}
 //				moPowTransEnd.clear(); moPowTransEnd= null;
-//			}
-////			if (cimClassResource[1].equals("Fault"))
-////			{
-////				System.out.println("rfd_id: "+ cimClassResource[0] + " cim name: "+ cimClassResource[1]);
-////				PwFaultMap mapFault= cartografo.create_FaultModelicaMap(key, "./res/map/cim_iteslalibrary_pwfault.xml", cimClassResource);
-////				MOClass mofault= constructor.create_FaultComponent(mapFault);
-////				
-////				constructor.add_deviceNetwork(mofault);
-////				System.out.println(mofault.to_ModelicaClass());
-////				System.out.println(mofault.to_ModelicaInstance());
-////			}
+			}
 //
-//		}
+		}
 //		constructor.connect_Components(cartografo.get_ConnectionMap());
 //		constructor.save_ModelicaFile(constructor.get_Network().to_ModelicaClass());
 	}

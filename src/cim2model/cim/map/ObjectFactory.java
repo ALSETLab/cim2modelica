@@ -147,11 +147,15 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ComponentAttribute }
+     * Create an instance of {@link ComponentMap }
      * 
      */
-    public ComponentAttribute createComponentAttribute() {
-        return new ComponentAttribute();
+    public ComponentMap createComponentMap(String _component) {
+    	ComponentMap map= null;
+    	if (_component.equals("PwPin"))
+    		map= new PwPinMap();
+    	
+    	return map;
     }
 
     /**

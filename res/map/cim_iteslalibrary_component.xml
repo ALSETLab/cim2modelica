@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<componentMap cim_name="" rfd_id="" package="" name="" stereotype="" 
+	ConductingEquipment= "" TopologicalNode="">
+  <attributeMap cim_name="" mo_name="" datatype="" variability="" visibility="">name</attributeMap>
+</componentMap>

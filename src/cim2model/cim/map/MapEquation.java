@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "mapEquation")
 public class MapEquation {
 
-    protected ComponentAttribute componentAttribute;
+    protected ComponentMap componentAttribute;
     @XmlElement(required = true)
     protected List<MathOperation> mathOperation;
     @XmlAttribute(name = "equation", required = true)
@@ -58,10 +58,10 @@ public class MapEquation {
      * 
      * @return
      *     possible object is
-     *     {@link ComponentAttribute }
+     *     {@link ComponentMap }
      *     
      */
-    public ComponentAttribute getComponentAttribute() {
+    public ComponentMap getComponentAttribute() {
         return componentAttribute;
     }
 
@@ -70,10 +70,10 @@ public class MapEquation {
      * 
      * @param value
      *     allowed object is
-     *     {@link ComponentAttribute }
+     *     {@link ComponentMap }
      *     
      */
-    public void setComponentAttribute(ComponentAttribute value) {
+    public void setComponentAttribute(ComponentMap value) {
         this.componentAttribute = value;
     }
 

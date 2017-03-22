@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import cim2model.cim.map.AttributeMap;
+import cim2model.cim.map.ComponentMap;
 
 
 /**
@@ -31,14 +32,8 @@ import cim2model.cim.map.AttributeMap;
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element ref="{}attributeMap" maxOccurs="unbounded"/&gt;
- *       &lt;/sequence&gt;
  *       &lt;attribute name="ConductingEquipment" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="TopologicalNode" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
- *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
- *       &lt;attribute name="package" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
- *       &lt;attribute name="stereotype" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -46,143 +41,15 @@ import cim2model.cim.map.AttributeMap;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "attributeMap"
-})
-@XmlRootElement(name = "pwPinMap")
-public class PwPinMap {
 
-    @XmlElement(required = true)
-    protected List<AttributeMap> attributeMap;
-    @XmlAttribute(name = "cim_name", required = true)
-    protected String cimName;
-    @XmlAttribute(name = "rfd_id", required = true)
-    protected String rfdId;
+@XmlRootElement(name = "pwPinMap")
+public class PwPinMap extends ComponentMap{
+   
     @XmlAttribute(name = "ConductingEquipment", required = true)
     protected String conductingEquipment;
     @XmlAttribute(name = "TopologicalNode", required = true)
     protected String topologicalNode;
-    @XmlAttribute(name = "name", required = true)
-    protected String name;
-    @XmlAttribute(name = "package", required = true)
-    protected String _package;
-    @XmlAttribute(name = "stereotype", required = true)
-    protected String stereotype;
-
-    /**
-     * Gets the value of the attributeMap property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the attributeMap property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getAttributeMap().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link AttributeMap }
-     * 
-     * 
-     */
-    public List<AttributeMap> getAttributeMap() {
-        if (attributeMap == null) {
-            attributeMap = new ArrayList<AttributeMap>();
-        }
-        return this.attributeMap;
-    }
-    
-    /**
-     * Returns an AttributeMap object according to its Modelica name
-     * @param _name
-     * @return
-     */
-    public AttributeMap getAttributeMap(String _name)
-    {
-    	Iterator<AttributeMap> atributos= this.attributeMap.iterator();
-    	AttributeMap atributo;
-    	do
-    		atributo= atributos.next();
-    	while (!atributo.equals(_name) && atributos.hasNext());
-    		
-    	return atributo;
-    }
-    
-    /**
-     * Updates a current AttributeMap object with a new one, which contains new values for this attribute
-     * @param _old
-     * @param _new
-     */
-    public void setAttributeMap(AttributeMap _old, AttributeMap _new)
-    {
-    	int index= this.attributeMap.indexOf(_old);
-    	this.attributeMap.set(index, _new);
-    }
-    
-    /**
-     * Adds a new AttributeMap object to the collection of attributes of the map objec
-     * @param _new
-     */
-    public void setAttributeMap(AttributeMap _new)
-    {
-    	this.attributeMap.add(_new);
-    }
-
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCimName() {
-        return cimName;
-    }
-
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCimName(String value) {
-        this.cimName = value;
-    }
-    
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getRfdId() {
-        return rfdId;
-    }
-
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setRfdId(String value) {
-        this.rfdId = value;
-    }
-    
+       
     /**
      * Gets the value of the conductingEquipment property.
      * 
@@ -231,77 +98,7 @@ public class PwPinMap {
         this.topologicalNode = value;
     }
 
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
-
-    /**
-     * Gets the value of the package property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPackage() {
-        return _package;
-    }
-
-    /**
-     * Sets the value of the package property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPackage(String value) {
-        this._package = value;
-    }
-
-    /**
-     * Gets the value of the stereotype property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getStereotype() {
-        return stereotype;
-    }
-
-    /**
-     * Sets the value of the stereotype property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setStereotype(String value) {
-        this.stereotype = value;
-    }
+    
 
     @Override
     public String toString()

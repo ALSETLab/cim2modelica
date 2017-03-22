@@ -48,7 +48,7 @@ import javax.xml.bind.annotation.XmlType;
 public class MathWord {
 
     @XmlElement(required = true)
-    protected ComponentAttribute componentAttribute;
+    protected ComponentMap componentAttribute;
     @XmlElement(required = true)
     protected List<MathOperation> mathOperation;
     @XmlAttribute(name = "type", required = true)
@@ -59,10 +59,10 @@ public class MathWord {
      * 
      * @return
      *     possible object is
-     *     {@link ComponentAttribute }
+     *     {@link ComponentMap }
      *     
      */
-    public ComponentAttribute getComponentAttribute() {
+    public ComponentMap getComponentAttribute() {
         return componentAttribute;
     }
 
@@ -71,10 +71,10 @@ public class MathWord {
      * 
      * @param value
      *     allowed object is
-     *     {@link ComponentAttribute }
+     *     {@link ComponentMap }
      *     
      */
-    public void setComponentAttribute(ComponentAttribute value) {
+    public void setComponentAttribute(ComponentMap value) {
         this.componentAttribute = value;
     }
 

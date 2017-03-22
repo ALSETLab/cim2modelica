@@ -48,7 +48,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "mathOperation")
 public class MathOperation {
 
-    protected List<ComponentAttribute> componentAttribute;
+    protected List<ComponentMap> componentAttribute;
     protected MathWord mathWord;
     protected List<MathOperation> mathOperation;
     @XmlAttribute(name = "type", required = true)
@@ -72,13 +72,13 @@ public class MathOperation {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link ComponentAttribute }
+     * {@link ComponentMap }
      * 
      * 
      */
-    public List<ComponentAttribute> getComponentAttribute() {
+    public List<ComponentMap> getComponentAttribute() {
         if (componentAttribute == null) {
-            componentAttribute = new ArrayList<ComponentAttribute>();
+            componentAttribute = new ArrayList<ComponentMap>();
         }
         return this.componentAttribute;
     }
