@@ -104,7 +104,7 @@ public abstract class ComponentMap {
     	AttributeMap atributo;
     	do
     		atributo= atributos.next();
-    	while (!atributo.equals(_name) && atributos.hasNext());
+    	while (!atributo.getCimName().equals(_name) && atributos.hasNext());
     		
     	return atributo;
     }

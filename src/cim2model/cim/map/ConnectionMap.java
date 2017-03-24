@@ -1,6 +1,5 @@
 package cim2model.cim.map;
 
-import org.apache.jena.rdf.model.Resource;
 
 /**
  * Stores the relation of conducting equipment and topological node through the name of the terminal
@@ -12,9 +11,8 @@ public class ConnectionMap
 	private String t_id;
 	private String ce_id;
 	private String tn_id;
-	// TODO review this, better store componentmap object, 
-	private Resource conductingEquipment;
-	private Resource topologicalNode;
+//	private Resource conductingEquipment;
+//	private Resource topologicalNode;
 	
 	
 	public ConnectionMap(String t_id, String ce_id, String tn_id) {
@@ -60,30 +58,30 @@ public class ConnectionMap
 		this.tn_id = tn_id;
 	}
 	
-	/**
-	 * @return the conductingEquipment
-	 */
-	public Resource getConductingEquipment() {
-		return conductingEquipment;
-	}
-	/**
-	 * @param conductingEquipment the conductingEquipment to set
-	 */
-	public void setConductingEquipment(Resource conductingEquipment) {
-		this.conductingEquipment = conductingEquipment;
-	}
-	/**
-	 * @return the topologicalNode
-	 */
-	public Resource getTopologicalNode() {
-		return topologicalNode;
-	}
-	/**
-	 * @param topologicalNode the topologicalNode to set
-	 */
-	public void setTopologicalNode(Resource topologicalNode) {
-		this.topologicalNode = topologicalNode;
-	}
+//	/**
+//	 * @return the conductingEquipment
+//	 */
+//	public Resource getConductingEquipment() {
+//		return conductingEquipment;
+//	}
+//	/**
+//	 * @param conductingEquipment the conductingEquipment to set
+//	 */
+//	public void setConductingEquipment(Resource conductingEquipment) {
+//		this.conductingEquipment = conductingEquipment;
+//	}
+//	/**
+//	 * @return the topologicalNode
+//	 */
+//	public Resource getTopologicalNode() {
+//		return topologicalNode;
+//	}
+//	/**
+//	 * @param topologicalNode the topologicalNode to set
+//	 */
+//	public void setTopologicalNode(Resource topologicalNode) {
+//		this.topologicalNode = topologicalNode;
+//	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

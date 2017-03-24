@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_gensal.dtd">
 <GENSALMap cim_name="SynchronousMachine" rfd_id="" package="OpenIPSL.Electrical.Machines.PSSE" name="GENSAL" stereotype="class">
   <attributeMap cim_name="GeneratingUnit.baseP" mo_name="S_b" datatype="Real" variability="parameter" visibility="public"></attributeMap>

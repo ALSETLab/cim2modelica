@@ -46,27 +46,30 @@ public class TPProfileModel {
 	 */
 	public Map<Resource,RDFNode> gatherTopologicalNodes()
 	{
+		Resource s,p;
+		RDFNode o;
+		Statement stmt;
+		
 		final StmtIterator stmtiter = this.rdfModel.listStatements();
 		while( stmtiter.hasNext() ) 
 		{
-			Statement stmt= stmtiter.next();
-		    Resource s = stmt.getSubject();
-            Resource p = stmt.getPredicate();
-            RDFNode o = stmt.getObject();
-            //p as "type" means that the statment is refering to the component
-            if (p.isURIResource() && p.getLocalName().equals("type")) //TODO && otra condicion
+			stmt= stmtiter.next();
+		    s = stmt.getSubject();
+            p = stmt.getPredicate();
+            o = stmt.getObject();
+//            String [] componentName= o.toString().split("#");
+//            System.out.println("Subject :"+ s.getURI());
+//            System.out.println("Subject : "+ s.getLocalName());
+//        	System.out.println("Predicate : "+ p.getLocalName());
+//        	System.out.println("Object : "+ o.toString());
+            //p as "type" means that the statement is referring to the component
+            if (p.isURIResource()) // && tag type topologicalnode) //TODO
             {
-            	this.topologicalNodes.put(s, o);
-//            	System.out.println("Subject : "+ s.getLocalName());
-//            	System.out.println("Predicate : "+ p.getLocalName());
-//            	System.out.print("Object : "+ o.toString());
-//            	String [] componentName= o.toString().split("#");
-//            	System.out.println(componentName[0]+ " : "+ componentName[1]);
+            	this.terminals.put(s, o);
             }
 		}
 		
-		return this.topologicalNodes;
-		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
+		return this.terminals;
 	}
 	
 	/**
@@ -75,44 +78,90 @@ public class TPProfileModel {
 	 */
 	public Map<Resource,RDFNode> gatherTerminals()
 	{
+		Resource s,p;
+		RDFNode o;
+		Statement stmt;
+		
 		final StmtIterator stmtiter = this.rdfModel.listStatements();
 		while( stmtiter.hasNext() ) 
 		{
-			Statement stmt= stmtiter.next();
-		    Resource s = stmt.getSubject();
-            Resource p = stmt.getPredicate();
-            RDFNode o = stmt.getObject();
+			stmt= stmtiter.next();
+		    s = stmt.getSubject();
+            p = stmt.getPredicate();
+            o = stmt.getObject();
+//            String [] componentName= o.toString().split("#");
+//            System.out.println("Subject :"+ s.getURI());
+//            System.out.println("Subject : "+ s.getLocalName());
+//        	System.out.println("Predicate : "+ p.getLocalName());
+//        	System.out.println("Object : "+ o.toString());
             //p as "type" means that the statment is refering to the component
-            if (p.isURIResource() && p.getLocalName().equals("type")) //TODO && otra condicion
+            if (p.isURIResource() && p.getLocalName().equals("Terminal.TopologicalNode")) 
             {
-            	this.topologicalNodes.put(s, o);
-//            	System.out.println("Subject : "+ s.getLocalName());
-//            	System.out.println("Predicate : "+ p.getLocalName());
-//            	System.out.print("Object : "+ o.toString());
-//            	String [] componentName= o.toString().split("#");
-//            	System.out.println(componentName[0]+ " : "+ componentName[1]);
+            	this.terminals.put(s, o);
             }
 		}
 		
-		return this.topologicalNodes;
+		return this.terminals;
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}
 	
-//	/**
-//	 * 
-//	 * @param _subject
-//	 * @return Array containing Component ID, Component/Class name
-//	 */
-//	public String [] retrieveComponentName(Resource _subject)
-//	{
-//		RDFNode aux;
-//		
-//		aux= this.svpowerflows.get(_subject);
-//		String [] object= aux.toString().split("#");
-//		
-//		return new String [] {_subject.getLocalName(), object[1]};
-//	}
+	/**
+	 * 
+	 * @return boolean
+	 */
+	public boolean hasTerminal_TN(Resource _t)
+	{
+		//TODO iterate into the terminals struct
+		final StmtIterator stmtiter = this.rdfModel.listStatements();
+		boolean found= false;
+		Resource s, p;
+        Statement stmt;
+		System.out.println("T local name: "+ _t.getLocalName());
+    	System.out.println("T URI: "+ _t.getURI());
+		while( !found && stmtiter.hasNext() ) 
+		{
+			stmt= stmtiter.next();
+			p = stmt.getPredicate();
+            s = stmt.getSubject();
+            if (p.getLocalName().equals("Terminal.TopologicalNode")){
+            	String [] componentName= s.toString().split("#");
+            	System.out.println(componentName[0]+ " : "+ componentName[1]);
+            	found= s.getLocalName().equals(_t.getLocalName());
+            }
+		}
+		
+		return found;
+	}
 	
+	/**
+	 * 
+	 * @return boolean
+	 */
+	public String getTerminal_TN(Resource _t)
+	{
+		//TODO iterate into the terminals struct
+		final StmtIterator stmtiter = this.rdfModel.listStatements();
+		boolean found= false;
+		Resource s, p;
+        RDFNode o;
+        Statement stmt;
+        String id_TN= "";
+        
+		while( !found && stmtiter.hasNext() ) 
+		{
+			stmt= stmtiter.next();
+			p = stmt.getPredicate();
+            s = stmt.getSubject();
+            o = stmt.getObject();
+            if (p.getLocalName().equals("Terminal.TopologicalNode")){
+            	found= s.getLocalName().equals(_t.getLocalName());
+            	if (found)
+        			id_TN= o.toString();
+            }
+		}
+		
+		return id_TN;
+	}
 	
 	/**
 	 * Look for power flow values P,Q from the corresponding SvPowerFlow instance, 

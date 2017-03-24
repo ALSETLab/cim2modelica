@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import cim2model.ModelBuilder;
+import cim2model.ModelDesigner;
 import cim2model.cim.*;
 import cim2model.cim.map.ipsl.branches.*;
 import cim2model.cim.map.ipsl.buses.*;
@@ -43,17 +45,19 @@ public class ControlCIMMOD
 		// verify 
 		for (Resource key : profile_EQ.keySet())
 		{	
-			cimClassResource= cartografo.get_CIMComponentName(key);
+			cimClassResource= cartografo.get_CIMClassName(key);
 //			/* subjectResource[0] is the rfd_id, subjectResource[1] is the CIM name */
 			if (cimClassResource[1].equals("Terminal"))
 			{
 				System.out.println(cimClassResource[0]+ " is the rfd_id; "+ cimClassResource[1]+ " is the CIM name");
 				PwPinMap mapTerminal= 
 						cartografo.create_TerminalModelicaMap(key, "./res/map/cim_iteslalibrary_pwpin.xml", cimClassResource);
-//				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
-//				/* after loading terminal, load the resource connected to it, aka, ConductingEquipment */
-//				equipmentResource= cartografo.get_CIMComponentName(
-//						cartografo.get_CurrentConnectionMap().getConductingEquipment());
+				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
+				/* after loading terminal, load the resource connected to it, 
+				 * a.ka., ConductingEquipment 
+				 * a.k.a. TopologicalNode */
+				equipmentResource= cartografo.get_CIMClassName(
+						cartografo.get_CurrentConnectionMap().get_Ce_id());
 //				topologyResource= cartografo.get_CIMComponentName(
 //						cartografo.get_CurrentConnectionMap().getTopologicalNode());
 //				/* According to CIM Composer, SynchMachine has one terminal */

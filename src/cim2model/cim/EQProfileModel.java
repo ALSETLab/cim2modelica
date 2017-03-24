@@ -11,7 +11,7 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 
-public class CIMModel {
+public class EQProfileModel {
 	
 //	private String id;
 	private Map<String, Object> attribute;
@@ -21,9 +21,9 @@ public class CIMModel {
 	/**
 	 * 
 	 */
-	public CIMModel()
+	public EQProfileModel()
 	{
-//		id= "";
+		attribute= new HashMap<String, Object>();
 		component= new HashMap<Resource, RDFNode>();
 	}
 	
@@ -31,10 +31,9 @@ public class CIMModel {
 	 * 
 	 * @param _model
 	 */
-	public CIMModel(Model _model)
+	public EQProfileModel(Model _model)
 	{
 		this.rdfModel= _model;
-//		id= "";
 		attribute= new HashMap<String, Object>();
 		component= new HashMap<Resource, RDFNode>();
 	}
@@ -74,6 +73,20 @@ public class CIMModel {
 	 * @return Array containing Component ID, Component/Class name
 	 */
 	public String [] retrieveComponentName(Resource _subject)
+	{
+		RDFNode aux;
+		
+		aux= this.component.get(_subject);
+		String [] object= aux.toString().split("#");
+		
+		return new String [] {_subject.getLocalName(), object[1]};
+	}
+	/**
+	 * 
+	 * @param _subject
+	 * @return Array containing Component ID, Component/Class name
+	 */
+	public String [] retrieveComponentName(String _rdf_id)
 	{
 		RDFNode aux;
 		
@@ -132,76 +145,31 @@ public class CIMModel {
 	 */
 	public Map<String,Object> getTerminalEQ(Resource _subject)
 	{ 
-		Statement terminalAttribute, topoNodeAttribute, svPFAttribute, svVoltAttribute;
+		Statement terminalAttribute;
 		
+		this.attribute.clear();
 		StmtIterator terminalAttributes= _subject.listProperties();
 		while( terminalAttributes.hasNext() ) 
 		{
 			terminalAttribute= terminalAttributes.next();
 			if (terminalAttribute.getAlt().isLiteral())
 			{
-				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), terminalAttribute.getLiteral().getValue());
+				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), 
+						terminalAttribute.getLiteral().getValue());
 			}
 			if (terminalAttribute.getAlt().isURIResource())
 			{
-				if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.SvPowerFlow"))
-				{
-					/* retrieve the values of this cim class */
-					StmtIterator svPowerFlowAtts= terminalAttribute.getAlt().listProperties();
-					while( svPowerFlowAtts.hasNext() ) 
-					{
-						svPFAttribute= svPowerFlowAtts.next();
-						if (svPFAttribute.getAlt().isLiteral())
-						{
-							this.attribute.put(svPFAttribute.getPredicate().getLocalName(), svPFAttribute.getString());
-						}
-					}
-					svPowerFlowAtts.close();
-				}
-				if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.TopologicalNode") )
-				{
-					StmtIterator topologicalNodeAtts= terminalAttribute.getAlt().listProperties();
-					while( topologicalNodeAtts.hasNext() ) 
-					{
-						topoNodeAttribute= topologicalNodeAtts.next();
-						if (topoNodeAttribute.getPredicate().getLocalName().equals("TopologicalNode.SvVoltage"))
-						{
-							StmtIterator svVoltageAtts= topoNodeAttribute.getAlt().listProperties();
-							while( svVoltageAtts.hasNext() ) 
-							{
-								svVoltAttribute= svVoltageAtts.next();
-								if (svVoltAttribute.getAlt().isLiteral())
-								{
-									this.attribute.put(svVoltAttribute.getPredicate().getLocalName(), svVoltAttribute.getString());
-								}
-							}
-							svVoltageAtts.close();
-						}
-						if (topoNodeAttribute.getPredicate().getLocalName().equals("TopologicalNode.BaseVoltage"))
-						{
-							StmtIterator baseVoltage= topoNodeAttribute.getAlt().listProperties();
-							while( baseVoltage.hasNext() ) 
-							{
-								svVoltAttribute= baseVoltage.next();
-								if (svVoltAttribute.getAlt().isLiteral())
-								{
-									this.attribute.put(svVoltAttribute.getPredicate().getLocalName(), svVoltAttribute.getString());
-								}
-							}
-							baseVoltage.close();
-						}
-					}
-					/* Add the rfd_id of the TopologicalNode which Terminal is related to */
-					this.attribute.put(terminalAttribute.getPredicate().getLocalName(), terminalAttribute.getResource());
-					topologicalNodeAtts.close();
-				}
 				if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.ConductingEquipment"))
 				{
 					/* Add the rfd_id of the CondictingEquipment which Terminal is related to */
-					this.attribute.put(terminalAttribute.getPredicate().getLocalName(), terminalAttribute.getResource());
+					this.attribute.put(terminalAttribute.getPredicate().getLocalName(), 
+							terminalAttribute.getResource());
 				}
 			}
 		}
+		terminalAttributes.close();
+		terminalAttribute= null;
+		
 		return this.attribute;
 	}
 	

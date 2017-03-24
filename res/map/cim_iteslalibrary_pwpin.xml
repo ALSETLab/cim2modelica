@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--Created by fragom-->
 <pwPinMap cim_name="Terminal" rfd_id="" package="OpenIPSL.Electrical.Connectors" name="PwPin" stereotype="connector" 
 	ConductingEquipment= "rfd_resource" TopologicalNode="rfd_resource">

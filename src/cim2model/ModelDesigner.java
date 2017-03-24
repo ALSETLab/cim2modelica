@@ -16,6 +16,7 @@ import org.apache.jena.rdf.model.Resource;
 
 import cim2model.cim.CIMModel;
 import cim2model.cim.CIMTransformerEnd;
+import cim2model.cim.EQProfileModel;
 import cim2model.cim.SVProfileModel;
 import cim2model.cim.TPProfileModel;
 import cim2model.cim.map.*;
@@ -38,12 +39,12 @@ public class ModelDesigner
 {
 	ArrayList<ConnectionMap> connections;
 	Map<Resource, RDFNode> classes_EQ;
-	Map<Resource, RDFNode> classes_TP;
+	Map<Resource, RDFNode> tagsTP_tn;
 	Map<Resource, RDFNode> classes_SV;
 	ReaderCIM reader_EQ_profile;
 	ReaderCIM reader_TP_profile;
 	ReaderCIM reader_SV_profile;
-	CIMModel profile_EQ;
+	EQProfileModel profile_EQ;
 	TPProfileModel profile_TP;
 	SVProfileModel profile_SV;
 	
@@ -57,7 +58,7 @@ public class ModelDesigner
 	
 	public Map<Resource, RDFNode> load_EQ_profile(String _xmlns_cim)
 	{
-		profile_EQ = new CIMModel(reader_EQ_profile.read_profile(_xmlns_cim));
+		profile_EQ = new EQProfileModel(reader_EQ_profile.read_profile(_xmlns_cim));
 		classes_EQ = profile_EQ.gatherComponents();
 		
 		return classes_EQ;
@@ -66,9 +67,10 @@ public class ModelDesigner
 	public Map<Resource, RDFNode> load_TP_profile(String _xmlns_cim)
 	{
 		profile_TP = new TPProfileModel(reader_TP_profile.read_profile(_xmlns_cim));
-		classes_TP = profile_TP.gatherTopologicalNodes();
+		tagsTP_tn = profile_TP.gatherTopologicalNodes();
+		profile_TP.gatherTerminals();
 		
-		return classes_TP;
+		return tagsTP_tn;
 	}
 	
 	public Map<Resource, RDFNode> load_SV_profile(String _xmlns_cim)
@@ -84,9 +86,18 @@ public class ModelDesigner
 	 * @param _key
 	 * @return
 	 */
-	public String[] get_CIMComponentName(Resource _key)
+	public String[] get_CIMClassName(Resource _key)
 	{
 		return profile_EQ.retrieveComponentName(_key);
+	}
+	/**
+	 * 
+	 * @param _rdf_id
+	 * @return
+	 */
+	public String[] get_CIMClassName(String _rdf_id)
+	{
+		return profile_EQ.retrieveComponentName(_rdf_id);
 	}
 
 	/**
@@ -121,19 +132,21 @@ public class ModelDesigner
         }
     }
 	
-	private void add_newConnectionMap(PwPinMap _mapTerminal, Hashtable<String,Resource> _pinComponents){
-		//object with pin rfdif, conducting equipment and topologicalnode
-		//rfdid use, by modelbuilder, to retrieve instanc_name of pin
+	/**
+	 * Create a new instance of ConnectionMap, relation of Id's between CIM classes
+	 * Terminal, ConductingEquipment & TopologicalNode. Store the new object into an internal
+	 * array for ConnectionMap
+	 * @param _mapTerminal
+	 * @param _cn
+	 * @param _tn
+	 */
+	private void add_newConnectionMap(PwPinMap _mapTerminal)
+	{
 		ConnectionMap nuevaConnection = new ConnectionMap(
-				_mapTerminal.getRfdId(),
-				_pinComponents.get("ConductingEquipment").toString().split("#")[1],
-				_pinComponents.get("TopologicalNode").toString().split("#")[1]);
-		nuevaConnection.setConductingEquipment(_pinComponents.get("ConductingEquipment"));
-		nuevaConnection.setTopologicalNode(_pinComponents.get("TopologicalNode"));
-		
-//		this.connections.add(new ConnectionMap(,
-//				_cimClassMap.get("Terminal.ConductingEquipment").toString().split("#")[1],
-//				_cimClassMap.get("Terminal.TopologicalNode").toString().split("#")[1]));
+				_mapTerminal.getRfdId(), _mapTerminal.getConductingEquipment(),
+				_mapTerminal.getTopologicalNode());
+//		nuevaConnection.setConductingEquipment(_cn);
+//		nuevaConnection.setTopologicalNode(_tn);
 		
 		this.connections.add(nuevaConnection);
 	}
@@ -146,34 +159,39 @@ public class ModelDesigner
 	 */
 	public PwPinMap create_TerminalModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
+		Map<String, Object> profile_SV_map;
+		
 		PwPinMap mapTerminal= pwpinXMLToObject(_source);
 		/* load corresponding tag cim:Terminal */
-		Map<String, Object> profile_EQ_map= profile_EQ.retrieveAttributesTerminal(key);
-		//TODO check if the Terminal has svPowerFlow 
-		//TODO check if the Terminal only have svVoltage -> via TopologicalNode no, only in the create_toponode_map
-		Map<String, Object> profile_SV_map= profile_SV.retrieveAttributesTerminal(_subjectID);
-		Map<String, Object> profile_TP_map= profile_TP.retrieveAttributesTerminal(_subjectID);
-		/* iterate through map attributes, for storing proper cim values */
-		ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapTerminal.getAttributeMap();
-		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
-		AttributeMap currentmapAtt;
-		while (imapAttList.hasNext()) {
-			currentmapAtt= imapAttList.next();
-			currentmapAtt.setContent((String)profile_SV_map.get(currentmapAtt.getCimName()));
-//			System.out.println("currentmapAtt "+ currentmapAtt.toString());
+		Map<String, Object> profile_EQ_map= profile_EQ.getTerminalEQ(key);
+		mapTerminal.getAttributeMap("IdentifiedObject.name").setContent(
+				(String)profile_EQ_map.get("IdentifiedObject.name"));
+		if (profile_SV.has_SvPowerFlow(key))
+		{
+			profile_SV_map= profile_SV.get_TerminalPF(key);
+			mapTerminal.getAttributeMap("SvPowerFlow.p").setContent((String)profile_SV_map.get("SvPowerFlow.p"));
+			mapTerminal.getAttributeMap("SvPowerFlow.q").setContent((String)profile_SV_map.get("SvPowerFlow.q"));
+//			ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapTerminal.getAttributeMap();
+//			Iterator<AttributeMap> imapAttList= mapAttList.iterator();
+//			AttributeMap currentmapAtt;
+//			while (imapAttList.hasNext()) {
+//				currentmapAtt= imapAttList.next();
+//				currentmapAtt.setContent((String)profile_SV_map.get(currentmapAtt.getCimName()));
+//			}
 		}
 		mapTerminal.setConductingEquipment(profile_EQ_map.get("Terminal.ConductingEquipment").toString());
-		mapTerminal.setTopologicalNode(profile_TP_map.get("Terminal.TopologicalNode").toString());
-//		// add cim id, used as reference from terminal and connections to other components 
+		if (profile_TP.hasTerminal_TN(key)) {
+			mapTerminal.setTopologicalNode(profile_TP.getTerminal_TN(key));
+		}
+		// add the rfd_id, as reference from terminal and connections to other components 
 		mapTerminal.setRfdId(_subjectID[0]);
 		mapTerminal.setCimName(_subjectID[1]);
-//		// create new entrance to the connection map, is used to draw the connections between components
-//		Hashtable<String,Resource> pinComponents= new Hashtable<String,Resource>();
-//		pinComponents.put("ConductingEquipment", (Resource)profile_EQ_map.get("Terminal.ConductingEquipment"));
-//		pinComponents.put("TopologicalNode", (Resource)cimClassMap.get("Terminal.TopologicalNode"));
-//		this.add_newConnectionMap(mapTerminal, pinComponents);
-//		pinComponents.clear(); pinComponents= null;
-//		modelCIM.clearAttributes();
+		/* create new entrance to the connection map: create a new instance of 
+		 * ConnectionMap, with Id T, Id Cn & Id Tn with the mapTerminal*/
+		this.add_newConnectionMap(mapTerminal);
+		profile_EQ.clearAttributes();
+		profile_SV.clearAttributes();
+		profile_TP.clearAttributes();
 		
 		return mapTerminal;
 	}

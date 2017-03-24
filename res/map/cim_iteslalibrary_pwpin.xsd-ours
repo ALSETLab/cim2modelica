@@ -2,11 +2,11 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
   <xs:element name="pwPinMap">
     <xs:complexType>
-      <xs:attribute name="rfd_id" type="xs:string" use="required"/>
       <xs:sequence>
-      </xs:sequence>
         <xs:element ref="attributeMap" maxOccurs="unbounded"/>
+      </xs:sequence>
       <xs:attribute name="cim_name" type="xs:string" use="required"/>
+      <xs:attribute name="rfd_id" type="xs:string" use="required"/>
       <xs:attribute name="name" type="xs:string" use="required"/>
       <xs:attribute name="package" type="xs:string" use="required"/>
       <xs:attribute name="stereotype" type="xs:string" use="required"/>
@@ -18,8 +18,8 @@
     <xs:complexType mixed="true">
       <xs:attribute name="cim_name" type="xs:string" use="required"/>
       <xs:attribute name="datatype" type="xs:string" use="required"/>
-      <xs:attribute name="flow" type="xs:string" use="optional"/>
-      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="flow" type="xs:string" use="required"/>
+      <xs:attribute name="mo_name" type="xs:string" use="required"/>
       <xs:attribute name="variability" type="xs:string" use="required"/>
       <xs:attribute name="visibility" type="xs:string" use="required"/>
     </xs:complexType>
