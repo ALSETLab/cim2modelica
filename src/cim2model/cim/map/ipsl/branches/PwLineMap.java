@@ -11,15 +11,10 @@ package cim2model.cim.map.ipsl.branches;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
-import cim2model.cim.map.AttributeMap;
-import cim2model.cim.map.MapEquation;
+import cim2model.cim.map.ComponentMap;
 import cim2model.cim.map.MapTerminal;
 
 
@@ -29,51 +24,28 @@ import cim2model.cim.map.MapTerminal;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{}mapTerminal" maxOccurs="unbounded"/>
- *         &lt;element ref="{}attributeMap" maxOccurs="unbounded"/>
- *         &lt;element ref="{}mapEquation" maxOccurs="unbounded"/>
- *       &lt;/sequence>
- *       &lt;attribute name="cim_name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="package" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="rfd_id" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="stereotype" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *      &lt;extension base="AddressType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element ref="{}mapTerminal" maxOccurs="unbounded"&gt;
+ *       &lt;/sequence&gt;
+ *      &lt;/extension&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "mapTerminal",
-    "attributeMap",
-    "mapEquation"
-})
+
 @XmlRootElement(name = "pwLineMap")
-public class PwLineMap {
+public class PwLineMap extends ComponentMap{
 
     @XmlElement(required = true)
     protected List<MapTerminal> mapTerminal;
-    @XmlElement(required = true)
-    protected List<AttributeMap> attributeMap;
-    @XmlElement(required = true)
-    protected List<MapEquation> mapEquation;
-    @XmlAttribute(name = "cim_name", required = true)
-    protected String cimName;
-    @XmlAttribute(name = "name", required = true)
-    protected String name;
-    @XmlAttribute(name = "package", required = true)
-    protected String _package;
-    @XmlAttribute(name = "rfd_id", required = true)
-    protected String rfdId;
-    @XmlAttribute(name = "stereotype", required = true)
-    protected String stereotype;
+ 
 
     /**
      * Gets the value of the mapTerminal property.
@@ -97,189 +69,11 @@ public class PwLineMap {
      * 
      * 
      */
-    public List<MapTerminal> getMapTerminal() {
+    public List<MapTerminal> get_TerminalMap() {
         if (mapTerminal == null) {
             mapTerminal = new ArrayList<MapTerminal>();
         }
         return this.mapTerminal;
-    }
-
-    /**
-     * Gets the value of the attributeMap property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the attributeMap property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getAttributeMap().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link AttributeMap }
-     * 
-     * 
-     */
-    public List<AttributeMap> getAttributeMap() {
-        if (attributeMap == null) {
-            attributeMap = new ArrayList<AttributeMap>();
-        }
-        return this.attributeMap;
-    }
-
-    /**
-     * Gets the value of the mapEquation property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the mapEquation property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getMapEquation().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link MapEquation }
-     * 
-     * 
-     */
-    public List<MapEquation> getMapEquation() {
-        if (mapEquation == null) {
-            mapEquation = new ArrayList<MapEquation>();
-        }
-        return this.mapEquation;
-    }
-
-    /**
-     * Gets the value of the cimName property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCimName() {
-        return cimName;
-    }
-
-    /**
-     * Sets the value of the cimName property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCimName(String value) {
-        this.cimName = value;
-    }
-
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
-
-    /**
-     * Gets the value of the package property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPackage() {
-        return _package;
-    }
-
-    /**
-     * Sets the value of the package property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPackage(String value) {
-        this._package = value;
-    }
-
-    /**
-     * Gets the value of the rfdId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getRfdId() {
-        return rfdId;
-    }
-
-    /**
-     * Sets the value of the rfdId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setRfdId(String value) {
-        this.rfdId = value;
-    }
-
-    /**
-     * Gets the value of the stereotype property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getStereotype() {
-        return stereotype;
-    }
-
-    /**
-     * Sets the value of the stereotype property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setStereotype(String value) {
-        this.stereotype = value;
     }
 
 }

@@ -50,8 +50,8 @@ public class AttributeMap {
     protected String cimName;
     @XmlAttribute(name = "datatype", required = true)
     protected String datatype;
-    @XmlAttribute(name = "mo_name", required = true)
-    protected String moName;
+    @XmlAttribute(name = "name", required = true)
+    protected String name;
     @XmlAttribute(name = "variability", required = true)
     protected String variability;
     @XmlAttribute(name = "visibility", required = true)
@@ -139,8 +139,8 @@ public class AttributeMap {
      *     {@link String }
      *     
      */
-    public String getMoName() {
-        return moName;
+    public String getName() {
+        return name;
     }
 
     /**
@@ -151,8 +151,8 @@ public class AttributeMap {
      *     {@link String }
      *     
      */
-    public void setMoName(String value) {
-        this.moName = value;
+    public void setName(String value) {
+        this.name = value;
     }
 
     /**

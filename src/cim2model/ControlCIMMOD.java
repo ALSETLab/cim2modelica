@@ -46,7 +46,7 @@ public class ControlCIMMOD
 		for (Resource key : profile_EQ.keySet())
 		{	
 			cimClassResource= cartografo.get_CIMClassName(key);
-//			/* subjectResource[0] is the rfd_id, subjectResource[1] is the CIM name */
+			/* subjectResource[0] is the rfd_id, subjectResource[1] is the CIM name */
 			if (cimClassResource[1].equals("Terminal"))
 			{
 				System.out.println(cimClassResource[0]+ " is the rfd_id; "+ cimClassResource[1]+ " is the CIM name");
@@ -54,12 +54,13 @@ public class ControlCIMMOD
 						cartografo.create_TerminalModelicaMap(key, "./res/map/cim_iteslalibrary_pwpin.xml", cimClassResource);
 				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
 				/* after loading terminal, load the resource connected to it, 
-				 * a.ka., ConductingEquipment 
+				 * a.k.a., ConductingEquipment 
 				 * a.k.a. TopologicalNode */
 				equipmentResource= cartografo.get_CIMClassName(
-						cartografo.get_CurrentConnectionMap().get_Ce_id());
-//				topologyResource= cartografo.get_CIMComponentName(
-//						cartografo.get_CurrentConnectionMap().getTopologicalNode());
+						cartografo.get_CurrentConnectionMap().get_ConductingEquipment());
+				//TODO get tag name from TP profile object
+				topologyResource= cartografo.get_CIMClassName(
+						cartografo.get_CurrentConnectionMap().get_TopologicalNode());
 //				/* According to CIM Composer, SynchMachine has one terminal */
 //				if (equipmentResource[1].equals("SynchronousMachine"))
 //				{
@@ -118,53 +119,53 @@ public class ControlCIMMOD
 //					//TODO create plant object, name of generator instance name, with genmap, esmap, tgmap and stabmap
 //					//genmap can contain ES[0..1], TG[0..1], PSS[0..1]
 //				}
-//				/* According to CIM Composer, EnergyConsumer has one terminal */
-//				if (equipmentResource[1].equals("EnergyConsumer"))
-//				{
-//					LoadMap mapEnergyC= cartografo.create_LoadModelicaMap(
-//							cartografo.get_CurrentConnectionMap().getConductingEquipment(), 
-//							"./res/map/cim_iteslalibrary_load.xml", equipmentResource);
-//					MOClass moload= constructor.create_LoadComponent(mapEnergyC);
-//					moload.add_Terminal(mopin);
-//					moload.update_powerFlow(mopin);
-//					constructor.add_equipmentNetwork(moload);
-//				}
-//				/* According to CIM Composer, ACLineSegment has two terminals */
-//				if (equipmentResource[1].equals("ACLineSegment"))
-//				{
-//					MOClass moline= constructor.get_equipmentNetwork(equipmentResource[0]);
-//					if (moline!= null)
-//					{/* condition to check if the line already exist in the model, true, add the second terminal */
-//						moline.add_Terminal(mopin);
-//					}
-//					else 
-//					{/* false, create map of the line and add the first terminal */
-//						PwLineMap mapACLine= cartografo.create_LineModelicaMap(
-//								cartografo.get_CurrentConnectionMap().getConductingEquipment(), 
-//								"./res/map/cim_iteslalibrary_pwline.xml", equipmentResource);
-//						moline= constructor.create_LineComponent(mapACLine);
-//						moline.add_Terminal(mopin);
-//						constructor.add_equipmentNetwork(moline);
-//					}
-//				}
-//				/* According to CIM Composer, TN has 1..N terminals */
-//				if (topologyResource[1].equals("TopologicalNode"))
-//				{
-//					MOClass mobus= constructor.get_equipmentNetwork(topologyResource[0]);
-//					if (mobus!= null)
-//					{/* condition to check if the line already exist in the model, true, add the second terminal */
-//						mobus.add_Terminal(mopin);
-//					}
-//					else
-//					{/* false, create map of the line and add the first terminal */
-//						PwBusMap mapTopoNode= cartografo.create_BusModelicaMap(
-//								cartografo.get_CurrentConnectionMap().getTopologicalNode(), 
-//										"./res/map/cim_iteslalibrary_pwbus.xml", topologyResource);
-//						mobus= constructor.create_BusComponent(mapTopoNode);
-//						mobus.add_Terminal(mopin);
-//						constructor.add_equipmentNetwork(mobus);
-//					}
-//				}
+				/* EnergyConsumer has one terminal */
+				if (equipmentResource[1].equals("EnergyConsumer"))
+				{
+					LoadMap mapEnergyC= cartografo.create_LoadModelicaMap(
+							cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
+							"./res/map/cim_iteslalibrary_load.xml", equipmentResource);
+					MOClass moload= constructor.create_LoadComponent(mapEnergyC);
+					moload.add_Terminal(mopin);
+					moload.update_powerFlow(mopin);
+					constructor.add_equipmentNetwork(moload);
+				}
+				/* ACLineSegment has two terminals */
+				if (equipmentResource[1].equals("ACLineSegment"))
+				{
+					MOClass moline= constructor.get_equipmentNetwork(equipmentResource[0]);
+					if (moline!= null)
+					{/* condition to check if the line already exist in the model, true, add the second terminal */
+						moline.add_Terminal(mopin);
+					}
+					else 
+					{/* false, create map of the line and add the first terminal */
+						PwLineMap mapACLine= cartografo.create_LineModelicaMap(
+								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
+								"./res/map/cim_iteslalibrary_pwline.xml", equipmentResource);
+						moline= constructor.create_LineComponent(mapACLine);
+						moline.add_Terminal(mopin);
+						constructor.add_equipmentNetwork(moline);
+					}
+				}
+				/* TN has 1..N terminals */
+				if (topologyResource[1].equals("TopologicalNode"))
+				{
+					MOClass mobus= constructor.get_equipmentNetwork(topologyResource[0]);
+					if (mobus!= null)
+					{/* condition to check if the line already exist in the model, true, add the second terminal */
+						mobus.add_Terminal(mopin);
+					}
+					else
+					{/* false, create map of the line and add the first terminal */
+						PwBusMap mapTopoNode= cartografo.create_BusModelicaMap(
+								cartografo.get_CurrentConnectionMap().get_TopologicalNode(), 
+										"./res/map/cim_iteslalibrary_pwbus.xml", topologyResource);
+						mobus= constructor.create_BusComponent(mapTopoNode);
+						mobus.add_Terminal(mopin);
+						constructor.add_equipmentNetwork(mobus);
+					}
+				}
 //			}
 //			if (cimClassResource[1].equals("PowerTransformerEnd"))
 //			{

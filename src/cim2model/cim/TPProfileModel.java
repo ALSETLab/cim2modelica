@@ -26,6 +26,7 @@ public class TPProfileModel {
 	 */
 	public TPProfileModel()
 	{
+		attribute= new HashMap<String, Object>();
 		topologicalNodes= new HashMap<Resource, RDFNode>();
 		terminals= new HashMap<Resource, RDFNode>();
 	}
@@ -36,6 +37,7 @@ public class TPProfileModel {
 	public TPProfileModel(Model _model)
 	{
 		this.rdfModel= _model;
+		attribute= new HashMap<String, Object>();
 		topologicalNodes= new HashMap<Resource, RDFNode>();
 		terminals= new HashMap<Resource, RDFNode>();
 	}
@@ -63,7 +65,7 @@ public class TPProfileModel {
 //        	System.out.println("Predicate : "+ p.getLocalName());
 //        	System.out.println("Object : "+ o.toString());
             //p as "type" means that the statement is referring to the component
-            if (p.isURIResource()) // && tag type topologicalnode) //TODO
+            if (p.isURIResource() && p.getLocalName().equals("type"))
             {
             	this.terminals.put(s, o);
             }
@@ -109,7 +111,7 @@ public class TPProfileModel {
 	 * 
 	 * @return boolean
 	 */
-	public boolean hasTerminal_TN(Resource _t)
+	public boolean has_TerminalTN(Resource _t)
 	{
 		//TODO iterate into the terminals struct
 		final StmtIterator stmtiter = this.rdfModel.listStatements();
@@ -137,9 +139,8 @@ public class TPProfileModel {
 	 * 
 	 * @return boolean
 	 */
-	public String getTerminal_TN(Resource _t)
+	public String get_TerminalTN(Resource _t)
 	{
-		//TODO iterate into the terminals struct
 		final StmtIterator stmtiter = this.rdfModel.listStatements();
 		boolean found= false;
 		Resource s, p;
@@ -164,66 +165,45 @@ public class TPProfileModel {
 	}
 	
 	/**
-	 * Look for power flow values P,Q from the corresponding SvPowerFlow instance, 
-	 * where its SvPowerFlow.Terminal rdf:resource matches the Terminal Id
-	 * cim_name="SvPowerFlow.p" 
-	 * cim_name="SvPowerFlow.q"
-	 * @param _subject: Terminal Id
-	 * @return
+	 * 
+	 * @return boolean
 	 */
-	public Map<String,Object> retrieveAttributesTerminal(String[] _subjectID)
-	{ 
-		//TODO reimplement the method, looking the subject into the SvPowerFlow.Terminal rdf:resource attribute of the SvPowerFlow classes
-		//us this.components
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
-		Statement attributesSvPowerFlow;
+	public Map<String,Object> get_TNTerminal(Resource _t)
+	{
+		Statement terminalAttribute;
 		
-		while( stmtiter.hasNext() ) 
+		this.attribute.clear();
+		StmtIterator terminalAttributes= _t.listProperties();
+		while( terminalAttributes.hasNext() ) 
 		{
-			Statement tagSvPowerFlow= stmtiter.next();
-		    Resource s = tagSvPowerFlow.getSubject();
-            Resource p = tagSvPowerFlow.getPredicate();
-            RDFNode o = tagSvPowerFlow.getObject();
-            //p as "type" means that the statment is refering to the component
-            if (o.isURIResource())
-            {
-	        	System.out.println("Subject : "+ s.getLocalName());
-	        	System.out.println("Predicate : "+ p.getLocalName());
-	        	System.out.print("Object : "+ o.toString());
-	        	String [] componentName= o.toString().split("#");
-	        	System.out.println(componentName[0]+ " : "+ componentName[1]);
-	        	if (componentName[1].equals(_subjectID[0]))
-	        	{
-	        		StmtIterator svPowerFlowAtts= tagSvPowerFlow.getAlt().listProperties();
-					while( svPowerFlowAtts.hasNext() ) 
-					{
-						attributesSvPowerFlow= svPowerFlowAtts.next();
-						if (attributesSvPowerFlow.getAlt().isLiteral())
-						{
-							System.out.print("Attribute: "+ attributesSvPowerFlow.getPredicate().getLocalName());
-							System.out.print("Value: "+ attributesSvPowerFlow.getString());
-							this.attribute.put(attributesSvPowerFlow.getPredicate().getLocalName(), attributesSvPowerFlow.getString());
-						}
-					}
-	        	}	
-            }
+			terminalAttribute= terminalAttributes.next();
+			if (terminalAttribute.getAlt().isLiteral())
+			{
+				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), 
+						terminalAttribute.getLiteral().getValue());
+			}
+			if (terminalAttribute.getAlt().isURIResource())
+			{
+				if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.TopologicalNode"))
+				{
+					/* Add the rfd_id of the CondictingEquipment which Terminal is related to */
+					this.attribute.put(terminalAttribute.getPredicate().getLocalName(), 
+							terminalAttribute.getResource());
+				}
+			}
 		}
+		terminalAttributes.close();
+		terminalAttribute= null;
 		
 		return this.attribute;
 	}
 	
-	
 	/**
-	 * cim_name="SvVoltage.angle" 
-	 * cim_name="SvVoltage.v" 
-	 * cim_name="SvPowerFlow.p" 
-	 * cim_name="SvPowerFlow.q" 
-	 * cim_name="BaseVoltage.nominalVoltage"
-	 * cim_name="BasePower.basePower"
+	 * 
 	 * @param _subject
 	 * @return
 	 */
-	public Map<String,Object> retrieveAttributesTopoNode(Resource _subject)
+	public Map<String,Object> gather_TopologicalNodeAtt(Resource _subject)
 	{ 
 		Statement attributeClass, classAttribute;
 		
@@ -273,4 +253,5 @@ public class TPProfileModel {
 	{
 		this.attribute.clear();
 	}
+	
 }

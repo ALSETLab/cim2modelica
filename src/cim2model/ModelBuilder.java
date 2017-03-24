@@ -114,7 +114,7 @@ public class ModelBuilder
 			}
 			else{
 				MOAttribute variable= new MOAttribute();
-				variable.set_Name(current.getMoName());
+				variable.set_Name(current.getName());
 				variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
 				variable.set_Visibility(current.getVisibility());
@@ -179,7 +179,7 @@ public class ModelBuilder
 			}
 			else{
 				MOAttribute variable= new MOAttribute();
-				variable.set_Name(current.getMoName());
+				variable.set_Name(current.getName());
 				if (current.getContent()== null)
 					variable.set_Value("0");
 				else
@@ -210,7 +210,7 @@ public class ModelBuilder
 			}
 			else{
 				MOAttribute variable= new MOAttribute();
-				variable.set_Name(current.getMoName());
+				variable.set_Name(current.getName());
 				if (current.getContent()== null)
 					variable.set_Value("0");
 				else
@@ -242,8 +242,8 @@ public class ModelBuilder
 			}
 			else {
 				if (current.getDatatype().equals("Complex")) {
-					String nombre= current.getMoName().split("[.]")[0];
-					String parte= current.getMoName().split("[.]")[1];
+					String nombre= current.getName().split("[.]")[0];
+					String parte= current.getName().split("[.]")[1];
 					if (!pwLoad.exist_Attribute(nombre))
 						complejo= new MOAttributeComplex();
 					else
@@ -263,7 +263,7 @@ public class ModelBuilder
 				}
 				else {
 					MOAttribute variable= new MOAttribute();
-					variable.set_Name(current.getMoName());
+					variable.set_Name(current.getName());
 					if (current.getContent()== null)
 						variable.set_Value("0");
 					else
@@ -298,7 +298,7 @@ public class ModelBuilder
 			}
 			else{
 				MOAttribute variable= new MOAttribute();
-				variable.set_Name(current.getMoName());
+				variable.set_Name(current.getName());
 				if (current.getContent()== null)
 					variable.set_Value("0");
 				else
@@ -334,7 +334,7 @@ public class ModelBuilder
 				else
 				{
 					MOAttribute variable= new MOAttribute();
-					variable.set_Name(current.getMoName());
+					variable.set_Name(current.getName());
 					if (current.getContent()== null)
 						variable.set_Value("0");
 					else
@@ -395,7 +395,7 @@ public class ModelBuilder
 	private MOAttribute create_TransformerEndAttribute(AttributeMap _endNumber, AttributeMap _currentAtt) 
 	{
 		MOAttribute variable= new MOAttribute();
-		variable.set_Name(_currentAtt.getMoName()+ _endNumber.getContent());
+		variable.set_Name(_currentAtt.getName()+ _endNumber.getContent());
 		if (_currentAtt.getContent()== null)
 			variable.set_Value("0");
 		else
@@ -426,7 +426,7 @@ public class ModelBuilder
 			}
 			else {
 				MOAttribute variable= new MOAttribute();
-				variable.set_Name(current.getMoName());
+				variable.set_Name(current.getName());
 				if (current.getContent()== null)
 					variable.set_Value("0");
 				else
@@ -459,7 +459,7 @@ public class ModelBuilder
 			}
 			else{
 				MOAttribute variable= new MOAttribute();
-				variable.set_Name(current.getMoName());
+				variable.set_Name(current.getName());
 				if (current.getContent()== null)
 					variable.set_Value("0");
 				else

@@ -88,16 +88,7 @@ public class ModelDesigner
 	 */
 	public String[] get_CIMClassName(Resource _key)
 	{
-		return profile_EQ.retrieveComponentName(_key);
-	}
-	/**
-	 * 
-	 * @param _rdf_id
-	 * @return
-	 */
-	public String[] get_CIMClassName(String _rdf_id)
-	{
-		return profile_EQ.retrieveComponentName(_rdf_id);
+		return profile_EQ.get_ComponentName(_key);
 	}
 
 	/**
@@ -140,13 +131,13 @@ public class ModelDesigner
 	 * @param _cn
 	 * @param _tn
 	 */
-	private void add_newConnectionMap(PwPinMap _mapTerminal)
+	private void add_newConnectionMap(PwPinMap _mapTerminal, Resource _cn, Resource _tn)
 	{
 		ConnectionMap nuevaConnection = new ConnectionMap(
 				_mapTerminal.getRfdId(), _mapTerminal.getConductingEquipment(),
 				_mapTerminal.getTopologicalNode());
-//		nuevaConnection.setConductingEquipment(_cn);
-//		nuevaConnection.setTopologicalNode(_tn);
+		nuevaConnection.set_ConductingEquipment(_cn);
+		nuevaConnection.set_TopologicalNode(_tn);
 		
 		this.connections.add(nuevaConnection);
 	}
@@ -163,14 +154,17 @@ public class ModelDesigner
 		
 		PwPinMap mapTerminal= pwpinXMLToObject(_source);
 		/* load corresponding tag cim:Terminal */
-		Map<String, Object> profile_EQ_map= profile_EQ.getTerminalEQ(key);
-		mapTerminal.getAttributeMap("IdentifiedObject.name").setContent(
+		Map<String, Object> profile_EQ_map= profile_EQ.get_TerminalEQ(key);
+		Map<String, Object> profile_TP_map= profile_TP.get_TNTerminal(key);
+		mapTerminal.get_AttributeMap("IdentifiedObject.name").setContent(
 				(String)profile_EQ_map.get("IdentifiedObject.name"));
 		if (profile_SV.has_SvPowerFlow(key))
 		{
 			profile_SV_map= profile_SV.get_TerminalPF(key);
-			mapTerminal.getAttributeMap("SvPowerFlow.p").setContent((String)profile_SV_map.get("SvPowerFlow.p"));
-			mapTerminal.getAttributeMap("SvPowerFlow.q").setContent((String)profile_SV_map.get("SvPowerFlow.q"));
+			mapTerminal.get_AttributeMap("SvPowerFlow.p").setContent(
+					(String)profile_SV_map.get("SvPowerFlow.p"));
+			mapTerminal.get_AttributeMap("SvPowerFlow.q").setContent(
+					(String)profile_SV_map.get("SvPowerFlow.q"));
 //			ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapTerminal.getAttributeMap();
 //			Iterator<AttributeMap> imapAttList= mapAttList.iterator();
 //			AttributeMap currentmapAtt;
@@ -179,16 +173,18 @@ public class ModelDesigner
 //				currentmapAtt.setContent((String)profile_SV_map.get(currentmapAtt.getCimName()));
 //			}
 		}
-		mapTerminal.setConductingEquipment(profile_EQ_map.get("Terminal.ConductingEquipment").toString());
-		if (profile_TP.hasTerminal_TN(key)) {
-			mapTerminal.setTopologicalNode(profile_TP.getTerminal_TN(key));
+		mapTerminal.setConductingEquipment(
+				profile_EQ_map.get("Terminal.ConductingEquipment").toString());
+		if (profile_TP.has_TerminalTN(key)) {
+			mapTerminal.setTopologicalNode(profile_TP.get_TerminalTN(key));
 		}
 		// add the rfd_id, as reference from terminal and connections to other components 
 		mapTerminal.setRfdId(_subjectID[0]);
 		mapTerminal.setCimName(_subjectID[1]);
 		/* create new entrance to the connection map: create a new instance of 
 		 * ConnectionMap, with Id T, Id Cn & Id Tn with the mapTerminal*/
-		this.add_newConnectionMap(mapTerminal);
+		this.add_newConnectionMap(mapTerminal, (Resource)profile_EQ_map.get("Terminal.ConductingEquipment"),
+				(Resource)profile_TP_map.get("Terminal.TopologicalNode"));
 		profile_EQ.clearAttributes();
 		profile_SV.clearAttributes();
 		profile_TP.clearAttributes();
@@ -435,15 +431,13 @@ public class ModelDesigner
 	public LoadMap create_LoadModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
 		LoadMap mapEnergyC= loadXMLToObject(_source);
-		Map<String, Object> cimClassMap= profile_EQ.retrieveAttributesEnergyC(key);
+		Map<String, Object> cimClassMap= profile_EQ.gather_EnergyConsumerAtt(key);
 		Iterator<AttributeMap> imapAttList= mapEnergyC.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
-		}
-//		mapEnergyC.setLoadResponse(cimClassMap.get("EnergyConsumer.LoadResponse").toString());
-		// add cim id, used as reference from terminal and connections to other components 
+		} 
 		mapEnergyC.setRfdId(_subjectID[0]);
 		mapEnergyC.setCimName(_subjectID[1]);
 
@@ -470,7 +464,7 @@ public class ModelDesigner
 	public PwLineMap create_LineModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
 		PwLineMap mapACLine= pwlineXMLToObject(_source);
-		Map<String, Object> cimClassMap= profile_EQ.retrieveAttributes(key);
+		Map<String, Object> cimClassMap= profile_EQ.gather_CIMClassAtt(key);
 		Iterator<AttributeMap> imapAttList= mapACLine.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
@@ -485,55 +479,11 @@ public class ModelDesigner
 		return mapACLine;
 	}
 	
-	private static TwoWindingTransformerMap twtXMLToObject(String _xmlmap) {
-		JAXBContext context;
-		Unmarshaller un;
-		
-		try{
-			context = JAXBContext.newInstance(TwoWindingTransformerMap.class);
-	        un = context.createUnmarshaller();
-	        TwoWindingTransformerMap map = (TwoWindingTransformerMap) un.unmarshal(new File(_xmlmap));
-	        return map;
-        } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-	public CIMTransformerEnd create_TransformerModelicaMap(Resource key, String _source, String[] _subjectID)
-	{
-		TwoWindingTransformerMap mapPowTrans= twtXMLToObject(_source);
-		CIMTransformerEnd transformerEnd;
-		
-		Map<String, Object> cimClassMap= profile_EQ.retrieveAttributesTransformer(key);
-		Iterator<AttributeMap> imapAttList= mapPowTrans.getAttributeMap().iterator();
-		AttributeMap currentmapAtt;
-		while (imapAttList.hasNext()) { //get the values of the attributes
-			currentmapAtt= imapAttList.next();
-			if (cimClassMap.get(currentmapAtt.getCimName())!= null)
-				currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
-//			System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+ "= "+ currentmapAtt.getContent()+ "; "+ currentmapAtt.getMoName());
-		}
-//		mapPowTrans.setPowerTransformer(cimClassMap.get("TransformerEnd.RatioTapChanger").toString());
-		mapPowTrans.setTerminal(cimClassMap.get("TransformerEnd.Terminal").toString());
-//		System.out.println("TwT terminal: "+ mapPowTrans.getTerminal());
-		// add cim id, used as reference from terminal and connections to other components 
-		mapPowTrans.setRfdId(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
-		mapPowTrans.setCimName(_subjectID[1]);
-		
-		transformerEnd= new CIMTransformerEnd(mapPowTrans, 
-				(Resource)cimClassMap.get("PowerTransformerEnd.PowerTransformer"),
-//				(Resource)cimClassMap.get("TransformerEnd.RatioTapChanger")
-				(Resource)cimClassMap.get("TransformerEnd.Terminal"));
-		transformerEnd.set_Pt_id(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
-//		transformerEnd.set_Rtc_id(cimClassMap.get("TransformerEnd.RatioTapChanger").toString().split("#")[1]);
-		transformerEnd.set_Te_id(cimClassMap.get("TransformerEnd.Terminal").toString().split("#")[1]);
-
-		profile_EQ.clearAttributes();
-		
-		return transformerEnd;
-	}
-	
+	/**
+	 * 
+	 * @param _xmlmap
+	 * @return
+	 */
 	private static PwBusMap pwbusXMLToObject(String _xmlmap) {
 		JAXBContext context;
 		Unmarshaller un;
@@ -549,10 +499,17 @@ public class ModelDesigner
             return null;
         }
     }
+	/**
+	 * 
+	 * @param key
+	 * @param _source
+	 * @param _subjectID
+	 * @return
+	 */
 	public PwBusMap create_BusModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
 		PwBusMap mapTopoNode= pwbusXMLToObject(_source);
-		Map<String, Object> cimClassMap= profile_TP.retrieveAttributesTopoNode(key);
+		Map<String, Object> cimClassMap= profile_TP.gather_TopologicalNodeAtt(key);
 		Iterator<AttributeMap> imapAttList= mapTopoNode.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
@@ -566,6 +523,56 @@ public class ModelDesigner
 		
 		return mapTopoNode;
 	}
+	
+//	private static TwoWindingTransformerMap twtXMLToObject(String _xmlmap) {
+//		JAXBContext context;
+//		Unmarshaller un;
+//		
+//		try{
+//			context = JAXBContext.newInstance(TwoWindingTransformerMap.class);
+//	        un = context.createUnmarshaller();
+//	        TwoWindingTransformerMap map = (TwoWindingTransformerMap) un.unmarshal(new File(_xmlmap));
+//	        return map;
+//        } 
+//        catch (JAXBException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+//	public CIMTransformerEnd create_TransformerModelicaMap(Resource key, String _source, String[] _subjectID)
+//	{
+//		TwoWindingTransformerMap mapPowTrans= twtXMLToObject(_source);
+//		CIMTransformerEnd transformerEnd;
+//		
+//		Map<String, Object> cimClassMap= profile_EQ.retrieveAttributesTransformer(key);
+//		Iterator<AttributeMap> imapAttList= mapPowTrans.getAttributeMap().iterator();
+//		AttributeMap currentmapAtt;
+//		while (imapAttList.hasNext()) { //get the values of the attributes
+//			currentmapAtt= imapAttList.next();
+//			if (cimClassMap.get(currentmapAtt.getCimName())!= null)
+//				currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+////			System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+ "= "+ currentmapAtt.getContent()+ "; "+ currentmapAtt.getMoName());
+//		}
+////		mapPowTrans.setPowerTransformer(cimClassMap.get("TransformerEnd.RatioTapChanger").toString());
+//		mapPowTrans.setTerminal(cimClassMap.get("TransformerEnd.Terminal").toString());
+////		System.out.println("TwT terminal: "+ mapPowTrans.getTerminal());
+//		// add cim id, used as reference from terminal and connections to other components 
+//		mapPowTrans.setRfdId(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
+//		mapPowTrans.setCimName(_subjectID[1]);
+//		
+//		transformerEnd= new CIMTransformerEnd(mapPowTrans, 
+//				(Resource)cimClassMap.get("PowerTransformerEnd.PowerTransformer"),
+////				(Resource)cimClassMap.get("TransformerEnd.RatioTapChanger")
+//				(Resource)cimClassMap.get("TransformerEnd.Terminal"));
+//		transformerEnd.set_Pt_id(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
+////		transformerEnd.set_Rtc_id(cimClassMap.get("TransformerEnd.RatioTapChanger").toString().split("#")[1]);
+//		transformerEnd.set_Te_id(cimClassMap.get("TransformerEnd.Terminal").toString().split("#")[1]);
+//
+//		profile_EQ.clearAttributes();
+//		
+//		return transformerEnd;
+//	}
+	
 
 //	private static PwFaultMap pwfaultXMLToObject(String _xmlmap) {
 //		JAXBContext context;

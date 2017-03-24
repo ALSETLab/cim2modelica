@@ -2,9 +2,9 @@
 <!--Created by fragom-->
 <pwPinMap cim_name="Terminal" rfd_id="" package="OpenIPSL.Electrical.Connectors" name="PwPin" stereotype="connector" 
 	ConductingEquipment= "rfd_resource" TopologicalNode="rfd_resource">
-  <attributeMap cim_name="IdentifiedObject.name" mo_name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
-  <attributeMap cim_name="SvVoltage.angle" mo_name="vi" datatype="Real"  variability="none" visibility="public" flow="0">0</attributeMap>
-  <attributeMap cim_name="SvVoltage.v" mo_name="vr" datatype="Real"  variability="none" visibility="public" flow="0">0</attributeMap>
-  <attributeMap cim_name="SvPowerFlow.p" mo_name="ir" datatype="Real"  variability="none" visibility="public" flow="1">0</attributeMap>
-  <attributeMap cim_name="SvPowerFlow.q" mo_name="ii" datatype="Real"  variability="none" visibility="public" flow="1">0</attributeMap>
+  <attributeMap cim_name="IdentifiedObject.name" name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
+  <attributeMap cim_name="SvVoltage.angle" name="vi" datatype="Real"  variability="none" visibility="public" flow="0">0</attributeMap>
+  <attributeMap cim_name="SvVoltage.v" name="vr" datatype="Real"  variability="none" visibility="public" flow="0">0</attributeMap>
+  <attributeMap cim_name="SvPowerFlow.p" name="ir" datatype="Real"  variability="none" visibility="public" flow="1">0</attributeMap>
+  <attributeMap cim_name="SvPowerFlow.q" name="ii" datatype="Real"  variability="none" visibility="public" flow="1">0</attributeMap>
 </pwPinMap>

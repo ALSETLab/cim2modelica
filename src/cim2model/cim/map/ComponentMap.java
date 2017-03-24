@@ -26,20 +26,20 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType/&gt;
- *   &lt;complexContent/&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"/&gt;
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *     	 &lt;sequence&gt;
- *         &lt;element ref="{}attributeMap" maxOccurs="unbounded"/&gt;
+ *         &lt;element ref="{}attributeMap" maxOccurs="unbounded"&gt;
  *       &lt;/sequence&gt;
- *       &lt;attribute name="cim_name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
- *       &lt;attribute name="rfd_id" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
- *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
- *       &lt;attribute name="package" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
- *       &lt;attribute name="stereotype" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
- *     &lt;/restriction/&gt;
- *   &lt;/complexContent/&gt;
- * &lt;/complexType/&gt;
+ *       &lt;attribute name="cim_name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" &gt;
+ *       &lt;attribute name="rfd_id" use="required" type="{http://www.w3.org/2001/XMLSchema}string" &gt;
+ *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" &gt;
+ *       &lt;attribute name="package" use="required" type="{http://www.w3.org/2001/XMLSchema}string" &gt;
+ *       &lt;attribute name="stereotype" use="required" type="{http://www.w3.org/2001/XMLSchema}string" &gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -98,7 +98,7 @@ public abstract class ComponentMap {
      * @param _name
      * @return
      */
-    public AttributeMap getAttributeMap(String _name)
+    public AttributeMap get_AttributeMap(String _name)
     {
     	Iterator<AttributeMap> atributos= this.attributeMap.iterator();
     	AttributeMap atributo;

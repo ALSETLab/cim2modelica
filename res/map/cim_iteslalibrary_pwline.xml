@@ -9,19 +9,19 @@
 		visibility="none">
 		name
 	</attributeMap>
-	<attributeMap cim_name="ACLineSegment.r" name="R" datatype="Real"
+	<attributeMap cim_name="Conductor.r" name="R" datatype="Real"
 		variability="parameter" visibility="public">
 		0
 	</attributeMap>
-	<attributeMap cim_name="ACLineSegment.x" name="X" datatype="Real"
+	<attributeMap cim_name="Conductor.x" name="X" datatype="Real"
 		variability="parameter" visibility="public">
 		0
 	</attributeMap>
-	<attributeMap cim_name="ACLineSegment.gch" name="G"
+	<attributeMap cim_name="Conductor.gch" name="G"
 		datatype="Real" variability="parameter" visibility="public">
 		0
 	</attributeMap>
-	<attributeMap cim_name="ACLineSegment.bch" name="B"
+	<attributeMap cim_name="Conductor.bch" name="B"
 		datatype="Real" variability="parameter" visibility="public">
 		0
 	</attributeMap>
