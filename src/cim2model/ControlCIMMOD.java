@@ -26,8 +26,8 @@ public class ControlCIMMOD
 	public static void main(String[] args) 
 	{
 		Map<Resource, RDFNode> profile_EQ;
-		Map<Resource, RDFNode> profile_TP;
-		Map<Resource, RDFNode> profile_SV;
+//		Map<Resource, RDFNode> profile_TP;
+//		Map<Resource, RDFNode> profile_SV;
 		String [] cimClassResource;
 		String _source_EQ_profile= args[0];
 		String _source_TP_profile= args[1];
@@ -40,12 +40,12 @@ public class ControlCIMMOD
 		constructor= new ModelBuilder(args[3]);
 		String xmlns_cim= "http://iec.ch/TC57/2009/CIM-schema-cim14#";
 		profile_EQ= cartografo.load_EQ_profile(xmlns_cim);
-		profile_TP= cartografo.load_TP_profile(xmlns_cim);
-		profile_SV= cartografo.load_SV_profile(xmlns_cim);
+		cartografo.load_TP_profile(xmlns_cim);
+		cartografo.load_SV_profile(xmlns_cim);
 		// verify 
 		for (Resource key : profile_EQ.keySet())
 		{	
-			cimClassResource= cartografo.get_CIMClassName(key);
+			cimClassResource= cartografo.get_EquipmentClassName(key);
 			/* subjectResource[0] is the rfd_id, subjectResource[1] is the CIM name */
 			if (cimClassResource[1].equals("Terminal"))
 			{
@@ -56,10 +56,9 @@ public class ControlCIMMOD
 				/* after loading terminal, load the resource connected to it, 
 				 * a.k.a., ConductingEquipment 
 				 * a.k.a. TopologicalNode */
-				equipmentResource= cartografo.get_CIMClassName(
+				equipmentResource= cartografo.get_EquipmentClassName(
 						cartografo.get_CurrentConnectionMap().get_ConductingEquipment());
-				//TODO get tag name from TP profile object
-				topologyResource= cartografo.get_CIMClassName(
+				topologyResource= cartografo.get_TopoNodeClassName(
 						cartografo.get_CurrentConnectionMap().get_TopologicalNode());
 //				/* According to CIM Composer, SynchMachine has one terminal */
 //				if (equipmentResource[1].equals("SynchronousMachine"))

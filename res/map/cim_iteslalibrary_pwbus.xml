@@ -9,6 +9,11 @@
 		visibility="none">
 		name
 	</attributeMap>
+	<attributeMap cim_name="IdentifiedObject.description"
+		name="InstanceName" datatype="String" variability="none"
+		visibility="none">
+		description
+	</attributeMap>
 	<attributeMap cim_name="SvVoltage.v" name="V_0" datatype="Real"
 		variability="none" visibility="public">
 		0

@@ -64,21 +64,18 @@ public class ModelDesigner
 		return classes_EQ;
 	}
 	
-	public Map<Resource, RDFNode> load_TP_profile(String _xmlns_cim)
+	public void load_TP_profile(String _xmlns_cim)
 	{
 		profile_TP = new TPProfileModel(reader_TP_profile.read_profile(_xmlns_cim));
-		tagsTP_tn = profile_TP.gatherTopologicalNodes();
+		profile_TP.gatherTopologicalNodes();
 		profile_TP.gatherTerminals();
-		
-		return tagsTP_tn;
 	}
 	
-	public Map<Resource, RDFNode> load_SV_profile(String _xmlns_cim)
+	public void load_SV_profile(String _xmlns_cim)
 	{
 		profile_SV = new SVProfileModel(reader_SV_profile.read_profile(_xmlns_cim));
-		classes_SV = profile_SV.gatherSvPowerFlow();
-		
-		return classes_SV;
+		profile_SV.gather_SvPowerFlow();
+		profile_SV.gather_SvVoltage();
 	}
 	
 	/**

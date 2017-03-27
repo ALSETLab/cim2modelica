@@ -44,6 +44,21 @@ public class TPProfileModel {
 	
 	/**
 	 * 
+	 * @param _subject
+	 * @return Array containing Component ID, Component/Class name
+	 */
+	public String [] get_ComponentName(Resource _subject)
+	{
+		RDFNode aux;
+		
+		aux= this.topologicalNodes.get(_subject);
+		String [] object= aux.toString().split("#");
+		
+		return new String [] {_subject.getLocalName(), object[1]};
+	}
+	
+	/**
+	 * 
 	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
 	 */
 	public Map<Resource,RDFNode> gatherTopologicalNodes()
@@ -193,7 +208,6 @@ public class TPProfileModel {
 			}
 		}
 		terminalAttributes.close();
-		terminalAttribute= null;
 		
 		return this.attribute;
 	}

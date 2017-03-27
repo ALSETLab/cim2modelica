@@ -46,7 +46,7 @@ public class SVProfileModel {
 	 * 
 	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
 	 */
-	public Map<Resource,RDFNode> gatherSvPowerFlow()
+	public Map<Resource,RDFNode> gather_SvPowerFlow()
 	{
 		Resource s,p;
 		RDFNode o;
@@ -85,8 +85,8 @@ public class SVProfileModel {
 		Resource p;
         RDFNode o;
         Statement stmt;
-		System.out.println("T local name: "+ _t.getLocalName());
-    	System.out.println("T URI: "+ _t.getURI());
+//		System.out.println("T local name: "+ _t.getLocalName());
+//    	System.out.println("T URI: "+ _t.getURI());
 		while( !found && stmtiter.hasNext() ) 
 		{
 			stmt= stmtiter.next();
@@ -101,7 +101,6 @@ public class SVProfileModel {
 		
 		return found;
 	}
-	
 	
 	/**
 	 * 
@@ -150,7 +149,7 @@ public class SVProfileModel {
 	 * 
 	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
 	 */
-	public Map<Resource,RDFNode> gatherSvVoltage()
+	public Map<Resource,RDFNode> gather_SvVoltage()
 	{
 		Resource s,p;
 		RDFNode o;
@@ -168,9 +167,8 @@ public class SVProfileModel {
 //            System.out.println("Subject : "+ s.getLocalName());
 //        	System.out.println("Predicate : "+ p.getLocalName());
 //        	System.out.println("Object : "+ o.toString());
-            //p as "type" means that the statment is refering to the component
             if (p.isURIResource() && p.getLocalName().equals("SvVoltage.TopologicalNode")) 
-            {
+            {//s is the tag SvPowerFlow; o is the attribute with rdf:resource of the tag
             	this.svVoltage.put(s, o);
             }
 		}
@@ -179,20 +177,19 @@ public class SVProfileModel {
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}
 	
-	
 	/**
 	 * 
 	 * @return boolean
 	 */
-	public boolean hasSvVoltage(Resource _tn)
+	public boolean has_SvVoltage(Resource _t)
 	{
 		final StmtIterator stmtiter = this.rdfModel.listStatements();
 		boolean found= false;
 		Resource p;
         RDFNode o;
         Statement stmt;
-		System.out.println("T local name: "+ _tn.getLocalName());
-    	System.out.println("T URI: "+ _tn.getURI());
+		System.out.println("T local name: "+ _t.getLocalName());
+    	System.out.println("T URI: "+ _t.getURI());
 		while( !found && stmtiter.hasNext() ) 
 		{
 			stmt= stmtiter.next();
@@ -201,45 +198,52 @@ public class SVProfileModel {
             if (p.getLocalName().equals("SvVoltage.TopologicalNode")){
             	String [] componentName= o.toString().split("#");
             	System.out.println(componentName[0]+ " : "+ componentName[1]);
-            	found= componentName[1].equals(_tn.getLocalName());
+            	found= componentName[1].equals(_t.getLocalName());
             }
 		}
 		
 		return found;
 	}
 	
-	
 	/**
 	 * 
 	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
 	 */
-	public Map<String, Object> getTopoNodeV(Resource _t)
+	public Map<String, Object> get_TopoNodeVw(Resource _t)
 	{
 		boolean found= false;
-        Statement attVoltage;
+		Entry<Resource,RDFNode> current;
+		RDFNode rdf_resource;
+		Resource tag_svVoltage;
+		String [] rdf_id_topoNode;
+        Statement attPowerFlow;
         StmtIterator iProperties= null;
-    	final Iterator<Resource> iResource = this.svVoltage.keySet().iterator();
-		while( !found && iResource.hasNext() ) 
+        Iterator<Entry<Resource,RDFNode>> iTags= this.svPowerFlow.entrySet().iterator();
+        
+		while( !found && iTags.hasNext() ) 
 		{
-			iProperties= ((Resource)iResource.next()).listProperties();
-			while (iProperties.hasNext())
+			current= iTags.next();
+			rdf_resource= current.getValue();
+			rdf_id_topoNode= rdf_resource.toString().split("#");
+			found= rdf_id_topoNode[1].equals(_t.getLocalName());
+			if (found)
 			{
-				attVoltage= iProperties.next();
-				//TODO if it matches, get literals
-				if (attVoltage.getAlt().isLiteral())
+				tag_svVoltage= current.getKey();
+				iProperties= tag_svVoltage.listProperties();
+				while( iProperties.hasNext() )
 				{
-					this.attribute.put(attVoltage.getPredicate().getLocalName(), 
-							attVoltage.getLiteral().getValue());
-					System.out.println(attVoltage.getPredicate().getLocalName()+ ": "+ 
-							attVoltage.getLiteral().getValue());
-				}
-				if (attVoltage.getAlt().isURIResource())
-				{
-					//TODO check _t.id matches this one -> break, found true;
-					
+					attPowerFlow= iProperties.next();
+					if (attPowerFlow.getAlt().isLiteral())
+					{
+						this.attribute.put(attPowerFlow.getPredicate().getLocalName(), 
+								attPowerFlow.getLiteral().getValue());
+						System.out.println(attPowerFlow.getPredicate().getLocalName()+ ": "+ 
+	    						attPowerFlow.getLiteral().getValue());
+					}
 				}
 			}
 		}	
+		iProperties= null; iTags= null;
 		return this.attribute;
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}
