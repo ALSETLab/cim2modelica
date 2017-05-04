@@ -125,7 +125,7 @@ public class ModelBuilder
 		pin.set_Stereotype(_terminalMap.getStereotype());
 		pin.set_Package(_terminalMap.getPackage());
 		//for internal identification only
-		pin.set_RfdId(_terminalMap.getRfdId());
+		pin.set_RfdId(_terminalMap.getRdfId());
 		
 		return pin;
 	}
@@ -167,7 +167,7 @@ public class ModelBuilder
 			return null;
 	}
 	
-	public IPSLMachine create_MachineComponent(SynchronousMachineMap _mapSyncMach)
+	public IPSLMachine create_MachineComponent(ComponentMap _mapSyncMach)
 	{
 		IPSLMachine syncMach= new IPSLMachine(_mapSyncMach.getName());
 		Iterator<AttributeMap> imapAttList= _mapSyncMach.getAttributeMap().iterator();
@@ -193,7 +193,7 @@ public class ModelBuilder
 		syncMach.set_Stereotype(_mapSyncMach.getStereotype());
 		syncMach.set_Package(_mapSyncMach.getPackage());
 		//for internal identification only
-		syncMach.set_RfdId(_mapSyncMach.getRfdId());
+		syncMach.set_RfdId(_mapSyncMach.getRdfId());
 		
 		return syncMach;
 	}
@@ -279,7 +279,7 @@ public class ModelBuilder
 		pwLoad.set_Stereotype(_mapEnergyC.getStereotype());
 		pwLoad.set_Package(_mapEnergyC.getPackage());
 		//for internal identification only
-		pwLoad.set_RfdId(_mapEnergyC.getRfdId());
+		pwLoad.set_RfdId(_mapEnergyC.getRdfId());
 		
 		return pwLoad;
 	}
@@ -312,7 +312,7 @@ public class ModelBuilder
 		pwline.set_Stereotype(_mapACLine.getStereotype());
 		pwline.set_Package(_mapACLine.getPackage());
 		//for internal identification only
-		pwline.set_RfdId(_mapACLine.getRfdId());
+		pwline.set_RfdId(_mapACLine.getRdfId());
 		
 		return pwline;
 	}
@@ -440,7 +440,7 @@ public class ModelBuilder
 		pwbus.setStereotype(_mapTopoNode.getStereotype());
 		pwbus.set_Package(_mapTopoNode.getPackage());
 		//for internal identification only
-		pwbus.set_RfdId(_mapTopoNode.getRfdId());
+		pwbus.set_RfdId(_mapTopoNode.getRdfId());
 		
 		return pwbus;
 	}

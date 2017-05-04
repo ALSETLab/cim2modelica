@@ -15,7 +15,8 @@ import cim2model.cim.map.AttributeMap;
 public interface SynchronousMachineMap {
 
 	public String getCimName();
-	public String getRfdId();
+	public String getRdfId();
+	public String getRdfResource();
 	public String getName();
 	public String getPackage();
 	public String getStereotype();

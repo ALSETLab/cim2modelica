@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_pwfault.dtd">
-<pwFaultMap cim_name="Fault" rfd_id=""
-	package="OpenIPSL.Electrical.Events" name="PwFault" stereotype="class"
-	rfd_resource="">
+<pwFaultMap cim_name="Fault" rdf_id="" rdf_resource="" package="OpenIPSL.Electrical.Events" name="PwFault" stereotype="class">
 	<attributeMap cim_name="IdentifiedObject.name"
 		name="InstanceName" datatype="String" variability="none"
 		visibility="none">

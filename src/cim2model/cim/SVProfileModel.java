@@ -94,7 +94,7 @@ public class SVProfileModel {
             o = stmt.getObject();
             if (p.getLocalName().equals("SvPowerFlow.Terminal")){
             	String [] componentName= o.toString().split("#");
-            	System.out.println(componentName[0]+ " : "+ componentName[1]);
+//            	System.out.println(componentName[0]+ " : "+ componentName[1]);
             	found= componentName[1].equals(_t.getLocalName());
             }
 		}
@@ -134,8 +134,8 @@ public class SVProfileModel {
 					{
 						this.attribute.put(attPowerFlow.getPredicate().getLocalName(), 
 								attPowerFlow.getLiteral().getValue());
-						System.out.println(attPowerFlow.getPredicate().getLocalName()+ ": "+ 
-	    						attPowerFlow.getLiteral().getValue());
+//						System.out.println(attPowerFlow.getPredicate().getLocalName()+ ": "+ 
+//	    						attPowerFlow.getLiteral().getValue());
 					}
 				}
 			}
@@ -188,8 +188,8 @@ public class SVProfileModel {
 		Resource p;
         RDFNode o;
         Statement stmt;
-		System.out.println("T local name: "+ _t.getLocalName());
-    	System.out.println("T URI: "+ _t.getURI());
+//		System.out.println("T local name: "+ _t.getLocalName());
+//    	System.out.println("T URI: "+ _t.getURI());
 		while( !found && stmtiter.hasNext() ) 
 		{
 			stmt= stmtiter.next();

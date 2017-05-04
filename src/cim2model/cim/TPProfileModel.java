@@ -1,11 +1,8 @@
 package cim2model.cim;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
@@ -61,7 +58,7 @@ public class TPProfileModel {
 	 * 
 	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
 	 */
-	public Map<Resource,RDFNode> gatherTopologicalNodes()
+	public Map<Resource,RDFNode> gather_TopologicalNodes()
 	{
 		Resource s,p;
 		RDFNode o;
@@ -74,26 +71,26 @@ public class TPProfileModel {
 		    s = stmt.getSubject();
             p = stmt.getPredicate();
             o = stmt.getObject();
-//            String [] componentName= o.toString().split("#");
-//            System.out.println("Subject :"+ s.getURI());
-//            System.out.println("Subject : "+ s.getLocalName());
-//        	System.out.println("Predicate : "+ p.getLocalName());
-//        	System.out.println("Object : "+ o.toString());
+            String [] componentName= o.toString().split("#");
             //p as "type" means that the statement is referring to the component
-            if (p.isURIResource() && p.getLocalName().equals("type"))
+            if (p.isURIResource() && p.getLocalName().equals("type") 
+            		&& componentName[1].equals("TopologicalNode"))
             {
-            	this.terminals.put(s, o);
+//            	System.out.println("Subject :"+ s.getURI());
+//            	System.out.println("Subject : "+ s.getLocalName());
+//            	System.out.println("Predicate : "+ p.getLocalName());
+//            	System.out.println("Object : "+ o.toString());
+            	this.topologicalNodes.put(s, o);
             }
 		}
-		
-		return this.terminals;
+		return this.topologicalNodes;
 	}
 	
 	/**
 	 * 
 	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
 	 */
-	public Map<Resource,RDFNode> gatherTerminals()
+	public Map<Resource,RDFNode> gather_Terminals()
 	{
 		Resource s,p;
 		RDFNode o;
@@ -133,8 +130,8 @@ public class TPProfileModel {
 		boolean found= false;
 		Resource s, p;
         Statement stmt;
-		System.out.println("T local name: "+ _t.getLocalName());
-    	System.out.println("T URI: "+ _t.getURI());
+//		System.out.println("T local name: "+ _t.getLocalName());
+//    	System.out.println("T URI: "+ _t.getURI());
 		while( !found && stmtiter.hasNext() ) 
 		{
 			stmt= stmtiter.next();
@@ -142,7 +139,7 @@ public class TPProfileModel {
             s = stmt.getSubject();
             if (p.getLocalName().equals("Terminal.TopologicalNode")){
             	String [] componentName= s.toString().split("#");
-            	System.out.println(componentName[0]+ " : "+ componentName[1]);
+//            	System.out.println(componentName[0]+ " : "+ componentName[1]);
             	found= s.getLocalName().equals(_t.getLocalName());
             }
 		}
@@ -183,33 +180,17 @@ public class TPProfileModel {
 	 * 
 	 * @return boolean
 	 */
-	public Map<String,Object> get_TNTerminal(Resource _t)
+	public Resource get_TNTerminal(String _id_TN)
 	{
-		Statement terminalAttribute;
+		Resource foundTagTN= null;
+		boolean found= false;
 		
-		this.attribute.clear();
-		StmtIterator terminalAttributes= _t.listProperties();
-		while( terminalAttributes.hasNext() ) 
-		{
-			terminalAttribute= terminalAttributes.next();
-			if (terminalAttribute.getAlt().isLiteral())
-			{
-				this.attribute.put(terminalAttribute.getPredicate().getLocalName(), 
-						terminalAttribute.getLiteral().getValue());
-			}
-			if (terminalAttribute.getAlt().isURIResource())
-			{
-				if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.TopologicalNode"))
-				{
-					/* Add the rfd_id of the CondictingEquipment which Terminal is related to */
-					this.attribute.put(terminalAttribute.getPredicate().getLocalName(), 
-							terminalAttribute.getResource());
-				}
-			}
+		Iterator<Resource> tagsTN= this.topologicalNodes.keySet().iterator();
+		while (!found && tagsTN.hasNext()){
+			foundTagTN= tagsTN.next();
+			found= foundTagTN.getURI().equals(_id_TN);
 		}
-		terminalAttributes.close();
-		
-		return this.attribute;
+		return foundTagTN;
 	}
 	
 	/**
@@ -217,7 +198,7 @@ public class TPProfileModel {
 	 * @param _subject
 	 * @return
 	 */
-	public Map<String,Object> gather_TopologicalNodeAtt(Resource _subject)
+	public Map<String,Object> gather_TopoNodeAtt(Resource _subject)
 	{ 
 		Statement attributeClass, classAttribute;
 		

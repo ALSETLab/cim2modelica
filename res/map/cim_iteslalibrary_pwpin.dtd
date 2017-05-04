@@ -1,8 +1,8 @@
 <!ELEMENT pwPinMap (attributeMap+)>
 <!ATTLIST pwPinMap
 		  cim_name CDATA #REQUIRED
-		  rfd_id CDATA #REQUIRED
-		  rfd_resource CDATA #REQUIRED
+		  rdf_id CDATA #REQUIRED
+          rdf_resource CDATA #REQUIRED
           name CDATA #REQUIRED
           package CDATA #REQUIRED
           stereotype CDATA #REQUIRED

@@ -33,7 +33,7 @@ public class PwBusMap extends ComponentMap{
     public String toString()
     {
     	return this.stereotype+ " "+ this._package+" "+ this.name+ 
-    			" from "+ this.cimName+ " with id "+ this.rfdId;
+    			" from "+ this.cimName+ " with id "+ this.rdfId;
     }
     
     public boolean equals(String _value)

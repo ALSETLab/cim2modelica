@@ -227,7 +227,7 @@ public class EQProfileModel {
 	 * @param _subject
 	 * @return
 	 */
-	public Map<String,Object> retrieveAttributesSyncMach(Resource _subject)
+	public Map<String,Object> gather_SynchronousMachine_Attributes(Resource _subject)
 	{ 
 		Statement attributeClass, classAttribute;
 		
@@ -237,7 +237,8 @@ public class EQProfileModel {
 			attributeClass= iAttributes.next();
 			if (attributeClass.getAlt().isLiteral())
 			{
-				this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getLiteral().getValue());
+				this.attribute.put(attributeClass.getPredicate().getLocalName(), 
+						attributeClass.getLiteral().getValue());
 			}
 			if (attributeClass.getAlt().isURIResource())
 			{
@@ -248,29 +249,11 @@ public class EQProfileModel {
 					{
 						classAttribute= iLoadResponse.next();
 						if (classAttribute.getAlt().isLiteral()) {
-							this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
+							this.attribute.put(classAttribute.getPredicate().getLocalName(), 
+									classAttribute.getString());
 						}
 					}
 					iLoadResponse.close();
-				}
-				if ( attributeClass.getPredicate().getLocalName().equals("SynchronousMachine.SynchronousMachineDynamics"))
-				{
-					StmtIterator dynamicAtts= attributeClass.getAlt().listProperties();
-					while( dynamicAtts.hasNext() ) 
-					{
-						classAttribute= dynamicAtts.next();
-//						System.out.println("In CIM ... "+ classAttribute.getAlt().toString());
-						if (classAttribute.getAlt().isLiteral() && 
-								!classAttribute.getPredicate().getLocalName().equals("IdentifiedObject.name")) {
-							this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
-						}
-						if(classAttribute.getAlt().isURIResource() && 
-								classAttribute.getPredicate().getLocalName().equals("SynchronousMachineTimeConstantReactance.rotorType")){
-							this.attribute.put(classAttribute.getPredicate().getLocalName(), 
-									classAttribute.getObject().toString().split("#")[1]);
-						}
-					}
-					dynamicAtts.close();
 				}
 			}
 		}

@@ -1,5 +1,5 @@
-<!ELEMENT excSEXSMap (attributeMap+)>
-<!ATTLIST excSEXSMap
+<!ELEMENT oRderVIMap (attributeMap+)>
+<!ATTLIST eSDC1AMap
           cim_name CDATA #REQUIRED
           name CDATA #REQUIRED
           package CDATA #REQUIRED

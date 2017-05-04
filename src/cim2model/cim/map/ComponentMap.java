@@ -55,8 +55,10 @@ public abstract class ComponentMap {
 	protected List<AttributeMap> attributeMap;
 	@XmlAttribute(name = "cim_name", required = true)
 	protected String cimName;
-	@XmlAttribute(name = "rfd_id", required = true)
-	protected String rfdId;
+	@XmlAttribute(name = "rdf_id", required = true)
+    protected String rdfId;
+    @XmlAttribute(name = "rdf_resource", required = true)
+    protected String rdfresource;
 	@XmlAttribute(name = "name", required = true)
     protected String name;
     @XmlAttribute(name = "package", required = true)
@@ -154,27 +156,50 @@ public abstract class ComponentMap {
     }
     
     /**
-     * Gets the value of the name property.
+     * Gets the value of the rfdId property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getRfdId() {
-        return rfdId;
+    public String getRdfId() {
+        return rdfId;
     }
 
     /**
-     * Sets the value of the name property.
+     * Sets the value of the rfdId property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setRfdId(String value) {
-        this.rfdId = value;
+    public void setRdfId(String value) {
+        this.rdfId = value;
+    }
+    /**
+     * Gets the value of the rfdId property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getRdfResource() {
+        return rdfresource;
+    }
+
+    /**
+     * Sets the value of the rfdId property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setRdfResource(String value) {
+        this.rdfresource = value;
     }
     
     /**

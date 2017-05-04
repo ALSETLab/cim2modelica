@@ -1,8 +1,6 @@
 package cim2model;
 
-import java.util.ArrayList;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import cim2model.ModelBuilder;
 import cim2model.ModelDesigner;
@@ -32,16 +30,19 @@ public class ControlCIMMOD
 		String _source_EQ_profile= args[0];
 		String _source_TP_profile= args[1];
 		String _source_SV_profile= args[2];
+		String _source_DY_profile= args[3];
 		ModelDesigner cartografo;
 		ModelBuilder constructor;
 		String [] equipmentResource, topologyResource;
 		
-		cartografo= new ModelDesigner(_source_EQ_profile, _source_TP_profile, _source_SV_profile);
-		constructor= new ModelBuilder(args[3]);
-		String xmlns_cim= "http://iec.ch/TC57/2009/CIM-schema-cim14#";
+		cartografo= new ModelDesigner(_source_EQ_profile, _source_TP_profile, 
+				_source_SV_profile, _source_DY_profile);
+		constructor= new ModelBuilder(args[4]);
+		String xmlns_cim= args[5];
 		profile_EQ= cartografo.load_EQ_profile(xmlns_cim);
 		cartografo.load_TP_profile(xmlns_cim);
 		cartografo.load_SV_profile(xmlns_cim);
+		cartografo.load_DY_profile(xmlns_cim);
 		// verify 
 		for (Resource key : profile_EQ.keySet())
 		{	
@@ -49,9 +50,11 @@ public class ControlCIMMOD
 			/* subjectResource[0] is the rfd_id, subjectResource[1] is the CIM name */
 			if (cimClassResource[1].equals("Terminal"))
 			{
-				System.out.println(cimClassResource[0]+ " is the rfd_id; "+ cimClassResource[1]+ " is the CIM name");
+//				System.out.println(cimClassResource[0]+ " is the rfd_id; "+ cimClassResource[1]+ " is the CIM name");
 				PwPinMap mapTerminal= 
-						cartografo.create_TerminalModelicaMap(key, "./res/map/cim_iteslalibrary_pwpin.xml", cimClassResource);
+						cartografo.create_TerminalModelicaMap(key, 
+								"./res/map/cim_iteslalibrary_pwpin.xml", 
+								cimClassResource);
 				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
 				/* after loading terminal, load the resource connected to it, 
 				 * a.k.a., ConductingEquipment 
@@ -60,39 +63,40 @@ public class ControlCIMMOD
 						cartografo.get_CurrentConnectionMap().get_ConductingEquipment());
 				topologyResource= cartografo.get_TopoNodeClassName(
 						cartografo.get_CurrentConnectionMap().get_TopologicalNode());
-//				/* According to CIM Composer, SynchMachine has one terminal */
-//				if (equipmentResource[1].equals("SynchronousMachine"))
-//				{
-//					IPSLMachine momachine= null;
-//					IPSLExcitationSystem moexcsys= null;
-//					String machineType= cartografo.typeOfSynchronousMachine(
-//							cartografo.get_CurrentConnectionMap().getConductingEquipment());
+				/* According to CIM Composer, SynchMachine has one terminal */
+				if (equipmentResource[1].equals("SynchronousMachine"))
+				{
+					IPSLMachine momachine= null;
+					IPSLExcitationSystem moexcsys= null;
+					//TODO read the dy profile to get the type of machine
+					String machineType= cartografo.typeOfSynchronousMachine(
+							cartografo.get_CurrentConnectionMap().get_ConductingEquipment());
 //					if (machineType.equals("GENCLS")) {
 //						GENCLSMap mapSyncMach= cartografo.create_GENCLSModelicaMap(
 //								cartografo.get_CurrentConnectionMap().getConductingEquipment(), 
 //								"./res/map/cim_iteslalibrary_gencls.xml", equipmentResource);
 //						momachine= constructor.create_MachineComponent(mapSyncMach);
 //					}
-//					if (machineType.equals("GENROU")) {
-//						GENROUMap mapSyncMach= cartografo.create_GENROUModelicaMap(
-//								cartografo.get_CurrentConnectionMap().getConductingEquipment(), 
-//								"./res/map/cim_iteslalibrary_genrou.xml", equipmentResource);
-//						momachine= constructor.create_MachineComponent(mapSyncMach);
-//					}
-//					if (machineType.equals("GENSAL")){
-//						GENSALMap mapSyncMach= cartografo.create_GENSALModelicaMap(
-//								cartografo.get_CurrentConnectionMap().getConductingEquipment(), 
-//								"./res/map/cim_iteslalibrary_gensal.xml", equipmentResource);
-//						momachine= constructor.create_MachineComponent(mapSyncMach);
-//					}
+					if (machineType.equals("GENROU")) {
+						GENROUMap mapSyncMach= cartografo.create_GENROUModelicaMap(
+								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
+								"./res/map/cim_iteslalibrary_genrou.xml", equipmentResource);
+						momachine= constructor.create_MachineComponent(mapSyncMach);
+					}
+					if (machineType.equals("GENSAL")){
+						GENSALMap mapSyncMach= cartografo.create_GENSALModelicaMap(
+								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
+								"./res/map/cim_iteslalibrary_gensal.xml", equipmentResource);
+						momachine= constructor.create_MachineComponent(mapSyncMach);
+					}
 //					if (machineType.equals("GENROE")){
 //						GENROEMap mapSyncMach= cartografo.create_GENROEModelicaMap(
 //								cartografo.get_CurrentConnectionMap().getConductingEquipment(), 
 //								"./res/map/cim_iteslalibrary_genroe.xml", equipmentResource);
 //						momachine= constructor.create_MachineComponent(mapSyncMach);
 //					}
-//					momachine.add_Terminal(mopin);
-//					momachine.update_powerFlow(mopin);
+					momachine.add_Terminal(mopin);
+					momachine.update_powerFlow(mopin);
 //					//TODO with the object map, look and create object map for ES, TG and Stab objects
 //					MOPlant moplanta;
 //					Entry<String, Resource> excsData= cartografo.typeOfExcitationSystem(
@@ -117,7 +121,7 @@ public class ControlCIMMOD
 //							
 //					//TODO create plant object, name of generator instance name, with genmap, esmap, tgmap and stabmap
 //					//genmap can contain ES[0..1], TG[0..1], PSS[0..1]
-//				}
+				}
 				/* EnergyConsumer has one terminal */
 				if (equipmentResource[1].equals("EnergyConsumer"))
 				{
@@ -165,7 +169,7 @@ public class ControlCIMMOD
 						constructor.add_equipmentNetwork(mobus);
 					}
 				}
-//			}
+			}
 //			if (cimClassResource[1].equals("PowerTransformerEnd"))
 //			{
 //				String [] transformerResource, terminalResource;
@@ -196,7 +200,7 @@ public class ControlCIMMOD
 //					constructor.add_equipmentNetwork(moTransformer);
 //				}
 //				moPowTransEnd.clear(); moPowTransEnd= null;
-			}
+//			}
 //
 		}
 //		constructor.connect_Components(cartografo.get_ConnectionMap());

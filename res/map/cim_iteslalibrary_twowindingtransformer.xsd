@@ -11,7 +11,8 @@
       <xs:attribute name="cim_name" type="xs:string" use="required"/>
       <xs:attribute name="name" type="xs:string" use="required"/>
       <xs:attribute name="package" type="xs:string" use="required"/>
-      <xs:attribute name="rfd_id" type="xs:string" use="required"/>
+      <xs:attribute name="rdf_id" type="xs:string" use="required" />
+      <xs:attribute name="rdf_resource" type="xs:string"></xs:attribute>
       <xs:attribute name="stereotype" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>

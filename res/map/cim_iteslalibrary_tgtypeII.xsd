@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
-  <xs:element name="loadMap">
+  <xs:element name="tGTypeIIMap">
     <xs:complexType>
     	<xs:sequence>
     		<xs:element ref="attributeMap" maxOccurs="unbounded" />
     	</xs:sequence>
     	<xs:attribute name="cim_name" type="xs:string" use="required" />
-        <xs:attribute name="rdf_id" type="xs:string" use="required" />
-        <xs:attribute name="rdf_resource" type="xs:string"></xs:attribute>
-        <xs:attribute name="name" type="xs:string" use="required" />
+            <xs:attribute name="rfd_id" type="xs:string" use="required" />
+            <xs:attribute name="rfd_resource" type="xs:string"></xs:attribute>
+            <xs:attribute name="name" type="xs:string" use="required" />
     	<xs:attribute name="package" type="xs:string" use="required" />
     	<xs:attribute name="stereotype" type="xs:string" use="required" />
     </xs:complexType>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_ordervi.dtd">
+<!-- CIM class from packages Dynamics.SynchronousMachineDynamics and Base.Wires -->
+<oRderVIMap cim_name="tbc" rdf_id="" rdf_resource="" package="tbc" name="tbc" stereotype="class">
+  <attributeMap cim_name="IdentifiedObject.name" name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
+   <attributeMap cim_name="tbc" name="tbc" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <!-- repeat the previuos line for every parameter of the library -->
+</oRderVIMap>

@@ -2,10 +2,8 @@ package cim2model;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -14,8 +12,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 
-import cim2model.cim.CIMModel;
-import cim2model.cim.CIMTransformerEnd;
+import cim2model.cim.DYProfileModel;
 import cim2model.cim.EQProfileModel;
 import cim2model.cim.SVProfileModel;
 import cim2model.cim.TPProfileModel;
@@ -44,15 +41,19 @@ public class ModelDesigner
 	ReaderCIM reader_EQ_profile;
 	ReaderCIM reader_TP_profile;
 	ReaderCIM reader_SV_profile;
+	ReaderCIM reader_DY_profile;
 	EQProfileModel profile_EQ;
 	TPProfileModel profile_TP;
 	SVProfileModel profile_SV;
+	DYProfileModel profile_DY;
 	
-	public ModelDesigner(String _source_EQ_profile, String _source_TP_profile, String _source_SV_profile)
+	public ModelDesigner(String _source_EQ_profile, String _source_TP_profile, 
+			String _source_SV_profile, String _source_DY_profile)
 	{
 		reader_EQ_profile= new ReaderCIM(_source_EQ_profile);
 		reader_TP_profile= new ReaderCIM(_source_TP_profile);
 		reader_SV_profile= new ReaderCIM(_source_SV_profile);
+		reader_DY_profile= new ReaderCIM(_source_DY_profile);
 		this.connections= new ArrayList<ConnectionMap>();
 	}
 	
@@ -67,8 +68,8 @@ public class ModelDesigner
 	public void load_TP_profile(String _xmlns_cim)
 	{
 		profile_TP = new TPProfileModel(reader_TP_profile.read_profile(_xmlns_cim));
-		profile_TP.gatherTopologicalNodes();
-		profile_TP.gatherTerminals();
+		profile_TP.gather_TopologicalNodes();
+		profile_TP.gather_Terminals();
 	}
 	
 	public void load_SV_profile(String _xmlns_cim)
@@ -78,14 +79,32 @@ public class ModelDesigner
 		profile_SV.gather_SvVoltage();
 	}
 	
+	public void load_DY_profile(String _xmlns_cim)
+	{
+		profile_DY = new DYProfileModel(reader_DY_profile.read_profile(_xmlns_cim));
+		profile_DY.gather_SynchronousMachines();
+		profile_DY.gather_ExcitationSystems();
+		profile_DY.gather_TurbineGovernors();
+	}
+	
 	/**
 	 * 
 	 * @param _key
 	 * @return
 	 */
-	public String[] get_CIMClassName(Resource _key)
+	public String[] get_EquipmentClassName(Resource _key)
 	{
 		return profile_EQ.get_ComponentName(_key);
+	}
+	
+	/**
+	 * 
+	 * @param _key
+	 * @return
+	 */
+	public String[] get_TopoNodeClassName(Resource _key)
+	{
+		return profile_TP.get_ComponentName(_key);
 	}
 
 	/**
@@ -131,7 +150,7 @@ public class ModelDesigner
 	private void add_newConnectionMap(PwPinMap _mapTerminal, Resource _cn, Resource _tn)
 	{
 		ConnectionMap nuevaConnection = new ConnectionMap(
-				_mapTerminal.getRfdId(), _mapTerminal.getConductingEquipment(),
+				_mapTerminal.getRdfId(), _mapTerminal.getConductingEquipment(),
 				_mapTerminal.getTopologicalNode());
 		nuevaConnection.set_ConductingEquipment(_cn);
 		nuevaConnection.set_TopologicalNode(_tn);
@@ -140,6 +159,7 @@ public class ModelDesigner
 	}
 	/**
 	 * 
+	 * 2) Creates a new instance of ConnectionMap, with Id T, Id Cn & Id Tn with the mapTerminal
 	 * @param key
 	 * @param _source
 	 * @param _subjectID
@@ -147,12 +167,11 @@ public class ModelDesigner
 	 */
 	public PwPinMap create_TerminalModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
-		Map<String, Object> profile_SV_map;
+		Map<String, Object> profile_EQ_map, profile_SV_map;
 		
 		PwPinMap mapTerminal= pwpinXMLToObject(_source);
 		/* load corresponding tag cim:Terminal */
-		Map<String, Object> profile_EQ_map= profile_EQ.get_TerminalEQ(key);
-		Map<String, Object> profile_TP_map= profile_TP.get_TNTerminal(key);
+		profile_EQ_map= profile_EQ.get_TerminalEQ(key);
 		mapTerminal.get_AttributeMap("IdentifiedObject.name").setContent(
 				(String)profile_EQ_map.get("IdentifiedObject.name"));
 		if (profile_SV.has_SvPowerFlow(key))
@@ -176,12 +195,12 @@ public class ModelDesigner
 			mapTerminal.setTopologicalNode(profile_TP.get_TerminalTN(key));
 		}
 		// add the rfd_id, as reference from terminal and connections to other components 
-		mapTerminal.setRfdId(_subjectID[0]);
+		mapTerminal.setRdfId(_subjectID[0]);
 		mapTerminal.setCimName(_subjectID[1]);
-		/* create new entrance to the connection map: create a new instance of 
-		 * ConnectionMap, with Id T, Id Cn & Id Tn with the mapTerminal*/
-		this.add_newConnectionMap(mapTerminal, (Resource)profile_EQ_map.get("Terminal.ConductingEquipment"),
-				(Resource)profile_TP_map.get("Terminal.TopologicalNode"));
+		//
+		this.add_newConnectionMap(mapTerminal, 
+				(Resource)profile_EQ_map.get("Terminal.ConductingEquipment"),
+				profile_TP.get_TNTerminal(profile_TP.get_TerminalTN(key)));
 		profile_EQ.clearAttributes();
 		profile_SV.clearAttributes();
 		profile_TP.clearAttributes();
@@ -204,36 +223,36 @@ public class ModelDesigner
 //            return null;
 //        }
 //    }
-//	private static GENROUMap genrouXMLToObject(String _xmlmap) {
-//		JAXBContext context;
-//		Unmarshaller un;
-//		
-//		try{
-//			context = JAXBContext.newInstance(GENROUMap.class);
-//	        un = context.createUnmarshaller();
-//	        GENROUMap map = (GENROUMap) un.unmarshal(new File(_xmlmap));
-//	        return map;
-//        } 
-//        catch (JAXBException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-//	private static GENSALMap gensalXMLToObject(String _xmlmap) {
-//		JAXBContext context;
-//		Unmarshaller un;
-//		
-//		try{
-//			context = JAXBContext.newInstance(GENSALMap.class);
-//	        un = context.createUnmarshaller();
-//	        GENSALMap map = (GENSALMap) un.unmarshal(new File(_xmlmap));
-//	        return map;
-//        } 
-//        catch (JAXBException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+	private static GENROUMap genrouXMLToObject(String _xmlmap) {
+		JAXBContext context;
+		Unmarshaller un;
+		
+		try{
+			context = JAXBContext.newInstance(GENROUMap.class);
+	        un = context.createUnmarshaller();
+	        GENROUMap map = (GENROUMap) un.unmarshal(new File(_xmlmap));
+	        return map;
+        } 
+        catch (JAXBException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+	private static GENSALMap gensalXMLToObject(String _xmlmap) {
+		JAXBContext context;
+		Unmarshaller un;
+		
+		try{
+			context = JAXBContext.newInstance(GENSALMap.class);
+	        un = context.createUnmarshaller();
+	        GENSALMap map = (GENSALMap) un.unmarshal(new File(_xmlmap));
+	        return map;
+        } 
+        catch (JAXBException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 //	private static GENROEMap genroeXMLToObject(String _xmlmap) {
 //		JAXBContext context;
 //		Unmarshaller un;
@@ -249,12 +268,7 @@ public class ModelDesigner
 //            return null;
 //        }
 //    }
-//	public String typeOfSynchronousMachine(Resource key)
-//	{
-//		String rotorType= profile_DY.checkSynchronousMachineType(key);
-//		
-//		return rotorType;
-//	}
+
 //	/**
 //	 * 
 //	 * @param key
@@ -280,56 +294,76 @@ public class ModelDesigner
 //		
 //		return mapSyncMach;
 //	}
-//	/**
-//	 * 
-//	 * @param key
-//	 * @param _source
-//	 * @param _subjectID
-//	 * @return
-//	 */
-//	public GENROUMap create_GENROUModelicaMap(Resource key, String _source, String[] _subjectID)
-//	{
-//		GENROUMap mapSyncMach= genrouXMLToObject(_source);
-//		Map<String, Object> cimClassMap= profile_EQ.retrieveAttributesSyncMach(key);
-//		Iterator<AttributeMap> imapAttList= mapSyncMach.getAttributeMap().iterator();
-//		AttributeMap currentmapAtt;
-//		while (imapAttList.hasNext()) {
-//			currentmapAtt= imapAttList.next();
-//			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
-//		}
+	/**
+	 * 
+	 * @param key
+	 * @param _source
+	 * @param _subjectID
+	 * @return
+	 */
+	public GENROUMap create_GENROUModelicaMap(Resource key, String _source, String[] _subjectID)
+	{
+		Iterator<AttributeMap> imapAttList;
+		Map<String, Object> cimEQMap, cimDYMap; 
+		GENROUMap mapSynchMach= genrouXMLToObject(_source);
+		AttributeMap currentmapAtt;
+		/* Attributes from EQ */
+		cimEQMap= profile_EQ.gather_SynchronousMachine_Attributes(key);
+		imapAttList= mapSynchMach.getAttributeMap().iterator();
+		while (imapAttList.hasNext()) {
+			currentmapAtt= imapAttList.next();
+			currentmapAtt.setContent((String)cimEQMap.get(currentmapAtt.getCimName()));
+		}
+		/* Attributes from DY */
+		imapAttList= mapSynchMach.getAttributeMap().iterator();
+		cimDYMap= profile_DY.gather_SynchronousMachineDynamics_Attributes(key);
+		while (imapAttList.hasNext()) {
+			currentmapAtt= imapAttList.next();
+			currentmapAtt.setContent((String)cimDYMap.get(currentmapAtt.getCimName()));
+		}
 //		mapSyncMach.setName("GENROU");
-//		mapSyncMach.setRfdId(_subjectID[0]);
-//		mapSyncMach.setCimName(_subjectID[1]);
-//
-//		profile_DY.clearAttributes();
-//		
-//		return mapSyncMach;
-//	}
-//	/**
-//	 * 
-//	 * @param key
-//	 * @param _source
-//	 * @param _subjectID
-//	 * @return
-//	 */
-//	public GENSALMap create_GENSALModelicaMap(Resource key, String _source, String[] _subjectID)
-//	{
-//		GENSALMap mapSyncMach= gensalXMLToObject(_source);
-//		Map<String, Object> cimClassMap= profile_EQ.retrieveAttributesSyncMach(key);
-//		Iterator<AttributeMap> imapAttList= mapSyncMach.getAttributeMap().iterator();
-//		AttributeMap currentmapAtt;
-//		while (imapAttList.hasNext()) {
-//			currentmapAtt= imapAttList.next();
-//			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
-//		}
-//		mapSyncMach.setName("GENSAL");
-//		mapSyncMach.setRfdId(_subjectID[0]);
-//		mapSyncMach.setCimName(_subjectID[1]);
-//
-//		modelCIM.clearAttributes();
-//		
-//		return mapSyncMach;
-//	}
+		mapSynchMach.setRdfId(_subjectID[0]);
+		mapSynchMach.setCimName(_subjectID[1]);
+		profile_EQ.clearAttributes();
+		profile_DY.clearAttributes();
+		
+		return mapSynchMach;
+	}
+	/**
+	 * 
+	 * @param key
+	 * @param _source
+	 * @param _subjectID
+	 * @return
+	 */
+	public GENSALMap create_GENSALModelicaMap(Resource key, String _source, String[] _subjectID)
+	{
+		Iterator<AttributeMap> imapAttList;
+		Map<String, Object> cimEQMap, cimDYMap; 
+		GENSALMap mapSynchMach= gensalXMLToObject(_source);
+		/* Attributes from EQ */
+		cimEQMap= profile_EQ.gather_SynchronousMachine_Attributes(key);
+		imapAttList= mapSynchMach.getAttributeMap().iterator();
+		AttributeMap currentmapAtt;
+		while (imapAttList.hasNext()) {
+			currentmapAtt= imapAttList.next();
+			currentmapAtt.setContent((String)cimEQMap.get(currentmapAtt.getCimName()));
+		}
+		/* Attributes from DY */
+		imapAttList= mapSynchMach.getAttributeMap().iterator();
+		cimDYMap= profile_DY.gather_SynchronousMachineDynamics_Attributes(key);
+		while (imapAttList.hasNext()) {
+			currentmapAtt= imapAttList.next();
+			currentmapAtt.setContent((String)cimDYMap.get(currentmapAtt.getCimName()));
+		}
+//		mapSyncMach.setName("GENROU");
+		mapSynchMach.setRdfId(_subjectID[0]);
+		mapSynchMach.setCimName(_subjectID[1]);
+		profile_EQ.clearAttributes();
+		profile_DY.clearAttributes();
+		
+		return mapSynchMach;
+	}
 //	/**
 //	 * 
 //	 * @param key
@@ -403,6 +437,11 @@ public class ModelDesigner
 //		return mapExcSys;
 //	}
 	
+	/**
+	 * 
+	 * @param _xmlmap
+	 * @return
+	 */
 	private static LoadMap loadXMLToObject(String _xmlmap) {
 		JAXBContext context;
 		Unmarshaller un;
@@ -435,7 +474,7 @@ public class ModelDesigner
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		} 
-		mapEnergyC.setRfdId(_subjectID[0]);
+		mapEnergyC.setRdfId(_subjectID[0]);
 		mapEnergyC.setCimName(_subjectID[1]);
 
 		profile_EQ.clearAttributes();
@@ -443,6 +482,11 @@ public class ModelDesigner
 		return mapEnergyC;
 	}
 	
+	/**
+	 * 
+	 * @param _xmlmap
+	 * @return
+	 */
 	private static PwLineMap pwlineXMLToObject(String _xmlmap) {
 		JAXBContext context;
 		Unmarshaller un;
@@ -458,6 +502,13 @@ public class ModelDesigner
             return null;
         }
     }
+	/**
+	 * 
+	 * @param key
+	 * @param _source
+	 * @param _subjectID
+	 * @return
+	 */
 	public PwLineMap create_LineModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
 		PwLineMap mapACLine= pwlineXMLToObject(_source);
@@ -468,7 +519,7 @@ public class ModelDesigner
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
-		mapACLine.setRfdId(_subjectID[0]);
+		mapACLine.setRdfId(_subjectID[0]);
 		mapACLine.setCimName(_subjectID[1]);
 
 		profile_EQ.clearAttributes();
@@ -506,14 +557,14 @@ public class ModelDesigner
 	public PwBusMap create_BusModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
 		PwBusMap mapTopoNode= pwbusXMLToObject(_source);
-		Map<String, Object> cimClassMap= profile_TP.gather_TopologicalNodeAtt(key);
+		Map<String, Object> cimClassMap= profile_TP.gather_TopoNodeAtt(key);
 		Iterator<AttributeMap> imapAttList= mapTopoNode.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
 		}
-		mapTopoNode.setRfdId(_subjectID[0]);
+		mapTopoNode.setRdfId(_subjectID[0]);
 		mapTopoNode.setCimName(_subjectID[1]);
 
 		profile_TP.clearAttributes();
@@ -521,6 +572,18 @@ public class ModelDesigner
 		return mapTopoNode;
 	}
 	
+	/* SYNCHRONOUS MACHINES */
+	/**
+	 * rfdid of the SynchronousMachine is available
+	 * @param key - resource from the EQ profile, 
+	 * @return
+	 */
+	public String typeOfSynchronousMachine(Resource key)
+	{
+		String rotorType= profile_DY.checkSynchronousMachineType(key);
+		
+		return rotorType;
+	}
 //	private static TwoWindingTransformerMap twtXMLToObject(String _xmlmap) {
 //		JAXBContext context;
 //		Unmarshaller un;

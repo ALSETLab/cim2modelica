@@ -97,7 +97,7 @@ public class PwPinMap extends ComponentMap{
     public String toString()
     {
     	return this.stereotype+ " "+ this._package+" "+ this.name+ 
-    			" from "+ this.cimName+ " with id "+ this.rfdId+
+    			" from "+ this.cimName+ " with id "+ this.rdfId+
     			" having "+ this.conductingEquipment+ " and "+ this.topologicalNode;
     }
 }
