@@ -37,7 +37,6 @@ public class BusExt2 extends MOClass
 	
 	@Override
 	public void add_Terminal(ArrayList<MOConnector> terminals) {
-		//TODO count input terminals and output terminals, and increase number of no or nu , use to_ModelicaClass
 		this.terminals = terminals;
 	}
 	
