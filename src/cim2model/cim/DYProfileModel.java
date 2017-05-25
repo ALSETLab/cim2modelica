@@ -1,5 +1,6 @@
 package cim2model.cim;
 
+import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -14,7 +15,7 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 
 public class DYProfileModel {
-	
+	//TODO method find_xxx to be unified for regulators component
 //	private String id;
 	private Map<String, Object> attribute;
 	private Map<Resource, RDFNode> excsys;
@@ -61,17 +62,122 @@ public class DYProfileModel {
 		switch(_component) {
 		case SYNCHRONOUS_MACHINE:
 			aux= this.synchmach.get(_subject);
+			break;
 		case EXCITATION_SYSTEM:
 			aux= this.excsys.get(_subject);
+			break;
 		case TURBINE_GOVERNOR:
 			aux= this.tgov.get(_subject);
+			break;
 		case PS_STABILIZER:
 			aux= this.pss.get(_subject);
+			break;
+		default: break;
 		}
 		String [] object= aux.toString().split("#");
 		return new String [] {_subject.getLocalName(), object[1]};
 	}
 	
+	
+//	/**
+//	 * 
+//	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
+//	 */
+//	public Map<Resource,RDFNode> gather_PSStabilizers()
+//	{
+//		Resource s,p;
+//		RDFNode o;
+//		Statement stmt;
+//		
+//		final StmtIterator stmtiter = this.rdfModel.listStatements();
+//		while( stmtiter.hasNext() ) 
+//		{
+//			stmt= stmtiter.next();
+//		    s = stmt.getSubject();
+//            p = stmt.getPredicate();
+//            o = stmt.getObject();
+//            String [] componentName= o.toString().split("#");
+//            //p as "type" means that the statement is referring to the component
+//            if (p.isURIResource() && p.getLocalName().equals("type") 
+//            		&& componentName[1].equals("GovHydro1"))
+//            {
+////            	System.out.println("Subject :"+ s.getURI());
+////            	System.out.println("Subject : "+ s.getLocalName());
+////            	System.out.println("Predicate : "+ p.getLocalName());
+////            	System.out.println("Object : "+ o.toString());
+//            	this.pss.put(s, o);
+//            }
+//		}
+//		return this.pss;
+//		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
+//	}
+	
+//	/**
+//	 * 
+//	 * @param _syncMach the resource object that might contain an object from Dynamics package
+//	 * @return
+//	 */
+//	public boolean has_TG_Dynamics(Resource _syncMach)
+//	{
+//		final StmtIterator stmtiter = this.rdfModel.listStatements();
+//		boolean found= false;
+//		Resource s, p;
+//        Statement stmt;
+////		System.out.println("T local name: "+ _syncMach.getLocalName());
+////    	System.out.println("T URI: "+ _syncMach.getURI());
+//		while( !found && stmtiter.hasNext() ) 
+//		{
+//			stmt= stmtiter.next();
+//			p = stmt.getPredicate();
+//            s = stmt.getSubject();
+//            if (p.getLocalName().equals("TurbineGovernorDynamics.SynchronousMachineDynamics")){
+//            	String [] componentName= s.toString().split("#");
+////            	System.out.println(componentName[0]+ " : "+ componentName[1]);
+//            	found= s.getLocalName().equals(_syncMach.getLocalName());
+//            }
+//		}
+//		
+//		return found;
+//	}
+//	
+//	/**
+//	 * 
+//	 * @return boolean
+//	 */
+//	public String get_TG_Dynamics(Resource _syncMach)
+//	{
+//		final StmtIterator stmtiter = this.rdfModel.listStatements();
+//		boolean found= false;
+//		Resource s, p;
+//        RDFNode o;
+//        Statement stmt;
+//        String id_TN= "";
+//        
+//		while( !found && stmtiter.hasNext() ) 
+//		{
+//			stmt= stmtiter.next();
+//			p = stmt.getPredicate();
+//            s = stmt.getSubject();
+//            o = stmt.getObject();
+//            if (p.getLocalName().equals("TurbineGovernorDynamics.SynchronousMachineDynamics")){
+//            	found= s.getLocalName().equals(_syncMach.getLocalName());
+//            	if (found)
+//        			id_TN= o.toString();
+//            }
+//		}
+//		
+//		return id_TN;
+//	}
+	
+	
+	
+	
+	public void clearAttributes()
+	{
+		this.attribute.clear();
+	}
+	
+	/* SYNCHRONOUS MACHINES */
 	/**
 	 * 
 	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
@@ -103,261 +209,12 @@ public class DYProfileModel {
 		}
 		return this.synchmach;
 	}
-	
-	/**
-	 * 
-	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
-	 */
-	public Map<Resource,RDFNode> gather_ExcitationSystems()
-	{
-		Resource s,p;
-		RDFNode o;
-		Statement stmt;
-		
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
-		while( stmtiter.hasNext() ) 
-		{
-			stmt= stmtiter.next();
-		    s = stmt.getSubject();
-            p = stmt.getPredicate();
-            o = stmt.getObject();
-            String [] componentName= o.toString().split("#");
-            //p as "type" means that the statement is referring to the component
-            if (p.isURIResource() && p.getLocalName().equals("type") 
-            		&& componentName[1].equals("ExcSEXS"))
-            {
-//            	System.out.println("Subject :"+ s.getURI());
-//            	System.out.println("Subject : "+ s.getLocalName());
-//            	System.out.println("Predicate : "+ p.getLocalName());
-//            	System.out.println("Object : "+ o.toString());
-            	this.excsys.put(s, o);
-            }
-		}
-		return this.excsys;
-		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
-	}
-	
-	/**
-	 * 
-	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
-	 */
-	public Map<Resource,RDFNode> gather_TurbineGovernors()
-	{
-		Resource s,p;
-		RDFNode o;
-		Statement stmt;
-		
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
-		while( stmtiter.hasNext() ) 
-		{
-			stmt= stmtiter.next();
-		    s = stmt.getSubject();
-            p = stmt.getPredicate();
-            o = stmt.getObject();
-            String [] componentName= o.toString().split("#");
-            //p as "type" means that the statement is referring to the component
-            if (p.isURIResource() && p.getLocalName().equals("type") 
-            		&& componentName[1].equals("GovHydro1"))
-            {
-//            	System.out.println("Subject :"+ s.getURI());
-//            	System.out.println("Subject : "+ s.getLocalName());
-//            	System.out.println("Predicate : "+ p.getLocalName());
-//            	System.out.println("Object : "+ o.toString());
-            	this.tgov.put(s, o);
-            }
-		}
-		return this.tgov;
-		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
-	}
-	/**
-	 * 
-	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
-	 */
-	public Map<Resource,RDFNode> gather_PSStabilizers()
-	{
-		Resource s,p;
-		RDFNode o;
-		Statement stmt;
-		
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
-		while( stmtiter.hasNext() ) 
-		{
-			stmt= stmtiter.next();
-		    s = stmt.getSubject();
-            p = stmt.getPredicate();
-            o = stmt.getObject();
-            String [] componentName= o.toString().split("#");
-            //p as "type" means that the statement is referring to the component
-            if (p.isURIResource() && p.getLocalName().equals("type") 
-            		&& componentName[1].equals("GovHydro1"))
-            {
-//            	System.out.println("Subject :"+ s.getURI());
-//            	System.out.println("Subject : "+ s.getLocalName());
-//            	System.out.println("Predicate : "+ p.getLocalName());
-//            	System.out.println("Object : "+ o.toString());
-            	this.pss.put(s, o);
-            }
-		}
-		return this.pss;
-		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
-	}
-	
-	/**
-	 * 
-	 * @param _syncMach the resource object that might contain an object from Dynamics package
-	 * @return
-	 */
-	public boolean has_TG_Dynamics(Resource _syncMach)
-	{
-		//TODO iterate into the terminals struct
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
-		boolean found= false;
-		Resource s, p;
-        Statement stmt;
-//		System.out.println("T local name: "+ _syncMach.getLocalName());
-//    	System.out.println("T URI: "+ _syncMach.getURI());
-		while( !found && stmtiter.hasNext() ) 
-		{
-			stmt= stmtiter.next();
-			p = stmt.getPredicate();
-            s = stmt.getSubject();
-            if (p.getLocalName().equals("TurbineGovernorDynamics.SynchronousMachineDynamics")){
-            	String [] componentName= s.toString().split("#");
-//            	System.out.println(componentName[0]+ " : "+ componentName[1]);
-            	found= s.getLocalName().equals(_syncMach.getLocalName());
-            }
-		}
-		
-		return found;
-	}
-	/**
-	 * 
-	 * @param _syncMach the resource object that might contain an object from Dynamics package
-	 * @return
-	 */
-	public boolean has_ES_Dynamics(Resource _syncMach)
-	{
-		//TODO iterate into the terminals struct
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
-		boolean found= false;
-		Resource s, p;
-        Statement stmt;
-//		System.out.println("T local name: "+ _syncMach.getLocalName());
-//    	System.out.println("T URI: "+ _syncMach.getURI());
-		while( !found && stmtiter.hasNext() ) 
-		{
-			stmt= stmtiter.next();
-			p = stmt.getPredicate();
-            s = stmt.getSubject();
-            if (p.getLocalName().equals("ExcitationSystemDynamics.SynchronousMachineDynamics")){
-            	String [] componentName= s.toString().split("#");
-//            	System.out.println(componentName[0]+ " : "+ componentName[1]);
-            	found= s.getLocalName().equals(_syncMach.getLocalName());
-            }
-		}
-		
-		return found;
-	}
-	
-	/**
-	 * 
-	 * @return boolean
-	 */
-	public String get_TG_Dynamics(Resource _syncMach)
-	{
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
-		boolean found= false;
-		Resource s, p;
-        RDFNode o;
-        Statement stmt;
-        String id_TN= "";
-        
-		while( !found && stmtiter.hasNext() ) 
-		{
-			stmt= stmtiter.next();
-			p = stmt.getPredicate();
-            s = stmt.getSubject();
-            o = stmt.getObject();
-            if (p.getLocalName().equals("TurbineGovernorDynamics.SynchronousMachineDynamics")){
-            	found= s.getLocalName().equals(_syncMach.getLocalName());
-            	if (found)
-        			id_TN= o.toString();
-            }
-		}
-		
-		return id_TN;
-	}
-	
-	/**
-	 * 
-	 * @param _subject
-	 * @return
-	 */
-	public Map<String,Object> gather_ExcSystemAtt(Resource _subject)
-	{ 
-		Statement attributeClass, classAttribute;
-		
-		StmtIterator iAttributes= _subject.listProperties();
-		while( iAttributes.hasNext() ) 
-		{
-			attributeClass= iAttributes.next();
-			if (attributeClass.getAlt().isLiteral())
-			{
-				this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getLiteral().getValue());
-			}
-			if (attributeClass.getAlt().isURIResource())
-			{
-				if ( attributeClass.getPredicate().getLocalName().equals("ExcitationSystemDynamics.SynchronousMachineDynamics"))
-				{
-					//agafar els valor d'aquest component
-					StmtIterator esReference= attributeClass.getAlt().listProperties();
-					while( esReference.hasNext() ) 
-					{
-						classAttribute= esReference.next();
-						if (classAttribute.getAlt().isLiteral())
-						{
-							this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
-						}
-					}
-					esReference.close();
-				}
-			}
-		}
-		return this.attribute;
-	}
-	
-	/**
-	 * 
-	 * @param _subject
-	 * @return
-	 */
-	public Map<String,Object> gather_TGovernorAtt(Resource _subject)
-	{ 
-		Statement attributeClass;
-		
-		StmtIterator iAttributes= _subject.listProperties();
-		while( iAttributes.hasNext() ) 
-		{
-			attributeClass= iAttributes.next();
-			if (attributeClass.getAlt().isLiteral())
-			{
-				this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getLiteral().getValue());
-			}
-		}
-		return this.attribute;
-	}
-	
-	public void clearAttributes()
-	{
-		this.attribute.clear();
-	}
-	
 	/**
 	 * 
 	 * @param _key is a resource from the EQ profile
 	 * @return
 	 */
-	private Resource search_SynchronousMachineDynamic_Tag(Resource _key)
+	public Resource find_SynchronousMachineDynamic_Tag(Resource _key)
 	{
 		Statement classAttributes;
 		StmtIterator iAttributes;
@@ -394,14 +251,14 @@ public class DYProfileModel {
 	 * @param _key is a resource from the EQ profile
 	 * @return
 	 */
-	public String checkSynchronousMachineType(Resource _key) 
+	public String check_SynchronousMachineType(Resource _key) 
 	{
 		Statement classAttributes;
 		StmtIterator iAttributes;
 		String machineType= "";
 		Resource synchMachDY;
 		
-		synchMachDY= this.search_SynchronousMachineDynamic_Tag(_key);
+		synchMachDY= this.find_SynchronousMachineDynamic_Tag(_key);
 		if (synchMachDY!= null) {
 			iAttributes= synchMachDY.listProperties();
 			while(iAttributes.hasNext() ) 
@@ -417,14 +274,16 @@ public class DYProfileModel {
 		}
 		return machineType;
 	}
-	
-	public Map<String,Object> gather_SynchronousMachineDynamics_Attributes(Resource _key)
+	public void gather_SynchronousMachineDynamics_Attributes(
+			Resource _key, Map<String,Object> _attribute)
 	{
 		Statement classAttributes;
 		StmtIterator iAttributes;
 		Resource synchMachDY;
 		
-		synchMachDY= this.search_SynchronousMachineDynamic_Tag(_key);
+		//place existing attributes into the current attribute list
+		this.attribute= _attribute;
+		synchMachDY= this.find_SynchronousMachineDynamic_Tag(_key);
 		if (synchMachDY!= null) {
 			iAttributes= synchMachDY.listProperties();
 			while(iAttributes.hasNext() ) 
@@ -432,14 +291,195 @@ public class DYProfileModel {
 				classAttributes= iAttributes.next();
 				if(classAttributes.getAlt().isLiteral() && 
 						!classAttributes.getPredicate().getLocalName().equals("IdentifiedObject.name")){
-					this.attribute.put(classAttributes.getPredicate().getLocalName(), 
+					_attribute.put(classAttributes.getPredicate().getLocalName(), 
 							classAttributes.getLiteral().getValue());
 					
 				}
 			}
 			iAttributes.close();
 		}
+	}
 
+	/* EXCITATION SYSTEMS */
+	/**
+	 * 
+	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
+	 */
+	public Map<Resource,RDFNode> gather_ExcitationSystems()
+	{//TODO //TODO gather all TG models without using the name explicitly
+		Resource s,p;
+		RDFNode o;
+		Statement stmt;
+		
+		final StmtIterator stmtiter = this.rdfModel.listStatements();
+		while( stmtiter.hasNext() ) 
+		{
+			stmt= stmtiter.next();
+		    s = stmt.getSubject();
+            p = stmt.getPredicate();
+            o = stmt.getObject();
+            String [] componentName= o.toString().split("#");
+            //p as "type" means that the statement is referring to the component
+            if (p.isURIResource() && p.getLocalName().equals("type") 
+            		&& componentName[1].equals("ExcSEXS"))
+            { 
+//            	System.out.println("Subject :"+ s.getURI());
+//            	System.out.println("Subject : "+ s.getLocalName());
+//            	System.out.println("Predicate : "+ p.getLocalName());
+//            	System.out.println("Object : "+ o.toString());
+            	this.excsys.put(s, o);
+            }
+		}
+		return this.excsys;
+		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
+	}
+	/**
+	 * 
+	 * @param _machDyn the SynchronousMachine Dynamic resource 
+	 * @return
+	 */
+	public Entry<Resource,RDFNode> find_ExcitationSystem(Resource _machDyn)
+	{
+		Statement classAttributes;
+		StmtIterator iAttributes;
+		boolean found= false;
+		Entry<Resource,RDFNode> excSysTag= null;
+		String[] rdf_resource, rdfid_synchmach;
+		
+		rdfid_synchmach= _machDyn.getURI().split("#");
+//		System.out.println(rdfid_synchmach[0]+ " : "+ rdfid_synchmach[1]);
+		Iterator<Entry<Resource,RDFNode>> iTags= this.excsys.entrySet().iterator();
+		while(!found && iTags.hasNext() ) 
+		{
+			excSysTag= iTags.next();
+			iAttributes= excSysTag.getKey().listProperties();
+			while(!found && iAttributes.hasNext() ) 
+			{
+				classAttributes= iAttributes.next();
+				if (classAttributes.getPredicate().getLocalName().equals("ExcitationSystemDynamics.SynchronousMachineDynamics"))
+				{
+					rdf_resource= classAttributes.getObject().toString().split("#");
+//					System.out.println(rdf_resource[0]+ " : "+ rdf_resource[1]);
+					found= rdf_resource[1].equals(rdfid_synchmach[1]);
+				}
+			}
+		}
+		if(found)
+			return excSysTag;
+		else
+			return null;
+	}
+	/**
+	 * 
+	 * @param _subject
+	 * @return
+	 */
+	public Map<String,Object> gather_ExcitationSystem_Attributes(Resource _subject)
+	{ 
+Statement attributeClass;
+		
+		StmtIterator iAttributes= _subject.listProperties();
+		while( iAttributes.hasNext() ) 
+		{
+			attributeClass= iAttributes.next();
+			if (attributeClass.getAlt().isLiteral())
+			{
+				this.attribute.put(attributeClass.getPredicate().getLocalName(), 
+						attributeClass.getLiteral().getValue());
+			}
+		}
+		return this.attribute;
+	}
+	
+	/* TURBINE GOVERNORS */
+	/**
+	 * 
+	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
+	 */
+	public Map<Resource,RDFNode> gather_TurbineGovernors()
+	{//TODO gather all TG models wwithout using the name explicitly
+		Resource s,p;
+		RDFNode o;
+		Statement stmt;
+		
+		final StmtIterator stmtiter = this.rdfModel.listStatements();
+		while( stmtiter.hasNext() ) 
+		{
+			stmt= stmtiter.next();
+		    s = stmt.getSubject();
+            p = stmt.getPredicate();
+            o = stmt.getObject();
+            String [] componentName= o.toString().split("#");
+            //p as "type" means that the statement is referring to the component
+            if (p.isURIResource() && p.getLocalName().equals("type") 
+            		&& (componentName[1].equals("GovHydro1") || 
+            			componentName[1].equals("GovSteamSGO")))
+            {
+//            	System.out.println("Subject :"+ s.getURI());
+//            	System.out.println("Subject : "+ s.getLocalName());
+//            	System.out.println("Predicate : "+ p.getLocalName());
+//            	System.out.println("Object : "+ o.toString());
+            	this.tgov.put(s, o);
+            }
+		}
+		return this.tgov;
+		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
+	}
+	/**
+	 * 
+	 * @param _machDyn the SynchronousMachine Dynamic resource 
+	 * @return
+	 */
+	public Entry<Resource,RDFNode> find_TurbineGovernor(Resource _machDyn)
+	{
+		Statement classAttributes;
+		StmtIterator iAttributes;
+		boolean found= false;
+		Entry<Resource,RDFNode> turbGovTag= null;
+		String[] rdf_resource, rdfid_synchmach;
+		
+		rdfid_synchmach= _machDyn.getURI().split("#");
+//		System.out.println(rdfid_synchmach[0]+ " : "+ rdfid_synchmach[1]);
+		Iterator<Entry<Resource,RDFNode>> iTags= this.tgov.entrySet().iterator();
+		while(!found && iTags.hasNext() ) 
+		{
+			turbGovTag= iTags.next();
+			iAttributes= turbGovTag.getKey().listProperties();
+			while(!found && iAttributes.hasNext() ) 
+			{
+				classAttributes= iAttributes.next();
+				if (classAttributes.getPredicate().getLocalName().equals("TurbineGovernorDynamics.SynchronousMachineDynamics"))
+				{
+					rdf_resource= classAttributes.getObject().toString().split("#");
+//					System.out.println(rdf_resource[0]+ " : "+ rdf_resource[1]);
+					found= rdf_resource[1].equals(rdfid_synchmach[1]);
+				}
+			}
+		}
+		if(found)
+			return turbGovTag;
+		else
+			return null;
+	}
+	/**
+	 * 
+	 * @param _subject
+	 * @return
+	 */
+	public Map<String,Object> gather_TurbineGovernor_Attributes(Resource _subject)
+	{ 
+		Statement attributeClass;
+		
+		StmtIterator iAttributes= _subject.listProperties();
+		while( iAttributes.hasNext() ) 
+		{
+			attributeClass= iAttributes.next();
+			if (attributeClass.getAlt().isLiteral())
+			{
+				this.attribute.put(attributeClass.getPredicate().getLocalName(), 
+						attributeClass.getLiteral().getValue());
+			}
+		}
 		return this.attribute;
 	}
 }

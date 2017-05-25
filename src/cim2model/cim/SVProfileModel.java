@@ -106,7 +106,7 @@ public class SVProfileModel {
 	 * 
 	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
 	 */
-	public Map<String, Object> get_TerminalPF(Resource _t)
+	public Map<String, Object> get_TerminalSvPowerFlow(Resource _t)
 	{
 		boolean found= false;
 		Entry<Resource,RDFNode> current;
@@ -209,7 +209,7 @@ public class SVProfileModel {
 	 * 
 	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
 	 */
-	public Map<String, Object> get_TopoNodeVw(Resource _t)
+	public Map<String, Object> get_TopoNodeSvVoltage(Resource _t)
 	{
 		boolean found= false;
 		Entry<Resource,RDFNode> current;
@@ -218,7 +218,7 @@ public class SVProfileModel {
 		String [] rdf_id_topoNode;
         Statement attPowerFlow;
         StmtIterator iProperties= null;
-        Iterator<Entry<Resource,RDFNode>> iTags= this.svPowerFlow.entrySet().iterator();
+        Iterator<Entry<Resource,RDFNode>> iTags= this.svVoltage.entrySet().iterator();
         
 		while( !found && iTags.hasNext() ) 
 		{
@@ -237,8 +237,6 @@ public class SVProfileModel {
 					{
 						this.attribute.put(attPowerFlow.getPredicate().getLocalName(), 
 								attPowerFlow.getLiteral().getValue());
-						System.out.println(attPowerFlow.getPredicate().getLocalName()+ ": "+ 
-	    						attPowerFlow.getLiteral().getValue());
 					}
 				}
 			}

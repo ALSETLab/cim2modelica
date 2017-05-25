@@ -55,9 +55,9 @@ public class EQProfileModel {
             if (p.isURIResource() && p.getLocalName().equals("type"))
             {
             	this.component.put(s, o);
-//            	System.out.println("Subject : "+ s.getLocalName());
-//            	System.out.println("Predicate : "+ p.getLocalName());
-//            	System.out.print("Object : "+ o.toString());
+//            	System.out.print("Subject : "+ s.getLocalName());
+//            	System.out.print("--> Predicate : "+ p.getLocalName());
+//            	System.out.println("--> Object : "+ o.toString());
 //            	String [] componentName= o.toString().split("#");
 //            	System.out.println(componentName[0]+ " : "+ componentName[1]);
             }
@@ -331,73 +331,68 @@ public class EQProfileModel {
 		return this.attribute;
 	}
 	
-//	/**
-//	 * 
-//	 * cim_name="IdentifiedObject.name"
-//	 * cim_name="PowerTransformerEnd.r" 
-//	 * cim_name="PowerTransformerEnd.x"
-//	 * cim_name="PowerTransformerEnd.g"
-//	 * cim_name="PowerTransformerEnd.b"
-//	 * cim_name="TapChanger.normalStep"
-//	 * cim_name="TapChanger.normalStep"
-//	 * @param _subject
-//	 * @return
-//	 */
-//	public Map<String,Object> retrieveAttributesTransformer(Resource _subject)
-//	{ 
-//		Statement attributeClass, attributeSubClass;
-//		
-//		StmtIterator iAttributes= _subject.listProperties();
-//		while( iAttributes.hasNext() ) 
-//		{
-//			attributeClass= iAttributes.next();
-//			if (attributeClass.getAlt().isLiteral() && !attributeClass.getPredicate().getLocalName().equals("IdentifiedObject.name"))
-//			{//Take the literals but not when is the attribute IdentifiedObject.name, because this attributes refers to PTE,
-//				//and we want the IdentifiedObject.name from PT
-//				this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getLiteral().getValue());
-//			}
-//			if (attributeClass.getAlt().isURIResource())
-//			{
-//				if ( attributeClass.getPredicate().getLocalName().equals("PowerTransformerEnd.PowerTransformer"))
-//				{
-//					//From this class, the interest is in the RFD_ID value, since there is one transformer with multiple Ends
-//					StmtIterator powTransAtt= attributeClass.getAlt().listProperties();
-//					while( powTransAtt.hasNext() ) 
-//					{
-//						attributeSubClass= powTransAtt.next();
-//						if (attributeSubClass.getAlt().isLiteral()) {
-//							this.attribute.put(attributeSubClass.getPredicate().getLocalName(), attributeSubClass.getString());
-//						}
-//					}
-//					/* Add the rfd_id of the TopologicalNode which Terminal is related to */
-//					this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getResource());
-//					powTransAtt.close();
-//				}
-//				if ( attributeClass.getPredicate().getLocalName().equals("TransformerEnd.RatioTapChanger"))
-//				{
-//					//agafar els valor d'aquest component
-//					StmtIterator ratioTapChangerAtt= attributeClass.getAlt().listProperties();
-//					while( ratioTapChangerAtt.hasNext() ) 
-//					{
-//						attributeSubClass= ratioTapChangerAtt.next();
-//						if (attributeSubClass.getAlt().isLiteral()) {
-//							this.attribute.put(attributeSubClass.getPredicate().getLocalName(), attributeSubClass.getString());
-//						}
-//					}
-//					/* Add the rfd_id of the TopologicalNode which Terminal is related to */
-//					this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getResource());
-//					ratioTapChangerAtt.close();
-//				}
-//				if ( attributeClass.getPredicate().getLocalName().equals("TransformerEnd.Terminal"))
-//				{
-//					/* Add the rfd_id of the CondictingEquipment which Terminal is related to */
-//					this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getResource());
-//					this.get_TerminalEQ(attributeClass.getResource());
-//				}
-//			}
-//		}
-//		return this.attribute;
-//	}
+	/**
+	 * 
+	 * cim_name="IdentifiedObject.name"
+	 * cim_name="PowerTransformerEnd.r" 
+	 * cim_name="PowerTransformerEnd.x"
+	 * cim_name="PowerTransformerEnd.g"
+	 * cim_name="PowerTransformerEnd.b"
+	 * cim_name="TapChanger.normalStep"
+	 * cim_name="TapChanger.normalStep"
+	 * @param _subject
+	 * @return
+	 */
+	public Map<String,Object> gather_PowerTransformerEnd_Attributes(Resource _subject)
+	{ 
+		Statement attributeClass, attributeSubClass;
+		
+		StmtIterator iAttributes= _subject.listProperties();
+		while( iAttributes.hasNext() ) 
+		{
+			attributeClass= iAttributes.next();
+			if (attributeClass.getAlt().isLiteral() && 
+					!attributeClass.getPredicate().getLocalName().equals("IdentifiedObject.name"))
+			{//Take the literals but not when is the attribute IdentifiedObject.name, because this attributes refers to PTE,
+				//and we want the IdentifiedObject.name from PT
+				this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getLiteral().getValue());
+			}
+			if (attributeClass.getAlt().isURIResource())
+			{
+				if ( attributeClass.getPredicate().getLocalName().equals("PowerTransformerEnd.PowerTransformer"))
+				{//From this class, the interest is in the rdf:resource, since there is one transformer with multiple Ends
+					StmtIterator powTransAtt= attributeClass.getAlt().listProperties();
+					while( powTransAtt.hasNext() ) 
+					{
+						attributeSubClass= powTransAtt.next();
+						if (attributeSubClass.getAlt().isLiteral()) {
+							this.attribute.put(attributeSubClass.getPredicate().getLocalName(), attributeSubClass.getString());
+						}
+					}
+					this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getResource());
+					powTransAtt.close();
+				}
+				if ( attributeClass.getPredicate().getLocalName().equals("TransformerEnd.RatioTapChanger"))
+				{//agafar els valor d'aquest component
+					StmtIterator ratioTapChangerAtt= attributeClass.getAlt().listProperties();
+					while( ratioTapChangerAtt.hasNext() ) 
+					{
+						attributeSubClass= ratioTapChangerAtt.next();
+						if (attributeSubClass.getAlt().isLiteral()) {
+							this.attribute.put(attributeSubClass.getPredicate().getLocalName(), attributeSubClass.getString());
+						}
+					}
+					this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getResource());
+					ratioTapChangerAtt.close();
+				}
+				if ( attributeClass.getPredicate().getLocalName().equals("TransformerEnd.Terminal"))
+				{
+					this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getResource());
+				}
+			}
+		}
+		return this.attribute;
+	}
 
 	
 	/**
