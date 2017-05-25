@@ -45,7 +45,7 @@ public class IPSLExcitationSystem extends MOClass
 	public void setConnected(String _input)
 	{
 		if (_input.equals(EFD0))
-			this.ECOMPconnected= true;
+			this.EFD0connected= true;
 		if (_input.equals(ECOMP))
 			this.ECOMPconnected= true;
 		if (_input.equals(VOTHSG))

@@ -154,7 +154,7 @@ public class MOClass extends MOModel
 		boolean exists= false;
 		do {
 			current= iPins.next();
-			exists= current.get_RfdId().equals(_rfdId);
+			exists= current.get_RdfId().equals(_rfdId);
 		} while (!exists && iPins.hasNext());
 		if (exists)
 			return current;
@@ -207,10 +207,10 @@ public class MOClass extends MOModel
 				currentAtt.set_Value((String)_pin.get_Attribute("vr").get_Value());
 			if (currentAtt.get_Name().equals("angle_0"))
 				currentAtt.set_Value((String)_pin.get_Attribute("vi").get_Value());
-//			if (currentAtt.get_Name().equals("P_0"))
-//				currentAtt.set_Value((String)_pin.get_Attribute("ir").get_Value());
-//			if (currentAtt.get_Name().equals("Q_0"))
-//				currentAtt.set_Value((String)_pin.get_Attribute("ii").get_Value());
+			if (currentAtt.get_Name().equals("P_0"))
+				currentAtt.set_Value((String)_pin.get_Attribute("ir").get_Value());
+			if (currentAtt.get_Name().equals("Q_0"))
+				currentAtt.set_Value((String)_pin.get_Attribute("ii").get_Value());
 		}
 		update_pin_current(_pin);
 	}
@@ -336,6 +336,6 @@ public class MOClass extends MOModel
 	@Override
     public String toString()
     {
-    	return this.stereotype+ ", "+ this.pakage+ ", "+ this.instanceName+ ", "+ this.get_RfdId();
+    	return this.stereotype+ ", "+ this.pakage+ ", "+ this.instanceName+ ", "+ this.get_RdfId();
     }
 }

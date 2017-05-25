@@ -1,4 +1,4 @@
-package cim2model.cim.map.ipsl.controls.es;
+package cim2model.cim.map.ipsl.controls.tg;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import cim2model.cim.map.ComponentMap;
@@ -22,7 +22,7 @@ import cim2model.cim.map.ComponentMap;
  * 
  */
 
-@XmlRootElement(name = "IEEET1Map")
-public class IEEET1Map extends ComponentMap {
+@XmlRootElement(name = "iEESGOMap")
+public class IEESGOMap extends ComponentMap {
     
 }

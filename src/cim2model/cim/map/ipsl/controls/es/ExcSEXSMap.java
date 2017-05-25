@@ -22,7 +22,7 @@ import cim2model.cim.map.ComponentMap;
  * 
  */
 
-@XmlRootElement(name = "IEEET1Map")
-public class IEEET1Map extends ComponentMap {
+@XmlRootElement(name = "excSEXSMap")
+public class ExcSEXSMap extends ComponentMap {
     
 }

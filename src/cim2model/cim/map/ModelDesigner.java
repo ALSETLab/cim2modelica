@@ -1,9 +1,11 @@
-package cim2model;
+package cim2model.cim.map;
 
 import java.io.File;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -17,10 +19,16 @@ import cim2model.cim.EQProfileModel;
 import cim2model.cim.SVProfileModel;
 import cim2model.cim.TPProfileModel;
 import cim2model.cim.map.*;
+import cim2model.cim.map.ipsl.DynamicComponentType;
 import cim2model.cim.map.ipsl.branches.*;
 import cim2model.cim.map.ipsl.buses.*;
 import cim2model.cim.map.ipsl.connectors.*;
 import cim2model.cim.map.ipsl.controls.es.ESDC1AMap;
+import cim2model.cim.map.ipsl.controls.es.ExcSEXSMap;
+import cim2model.cim.map.ipsl.controls.es.ExcSysMapFactory;
+import cim2model.cim.map.ipsl.controls.tg.HYGOVMap;
+import cim2model.cim.map.ipsl.controls.tg.IEESGOMap;
+import cim2model.cim.map.ipsl.controls.tg.TGovMapFactory;
 import cim2model.cim.map.ipsl.loads.*;
 import cim2model.cim.map.ipsl.machines.*;
 import cim2model.cim.map.ipsl.transformers.*;
@@ -150,8 +158,9 @@ public class ModelDesigner
 	private void add_newConnectionMap(PwPinMap _mapTerminal, Resource _cn, Resource _tn)
 	{
 		ConnectionMap nuevaConnection = new ConnectionMap(
-				_mapTerminal.getRdfId(), _mapTerminal.getConductingEquipment(),
-				_mapTerminal.getTopologicalNode());
+				_mapTerminal.getRdfId(), 
+				_mapTerminal.getConductingEquipment().split("#")[1],
+				_mapTerminal.getTopologicalNode().split("#")[1]);
 		nuevaConnection.set_ConductingEquipment(_cn);
 		nuevaConnection.set_TopologicalNode(_tn);
 		
@@ -168,6 +177,7 @@ public class ModelDesigner
 	public PwPinMap create_TerminalModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
 		Map<String, Object> profile_EQ_map, profile_SV_map;
+		Resource resourceTN= null;
 		
 		PwPinMap mapTerminal= pwpinXMLToObject(_source);
 		/* load corresponding tag cim:Terminal */
@@ -176,23 +186,21 @@ public class ModelDesigner
 				(String)profile_EQ_map.get("IdentifiedObject.name"));
 		if (profile_SV.has_SvPowerFlow(key))
 		{
-			profile_SV_map= profile_SV.get_TerminalPF(key);
-			mapTerminal.get_AttributeMap("SvPowerFlow.p").setContent(
-					(String)profile_SV_map.get("SvPowerFlow.p"));
-			mapTerminal.get_AttributeMap("SvPowerFlow.q").setContent(
-					(String)profile_SV_map.get("SvPowerFlow.q"));
-//			ArrayList<AttributeMap> mapAttList= (ArrayList<AttributeMap>)mapTerminal.getAttributeMap();
-//			Iterator<AttributeMap> imapAttList= mapAttList.iterator();
-//			AttributeMap currentmapAtt;
-//			while (imapAttList.hasNext()) {
-//				currentmapAtt= imapAttList.next();
-//				currentmapAtt.setContent((String)profile_SV_map.get(currentmapAtt.getCimName()));
-//			}
+			profile_SV_map= profile_SV.get_TerminalSvPowerFlow(key);
+			mapTerminal.get_AttributeMap("SvPowerFlow.p").setContent((String)profile_SV_map.get("SvPowerFlow.p"));
+			mapTerminal.get_AttributeMap("SvPowerFlow.q").setContent((String)profile_SV_map.get("SvPowerFlow.q"));
 		}
-		mapTerminal.setConductingEquipment(
-				profile_EQ_map.get("Terminal.ConductingEquipment").toString());
-		if (profile_TP.has_TerminalTN(key)) {
+		mapTerminal.setConductingEquipment(profile_EQ_map.get("Terminal.ConductingEquipment").toString());
+		if (profile_TP.has_TerminalTN(key)) 
+		{
 			mapTerminal.setTopologicalNode(profile_TP.get_TerminalTN(key));
+			resourceTN= profile_TP.get_TNTerminal(profile_TP.get_TerminalTN(key));
+			if (profile_SV.has_SvVoltage(resourceTN))
+			{
+				profile_SV_map= profile_SV.get_TopoNodeSvVoltage(resourceTN);
+				mapTerminal.get_AttributeMap("SvVoltage.v").setContent((String)profile_SV_map.get("SvVoltage.v"));
+				mapTerminal.get_AttributeMap("SvVoltage.angle").setContent((String)profile_SV_map.get("SvVoltage.angle"));
+			}
 		}
 		// add the rfd_id, as reference from terminal and connections to other components 
 		mapTerminal.setRdfId(_subjectID[0]);
@@ -208,6 +216,18 @@ public class ModelDesigner
 		return mapTerminal;
 	}
 	
+	/* SYNCHRONOUS MACHINES */
+	/**
+	 * rfdid of the SynchronousMachine is available
+	 * @param key - resource from the EQ profile, 
+	 * @return
+	 */
+	public String typeOf_SynchronousMachine(Resource key)
+	{
+		String rotorType= profile_DY.check_SynchronousMachineType(key);
+		
+		return rotorType;
+	}
 //	private static GENCLSMap genclsXMLToObject(String _xmlmap) {
 //		JAXBContext context;
 //		Unmarshaller un;
@@ -216,51 +236,6 @@ public class ModelDesigner
 //			context = JAXBContext.newInstance(GENCLSMap.class);
 //	        un = context.createUnmarshaller();
 //	        GENCLSMap map = (GENCLSMap) un.unmarshal(new File(_xmlmap));
-//	        return map;
-//        } 
-//        catch (JAXBException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-	private static GENROUMap genrouXMLToObject(String _xmlmap) {
-		JAXBContext context;
-		Unmarshaller un;
-		
-		try{
-			context = JAXBContext.newInstance(GENROUMap.class);
-	        un = context.createUnmarshaller();
-	        GENROUMap map = (GENROUMap) un.unmarshal(new File(_xmlmap));
-	        return map;
-        } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-	private static GENSALMap gensalXMLToObject(String _xmlmap) {
-		JAXBContext context;
-		Unmarshaller un;
-		
-		try{
-			context = JAXBContext.newInstance(GENSALMap.class);
-	        un = context.createUnmarshaller();
-	        GENSALMap map = (GENSALMap) un.unmarshal(new File(_xmlmap));
-	        return map;
-        } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-//	private static GENROEMap genroeXMLToObject(String _xmlmap) {
-//		JAXBContext context;
-//		Unmarshaller un;
-//		
-//		try{
-//			context = JAXBContext.newInstance(GENROEMap.class);
-//	        un = context.createUnmarshaller();
-//	        GENROEMap map = (GENROEMap) un.unmarshal(new File(_xmlmap));
 //	        return map;
 //        } 
 //        catch (JAXBException e) {
@@ -304,22 +279,16 @@ public class ModelDesigner
 	public GENROUMap create_GENROUModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
 		Iterator<AttributeMap> imapAttList;
-		Map<String, Object> cimEQMap, cimDYMap; 
-		GENROUMap mapSynchMach= genrouXMLToObject(_source);
+		Map<String, Object> cimEQDY; 
+		GENROUMap mapSynchMach= SynchMachineMapFactory.getInstance().genrouXMLToObject(_source);
 		AttributeMap currentmapAtt;
 		/* Attributes from EQ */
-		cimEQMap= profile_EQ.gather_SynchronousMachine_Attributes(key);
+		cimEQDY= profile_EQ.gather_SynchronousMachine_Attributes(key);
+		profile_DY.gather_SynchronousMachineDynamics_Attributes(key, cimEQDY);
 		imapAttList= mapSynchMach.getAttributeMap().iterator();
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
-			currentmapAtt.setContent((String)cimEQMap.get(currentmapAtt.getCimName()));
-		}
-		/* Attributes from DY */
-		imapAttList= mapSynchMach.getAttributeMap().iterator();
-		cimDYMap= profile_DY.gather_SynchronousMachineDynamics_Attributes(key);
-		while (imapAttList.hasNext()) {
-			currentmapAtt= imapAttList.next();
-			currentmapAtt.setContent((String)cimDYMap.get(currentmapAtt.getCimName()));
+			currentmapAtt.setContent((String)cimEQDY.get(currentmapAtt.getCimName()));
 		}
 //		mapSyncMach.setName("GENROU");
 		mapSynchMach.setRdfId(_subjectID[0]);
@@ -339,22 +308,16 @@ public class ModelDesigner
 	public GENSALMap create_GENSALModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
 		Iterator<AttributeMap> imapAttList;
-		Map<String, Object> cimEQMap, cimDYMap; 
-		GENSALMap mapSynchMach= gensalXMLToObject(_source);
+		Map<String, Object> cimEQDY; 
+		GENSALMap mapSynchMach= SynchMachineMapFactory.getInstance().gensalXMLToObject(_source);
 		/* Attributes from EQ */
-		cimEQMap= profile_EQ.gather_SynchronousMachine_Attributes(key);
+		cimEQDY= profile_EQ.gather_SynchronousMachine_Attributes(key);
+		profile_DY.gather_SynchronousMachineDynamics_Attributes(key, cimEQDY);
 		imapAttList= mapSynchMach.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
-			currentmapAtt.setContent((String)cimEQMap.get(currentmapAtt.getCimName()));
-		}
-		/* Attributes from DY */
-		imapAttList= mapSynchMach.getAttributeMap().iterator();
-		cimDYMap= profile_DY.gather_SynchronousMachineDynamics_Attributes(key);
-		while (imapAttList.hasNext()) {
-			currentmapAtt= imapAttList.next();
-			currentmapAtt.setContent((String)cimDYMap.get(currentmapAtt.getCimName()));
+			currentmapAtt.setContent((String)cimEQDY.get(currentmapAtt.getCimName()));
 		}
 //		mapSyncMach.setName("GENROU");
 		mapSynchMach.setRdfId(_subjectID[0]);
@@ -364,79 +327,190 @@ public class ModelDesigner
 		
 		return mapSynchMach;
 	}
-//	/**
-//	 * 
-//	 * @param key
-//	 * @param _source
-//	 * @param _subjectID
-//	 * @return
-//	 */
-//	public GENROEMap create_GENROEModelicaMap(Resource key, String _source, String[] _subjectID)
-//	{
-//		GENROEMap mapSyncMach= genroeXMLToObject(_source);
-//		Map<String, Object> cimClassMap= modelCIM.retrieveAttributesSyncMach(key);
-//		Iterator<AttributeMap> imapAttList= mapSyncMach.getAttributeMap().iterator();
-//		AttributeMap currentmapAtt;
-//		while (imapAttList.hasNext()) {
-//			currentmapAtt= imapAttList.next();
-//			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
-//		}
+	/**
+	 * 
+	 * @param key
+	 * @param _source
+	 * @param _subjectID
+	 * @return
+	 */
+	public GENROEMap create_GENROEModelicaMap(Resource key, String _source, String[] _subjectID)
+	{
+		Iterator<AttributeMap> imapAttList;
+		Map<String, Object> cimEQDY; 
+		GENROEMap mapSynchMach= SynchMachineMapFactory.getInstance().genroeXMLToObject(_source);
+		/* Attributes from EQ */
+		cimEQDY= profile_EQ.gather_SynchronousMachine_Attributes(key);
+		profile_DY.gather_SynchronousMachineDynamics_Attributes(key, cimEQDY);
+		imapAttList= mapSynchMach.getAttributeMap().iterator();
+		AttributeMap currentmapAtt;
+		while (imapAttList.hasNext()) {
+			currentmapAtt= imapAttList.next();
+			currentmapAtt.setContent((String)cimEQDY.get(currentmapAtt.getCimName()));
+		}
 //		mapSyncMach.setName("GENROE");
-//		mapSyncMach.setRfdId(_subjectID[0]);
-//		mapSyncMach.setCimName(_subjectID[1]);
-//
-//		modelCIM.clearAttributes();
-//		
-//		return mapSyncMach;
-//	}
+		mapSynchMach.setRdfId(_subjectID[0]);
+		mapSynchMach.setCimName(_subjectID[1]);
+		profile_EQ.clearAttributes();
+		profile_DY.clearAttributes();
+		
+		return mapSynchMach;
+	}
 	
-//	public Entry<String, Resource> typeOfExcitationSystem(Resource key)
-//	{
-//		Entry<String, Resource> excsData= profile_DY.checkExcitationSystemType(key);
-//		
-//		return excsData;
-//	}
-//	private static ESDC1AMap esdc1aXMLToObject(String _xmlmap) {
-//		JAXBContext context;
-//		Unmarshaller un;
-//		
-//		try{
-//			context = JAXBContext.newInstance(ESDC1AMap.class);
-//	        un = context.createUnmarshaller();
-//	        ESDC1AMap map = (ESDC1AMap) un.unmarshal(new File(_xmlmap));
-//	        return map;
-//        } 
-//        catch (JAXBException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-//	/**
-//	 * 
-//	 * @param key
-//	 * @param _source
-//	 * @param _subjectID
-//	 * @return
-//	 */
-//	public ESDC1AMap create_ESDC1ModelicaMap(Resource _key, String _source, String _subjectName)
-//	{
-//		ESDC1AMap mapExcSys= esdc1aXMLToObject(_source);
-//		Map<String, Object> cimClassMap= profile_DY.retrieveAttributesExcSys(_key);
-//		Iterator<AttributeMap> imapAttList= mapExcSys.getAttributeMap().iterator();
-//		AttributeMap currentmapAtt;
-//		while (imapAttList.hasNext()) {
-//			currentmapAtt= imapAttList.next();
-//			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
-//		}
-//		String[] dynamicResource= profile_DY.retrieveComponentName(_key);
-//		mapExcSys.setRfdId(dynamicResource[0]);
-//		mapExcSys.setCimName(dynamicResource[1]);
-//
-//		profile_DY.clearAttributes();
-//		
-//		return mapExcSys;
-//	}
+	/* EXCITATION SYSTEMS */
+	/**
+	 * 
+	 * @param key is a SynchronousMachine resource from the EQ profile
+	 * @return
+	 */
+	public Entry<String, Resource> typeOf_ExcitationSystem(Resource _key)
+	{
+		Entry<String, Resource> excSysData= null;
+		String typeES= "";
+		
+		Resource machDynamics = profile_DY.find_SynchronousMachineDynamic_Tag(_key);
+		Entry<Resource,RDFNode> excSysTag= profile_DY.find_ExcitationSystem(machDynamics);
+		if (excSysTag!= null)
+		{
+			typeES= excSysTag.getValue().toString().split("#")[1];
+		excSysData= new AbstractMap.SimpleEntry<String,Resource>(
+				excSysTag.getValue().toString().split("#")[1], excSysTag.getKey());
+		}
+		return excSysData;
+	}
+
+	/**
+	 * 
+	 * @param key
+	 * @param _source
+	 * @param _subjectID
+	 * @return
+	 */
+	public ESDC1AMap create_ESDC1AModelicaMap(Resource _key, String _source, String _subjectName)
+	{
+		ESDC1AMap mapExcSys= ExcSysMapFactory.getInstance().esdc1aXMLToObject(_source);
+		Map<String, Object> cimClassMap= profile_DY.gather_ExcitationSystem_Attributes(_key);
+		Iterator<AttributeMap> imapAttList= mapExcSys.getAttributeMap().iterator();
+		AttributeMap currentmapAtt;
+		while (imapAttList.hasNext()) {
+			currentmapAtt= imapAttList.next();
+			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+//			System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+ "= "+ currentmapAtt.getContent()+ "; "+ currentmapAtt.getName());
+		}
+		String[] dynamicResource= profile_DY.get_ComponentName(_key, DynamicComponentType.EXCITATION_SYSTEM);
+		mapExcSys.setRdfId(dynamicResource[0]);
+		mapExcSys.setCimName(dynamicResource[1]);
+
+		profile_DY.clearAttributes();
+		
+		return mapExcSys;
+	}
 	
+	/**
+	 * 
+	 * @param key
+	 * @param _source
+	 * @param _subjectID
+	 * @return
+	 */
+	public ExcSEXSMap create_ExcSEXSModelicaMap(Resource _key, String _source, String _subjectName)
+	{
+		ExcSEXSMap mapExcSys= ExcSysMapFactory.getInstance().excSexsXMLToObject(_source);
+		Map<String, Object> cimClassMap= profile_DY.gather_ExcitationSystem_Attributes(_key);
+		Iterator<AttributeMap> imapAttList= mapExcSys.getAttributeMap().iterator();
+		AttributeMap currentmapAtt;
+		while (imapAttList.hasNext()) {
+			currentmapAtt= imapAttList.next();
+			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+//			System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+ "= "+ currentmapAtt.getContent()+ "; "+ currentmapAtt.getName());
+		}
+		String[] dynamicResource= profile_DY.get_ComponentName(_key, DynamicComponentType.EXCITATION_SYSTEM);
+		mapExcSys.setRdfId(dynamicResource[0]);
+		mapExcSys.setCimName(dynamicResource[1]);
+
+		profile_DY.clearAttributes();
+		
+		return mapExcSys;
+	}
+	
+	/* TURBINE GOVERNORS */
+	/**
+	 * 
+	 * @param key is a SynchronousMachine resource from the EQ profile
+	 * @return
+	 */
+	public Entry<String, Resource> typeOf_TurbineGovernor(Resource _key)
+	{
+		Entry<String, Resource> turbGovData= null;
+		String typeTG= "";
+		Resource machDynamics = profile_DY.find_SynchronousMachineDynamic_Tag(_key);
+		Entry<Resource,RDFNode> turbGovTag= profile_DY.find_TurbineGovernor(machDynamics);
+		
+		if (turbGovTag!= null)
+		{
+			typeTG= turbGovTag.getValue().toString().split("#")[1];
+			turbGovData= new AbstractMap.SimpleEntry<String,Resource>(
+			turbGovTag.getValue().toString().split("#")[1], turbGovTag.getKey());
+		}
+		return turbGovData;
+	}
+	
+	/**
+	 * 
+	 * @param _key
+	 * @param _source
+	 * @param _subjectName
+	 * @return
+	 */
+	public IEESGOMap create_IEESGOModelicaMap(Resource _key, String _source, String _subjectName) 
+	{	
+		IEESGOMap regulator= TGovMapFactory.getInstance().ieesgoXMLToObject(_source);
+		Map<String, Object> cimClassMap= profile_DY.gather_ExcitationSystem_Attributes(_key);
+		Iterator<AttributeMap> imapAttList= regulator.getAttributeMap().iterator();
+		AttributeMap currentmapAtt;
+		while (imapAttList.hasNext()) {
+			currentmapAtt= imapAttList.next();
+			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+//			System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+ "= "+ currentmapAtt.getContent()+ "; "+ currentmapAtt.getName());
+		}
+		String[] dynamicResource= profile_DY.get_ComponentName(_key, DynamicComponentType.TURBINE_GOVERNOR);
+		regulator.setRdfId(dynamicResource[0]);
+		regulator.setCimName(dynamicResource[1]);
+
+		profile_DY.clearAttributes();
+		
+		return regulator;
+	}
+
+	/**
+	 * 
+	 * @param value
+	 * @param string
+	 * @param key
+	 * @return
+	 */
+	public HYGOVMap create_HyGOVModelicaMap(Resource _key, String _source, String _subjectName) 
+	{
+		HYGOVMap regulator= TGovMapFactory.getInstance().hygovXMLToObject(_source);
+		Map<String, Object> cimClassMap= profile_DY.gather_ExcitationSystem_Attributes(_key);
+		Iterator<AttributeMap> imapAttList= regulator.getAttributeMap().iterator();
+		AttributeMap currentmapAtt;
+		while (imapAttList.hasNext()) {
+			currentmapAtt= imapAttList.next();
+			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+//			System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+ "= "+ currentmapAtt.getContent()+ "; "+ currentmapAtt.getName());
+		}
+		String[] dynamicResource= profile_DY.get_ComponentName(_key, DynamicComponentType.TURBINE_GOVERNOR);
+		regulator.setRdfId(dynamicResource[0]);
+		regulator.setCimName(dynamicResource[1]);
+
+		profile_DY.clearAttributes();
+		
+		return regulator;
+	}
+	
+	
+	/* NETWORK COMPONENTS MAP */
 	/**
 	 * 
 	 * @param _xmlmap
@@ -473,6 +547,7 @@ public class ModelDesigner
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+//			System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+ "= "+ currentmapAtt.getContent()+ "; "+ currentmapAtt.getName());
 		} 
 		mapEnergyC.setRdfId(_subjectID[0]);
 		mapEnergyC.setCimName(_subjectID[1]);
@@ -484,26 +559,6 @@ public class ModelDesigner
 	
 	/**
 	 * 
-	 * @param _xmlmap
-	 * @return
-	 */
-	private static PwLineMap pwlineXMLToObject(String _xmlmap) {
-		JAXBContext context;
-		Unmarshaller un;
-		
-		try{
-			context = JAXBContext.newInstance(PwLineMap.class);
-	        un = context.createUnmarshaller();
-	        PwLineMap map = (PwLineMap) un.unmarshal(new File(_xmlmap));
-	        return map;
-        } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-	/**
-	 * 
 	 * @param key
 	 * @param _source
 	 * @param _subjectID
@@ -511,13 +566,14 @@ public class ModelDesigner
 	 */
 	public PwLineMap create_LineModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
-		PwLineMap mapACLine= pwlineXMLToObject(_source);
+		PwLineMap mapACLine= LineMapFactory.getInstance().pwlineXMLToObject(_source);
 		Map<String, Object> cimClassMap= profile_EQ.gather_CIMClassAtt(key);
 		Iterator<AttributeMap> imapAttList= mapACLine.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
+//			System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+ "= "+ currentmapAtt.getContent()+ "; "+ currentmapAtt.getName());
 		}
 		mapACLine.setRdfId(_subjectID[0]);
 		mapACLine.setCimName(_subjectID[1]);
@@ -529,26 +585,6 @@ public class ModelDesigner
 	
 	/**
 	 * 
-	 * @param _xmlmap
-	 * @return
-	 */
-	private static PwBusMap pwbusXMLToObject(String _xmlmap) {
-		JAXBContext context;
-		Unmarshaller un;
-		
-		try{
-			context = JAXBContext.newInstance(PwBusMap.class);
-	        un = context.createUnmarshaller();
-	        PwBusMap map = (PwBusMap) un.unmarshal(new File(_xmlmap));
-	        return map;
-        } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-	/**
-	 * 
 	 * @param key
 	 * @param _source
 	 * @param _subjectID
@@ -556,7 +592,7 @@ public class ModelDesigner
 	 */
 	public PwBusMap create_BusModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
-		PwBusMap mapTopoNode= pwbusXMLToObject(_source);
+		PwBusMap mapTopoNode= BusesMapFactory.getInstance().pwbusXMLToObject(_source);
 		Map<String, Object> cimClassMap= profile_TP.gather_TopoNodeAtt(key);
 		Iterator<AttributeMap> imapAttList= mapTopoNode.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
@@ -572,66 +608,49 @@ public class ModelDesigner
 		return mapTopoNode;
 	}
 	
-	/* SYNCHRONOUS MACHINES */
+	
 	/**
-	 * rfdid of the SynchronousMachine is available
-	 * @param key - resource from the EQ profile, 
+	 * The TwoWindingTransformerMap(1) is referring to the PowerTransformerEnd(2) CIM class. 
+	 * For each cim class (2) there is one map class (1). The builder class is responsible to build the final
+	 * TwoWindindTransformer
+	 * @param key
+	 * @param _source
+	 * @param _subjectID
 	 * @return
 	 */
-	public String typeOfSynchronousMachine(Resource key)
+	public TransformerEndAuxiliarMap create_TransformerModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
-		String rotorType= profile_DY.checkSynchronousMachineType(key);
+		TwoWindingTransformerMap transformerEndMap= TransformerMapFactory.getInstance().twtXMLToObject(_source);
+		TransformerEndAuxiliarMap auxiliarMap;
 		
-		return rotorType;
+		Map<String, Object> cimClassMap= profile_EQ.gather_PowerTransformerEnd_Attributes(key);
+		Iterator<AttributeMap> imapAttList= transformerEndMap.getAttributeMap().iterator();
+		AttributeMap currentmapAtt;
+		while (imapAttList.hasNext()) { 
+			currentmapAtt= imapAttList.next();
+			if (cimClassMap.get(currentmapAtt.getCimName())!= null)
+				currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));	
+		}
+		// I need rdf_id and cim_name (subject split in two 
+		transformerEndMap.setPowerTransformer(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString());
+//		mapPowTrans.setPowerTransformer(cimClassMap.get("TransformerEnd.RatioTapChanger").toString());
+		transformerEndMap.setTerminal(cimClassMap.get("TransformerEnd.Terminal").toString());
+		transformerEndMap.setRdfId(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
+		transformerEndMap.setCimName(_subjectID[1]);
+		
+		auxiliarMap= new TransformerEndAuxiliarMap(transformerEndMap, 
+				(Resource)cimClassMap.get("PowerTransformerEnd.PowerTransformer"),
+//				(Resource)cimClassMap.get("TransformerEnd.RatioTapChanger")
+				(Resource)cimClassMap.get("TransformerEnd.Terminal"));
+		auxiliarMap.set_PowerTransformer_RdfID(
+				cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
+//		transformerEnd.set_Rtc_id(cimClassMap.get("TransformerEnd.RatioTapChanger").toString().split("#")[1]);
+		auxiliarMap.set_Terminal_RdfID(cimClassMap.get("TransformerEnd.Terminal").toString().split("#")[1]);
+
+		profile_EQ.clearAttributes();
+		
+		return auxiliarMap;
 	}
-//	private static TwoWindingTransformerMap twtXMLToObject(String _xmlmap) {
-//		JAXBContext context;
-//		Unmarshaller un;
-//		
-//		try{
-//			context = JAXBContext.newInstance(TwoWindingTransformerMap.class);
-//	        un = context.createUnmarshaller();
-//	        TwoWindingTransformerMap map = (TwoWindingTransformerMap) un.unmarshal(new File(_xmlmap));
-//	        return map;
-//        } 
-//        catch (JAXBException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-//	public CIMTransformerEnd create_TransformerModelicaMap(Resource key, String _source, String[] _subjectID)
-//	{
-//		TwoWindingTransformerMap mapPowTrans= twtXMLToObject(_source);
-//		CIMTransformerEnd transformerEnd;
-//		
-//		Map<String, Object> cimClassMap= profile_EQ.retrieveAttributesTransformer(key);
-//		Iterator<AttributeMap> imapAttList= mapPowTrans.getAttributeMap().iterator();
-//		AttributeMap currentmapAtt;
-//		while (imapAttList.hasNext()) { //get the values of the attributes
-//			currentmapAtt= imapAttList.next();
-//			if (cimClassMap.get(currentmapAtt.getCimName())!= null)
-//				currentmapAtt.setContent((String)cimClassMap.get(currentmapAtt.getCimName()));
-////			System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+ "= "+ currentmapAtt.getContent()+ "; "+ currentmapAtt.getMoName());
-//		}
-////		mapPowTrans.setPowerTransformer(cimClassMap.get("TransformerEnd.RatioTapChanger").toString());
-//		mapPowTrans.setTerminal(cimClassMap.get("TransformerEnd.Terminal").toString());
-////		System.out.println("TwT terminal: "+ mapPowTrans.getTerminal());
-//		// add cim id, used as reference from terminal and connections to other components 
-//		mapPowTrans.setRfdId(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
-//		mapPowTrans.setCimName(_subjectID[1]);
-//		
-//		transformerEnd= new CIMTransformerEnd(mapPowTrans, 
-//				(Resource)cimClassMap.get("PowerTransformerEnd.PowerTransformer"),
-////				(Resource)cimClassMap.get("TransformerEnd.RatioTapChanger")
-//				(Resource)cimClassMap.get("TransformerEnd.Terminal"));
-//		transformerEnd.set_Pt_id(cimClassMap.get("PowerTransformerEnd.PowerTransformer").toString().split("#")[1]);
-////		transformerEnd.set_Rtc_id(cimClassMap.get("TransformerEnd.RatioTapChanger").toString().split("#")[1]);
-//		transformerEnd.set_Te_id(cimClassMap.get("TransformerEnd.Terminal").toString().split("#")[1]);
-//
-//		profile_EQ.clearAttributes();
-//		
-//		return transformerEnd;
-//	}
 	
 
 //	private static PwFaultMap pwfaultXMLToObject(String _xmlmap) {

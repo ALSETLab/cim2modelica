@@ -8,7 +8,7 @@ public class IPSLMachine extends MOClass {
 	public String EFD= "EFD";
 	/* Outputs */
 	protected String ANGLE;
-	protected String SPEED;
+	public String SPEED= "SPEED";
 	public String PMECH0= "PMECH0";
 	protected String PELEC;
 	public String ETERM= "ETERM";

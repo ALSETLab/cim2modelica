@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import cim2model.modelica.ipsl.controls.es.IPSLExcitationSystem;
+import cim2model.modelica.ipsl.controls.tg.IPSLTurbineGovernor;
 import cim2model.modelica.ipsl.machines.IPSLMachine;
 
 /**
@@ -20,12 +21,13 @@ public class MOPlant extends MOModel
 	private String instanceName; 
 	private IPSLMachine machine;
 	private IPSLExcitationSystem excitationSystem;
-	private MOClass turbineGovernor;
+	private IPSLTurbineGovernor turbineGovernor;
 	private MOClass stabilizer;
 	private MOConnector outpin;
 	private ArrayList<MOConnectNode> conexions;
 		
-	public MOPlant(IPSLMachine _mach, IPSLExcitationSystem _es, MOClass _tg, MOClass _stab) 
+	public MOPlant(IPSLMachine _mach, IPSLExcitationSystem _es, 
+			IPSLTurbineGovernor _tg, MOClass _stab) 
 	{
 		super(_mach.instanceName, "model");
 		this.machine= _mach;
@@ -123,7 +125,7 @@ public class MOPlant extends MOModel
 	/**
 	 * @return the turbineGovernor
 	 */
-	public MOClass getTurbineGovernor() {
+	public IPSLTurbineGovernor getTurbineGovernor() {
 		return turbineGovernor;
 	}
 

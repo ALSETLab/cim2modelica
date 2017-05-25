@@ -1,6 +1,4 @@
-package cim2model.cim;
-
-import cim2model.cim.map.ipsl.transformers.TwoWindingTransformerMap;
+package cim2model.cim.map.ipsl.transformers;
 
 import org.apache.jena.rdf.model.Resource;
 
@@ -9,7 +7,7 @@ import org.apache.jena.rdf.model.Resource;
  * @author fragom
  *
  */
-public class CIMTransformerEnd 
+public class TransformerEndAuxiliarMap 
 {
 	private TwoWindingTransformerMap twtmap;
 	private Resource powerTransformer;
@@ -17,7 +15,7 @@ public class CIMTransformerEnd
 	private Resource terminal;
 	private String t_id;
 	
-	public CIMTransformerEnd(TwoWindingTransformerMap _twtmap, 
+	public TransformerEndAuxiliarMap(TwoWindingTransformerMap _twtmap, 
 			Resource _powerTransformer,  
 			Resource _terminal) {
 		super();
@@ -31,63 +29,63 @@ public class CIMTransformerEnd
 	/**
 	 * @return the terminal
 	 */
-	public TwoWindingTransformerMap get_TransformerMap() {
+	public TwoWindingTransformerMap get_TransformerEnd_Map() {
 		return twtmap;
 	}
 	/**
 	 * @param terminal the terminal to set
 	 */
-	public void set_TransformerMap(TwoWindingTransformerMap _twtmap) {
+	public void set_TransformerEnd_Map(TwoWindingTransformerMap _twtmap) {
 		this.twtmap = _twtmap;
 	}
 	/**
 	 * @return the conductingEquipment
 	 */
-	public Resource get_PowerTransformerMap() {
+	public Resource get_PowerTransformer_Resource() {
 		return powerTransformer;
 	}
 	/**
 	 * @param conductingEquipment the conductingEquipment to set
 	 */
-	public void set_PowerTransformerMap(Resource _powerTransformer) {
+	public void set_PowerTransformer_Resource(Resource _powerTransformer) {
 		this.powerTransformer = _powerTransformer;
 	}
 	
 	/**
 	 * @return the terminalEnd
 	 */
-	public Resource get_TerminalMap() {
+	public Resource get_Terminal_Resource() {
 		return terminal;
 	}
 	/**
 	 * @param _terminalEnd the terminalEnd to set
 	 */
-	public void set_TerminalMap(Resource _terminal) {
+	public void set_Terminal_Resource(Resource _terminal) {
 		this.terminal = _terminal;
 	}
 	
 	/**
 	 * @return the ce_id
 	 */
-	public String get_Pt_id() {
+	public String get_PowerTransformer_RdfID() {
 		return pt_id;
 	}
 	/**
 	 * @param ce_id the ce_id to set
 	 */
-	public void set_Pt_id(String _pt_id) {
+	public void set_PowerTransformer_RdfID(String _pt_id) {
 		this.pt_id = _pt_id;
 	}
 	/**
 	 * @return the te_id
 	 */
-	public String get_Te_id() {
+	public String get_Terminal_RdfID() {
 		return t_id;
 	}
 	/**
 	 * @param te_id the te_id to set
 	 */
-	public void set_Te_id(String _t_id) {
+	public void set_Terminal_RdfID(String _t_id) {
 		this.t_id = _t_id;
 	}
 }

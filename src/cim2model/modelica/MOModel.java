@@ -8,7 +8,7 @@ package cim2model.modelica;
 public abstract class MOModel 
 {
 	//for internal identification only
-	private String rfdId;
+	private String rdfid;
 	protected String name;
 	protected String stereotype;
 	protected String pakage;
@@ -22,21 +22,21 @@ public abstract class MOModel
 		this.pakage= "package";
 		this.comment= "something here";
 		this.annotation= "annotation ()";
-		this.rfdId= "";
+		this.rdfid= "";
 	}
 	
 	/**
 	 * @return the rfdId
 	 */
-	public String get_RfdId() {
-		return rfdId;
+	public String get_RdfId() {
+		return rdfid;
 	}
 
 	/**
 	 * @param rfdId the rfdId to set
 	 */
-	public void set_RfdId(String rfdId) {
-		this.rfdId = rfdId;
+	public void set_RdfId(String rfdId) {
+		this.rdfid = rfdId;
 	}
 	
 	/**

@@ -23,7 +23,7 @@ import cim2model.cim.map.ComponentMap;
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *     &lt;extension base="AddressType"&gt;
+ *     &lt;extension base="ComponentMap"&gt;
  *       &lt;attribute name="ConductingEquipment" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="TopologicalNode" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *     &lt;/extension&gt;
