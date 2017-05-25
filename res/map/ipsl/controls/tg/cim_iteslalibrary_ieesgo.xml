@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_ieesgo.dtd">
+<iEESGOMap cim_name="GovSteamSGO" rfd_id="" rfd_resource="" package="OpenIPSL.Electrical.Controls.PSSE.TG" name="IEESGO" stereotype="class">
+	<attributeMap cim_name="IdentifiedObject.name" datatype="String" variability="none" visibility="none" name="InstanceName">name</attributeMap>
+	<attributeMap cim_name="GovSteamSGO.k1" name="K_1" datatype="String" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovSteamSGO.k2" name="K_2" datatype="String" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovSteamSGO.k3" name="K_3" datatype="String" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovSteamSGO.pmax" name="P_MAX" datatype="String" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovSteamSGO.pmin" name="P_MIN" datatype="String" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovSteamSGO.t1" name="T_1" datatype="String" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovSteamSGO.t2" name="T_2" datatype="String" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovSteamSGO.t3" name="T_3" datatype="String" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovSteamSGO.t4" name="T_4" datatype="String" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovSteamSGO.t5" name="T_5" datatype="String" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovSteamSGO.t6" name="T_6" datatype="String" variability="parameter" visibility="public">0.0</attributeMap>
+</iEESGOMap>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_twowindingtransformer.dtd">
+<twoWindingTransformerMap cim_name="PowerTransformerEnd" rdf_id="" rdf_resource="" package="OpenIPSL.Electrical.Branches.PSSE" name="TwoWindingTransformer" stereotype="class" 
+  PowerTransformer="rfd:resource" RatioTapChanger="rfd:resource" Terminal="rfd:resource">
+  <attributeMap cim_name="IdentifiedObject.name" name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
+  <attributeMap cim_name="PowerTransformerEnd.r" name="R" datatype="Real" variability="parameter" visibility="public">99</attributeMap>
+  <attributeMap cim_name="PowerTransformerEnd.x" name="X" datatype="Real" variability="parameter" visibility="public">99</attributeMap>
+  <attributeMap cim_name="PowerTransformerEnd.g" name="G" datatype="Real" variability="parameter" visibility="public">99</attributeMap>
+  <attributeMap cim_name="PowerTransformerEnd.b" name="B" datatype="Real" variability="parameter" visibility="public">99</attributeMap>
+  <attributeMap cim_name="TransformerEnd.endNumber" name="" datatype="Real" variability="parameter" visibility="public">9</attributeMap>
+  <!-- stepVoltageIncrement attribute of each TransformerEnd as param t in the model (t1,t2) -->
+  <attributeMap cim_name="RatioTapChanger.stepVoltageIncrement" name="t" datatype="Real" variability="parameter" visibility="public">1</attributeMap>
+  <attributeMap cim_name="PowerTransformerEnd.phaseAngleClock" name="ANG1" datatype="Real" variability="parameter" visibility="public">0.1</attributeMap>
+  <!-- ratedU attribute of each PowerTransformerEnd as param VB "Bus Base kV on the side of winding 1" in the model (VB1,VB2) -->
+  <attributeMap cim_name="PowerTransformerEnd.ratedU" name="VB" datatype="Real" variability="parameter" visibility="public">99</attributeMap>
+  <!-- ratedU attribute of each PowerTransformerEnd as param VNOM in the model (VNOM1,VNOM2) -->
+  <attributeMap cim_name="PowerTransformerEnd.nomV" name="VNOM" datatype="Real" variability="parameter" visibility="public">99</attributeMap>
+  <attributeMap cim_name="PowerTransformerEnd.ratedS" name="S_n" datatype="Real" variability="parameter" visibility="public">99</attributeMap>
+  <!--  attributes exclusive from PSSE  -->
+  <attributeMap cim_name="PowerTransformer.cw" name="CW" datatype="Real" variability="parameter" visibility="public">99</attributeMap>
+  <attributeMap cim_name="PowerTransformer.cz" name="CZ" datatype="Real" variability="parameter" visibility="public">99</attributeMap>
+</twoWindingTransformerMap>
