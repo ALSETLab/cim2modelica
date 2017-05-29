@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "mapTerminal")
-public class MapTerminal {
+public class TerminalMap {
 
     @XmlAttribute(name = "cim_name", required = true)
     protected String cimName;

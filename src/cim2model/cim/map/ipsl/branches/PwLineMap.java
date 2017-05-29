@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import cim2model.cim.map.ComponentMap;
-import cim2model.cim.map.MapTerminal;
+import cim2model.cim.map.TerminalMap;
 
 
 /**
@@ -44,7 +44,7 @@ import cim2model.cim.map.MapTerminal;
 public class PwLineMap extends ComponentMap{
 
     @XmlElement(required = true)
-    protected List<MapTerminal> mapTerminal;
+    protected List<TerminalMap> mapTerminal;
  
 
     /**
@@ -65,13 +65,13 @@ public class PwLineMap extends ComponentMap{
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link MapTerminal }
+     * {@link TerminalMap }
      * 
      * 
      */
-    public List<MapTerminal> get_TerminalMap() {
+    public List<TerminalMap> get_TerminalMap() {
         if (mapTerminal == null) {
-            mapTerminal = new ArrayList<MapTerminal>();
+            mapTerminal = new ArrayList<TerminalMap>();
         }
         return this.mapTerminal;
     }
