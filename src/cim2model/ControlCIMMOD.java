@@ -156,7 +156,7 @@ public class ControlCIMMOD
 //				System.out.println(topologyResource[0]+ " is the rfd_id; "+ topologyResource[1]+ " is the CIM name");
 				/* According to CIM Composer, SynchMachine has one terminal */
 				if (equipmentResource[1].equals("SynchronousMachine"))
-				{
+				{//TODO: Check cim attribute for V_b generator parameter
 					IPSLMachine momachine= null;
 					String machineType= cartografo.typeOf_SynchronousMachine(
 							cartografo.get_CurrentConnectionMap().get_ConductingEquipment());
@@ -183,15 +183,16 @@ public class ControlCIMMOD
 								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
 								"./res/map/ipsl/machines/cim_iteslalibrary_genroe.xml", equipmentResource);
 						momachine= constructor.create_MachineComponent(mapSyncMach);
-					}
+					}//TODO: Check cim attribute for S_b generator parameter
 					momachine.add_Terminal(mopin);
-					//TODO check power flow values, reading SV
 					momachine.update_powerFlow(mopin);
 					factory_Plant(momachine, machineType, mopin);
 				}
 				/* EnergyConsumer has one terminal */
-				if (equipmentResource[1].equals("EnergyConsumer"))
+				if (equipmentResource[1].equals("EnergyConsumer") || equipmentResource[1].equals("NonConformLoad") ||
+						equipmentResource[1].equals("ConformLoad"))
 				{
+//					System.out.println("Com cargues "+ equipmentResource[0]+ " is the rdf_id; "+ equipmentResource[1]+ " is the CIM name");
 					LoadMap mapEnergyC= cartografo.create_LoadModelicaMap(
 							cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
 							"./res/map/ipsl/loads/cim_iteslalibrary_load.xml", equipmentResource);

@@ -18,7 +18,6 @@ import cim2model.cim.DYProfileModel;
 import cim2model.cim.EQProfileModel;
 import cim2model.cim.SVProfileModel;
 import cim2model.cim.TPProfileModel;
-import cim2model.cim.map.*;
 import cim2model.cim.map.ipsl.DynamicComponentType;
 import cim2model.cim.map.ipsl.branches.*;
 import cim2model.cim.map.ipsl.buses.*;
@@ -167,7 +166,6 @@ public class ModelDesigner
 		this.connections.add(nuevaConnection);
 	}
 	/**
-	 * 
 	 * 2) Creates a new instance of ConnectionMap, with Id T, Id Cn & Id Tn with the mapTerminal
 	 * @param key
 	 * @param _source
@@ -284,12 +282,15 @@ public class ModelDesigner
 		AttributeMap currentmapAtt;
 		/* Attributes from EQ */
 		cimEQDY= profile_EQ.gather_SynchronousMachine_Attributes(key);
+		profile_EQ.gather_BasePower_Attributes(cimEQDY);
+		profile_EQ.gather_BaseVoltage_Attributes((Resource)cimEQDY.get("Equipment.EquipmentContainer"), cimEQDY);
 		profile_DY.gather_SynchronousMachineDynamics_Attributes(key, cimEQDY);
 		imapAttList= mapSynchMach.getAttributeMap().iterator();
 		while (imapAttList.hasNext()) {
 			currentmapAtt= imapAttList.next();
 			currentmapAtt.setContent((String)cimEQDY.get(currentmapAtt.getCimName()));
 		}
+		
 //		mapSyncMach.setName("GENROU");
 		mapSynchMach.setRdfId(_subjectID[0]);
 		mapSynchMach.setCimName(_subjectID[1]);
@@ -312,6 +313,8 @@ public class ModelDesigner
 		GENSALMap mapSynchMach= SynchMachineMapFactory.getInstance().gensalXMLToObject(_source);
 		/* Attributes from EQ */
 		cimEQDY= profile_EQ.gather_SynchronousMachine_Attributes(key);
+		profile_EQ.gather_BasePower_Attributes(cimEQDY);
+		profile_EQ.gather_BaseVoltage_Attributes((Resource)cimEQDY.get("Equipment.EquipmentContainer"), cimEQDY);
 		profile_DY.gather_SynchronousMachineDynamics_Attributes(key, cimEQDY);
 		imapAttList= mapSynchMach.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
@@ -328,7 +331,7 @@ public class ModelDesigner
 		return mapSynchMach;
 	}
 	/**
-	 * 
+	 * Attributes from EQ profile plus DY profile
 	 * @param key
 	 * @param _source
 	 * @param _subjectID
@@ -339,8 +342,8 @@ public class ModelDesigner
 		Iterator<AttributeMap> imapAttList;
 		Map<String, Object> cimEQDY; 
 		GENROEMap mapSynchMach= SynchMachineMapFactory.getInstance().genroeXMLToObject(_source);
-		/* Attributes from EQ */
 		cimEQDY= profile_EQ.gather_SynchronousMachine_Attributes(key);
+		profile_EQ.gather_BaseVoltage_Attributes((Resource)cimEQDY.get("Equipment.EquipmentContainer"), cimEQDY);
 		profile_DY.gather_SynchronousMachineDynamics_Attributes(key, cimEQDY);
 		imapAttList= mapSynchMach.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
@@ -366,15 +369,13 @@ public class ModelDesigner
 	public Entry<String, Resource> typeOf_ExcitationSystem(Resource _key)
 	{
 		Entry<String, Resource> excSysData= null;
-		String typeES= "";
 		
 		Resource machDynamics = profile_DY.find_SynchronousMachineDynamic_Tag(_key);
 		Entry<Resource,RDFNode> excSysTag= profile_DY.find_ExcitationSystem(machDynamics);
 		if (excSysTag!= null)
 		{
-			typeES= excSysTag.getValue().toString().split("#")[1];
-		excSysData= new AbstractMap.SimpleEntry<String,Resource>(
-				excSysTag.getValue().toString().split("#")[1], excSysTag.getKey());
+			excSysData= new AbstractMap.SimpleEntry<String,Resource>(
+					excSysTag.getValue().toString().split("#")[1], excSysTag.getKey());
 		}
 		return excSysData;
 	}
@@ -442,15 +443,13 @@ public class ModelDesigner
 	public Entry<String, Resource> typeOf_TurbineGovernor(Resource _key)
 	{
 		Entry<String, Resource> turbGovData= null;
-		String typeTG= "";
 		Resource machDynamics = profile_DY.find_SynchronousMachineDynamic_Tag(_key);
 		Entry<Resource,RDFNode> turbGovTag= profile_DY.find_TurbineGovernor(machDynamics);
 		
 		if (turbGovTag!= null)
 		{
-			typeTG= turbGovTag.getValue().toString().split("#")[1];
 			turbGovData= new AbstractMap.SimpleEntry<String,Resource>(
-			turbGovTag.getValue().toString().split("#")[1], turbGovTag.getKey());
+					turbGovTag.getValue().toString().split("#")[1], turbGovTag.getKey());
 		}
 		return turbGovData;
 	}

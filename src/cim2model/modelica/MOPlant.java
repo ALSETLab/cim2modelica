@@ -222,7 +222,10 @@ public class MOPlant extends MOModel
 			pencil.append(this.excitationSystem.to_ModelicaInstance());
 		}
 		// print turbine governor component
-		if (this.has_turbineGovernor()){}
+		if (this.has_turbineGovernor()){
+			pencil.append("\t");
+			pencil.append(this.turbineGovernor.to_ModelicaInstance());
+		}
 		// print stabilizer component
 		if (this.has_powerStabilizer()){}
 		

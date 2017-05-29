@@ -6,13 +6,18 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.ResIterator;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.vocabulary.RDF;
 
-public class EQProfileModel {
-	
+public class EQProfileModel 
+{
+	static final String CIMns= "http://iec.ch/TC57/2013/CIM-schema-cim16#";
 //	private String id;
 	private Map<String, Object> attribute;
 	private Map<Resource, RDFNode> component;
@@ -211,8 +216,8 @@ public class EQProfileModel {
 						}
 						excsData= new AbstractMap.SimpleEntry<String, Resource>(
 								excsType, machAttribute.getResource());
-						System.out.println("ExcS type> "+ excsType);
-						System.out.println("Resource> "+ machAttribute.getResource());
+//						System.out.println("ExcS type> "+ excsType);
+//						System.out.println("Resource> "+ machAttribute.getResource());
 						excsDynAttribute.close();
 					}
 				}
@@ -229,7 +234,7 @@ public class EQProfileModel {
 	 */
 	public Map<String,Object> gather_SynchronousMachine_Attributes(Resource _subject)
 	{ 
-		Statement attributeClass, classAttribute;
+		Statement attributeClass;
 		
 		StmtIterator iAttributes= _subject.listProperties();
 		while( iAttributes.hasNext() ) 
@@ -242,18 +247,10 @@ public class EQProfileModel {
 			}
 			if (attributeClass.getAlt().isURIResource())
 			{
-				if ( attributeClass.getPredicate().getLocalName().equals("RotatingMachine.GeneratingUnit"))
+				if ( attributeClass.getPredicate().getLocalName().equals("Equipment.EquipmentContainer"))
 				{
-					StmtIterator iLoadResponse= attributeClass.getAlt().listProperties();
-					while( iLoadResponse.hasNext() ) 
-					{
-						classAttribute= iLoadResponse.next();
-						if (classAttribute.getAlt().isLiteral()) {
-							this.attribute.put(classAttribute.getPredicate().getLocalName(), 
-									classAttribute.getString());
-						}
-					}
-					iLoadResponse.close();
+					this.attribute.put(attributeClass.getPredicate().getLocalName(), 
+							attributeClass.getResource());
 				}
 			}
 		}
@@ -263,9 +260,58 @@ public class EQProfileModel {
 	/**
 	 * 
 	 * @param _subject
+	 * @param _attribute
+	 */
+	public void gather_BaseVoltage_Attributes(Resource _subject, Map<String,Object> _attribute)
+	{
+		Statement subjectAtt, baseVClassAtt;
+		StmtIterator iAttributes= _subject.listProperties();
+		
+		while( iAttributes.hasNext() ) 
+		{
+			subjectAtt= iAttributes.next();
+			if (subjectAtt.getAlt().isURIResource())
+			{
+				if ( subjectAtt.getPredicate().getLocalName().equals("VoltageLevel.BaseVoltage"))
+				{
+					StmtIterator baseVoltageAttribute= subjectAtt.getAlt().listProperties();
+					while( baseVoltageAttribute.hasNext() ) 
+					{
+						baseVClassAtt= baseVoltageAttribute.next();
+						if(baseVClassAtt.getAlt().isLiteral() && 
+								!baseVClassAtt.getPredicate().getLocalName().equals("IdentifiedObject.name")){
+							_attribute.put(baseVClassAtt.getPredicate().getLocalName(), 
+									baseVClassAtt.getLiteral().getValue());
+						}
+					}
+				}
+			}
+		}
+	}
+	/**
+	 * 
+	 * @param _subject
+	 * @param _attribute
+	 */
+	public void gather_BasePower_Attributes(Map<String,Object> _attribute)
+	{
+		final Resource BasePowerTag= ResourceFactory.createResource(CIMns+"BasePower");
+		final Property basePower= ResourceFactory.createProperty(CIMns+ "BasePower.basePower");
+		
+		for (final ResIterator it= this.rdfModel.listResourcesWithProperty(RDF.type, BasePowerTag); it.hasNext();)
+		{
+			final Resource attTag= it.next();
+			_attribute.put(attTag.getProperty(basePower).getPredicate().getLocalName(), 
+					attTag.getProperty(basePower).getLiteral().getValue());
+		}
+	}
+	
+	/**
+	 * 
+	 * @param _subject
 	 * @return
 	 */
-	public Map<String,Object> retrieveAttributesExcSys(Resource _subject)
+	public Map<String,Object> gather_ExcitationSystem_Attributes(Resource _subject)
 	{ 
 		Statement attributeClass;
 		
@@ -352,9 +398,9 @@ public class EQProfileModel {
 		{
 			attributeClass= iAttributes.next();
 			if (attributeClass.getAlt().isLiteral() && 
-					!attributeClass.getPredicate().getLocalName().equals("IdentifiedObject.name"))
-			{//Take the literals but not when is the attribute IdentifiedObject.name, because this attributes refers to PTE,
-				//and we want the IdentifiedObject.name from PT
+					!attributeClass.getPredicate().getLocalName().equals("IdentifiedObject.description"))
+			{//Take the literals but not when is the attribute IdentifiedObject.description, because this attributes refers to PTE,
+				//and we want the IdentifiedObject.description from PT
 				this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getLiteral().getValue());
 			}
 			if (attributeClass.getAlt().isURIResource())
@@ -426,7 +472,7 @@ public class EQProfileModel {
 						classAttribute= svPowerFlowAtts.next();
 						if (classAttribute.getAlt().isLiteral())
 						{
-							System.out.println("puta "+ classAttribute.getPredicate().getURI());
+//							System.out.println("puta "+ classAttribute.getPredicate().getURI());
 							this.attribute.put(classAttribute.getPredicate().getURI(), classAttribute.getString());
 						}
 					}

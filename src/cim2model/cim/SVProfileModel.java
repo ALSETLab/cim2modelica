@@ -1,7 +1,5 @@
 package cim2model.cim;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -14,7 +12,7 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 
 public class SVProfileModel {
-	
+	//TODO use of JENA Properties for finding tags (see EQProfileModel:gather_BasePower_Attributes(...))
 //	private String id;
 	private Map<String, Object> attribute;
 	private Map<Resource, RDFNode> svPowerFlow;
@@ -197,7 +195,7 @@ public class SVProfileModel {
             o = stmt.getObject();
             if (p.getLocalName().equals("SvVoltage.TopologicalNode")){
             	String [] componentName= o.toString().split("#");
-            	System.out.println(componentName[0]+ " : "+ componentName[1]);
+//            	System.out.println(componentName[0]+ " : "+ componentName[1]);
             	found= componentName[1].equals(_t.getLocalName());
             }
 		}

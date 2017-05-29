@@ -22,7 +22,6 @@ public class PlantBuilder
     {
 		MOPlant newPlant= new MOPlant(machine, excitationSystem, turbineGovernor, stabilizer);
 		this.connect_plant(newPlant);
-		//TODO check input connections (boolean variables) for each regulator equipment
 		//TODO create Modelica.Blocks.Sources.Constant const(k=0) for VOTHSG, VOEL and the rest
 		//TODO create Modelica.Blocks.Sources.Constant const1(k=-Modelica.Constants.inf) for VUEL
 		return newPlant;
@@ -56,6 +55,8 @@ public class PlantBuilder
     {
     	MOConnectNode connect;
     	if (_planta.has_excitationSystem()){
+    		_planta.getExcitationSystem().set_InstanceName(_planta.getMachine().get_InstanceName()+
+    				"_"+ _planta.getExcitationSystem().get_InstanceName());
     		connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
     				_planta.getMachine().EFD0,
     				_planta.getExcitationSystem().get_InstanceName(),
@@ -73,13 +74,10 @@ public class PlantBuilder
     				_planta.getMachine().get_InstanceName(),
     				_planta.getMachine().EFD);
     		_planta.add_Connection(connect);
-    		connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
-    				_planta.getMachine().PMECH0,
-    				_planta.getMachine().get_InstanceName(),
-    				_planta.getMachine().PMECH);
-    		_planta.add_Connection(connect);
     	}
     	else if (_planta.has_turbineGovernor()){
+    		_planta.getTurbineGovernor().set_InstanceName(_planta.getMachine().get_InstanceName()+
+    				"_"+ _planta.getTurbineGovernor().get_InstanceName());
     		connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
     				_planta.getMachine().SPEED,
     				_planta.getTurbineGovernor().get_InstanceName(),

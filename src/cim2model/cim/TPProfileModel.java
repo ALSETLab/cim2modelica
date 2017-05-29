@@ -11,7 +11,7 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 
 public class TPProfileModel {
-	
+	//TODO use of JENA Properties for finding tags (see EQProfileModel:gather_BasePower_Attributes(...))
 //	private String id;
 	private Map<String, Object> attribute;
 	private Map<Resource, RDFNode> topologicalNodes;
@@ -125,7 +125,6 @@ public class TPProfileModel {
 	 */
 	public boolean has_TerminalTN(Resource _t)
 	{
-		//TODO iterate into the terminals struct
 		final StmtIterator stmtiter = this.rdfModel.listStatements();
 		boolean found= false;
 		Resource s, p;
@@ -138,8 +137,6 @@ public class TPProfileModel {
 			p = stmt.getPredicate();
             s = stmt.getSubject();
             if (p.getLocalName().equals("Terminal.TopologicalNode")){
-            	String [] componentName= s.toString().split("#");
-//            	System.out.println(componentName[0]+ " : "+ componentName[1]);
             	found= s.getLocalName().equals(_t.getLocalName());
             }
 		}

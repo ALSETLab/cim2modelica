@@ -1,6 +1,5 @@
 package cim2model.cim;
 
-import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -16,6 +15,7 @@ import org.apache.jena.rdf.model.StmtIterator;
 
 public class DYProfileModel {
 	//TODO method find_xxx to be unified for regulators component
+	//TODO use of JENA Properties for finding tags (see EQProfileModel:gather_BasePower_Attributes(...))
 //	private String id;
 	private Map<String, Object> attribute;
 	private Map<Resource, RDFNode> excsys;
@@ -111,66 +111,7 @@ public class DYProfileModel {
 //		return this.pss;
 //		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 //	}
-	
-//	/**
-//	 * 
-//	 * @param _syncMach the resource object that might contain an object from Dynamics package
-//	 * @return
-//	 */
-//	public boolean has_TG_Dynamics(Resource _syncMach)
-//	{
-//		final StmtIterator stmtiter = this.rdfModel.listStatements();
-//		boolean found= false;
-//		Resource s, p;
-//        Statement stmt;
-////		System.out.println("T local name: "+ _syncMach.getLocalName());
-////    	System.out.println("T URI: "+ _syncMach.getURI());
-//		while( !found && stmtiter.hasNext() ) 
-//		{
-//			stmt= stmtiter.next();
-//			p = stmt.getPredicate();
-//            s = stmt.getSubject();
-//            if (p.getLocalName().equals("TurbineGovernorDynamics.SynchronousMachineDynamics")){
-//            	String [] componentName= s.toString().split("#");
-////            	System.out.println(componentName[0]+ " : "+ componentName[1]);
-//            	found= s.getLocalName().equals(_syncMach.getLocalName());
-//            }
-//		}
-//		
-//		return found;
-//	}
-//	
-//	/**
-//	 * 
-//	 * @return boolean
-//	 */
-//	public String get_TG_Dynamics(Resource _syncMach)
-//	{
-//		final StmtIterator stmtiter = this.rdfModel.listStatements();
-//		boolean found= false;
-//		Resource s, p;
-//        RDFNode o;
-//        Statement stmt;
-//        String id_TN= "";
-//        
-//		while( !found && stmtiter.hasNext() ) 
-//		{
-//			stmt= stmtiter.next();
-//			p = stmt.getPredicate();
-//            s = stmt.getSubject();
-//            o = stmt.getObject();
-//            if (p.getLocalName().equals("TurbineGovernorDynamics.SynchronousMachineDynamics")){
-//            	found= s.getLocalName().equals(_syncMach.getLocalName());
-//            	if (found)
-//        			id_TN= o.toString();
-//            }
-//		}
-//		
-//		return id_TN;
-//	}
-	
-	
-	
+		
 	
 	public void clearAttributes()
 	{
@@ -274,6 +215,11 @@ public class DYProfileModel {
 		}
 		return machineType;
 	}
+	/**
+	 * 
+	 * @param _key
+	 * @param _attribute
+	 */
 	public void gather_SynchronousMachineDynamics_Attributes(
 			Resource _key, Map<String,Object> _attribute)
 	{
@@ -293,7 +239,6 @@ public class DYProfileModel {
 						!classAttributes.getPredicate().getLocalName().equals("IdentifiedObject.name")){
 					_attribute.put(classAttributes.getPredicate().getLocalName(), 
 							classAttributes.getLiteral().getValue());
-					
 				}
 			}
 			iAttributes.close();

@@ -111,7 +111,7 @@ public class ModelBuilder
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
-				pin.set_InstanceName(current.getContent());
+				pin.set_InstanceName(current.getContent().trim());
 			}
 			else{
 				MOAttribute variable= new MOAttribute();
@@ -140,7 +140,7 @@ public class ModelBuilder
 		Iterator<MOClass> iComponents= this.powsys.get_Equipment().iterator();
 		boolean exists= false;
 		while (!exists && iComponents.hasNext()){
-			exists= iComponents.next().get_InstanceName().equals(_component.get_InstanceName());
+			exists= iComponents.next().get_RdfId().equals(_component.get_RdfId());
 		}
 		if (!exists)
 			this.powsys.add_Component(_component);
@@ -176,7 +176,7 @@ public class ModelBuilder
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
-				syncMach.set_InstanceName(current.getContent());
+				syncMach.set_InstanceName(current.getContent().trim());
 			}
 			else{
 				MOAttribute variable= new MOAttribute();
@@ -212,7 +212,7 @@ public class ModelBuilder
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
-				excSys.set_InstanceName(current.getContent());
+				excSys.set_InstanceName(current.getContent().trim());
 			}
 			else{
 				MOAttribute variable= new MOAttribute();
@@ -247,7 +247,7 @@ public class ModelBuilder
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
-				tgov.set_InstanceName(current.getContent());
+				tgov.set_InstanceName(current.getContent().trim());
 			}
 			else{
 				MOAttribute variable= new MOAttribute();
@@ -280,7 +280,7 @@ public class ModelBuilder
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
-				pwLoad.set_InstanceName(current.getContent());
+				pwLoad.set_InstanceName(current.getContent().trim());
 			}
 			else {
 				if (current.getDatatype().equals("Complex")) {
@@ -336,7 +336,7 @@ public class ModelBuilder
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
-				pwline.set_InstanceName(current.getContent());
+				pwline.set_InstanceName(current.getContent().trim());
 			}
 			else{
 				MOAttribute variable= new MOAttribute();
@@ -371,8 +371,8 @@ public class ModelBuilder
 				!current.getCimName().equals("RatioTapChanger.stepVoltageIncrement") &&
 				!current.getCimName().equals("PowerTransformerEnd.ratedU"))
 			{
-				if (current.getCimName().equals("IdentifiedObject.name"))
-					twtransformer.set_InstanceName(current.getContent());
+				if (current.getCimName().equals("IdentifiedObject.description"))
+					twtransformer.set_InstanceName(current.getContent().trim());
 				else
 				{
 					MOAttribute variable= new MOAttribute();
@@ -464,7 +464,7 @@ public class ModelBuilder
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
-				pwbus.set_InstanceName(current.getContent());
+				pwbus.set_InstanceName(current.getContent().trim());
 			}
 			else {
 				MOAttribute variable= new MOAttribute();
