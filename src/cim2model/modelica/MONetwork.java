@@ -3,6 +3,8 @@ package cim2model.modelica;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import cim2model.modelica.ipsl.machines.IPSLMachine;
+
 /**
  * Class with the definition of a high level modelica class, aka model
  * @author fragom
@@ -107,8 +109,11 @@ public class MONetwork extends MOModel
 		/* VARIABLE SECTION */
 		for (MOClass component: this.equipment)
 		{
-			pencil.append("\t");
-			pencil.append(component.to_ModelicaInstance());
+			if (!(component instanceof IPSLMachine))
+			{
+				pencil.append("\t");
+				pencil.append(component.to_ModelicaInstance());
+			}
 		}
 		for (MOPlant plant: this.elecPlants)
 		{
@@ -122,11 +127,11 @@ public class MONetwork extends MOModel
 			pencil.append("\t");
 			pencil.append(conexio.to_ModelicaEquation("network"));
 		}
-		/* PLANT CONNECTIONS */
-		for (MOPlant plant: this.elecPlants)
-		{
-			pencil.append(plant.to_ModelicaConnection());
-		}
+//		for (MOPlant plant: this.elecPlants)
+//		{
+//			pencil.append("\t");
+//			pencil.append(plant.to_ModelicaEquation("network"));
+//		}
 		pencil.append("end ");
 		pencil.append(this.name);
 		pencil.append(";");

@@ -2,6 +2,8 @@ package cim2model.cim.map;
 
 import org.apache.jena.rdf.model.Resource;
 
+import cim2model.modelica.MOPlant;
+
 /**
  * Stores the relation of conducting equipment and topological node through the name of the terminal
  * @author fragom
@@ -14,6 +16,7 @@ public class ConnectionMap
 	private String tn_id;
 	private Resource conductingEquipment;
 	private Resource topologicalNode;
+	private MOPlant planta;
 	
 	
 	public ConnectionMap(String t_id, String ce_id, String tn_id) {
@@ -83,6 +86,14 @@ public class ConnectionMap
 	public void set_TopologicalNode(Resource topologicalNode) {
 		this.topologicalNode = topologicalNode;
 	}
+	
+	public MOPlant get_Planta() {
+		return planta;
+	}
+	public void set_Planta(MOPlant planta) {
+		this.planta = planta;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

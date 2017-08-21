@@ -20,7 +20,6 @@ public class IPSLMachine extends MOClass {
 		super(_name);
 	}
 
-	//TODO metodo para establecer default connections, a utilizar cuando no haya controladores
 	public String default_connectionPMECH(){
 		String code= "";
 		StringBuilder pencil= new StringBuilder();
@@ -55,10 +54,4 @@ public class IPSLMachine extends MOClass {
 		
 		return code;
 	}
-	//TODO metod para establecer connections con controladores
-	
-	//classe planta?? si, classe planta con configuraciones de maquina y controlador
-	//la classe planta creará las equaciones connect respectivas. Y ModelBuilder las 
-	//gestiona, creando esas conexiones y guardandolas en la estructura
-	//ModelDesigner tiene que mapear el tipo de maquina y los tipos de controladores de la maquina
 }

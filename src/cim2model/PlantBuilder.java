@@ -2,6 +2,7 @@ package cim2model;
 
 import cim2model.modelica.MOClass;
 import cim2model.modelica.MOConnectNode;
+import cim2model.modelica.MOConnector;
 import cim2model.modelica.MOPlant;
 import cim2model.modelica.ipsl.controls.es.IPSLExcitationSystem;
 import cim2model.modelica.ipsl.controls.tg.IPSLTurbineGovernor;
@@ -21,6 +22,20 @@ public class PlantBuilder
 	public MOPlant buildPlant()
     {
 		MOPlant newPlant= new MOPlant(machine, excitationSystem, turbineGovernor, stabilizer);
+		String nameModel= machine.get_Name();
+		newPlant.set_Package("Generators");
+		if (excitationSystem != null){
+    		nameModel+= "_"+ excitationSystem.get_Name();
+    	}
+    	else if (turbineGovernor != null){
+    		nameModel+= "_"+ turbineGovernor.get_Name();
+    	}
+    	else if (stabilizer != null){
+    		nameModel+= "_"+ stabilizer.get_Name();
+    	}
+		nameModel += machine.get_RdfId().split("-")[0];
+		newPlant.set_Name(nameModel);
+		newPlant.setInstanceName(machine.get_InstanceName());
 		this.connect_plant(newPlant);
 		//TODO create Modelica.Blocks.Sources.Constant const(k=0) for VOTHSG, VOEL and the rest
 		//TODO create Modelica.Blocks.Sources.Constant const1(k=-Modelica.Constants.inf) for VUEL
@@ -51,12 +66,16 @@ public class PlantBuilder
         return this;
     }
     
-    public void connect_plant(MOPlant _planta)
+    /**
+     * Method creates the internal connections of the plant: connections between generator and controls
+     * @param _planta
+     */
+    private void connect_plant(MOPlant _planta)
     {
     	MOConnectNode connect;
     	if (_planta.has_excitationSystem()){
-    		_planta.getExcitationSystem().set_InstanceName(_planta.getMachine().get_InstanceName()+
-    				"_"+ _planta.getExcitationSystem().get_InstanceName());
+//    		_planta.getExcitationSystem().set_InstanceName(_planta.getMachine().get_InstanceName()+
+//    				"_"+ _planta.getExcitationSystem().get_InstanceName());
     		connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
     				_planta.getMachine().EFD0,
     				_planta.getExcitationSystem().get_InstanceName(),
@@ -76,8 +95,8 @@ public class PlantBuilder
     		_planta.add_Connection(connect);
     	}
     	else if (_planta.has_turbineGovernor()){
-    		_planta.getTurbineGovernor().set_InstanceName(_planta.getMachine().get_InstanceName()+
-    				"_"+ _planta.getTurbineGovernor().get_InstanceName());
+//    		_planta.getTurbineGovernor().set_InstanceName(_planta.getMachine().get_InstanceName()+
+//    				"_"+ _planta.getTurbineGovernor().get_InstanceName());
     		connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
     				_planta.getMachine().SPEED,
     				_planta.getTurbineGovernor().get_InstanceName(),
@@ -113,5 +132,15 @@ public class PlantBuilder
     				_planta.getMachine().EFD);
     		_planta.add_Connection(connect);
     	}
+    }
+    
+    public static void assemble_plant(MOPlant _planta, MOConnector _pin) 
+    {
+    	MOConnectNode connect;
+    	connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
+				_planta.getMachine().get_Terminal(_pin.get_RdfId()).get_InstanceName(),
+				"",
+				_planta.getOutpin().get_InstanceName());
+		_planta.add_Connection(connect);
     }
 }

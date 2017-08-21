@@ -21,6 +21,7 @@ public class EQProfileModel
 //	private String id;
 	private Map<String, Object> attribute;
 	private Map<Resource, RDFNode> component;
+	private Map<Resource, String> substations;
 	private Model rdfModel;
 
 	/**
@@ -41,6 +42,26 @@ public class EQProfileModel
 		this.rdfModel= _model;
 		attribute= new HashMap<String, Object>();
 		component= new HashMap<Resource, RDFNode>();
+	}
+	
+	/**
+	 * 
+	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
+	 */
+	public Map<Resource,String> gather_SubstationResource()
+	{
+		final Resource substationTag= ResourceFactory.createResource(CIMns+"Substation");
+		final Property nameTag= ResourceFactory.createProperty(CIMns+ "IdentifiedObject.name");
+		substations= new HashMap<Resource, String>();
+		
+		for (final ResIterator it= this.rdfModel.listResourcesWithProperty(RDF.type, substationTag); it.hasNext();)
+		{
+			final Resource attTag= it.next();
+			substations.put(it.next(), 
+					attTag.getProperty(nameTag).getLiteral().getValue().toString());
+			
+		}
+		return substations;
 	}
 	
 	/**
@@ -77,7 +98,7 @@ public class EQProfileModel
 	 * @param _subject
 	 * @return Array containing Component ID, Component/Class name
 	 */
-	public String [] get_ComponentName(Resource _subject)
+	public String [] get_EquipmentRdfID(Resource _subject)
 	{
 		RDFNode aux;
 		
@@ -398,7 +419,7 @@ public class EQProfileModel
 		{
 			attributeClass= iAttributes.next();
 			if (attributeClass.getAlt().isLiteral() && 
-					!attributeClass.getPredicate().getLocalName().equals("IdentifiedObject.description"))
+					!attributeClass.getPredicate().getLocalName().equals("IdentifiedObject.name"))
 			{//Take the literals but not when is the attribute IdentifiedObject.description, because this attributes refers to PTE,
 				//and we want the IdentifiedObject.description from PT
 				this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getLiteral().getValue());

@@ -1,9 +1,7 @@
 package cim2model.modelica;
 
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
 
 import cim2model.modelica.ipsl.controls.es.IPSLExcitationSystem;
 import cim2model.modelica.ipsl.controls.tg.IPSLTurbineGovernor;
@@ -189,14 +187,34 @@ public class MOPlant extends MOModel
 		pencil.append(this.annotation);
 		pencil.append('"'); pencil.append("\n");
 		/* VARIABLE SECTION */
-		
+		pencil.append("\t");
+		pencil.append(this.getOutpin().to_ModelicaInstance());
+		// print machine component
+		pencil.append("\t");
+		pencil.append(this.machine.to_ModelicaInstance());
+		// print excitation system component
+		if (this.has_excitationSystem()){
+			pencil.append("\t");
+			pencil.append(this.excitationSystem.to_ModelicaInstance());
+		}
+		// print turbine governor component
+		if (this.has_turbineGovernor()){
+			pencil.append("\t");
+			pencil.append(this.turbineGovernor.to_ModelicaInstance());
+		}
+		// print stabilizer component
+		if (this.has_powerStabilizer()){}
 		/* EQUATION SECTION */
 		pencil.append("equation\n");
-		if (this.excitationSystem== null && this.turbineGovernor== null){
-			this.machine.default_connectionPMECH();
-			this.machine.default_connectionEFD();
+//		if (this.excitationSystem== null && this.turbineGovernor== null){
+//			this.machine.default_connectionPMECH();
+//			this.machine.default_connectionEFD();
+//		}
+		for (MOConnectNode conexio: this.conexions)
+		{
+			pencil.append("\t");
+			pencil.append(conexio.to_ModelicaEquation("plant"));
 		}
-		//TODO connect machine pin with plant pin
 		pencil.append("end ");
 		pencil.append(this.name);
 		pencil.append(";");
@@ -214,20 +232,18 @@ public class MOPlant extends MOModel
 		String code= "";
 		StringBuilder pencil= new StringBuilder();
 		
-		// print machine component
-		pencil.append(this.machine.to_ModelicaInstance());
-		// print excitation system component
-		if (this.has_excitationSystem()){
-			pencil.append("\t");
-			pencil.append(this.excitationSystem.to_ModelicaInstance());
-		}
-		// print turbine governor component
-		if (this.has_turbineGovernor()){
-			pencil.append("\t");
-			pencil.append(this.turbineGovernor.to_ModelicaInstance());
-		}
-		// print stabilizer component
-		if (this.has_powerStabilizer()){}
+		pencil.append(this.pakage);
+		pencil.append(".");
+		pencil.append(this.name);
+		pencil.append(" ");
+		pencil.append(this.instanceName);
+		pencil.append(" ");
+		pencil.append('"');
+		pencil.append(this.comment);
+		pencil.append('"'); 
+		pencil.append(" ");
+		pencil.append(this.annotation);
+		pencil.append(";\n");
 		
 		code= pencil.toString(); pencil= null;
 		
@@ -235,20 +251,16 @@ public class MOPlant extends MOModel
 	}
 	
 	/**
-	 * 
+	 * This methods creates the connections within the plant object
 	 * @return
 	 */
-	public String to_ModelicaConnection(){
+	public String to_ModelicaEquation(String isNetwork)
+	{
 		String code= "";
-		StringBuilder pencil= new StringBuilder();
-		
-		for (MOConnectNode conexio: this.conexions)
-		{
-			pencil.append("\t");
-			pencil.append(conexio.to_ModelicaEquation("plant"));
-		}
-		code= pencil.toString(); pencil= null;
-		
+//		if (isNetwork.equals("network"))
+//			code= this.connect_equipmentNetwork();
+//		if (isNetwork.equals("plant"))
+//			code= this.connect_equipmentPlant();
 		return code;
 	}
 	

@@ -4,7 +4,6 @@ import cim2model.modelica.MOClass;
 
 public class GENROU extends MOClass
 {
-	//TODO como attributos, los inputs y outputs del componente
 	/* Inputs */
 	double PMECH;
 	double EFD;
@@ -22,7 +21,10 @@ public class GENROU extends MOClass
 		super(_name);
 	}
 
-	//TODO metodo para establecer default connections, a utilizar cuando no haya controladores
+	/**
+	 * 
+	 * @return
+	 */
 	public String default_connectionPMECH(){
 		String code= "";
 		StringBuilder pencil= new StringBuilder();
@@ -40,6 +42,10 @@ public class GENROU extends MOClass
 		
 		return code;
 	}
+	/**
+	 * 
+	 * @return
+	 */
 	public String default_connectionEFD(){
 		String code= "";
 		StringBuilder pencil= new StringBuilder();
@@ -57,10 +63,4 @@ public class GENROU extends MOClass
 		
 		return code;
 	}
-	//TODO metod para establecer connections con controladores
-	
-	//classe planta?? si, classe planta con configuraciones de maquina y controlador
-	//la classe planta creará las equaciones connect respectivas. Y ModelBuilder las 
-	//gestiona, creando esas conexiones y guardandolas en la estructura
-	//ModelDesigner tiene que mapear el tipo de maquina y los tipos de controladores de la maquina
 }
