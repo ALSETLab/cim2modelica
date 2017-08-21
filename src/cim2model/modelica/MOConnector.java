@@ -23,6 +23,18 @@ public class MOConnector extends MOModel
 		this.attributes= new ArrayList<MOAttribute>();
 	}
 
+	public MOConnector(MOConnector _machinePin, String _plantPin)
+	{
+		super(_machinePin.get_Name(), "connector");
+		this.rdfid= _machinePin.get_RdfId();
+		this.stereotype= _machinePin.get_Stereotype();
+		this.pakage= _machinePin.get_Package();
+		this.visibility= _machinePin.get_Visibility();
+		this.variability= _machinePin.get_Variability();
+		this.attributes= _machinePin.get_Attributes();
+		this.instanceName= _plantPin;
+	}
+	
 	/**
 	 * @return the instanceName
 	 */

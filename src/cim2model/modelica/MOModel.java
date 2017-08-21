@@ -8,7 +8,7 @@ package cim2model.modelica;
 public abstract class MOModel 
 {
 	//for internal identification only
-	private String rdfid;
+	protected String rdfid;
 	protected String name;
 	protected String stereotype;
 	protected String pakage;

@@ -251,7 +251,7 @@ public class DYProfileModel {
 	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
 	 */
 	public Map<Resource,RDFNode> gather_ExcitationSystems()
-	{//TODO //TODO gather all TG models without using the name explicitly
+	{//TODO gather all TG models without using the name explicitly
 		Resource s,p;
 		RDFNode o;
 		Statement stmt;

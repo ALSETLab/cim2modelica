@@ -101,7 +101,7 @@ public class ModelDesigner
 	 */
 	public String[] get_EquipmentClassName(Resource _key)
 	{
-		return profile_EQ.get_ComponentName(_key);
+		return profile_EQ.get_EquipmentRdfID(_key);
 	}
 	
 	/**
@@ -166,6 +166,7 @@ public class ModelDesigner
 		this.connections.add(nuevaConnection);
 	}
 	/**
+	 * 1) 
 	 * 2) Creates a new instance of ConnectionMap, with Id T, Id Cn & Id Tn with the mapTerminal
 	 * @param key
 	 * @param _source
@@ -200,7 +201,6 @@ public class ModelDesigner
 				mapTerminal.get_AttributeMap("SvVoltage.angle").setContent((String)profile_SV_map.get("SvVoltage.angle"));
 			}
 		}
-		// add the rfd_id, as reference from terminal and connections to other components 
 		mapTerminal.setRdfId(_subjectID[0]);
 		mapTerminal.setCimName(_subjectID[1]);
 		//
