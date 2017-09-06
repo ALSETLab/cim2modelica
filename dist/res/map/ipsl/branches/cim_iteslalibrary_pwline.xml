@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_pwline.dtd">
+<pwLineMap cim_name="ACLineSegment" rdf_id="" rdf_resource="" package="OpenIPSL.Electrical.Branches" name="PwLine" stereotype="class">
+	<attributeMap cim_name="IdentifiedObject.name" name="InstanceName" datatype="String" variability="none"  visibility="none">name</attributeMap>
+	<attributeMap cim_name="ACLineSegment.r" name="R" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+	<attributeMap cim_name="ACLineSegment.x" name="X" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+	<attributeMap cim_name="ACLineSegment.gch" name="G" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+	<attributeMap cim_name="ACLineSegment.bch" name="B" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+</pwLineMap>

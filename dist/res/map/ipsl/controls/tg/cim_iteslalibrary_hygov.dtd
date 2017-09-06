@@ -1,0 +1,15 @@
+<!ELEMENT hYGOVMap (attributeMap+)>
+<!ATTLIST hYGOVMap
+          cim_name CDATA #REQUIRED
+		  rfd_id CDATA #REQUIRED
+          rfd_resource CDATA #REQUIRED
+          name CDATA #REQUIRED
+          package CDATA #REQUIRED
+          stereotype CDATA #REQUIRED>
+<!ELEMENT attributeMap (#PCDATA)>
+<!ATTLIST attributeMap
+          cim_name CDATA #REQUIRED
+          datatype CDATA #REQUIRED
+          name CDATA #REQUIRED
+          variability CDATA #REQUIRED
+          visibility CDATA #REQUIRED>

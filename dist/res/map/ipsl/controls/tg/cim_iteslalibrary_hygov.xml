@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_hygov.dtd">
+<hYGOVMap cim_name="GovHydro1" rfd_id="" rfd_resource="" package="OpenIPSL.Electrical.Controls.PSSE.TG" name="HYGOV" stereotype="class">
+	<attributeMap cim_name="IdentifiedObject.name" name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
+	<attributeMap cim_name="GovHydro1.rperm" name="R" datatype="Real" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovHydro1.rtemp" name="r" datatype="Real" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovHydro1.tr" name="T_r" datatype="Real" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovHydro1.tf" name="T_f" datatype="Real" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovHydro1.tg" name="T_g" datatype="Real" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovHydro1.velm" name="VELM" datatype="Real" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovHydro1.gmax" name="G_MAX" datatype="Real" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovHydro1.gmin" name="G_MIN" datatype="Real" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovHydro1.tw" name="T_w" datatype="Real" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovHydro1.at" name="A_t" datatype="Real" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovHydro1.dturb" name="D_turb" datatype="Real" variability="parameter" visibility="public">0.0</attributeMap>
+	<attributeMap cim_name="GovHydro1.qnl" name="q_NL" datatype="Real" variability="parameter" visibility="public">0.0</attributeMap>
+</hYGOVMap>

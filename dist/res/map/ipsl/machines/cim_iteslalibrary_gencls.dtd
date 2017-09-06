@@ -1,0 +1,15 @@
+<!ELEMENT GENCLSMap (attributeMap+)>
+<!ATTLIST GENCLSMap
+          cim_name CDATA #REQUIRED
+          name CDATA #REQUIRED
+          package CDATA #REQUIRED
+          rdf_id CDATA #REQUIRED
+          rdf_resource CDATA #REQUIRED
+          stereotype CDATA #REQUIRED>
+<!ELEMENT attributeMap (#PCDATA)>
+<!ATTLIST attributeMap
+          cim_name CDATA #REQUIRED
+          datatype CDATA #REQUIRED
+          name CDATA #REQUIRED
+          variability CDATA #REQUIRED
+          visibility CDATA #REQUIRED>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_pwbus.dtd">
+<pwBusMap cim_name="TopologicalNode" rdf_id="" rdf_resource="" package="OpenIPSL.Electrical.Buses" name="Bus" stereotype="class">
+	<attributeMap cim_name="IdentifiedObject.name" name="InstanceName" datatype="String" variability="none"	visibility="none">name</attributeMap> 
+	<attributeMap cim_name="SvVoltage.v" name="V_0" datatype="Real" variability="none" visibility="public">0</attributeMap>
+	<attributeMap cim_name="SvVoltage.angle" name="angle_0" datatype="Real" variability="none" visibility="public">0</attributeMap>
+</pwBusMap>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_esdc1a.dtd">
+<!-- CIM class to be included into ExcitationSystemDynamics packages, instance of the CIM class ExcitationSystemDynamics class -->
+<eSDC1AMap cim_name="ExcIEEEDC1A" rdf_id="" rdf_resource="" package="OpenIPSL.Electrical.Controls.PSSE.ES" name="ESDC1A" stereotype="class">
+  <attributeMap cim_name="IdentifiedObject.name" name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.tr" name="T_R" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.ka" name="K_A" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.ta" name="T_A" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.tb" name="T_B" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.tc" name="T_C" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.ke" name="K_E" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.te" name="T_E" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.kf" name="K_F" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.tf" name="T_F1" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.efd1" name="E_1" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.efd2" name="E_2" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.seefd1" name="S_EE_1" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.seefd2" name="S_EE_2" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.vrmin" name="V_RMIN" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEDC1A.vrmax" name="V_RMAX" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+</eSDC1AMap>

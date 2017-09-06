@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_load.dtd">
+<loadMap cim_name="EnergyConsumer" rdf_id="" rdf_resource="" package="OpenIPSL.Electrical.Loads.PSSE" name="Load" stereotype="class">
+  <attributeMap cim_name="IdentifiedObject.name" name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.pConstantCurrent" name="S_i.re" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.qConstantCurrent" name="S_i.im" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.pConstantImpedance" name="S_y.re" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.qConstantImpedance" name="S_y.im" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.pConstantPower" name="S_p.re" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.qConstantPower" name="S_p.im" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <!--  
+  <attributeMap cim_name="LoadResponseCharacteristic.pVoltageExponent" mo_name="a.re" datatype="Complex" variability="parameter" visibility="none">1</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.pVoltageExponent" mo_name="a.im" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.qVoltageExponent" mo_name="b.re" datatype="Complex" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="LoadResponseCharacteristic.qVoltageExponent" mo_name="b.im" datatype="Complex" variability="parameter" visibility="none">1</attributeMap>
+  <attributeMap cim_name="LoadComposite.pfrac" mo_name="PQBRAK" datatype="Real" variability="parameter" visibility="none">0</attributeMap>
+  -->
+  <attributeMap cim_name="SvVoltage.angle" name="angle_0" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+  <attributeMap cim_name="SvVoltage.v" name="V_0" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+  <attributeMap cim_name="EnergyConsumer.pfixed" name="P_0" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+  <attributeMap cim_name="EnergyConsumer.qfixed" name="Q_0" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+  <attributeMap cim_name="BaseVoltage.nominalVoltage" name="V_b" datatype="parameter" variability="parameter" visibility="none">0</attributeMap>
+</loadMap>
