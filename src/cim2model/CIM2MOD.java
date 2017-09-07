@@ -150,6 +150,7 @@ public class CIM2MOD
 								"./res/map/ipsl/connectors/cim_iteslalibrary_pwpin.xml", 
 								cimClassResource);
 				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
+				MOConnector mopinbus = constructor.create_PinConnector(mapTerminal);
 				/* after loading terminal, load the resource connected to it, 
 				 * a.k.a., ConductingEquipment 
 				 * a.k.a. TopologicalNode */
@@ -229,8 +230,8 @@ public class CIM2MOD
 					MOClass mobus= constructor.get_equipmentNetwork(topologyResource[0]);
 					if (mobus!= null)
 					{
-						mopin.set_InstanceName("p"); //trick to set all pin names as p
-						mobus.add_Terminal(mopin);
+						mopinbus.set_InstanceName("p"); // trick to set all pin
+						mobus.add_Terminal(mopinbus);
 					}
 					else
 					{/* false, create map of the line and add the first terminal */
@@ -238,8 +239,8 @@ public class CIM2MOD
 								cartografo.get_CurrentConnectionMap().get_TopologicalNode(), 
 										"./res/map/ipsl/buses/cim_iteslalibrary_pwbus.xml", topologyResource);
 						mobus= constructor.create_BusComponent(mapTopoNode);
-						mopin.set_InstanceName("p"); //trick to set all pin names as p
-						mobus.add_Terminal(mopin);
+						mopinbus.set_InstanceName("p"); // trick to set all pin
+						mobus.add_Terminal(mopinbus);
 						constructor.add_equipmentNetwork(mobus);
 					}
 				}
@@ -281,8 +282,9 @@ public class CIM2MOD
 		constructor.connect_Components(cartografo.get_ConnectionMap());
 		for (MOPlant plant: constructor.get_Network().get_planta())
 		{
+			String plantPackage= constructor.get_Network().get_Name()+ "/Generators";
 			constructor.save_ModelicaFile(plant.to_ModelicaClass(), plant.get_Name(),
-					constructor.get_Network().get_Name());
+					plantPackage);
 		}
 		constructor.save_ModelicaFile(constructor.get_Network().to_ModelicaClass(),
 				constructor.get_Network().get_Name(), constructor.get_Network().get_Name());

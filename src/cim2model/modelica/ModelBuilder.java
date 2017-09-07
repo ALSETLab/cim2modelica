@@ -116,6 +116,8 @@ public class ModelBuilder
 						pin.set_InstanceName("p");
 				if (current.getContent().equals("T2"))
 						pin.set_InstanceName("n");
+				// System.out.println("after= " + current.getContent() + " - " +
+				// pin.get_InstanceName());
 			}
 			else{
 				MOAttribute variable= new MOAttribute();

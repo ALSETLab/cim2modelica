@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--Created by fragom-->
 <!DOCTYPE model SYSTEM "cim_iteslalibrary_pwpin.dtd">
-<pwPinMap cim_name="Terminal" rdf_id="" rdf_resource="" package="OpenIPSL.Electrical.Connectors" name="PwPin" stereotype="connector" 
+<pwPinMap cim_name="Terminal" rdf_id="" rdf_resource="" package="OpenIPSL.Interfaces" name="PwPin" stereotype="connector" 
 	ConductingEquipment= "rfd_resource" TopologicalNode="rfd_resource">
   <attributeMap cim_name="IdentifiedObject.name" name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
   <attributeMap cim_name="SvVoltage.angle" name="vi" datatype="Real"  variability="none" visibility="public" flow="0">0</attributeMap>
