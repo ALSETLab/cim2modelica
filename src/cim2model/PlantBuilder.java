@@ -4,15 +4,15 @@ import cim2model.modelica.MOClass;
 import cim2model.modelica.MOConnectNode;
 import cim2model.modelica.MOConnector;
 import cim2model.modelica.MOPlant;
-import cim2model.modelica.ipsl.controls.es.IPSLExcitationSystem;
-import cim2model.modelica.ipsl.controls.tg.IPSLTurbineGovernor;
-import cim2model.modelica.ipsl.machines.IPSLMachine;
+import cim2model.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
+import cim2model.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
+import cim2model.modelica.openipsl.machines.OpenIPSLMachine;
 
 public class PlantBuilder 
 {
-	private IPSLMachine machine= null;
-	private IPSLExcitationSystem excitationSystem= null;
-	private IPSLTurbineGovernor turbineGovernor= null;
+	private OpenIPSLMachine machine= null;
+	private OpenIPSLExcitationSystem excitationSystem= null;
+	private OpenIPSLTurbineGovernor turbineGovernor= null;
 	private MOClass stabilizer= null;
 	
 	public PlantBuilder() {
@@ -23,7 +23,7 @@ public class PlantBuilder
     {
 		MOPlant newPlant= new MOPlant(machine, excitationSystem, turbineGovernor, stabilizer);
 		String nameModel= machine.get_Name();
-		newPlant.set_Package("Generators");
+		newPlant.set_Package("PowerPlant");
 		if (excitationSystem != null){
     		nameModel+= "_"+ excitationSystem.get_Name();
     	}
@@ -42,19 +42,19 @@ public class PlantBuilder
 		return newPlant;
     }
 
-    public PlantBuilder machine(IPSLMachine _machine)
+    public PlantBuilder machine(OpenIPSLMachine _machine)
     {
         this.machine = _machine;
         return this;
     }
 
-    public PlantBuilder excitationSystem(IPSLExcitationSystem _excitationSystem)
+    public PlantBuilder excitationSystem(OpenIPSLExcitationSystem _excitationSystem)
     {
         this.excitationSystem = _excitationSystem;
         return this;
     }
 
-    public PlantBuilder turbineGovernor(IPSLTurbineGovernor _turbineGovernor)
+    public PlantBuilder turbineGovernor(OpenIPSLTurbineGovernor _turbineGovernor)
     {
         this.turbineGovernor = _turbineGovernor;
         return this;
@@ -66,12 +66,15 @@ public class PlantBuilder
         return this;
     }
     
+	private void connect_stabilizier_excitation(MOPlant _planta) {
+
+	}
     /**
      * Method creates the internal connections of the plant: connections between generator and controls
      * @param _planta
      */
     private void connect_plant(MOPlant _planta)
-    {
+	{
     	MOConnectNode connect;
     	if (_planta.has_excitationSystem()){
 //    		_planta.getExcitationSystem().set_InstanceName(_planta.getMachine().get_InstanceName()+
@@ -94,7 +97,15 @@ public class PlantBuilder
     				_planta.getMachine().EFD);
     		_planta.add_Connection(connect);
     	}
-    	else if (_planta.has_turbineGovernor()){
+		else if (_planta.has_powerStabilizer()) {
+			// connect pss with es
+			// connect es with machine
+		} else {
+			connect = new MOConnectNode(_planta.getMachine().get_InstanceName(), _planta.getMachine().EFD0,
+					_planta.getMachine().get_InstanceName(), _planta.getMachine().EFD);
+			_planta.add_Connection(connect);
+		}
+		if (_planta.has_turbineGovernor()) {
 //    		_planta.getTurbineGovernor().set_InstanceName(_planta.getMachine().get_InstanceName()+
 //    				"_"+ _planta.getTurbineGovernor().get_InstanceName());
     		connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
@@ -116,25 +127,54 @@ public class PlantBuilder
     		_planta.add_Connection(connect);
     		
     	}
-    	else if (_planta.has_powerStabilizer()){
-    		//connect pss with es
-    		//connect es with machine
-    	}
     	else{
     		connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
     				_planta.getMachine().PMECH0,
     				_planta.getMachine().get_InstanceName(),
     				_planta.getMachine().PMECH);
     		_planta.add_Connection(connect);
-    		connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
-    				_planta.getMachine().EFD0,
-    				_planta.getMachine().get_InstanceName(),
-    				_planta.getMachine().EFD);
-    		_planta.add_Connection(connect);
+
     	}
     }
     
-    public static void assemble_plant(MOPlant _planta, MOConnector _pin) 
+	private static void constant_connect_controls(MOPlant _planta, MOClass _cteblock) {
+		MOConnectNode connect;
+		if (_planta.has_excitationSystem()) {
+			connect = new MOConnectNode(_cteblock.get_InstanceName(), "y",
+					_planta.getExcitationSystem().get_InstanceName(), _planta.getExcitationSystem().VOTHSG);
+			_planta.add_Connection(connect);
+			_planta.getExcitationSystem().setConnected("VOTHSG");
+			connect = new MOConnectNode(_cteblock.get_InstanceName(), "y",
+					_planta.getExcitationSystem().get_InstanceName(), _planta.getExcitationSystem().VUEL);
+			_planta.add_Connection(connect);
+			_planta.getExcitationSystem().setConnected("VUEL");
+			connect = new MOConnectNode(_cteblock.get_InstanceName(), "y",
+					_planta.getExcitationSystem().get_InstanceName(), _planta.getExcitationSystem().VOEL);
+			_planta.add_Connection(connect);
+			connect = new MOConnectNode(_cteblock.get_InstanceName(), "y",
+					_planta.getExcitationSystem().get_InstanceName(), _planta.getExcitationSystem().XADIFD);
+			_planta.add_Connection(connect);
+		}
+	}
+	/**
+	 * Automatically connects the machine component pin with the plant component
+	 * pin. This last pin is used to connect the plant component to the rest of
+	 * the network. 2nd, connects remainin input/output pins of controlers to a
+	 * Modelica.Blocks.Sources.Constant block
+	 * 
+	 * @param _planta
+	 * @param _pin
+	 */
+	// public static void assemble_plant(MOPlant _planta, MOConnector _pin)
+	// {
+	// MOConnectNode connect;
+	// connect= new MOConnectNode(_planta.getMachine().get_InstanceName(),
+	// _planta.getMachine().get_Terminal(_pin.get_RdfId()).get_InstanceName(),
+	// "",
+	// _planta.getOutpin().get_InstanceName());
+	// _planta.add_Connection(connect);
+	// }
+	public static void assemble_plant(MOPlant _planta, MOConnector _pin, MOClass _cteblock)
     {
     	MOConnectNode connect;
     	connect= new MOConnectNode(_planta.getMachine().get_InstanceName(), 
@@ -142,5 +182,6 @@ public class PlantBuilder
 				"",
 				_planta.getOutpin().get_InstanceName());
 		_planta.add_Connection(connect);
+		constant_connect_controls(_planta, _cteblock);
     }
 }

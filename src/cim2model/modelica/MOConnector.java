@@ -147,9 +147,12 @@ public class MOConnector extends MOModel
 	
 	/**
 	 * Name connectorName (value1=?,value2=?,...) "comments";
+	 * 
+	 * @param instanceParam
+	 *            - boolean
 	 * @return text representation of the instance
 	 */
-	public String to_ModelicaInstance()
+	public String to_ModelicaInstance(boolean instanceParams)
 	{
 		String code= "";
 		StringBuilder pencil= new StringBuilder();
@@ -164,26 +167,30 @@ public class MOConnector extends MOModel
 		pencil.append(this.name);
 		pencil.append(" ");
 		pencil.append(this.instanceName);
-		pencil.append(" (");
-		for (MOAttribute item: this.attributes)
-		{
-			if (item.get_Name().equals("vr") | item.get_Name().equals("vi") |
-					item.get_Name().equals("ir") | item.get_Name().equals("ii")){
-				pencil.append(item.get_Name());
-				pencil.append("=");
-				pencil.append(item.get_Value());
-				pencil.append(",");
+		if (instanceParams) {
+			pencil.append(" (");
+			for (MOAttribute item : this.attributes) {
+				if (item.get_Name().equals("vr") | item.get_Name().equals("vi") | item.get_Name().equals("ir")
+						| item.get_Name().equals("ii")) {
+					pencil.append(item.get_Name());
+					pencil.append("=");
+					pencil.append(item.get_Value());
+					pencil.append(",");
+				}
+				if (item instanceof MOAttributeComplex) {
+					pencil.append(item.get_Name());
+					pencil.append("(");
+					pencil.append("re= ");
+					pencil.append(((MOAttributeComplex) item).get_Real());
+					pencil.append(",");
+					pencil.append("im= ");
+					pencil.append(((MOAttributeComplex) item).get_Imaginary());
+					pencil.append("), ");
+				}
 			}
-			if (item instanceof MOAttributeComplex){
-				pencil.append(item.get_Name());
-				pencil.append("(");
-				pencil.append("re= "); pencil.append(((MOAttributeComplex)item).get_Real()); pencil.append(",");
-				pencil.append("im= "); pencil.append(((MOAttributeComplex)item).get_Imaginary()); 
-				pencil.append("), ");
-			}
+			pencil.deleteCharAt(pencil.lastIndexOf(","));
+			pencil.append(") ");
 		}
-		pencil.deleteCharAt(pencil.lastIndexOf(","));
-		pencil.append(") ");
 		pencil.append('"');
 		pencil.append(this.comment);
 		pencil.append('"'); 

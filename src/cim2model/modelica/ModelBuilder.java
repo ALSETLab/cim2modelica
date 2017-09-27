@@ -10,16 +10,16 @@ import java.util.Iterator;
 import cim2model.cim.map.AttributeMap;
 import cim2model.cim.map.ComponentMap;
 import cim2model.cim.map.ConnectionMap;
-import cim2model.cim.map.ipsl.branches.PwLineMap;
-import cim2model.cim.map.ipsl.buses.Bus;
-import cim2model.cim.map.ipsl.buses.PwBusMap;
-import cim2model.cim.map.ipsl.connectors.PwPinMap;
-import cim2model.cim.map.ipsl.loads.LoadMap;
-import cim2model.cim.map.ipsl.transformers.TwoWindingTransformerMap;
-import cim2model.modelica.ipsl.branches.PwLine;
-import cim2model.modelica.ipsl.controls.es.IPSLExcitationSystem;
-import cim2model.modelica.ipsl.controls.tg.IPSLTurbineGovernor;
-import cim2model.modelica.ipsl.machines.IPSLMachine;
+import cim2model.cim.map.openipsl.branches.PwLineMap;
+import cim2model.cim.map.openipsl.buses.Bus;
+import cim2model.cim.map.openipsl.buses.PwBusMap;
+import cim2model.cim.map.openipsl.connectors.PwPinMap;
+import cim2model.cim.map.openipsl.loads.LoadMap;
+import cim2model.cim.map.openipsl.transformers.TwoWindingTransformerMap;
+import cim2model.modelica.openipsl.branches.PwLine;
+import cim2model.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
+import cim2model.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
+import cim2model.modelica.openipsl.machines.OpenIPSLMachine;
 
 public class ModelBuilder 
 {
@@ -107,7 +107,6 @@ public class ModelBuilder
 		ArrayList<AttributeMap> mapAttList= 
 				(ArrayList<AttributeMap>)_terminalMap.getAttributeMap();
 		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
-		imapAttList= mapAttList.iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
@@ -179,9 +178,9 @@ public class ModelBuilder
 	 * @param _mapSyncMach
 	 * @return
 	 */
-	public IPSLMachine create_MachineComponent(ComponentMap _mapSyncMach)
+	public OpenIPSLMachine create_MachineComponent(ComponentMap _mapSyncMach)
 	{
-		IPSLMachine syncMach= new IPSLMachine(_mapSyncMach.getName());
+		OpenIPSLMachine syncMach= new OpenIPSLMachine(_mapSyncMach.getName());
 		Iterator<AttributeMap> imapAttList= _mapSyncMach.getAttributeMap().iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
@@ -214,9 +213,9 @@ public class ModelBuilder
 	 * @param _mapExcSys
 	 * @return
 	 */
-	public IPSLExcitationSystem create_ExcSysComponent(ComponentMap _mapExcSys) 
+	public OpenIPSLExcitationSystem create_ExcSysComponent(ComponentMap _mapExcSys) 
 	{
-		IPSLExcitationSystem excSys= new IPSLExcitationSystem(_mapExcSys.getName());
+		OpenIPSLExcitationSystem excSys= new OpenIPSLExcitationSystem(_mapExcSys.getName());
 		Iterator<AttributeMap> imapAttList= _mapExcSys.getAttributeMap().iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
@@ -249,9 +248,9 @@ public class ModelBuilder
 	 * @param _mapTGov
 	 * @return
 	 */
-	public IPSLTurbineGovernor create_TGovComponent(ComponentMap _mapTGov) 
+	public OpenIPSLTurbineGovernor create_TGovComponent(ComponentMap _mapTGov) 
 	{
-		IPSLTurbineGovernor tgov= new IPSLTurbineGovernor(_mapTGov.getName());
+		OpenIPSLTurbineGovernor tgov= new OpenIPSLTurbineGovernor(_mapTGov.getName());
 		Iterator<AttributeMap> imapAttList= _mapTGov.getAttributeMap().iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
@@ -488,7 +487,7 @@ public class ModelBuilder
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
 			if (current.getCimName().equals("IdentifiedObject.name")){
-				pwbus.set_InstanceName(current.getContent().trim());
+				pwbus.set_InstanceName(current.getContent().trim().replace(' ', '_'));
 			}
 			else {
 				MOAttribute variable= new MOAttribute();
@@ -543,6 +542,30 @@ public class ModelBuilder
 //		return pwline;
 //	}
 	
+	/**
+	 * Use of the RDF_ID for internal identification only
+	 * 
+	 * @param _mapACLine
+	 * @return
+	 */
+	public MOClass create_ConstantBlock() {
+		MOClass constantblock = new MOClass("Constant");
+
+		MOAttribute variable = new MOAttribute();
+		variable.set_Name("k");
+		variable.set_Value(0);
+		variable.set_Variability("parameter");
+		variable.set_Visibility("public");
+		variable.set_Flow(false);
+		constantblock.add_Attribute(variable);
+
+		constantblock.set_InstanceName("const");
+		constantblock.set_Stereotype("block");
+		constantblock.set_Package("Modelica.Blocks.Sources");
+		constantblock.set_RdfId("none");
+
+		return constantblock;
+	}
 	
 	/**
 	 * 
@@ -575,7 +598,7 @@ public class ModelBuilder
 			currentConnection= iConnections.next();
 			equipment= this.get_equipmentNetwork(currentConnection.get_Ce_id());
 			bus= this.get_equipmentNetwork(currentConnection.get_Tn_id());
-			if (equipment instanceof IPSLMachine)
+			if (equipment instanceof OpenIPSLMachine)
 			{
 				iPlant= this.powsys.get_planta().iterator();
 				foundPlant= false;

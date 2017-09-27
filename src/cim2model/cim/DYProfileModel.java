@@ -5,13 +5,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import cim2model.cim.map.ipsl.DynamicComponentType;
-
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+
+import cim2model.cim.map.openipsl.DynamicComponentType;
 
 public class DYProfileModel {
 	//TODO method find_xxx to be unified for regulators component
@@ -265,8 +265,11 @@ public class DYProfileModel {
             o = stmt.getObject();
             String [] componentName= o.toString().split("#");
             //p as "type" means that the statement is referring to the component
-            if (p.isURIResource() && p.getLocalName().equals("type") 
-            		&& componentName[1].equals("ExcSEXS"))
+			// TODO change this condition to something more general, and more
+			// general is to check if the
+			// statemet / resource is
+			// ExcitationSystemDynamics.SynchronousMachineDynamics
+			if (p.isURIResource() && p.getLocalName().equals("ExcitationSystemDynamics.SynchronousMachineDynamics"))
             { 
 //            	System.out.println("Subject :"+ s.getURI());
 //            	System.out.println("Subject : "+ s.getLocalName());
@@ -306,6 +309,7 @@ public class DYProfileModel {
 					rdf_resource= classAttributes.getObject().toString().split("#");
 //					System.out.println(rdf_resource[0]+ " : "+ rdf_resource[1]);
 					found= rdf_resource[1].equals(rdfid_synchmach[1]);
+					break;
 				}
 			}
 		}
@@ -321,8 +325,7 @@ public class DYProfileModel {
 	 */
 	public Map<String,Object> gather_ExcitationSystem_Attributes(Resource _subject)
 	{ 
-Statement attributeClass;
-		
+		Statement attributeClass;
 		StmtIterator iAttributes= _subject.listProperties();
 		while( iAttributes.hasNext() ) 
 		{

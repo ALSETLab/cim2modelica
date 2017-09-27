@@ -9953,7 +9953,7 @@
     <cim:Equipment.EquipmentContainer rdf:resource="#_c68596d9-25db-11e7-afca-b46d83638f70" />
     <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
     <cim:IdentifiedObject.description>3244 3245 0 '1 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>1           </cim:IdentifiedObject.name>
+    <cim:IdentifiedObject.name>TWT_3244_3245</cim:IdentifiedObject.name>
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>
@@ -9969,7 +9969,7 @@
     <cim:Equipment.EquipmentContainer rdf:resource="#_c6859723-25db-11e7-afca-b46d83638f70" />
     <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
     <cim:IdentifiedObject.description>3701 3249 0 '1 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>1           </cim:IdentifiedObject.name>
+    <cim:IdentifiedObject.name>TWT_3701_3249</cim:IdentifiedObject.name>
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>
@@ -9985,7 +9985,7 @@
     <cim:Equipment.EquipmentContainer rdf:resource="#_c685970a-25db-11e7-afca-b46d83638f70" />
     <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
     <cim:IdentifiedObject.description>3359 3360 0 '1 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>1           </cim:IdentifiedObject.name>
+    <cim:IdentifiedObject.name>TWT_3359_3360</cim:IdentifiedObject.name>
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>
@@ -10001,7 +10001,7 @@
     <cim:Equipment.EquipmentContainer rdf:resource="#_c685973f-25db-11e7-afca-b46d83638f70" />
     <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
     <cim:IdentifiedObject.description>5101 5100 0 '1 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>1           </cim:IdentifiedObject.name>
+    <cim:IdentifiedObject.name>TWT_5101_5100</cim:IdentifiedObject.name>
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>
@@ -10017,7 +10017,7 @@
     <cim:Equipment.EquipmentContainer rdf:resource="#_c6859767-25db-11e7-afca-b46d83638f70" />
     <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
     <cim:IdentifiedObject.description>5300 5301 0 '1 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>1           </cim:IdentifiedObject.name>
+    <cim:IdentifiedObject.name>TWT_5300_5301</cim:IdentifiedObject.name>
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>
@@ -10033,7 +10033,7 @@
     <cim:Equipment.EquipmentContainer rdf:resource="#_c6859797-25db-11e7-afca-b46d83638f70" />
     <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
     <cim:IdentifiedObject.description>5400 5401 0 '1 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>1           </cim:IdentifiedObject.name>
+    <cim:IdentifiedObject.name>TWT_5400_5401</cim:IdentifiedObject.name>
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>
@@ -10049,7 +10049,7 @@
     <cim:Equipment.EquipmentContainer rdf:resource="#_c6859797-25db-11e7-afca-b46d83638f70" />
     <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
     <cim:IdentifiedObject.description>5400 5402 0 '1 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>1           </cim:IdentifiedObject.name>
+    <cim:IdentifiedObject.name>TWT_5400_5402</cim:IdentifiedObject.name>
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>
@@ -10065,7 +10065,7 @@
     <cim:Equipment.EquipmentContainer rdf:resource="#_c68597bb-25db-11e7-afca-b46d83638f70" />
     <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
     <cim:IdentifiedObject.description>5500 5501 0 '1 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>1           </cim:IdentifiedObject.name>
+    <cim:IdentifiedObject.name>TWT_5500_5501</cim:IdentifiedObject.name>
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>
@@ -10081,7 +10081,7 @@
     <cim:Equipment.EquipmentContainer rdf:resource="#_c68597e3-25db-11e7-afca-b46d83638f70" />
     <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
     <cim:IdentifiedObject.description>5601 6001 0 '1 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>1           </cim:IdentifiedObject.name>
+    <cim:IdentifiedObject.name>TWT_5601_6001</cim:IdentifiedObject.name>
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>
@@ -10097,7 +10097,7 @@
     <cim:Equipment.EquipmentContainer rdf:resource="#_c68597fb-25db-11e7-afca-b46d83638f70" />
     <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
     <cim:IdentifiedObject.description>5603 5602 0 '1 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>1           </cim:IdentifiedObject.name>
+    <cim:IdentifiedObject.name>TWT_5603_5602</cim:IdentifiedObject.name>
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>
@@ -10113,7 +10113,7 @@
     <cim:Equipment.EquipmentContainer rdf:resource="#_c685981f-25db-11e7-afca-b46d83638f70" />
     <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
     <cim:IdentifiedObject.description>6000 6001 0 '1 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>1           </cim:IdentifiedObject.name>
+    <cim:IdentifiedObject.name>TWT_6000_6001</cim:IdentifiedObject.name>
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>
@@ -10129,7 +10129,7 @@
     <cim:Equipment.EquipmentContainer rdf:resource="#_c6859853-25db-11e7-afca-b46d83638f70" />
     <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
     <cim:IdentifiedObject.description>6700 6701 0 '1 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>1           </cim:IdentifiedObject.name>
+    <cim:IdentifiedObject.name>TWT_6700_6701</cim:IdentifiedObject.name>
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>

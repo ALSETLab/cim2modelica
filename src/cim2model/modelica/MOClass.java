@@ -175,15 +175,26 @@ public class MOClass extends MOModel
 	 */
 	private void update_pin_current(MOConnector _pin)
 	{
-		double v, angle, p, q, ir, ii;
+		double v, angle, p, q, vr, vi, ir, ii;
 		
 		v= Double.parseDouble((String)_pin.get_Attribute("vr").get_Value());
 		angle= Double.parseDouble((String)_pin.get_Attribute("vi").get_Value());
 		p= Double.parseDouble((String)_pin.get_Attribute("ir").get_Value());
 		q= Double.parseDouble((String)_pin.get_Attribute("ii").get_Value());
-		
-		ir= p/(v*Math.cos(angle));
-		ii= q/(v*Math.sin(angle));
+		// update vr, vi values
+		vr = v * Math.cos(angle);
+		vi = v * Math.sin(angle);
+		_pin.get_Attribute("vr").set_Value(vr);
+		_pin.get_Attribute("vi").set_Value(vi);
+		// updated ir, ii values
+		if (vr == 0)
+			ir = 0;
+		else
+			ir = p / vr;
+		if (vi == 0)
+			ii = 0;
+		else
+			ii = q / vi;
 		_pin.get_Attribute("ir").set_Value(ir);
 		_pin.get_Attribute("ii").set_Value(ii);
 	}
@@ -238,7 +249,7 @@ public class MOClass extends MOModel
 		for (MOConnector pin: this.terminals)
 		{
 			pencil.append("\t");
-			pencil.append(pin.to_ModelicaInstance());
+			pencil.append(pin.to_ModelicaInstance(false));
 		}
 		for (MOAttribute item: this.attributes)
 		{

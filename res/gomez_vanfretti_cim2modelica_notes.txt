@@ -21,3 +21,6 @@ variability value will be set as variable, meaning that the values of connector 
 allowed to change during the simulation. The value for visibility will be public.
 
 This work deals with the implementation of the Steady-State Solver Engine module, included in the open source modular simulation software architecture conceived for complete analysis of power system models [19].
+
+
+	TODO: Classes for openIpsl components, with input names as attributes

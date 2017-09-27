@@ -3,9 +3,9 @@ package cim2model.modelica;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import cim2model.modelica.ipsl.controls.es.IPSLExcitationSystem;
-import cim2model.modelica.ipsl.controls.tg.IPSLTurbineGovernor;
-import cim2model.modelica.ipsl.machines.IPSLMachine;
+import cim2model.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
+import cim2model.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
+import cim2model.modelica.openipsl.machines.OpenIPSLMachine;
 
 /**
  * Class with the definition of a high level modelica class, aka model
@@ -17,21 +17,23 @@ public class MOPlant extends MOModel
 	private String visibility;
 	private String variability;
 	private String instanceName; 
-	private IPSLMachine machine;
-	private IPSLExcitationSystem excitationSystem;
-	private IPSLTurbineGovernor turbineGovernor;
+	private OpenIPSLMachine machine;
+	private OpenIPSLExcitationSystem excitationSystem;
+	private OpenIPSLTurbineGovernor turbineGovernor;
 	private MOClass stabilizer;
+	private MOClass constantBlock;
 	private MOConnector outpin;
 	private ArrayList<MOConnectNode> conexions;
 		
-	public MOPlant(IPSLMachine _mach, IPSLExcitationSystem _es, 
-			IPSLTurbineGovernor _tg, MOClass _stab) 
+	public MOPlant(OpenIPSLMachine _mach, OpenIPSLExcitationSystem _es, 
+			OpenIPSLTurbineGovernor _tg, MOClass _stab) 
 	{
 		super(_mach.instanceName, "model");
 		this.machine= _mach;
 		this.excitationSystem= _es;
 		this.turbineGovernor= _tg;
 		this.stabilizer= _stab;
+		this.constantBlock = null;
 		this.outpin= null;
 		this.conexions= new ArrayList<MOConnectNode>();
 	}
@@ -95,7 +97,7 @@ public class MOPlant extends MOModel
 	/**
 	 * @return the machine
 	 */
-	public IPSLMachine getMachine() {
+	public OpenIPSLMachine getMachine() {
 		return machine;
 	}
 
@@ -109,7 +111,7 @@ public class MOPlant extends MOModel
 	/**
 	 * @return the excitationSystem
 	 */
-	public IPSLExcitationSystem getExcitationSystem() {
+	public OpenIPSLExcitationSystem getExcitationSystem() {
 		return excitationSystem;
 	}
 
@@ -123,7 +125,7 @@ public class MOPlant extends MOModel
 	/**
 	 * @return the turbineGovernor
 	 */
-	public IPSLTurbineGovernor getTurbineGovernor() {
+	public OpenIPSLTurbineGovernor getTurbineGovernor() {
 		return turbineGovernor;
 	}
 
@@ -157,6 +159,16 @@ public class MOPlant extends MOModel
 		this.conexions.add(_value);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean has_constantBlock() {
+		return this.constantBlock != null;
+	}
+	public void add_ContantBlock(MOClass _cteblock) {
+		this.constantBlock = _cteblock;
+	}
 	
 	public boolean exist_Connection(MOConnectNode _value){
 		boolean exists= false;
@@ -188,7 +200,7 @@ public class MOPlant extends MOModel
 		pencil.append('"'); pencil.append("\n");
 		/* VARIABLE SECTION */
 		pencil.append("\t");
-		pencil.append(this.getOutpin().to_ModelicaInstance());
+		pencil.append(this.getOutpin().to_ModelicaInstance(false));
 		// print machine component
 		pencil.append("\t");
 		pencil.append(this.machine.to_ModelicaInstance());
@@ -204,6 +216,10 @@ public class MOPlant extends MOModel
 		}
 		// print stabilizer component
 		if (this.has_powerStabilizer()){}
+		if (this.has_constantBlock()) {
+			pencil.append("\t");
+			pencil.append(this.constantBlock.to_ModelicaInstance());
+		}
 		/* EQUATION SECTION */
 		pencil.append("equation\n");
 //		if (this.excitationSystem== null && this.turbineGovernor== null){

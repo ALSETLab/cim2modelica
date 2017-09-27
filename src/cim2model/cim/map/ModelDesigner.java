@@ -11,26 +11,36 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.ResourceFactory;
 
 import cim2model.cim.DYProfileModel;
 import cim2model.cim.EQProfileModel;
 import cim2model.cim.SVProfileModel;
 import cim2model.cim.TPProfileModel;
-import cim2model.cim.map.ipsl.DynamicComponentType;
-import cim2model.cim.map.ipsl.branches.*;
-import cim2model.cim.map.ipsl.buses.*;
-import cim2model.cim.map.ipsl.connectors.*;
-import cim2model.cim.map.ipsl.controls.es.ESDC1AMap;
-import cim2model.cim.map.ipsl.controls.es.ExcSEXSMap;
-import cim2model.cim.map.ipsl.controls.es.ExcSysMapFactory;
-import cim2model.cim.map.ipsl.controls.tg.HYGOVMap;
-import cim2model.cim.map.ipsl.controls.tg.IEESGOMap;
-import cim2model.cim.map.ipsl.controls.tg.TGovMapFactory;
-import cim2model.cim.map.ipsl.loads.*;
-import cim2model.cim.map.ipsl.machines.*;
-import cim2model.cim.map.ipsl.transformers.*;
+import cim2model.cim.map.openipsl.DynamicComponentType;
+import cim2model.cim.map.openipsl.branches.LineMapFactory;
+import cim2model.cim.map.openipsl.branches.PwLineMap;
+import cim2model.cim.map.openipsl.buses.BusesMapFactory;
+import cim2model.cim.map.openipsl.buses.PwBusMap;
+import cim2model.cim.map.openipsl.connectors.PwPinMap;
+import cim2model.cim.map.openipsl.controls.es.ESDC1AMap;
+import cim2model.cim.map.openipsl.controls.es.ESST1AMap;
+import cim2model.cim.map.openipsl.controls.es.ExcSEXSMap;
+import cim2model.cim.map.openipsl.controls.es.ExcSysMapFactory;
+import cim2model.cim.map.openipsl.controls.tg.HYGOVMap;
+import cim2model.cim.map.openipsl.controls.tg.IEESGOMap;
+import cim2model.cim.map.openipsl.controls.tg.TGovMapFactory;
+import cim2model.cim.map.openipsl.loads.LoadMap;
+import cim2model.cim.map.openipsl.machines.GENROEMap;
+import cim2model.cim.map.openipsl.machines.GENROUMap;
+import cim2model.cim.map.openipsl.machines.GENSALMap;
+import cim2model.cim.map.openipsl.machines.SynchMachineMapFactory;
+import cim2model.cim.map.openipsl.transformers.TransformerEndAuxiliarMap;
+import cim2model.cim.map.openipsl.transformers.TransformerMapFactory;
+import cim2model.cim.map.openipsl.transformers.TwoWindingTransformerMap;
 import cim2model.io.ReaderCIM;
 
 /**
@@ -41,6 +51,7 @@ import cim2model.io.ReaderCIM;
  */
 public class ModelDesigner 
 {
+	static final String CIMns = "http://iec.ch/TC57/2013/CIM-schema-cim16#";
 	ArrayList<ConnectionMap> connections;
 	Map<Resource, RDFNode> classes_EQ;
 	Map<Resource, RDFNode> tagsTP_tn;
@@ -369,13 +380,14 @@ public class ModelDesigner
 	public Entry<String, Resource> typeOf_ExcitationSystem(Resource _key)
 	{
 		Entry<String, Resource> excSysData= null;
+		final Property nameTag = ResourceFactory.createProperty(CIMns + "IdentifiedObject.name");
 		
 		Resource machDynamics = profile_DY.find_SynchronousMachineDynamic_Tag(_key);
 		Entry<Resource,RDFNode> excSysTag= profile_DY.find_ExcitationSystem(machDynamics);
 		if (excSysTag!= null)
-		{
+		{// TODO get the name of the excitation system
 			excSysData= new AbstractMap.SimpleEntry<String,Resource>(
-					excSysTag.getValue().toString().split("#")[1], excSysTag.getKey());
+					excSysTag.getKey().getProperty(nameTag).getLiteral().getValue().toString(), excSysTag.getKey());
 		}
 		return excSysData;
 	}
@@ -434,6 +446,33 @@ public class ModelDesigner
 		return mapExcSys;
 	}
 	
+	/**
+	 * 
+	 * @param key
+	 * @param _source
+	 * @param _subjectID
+	 * @return
+	 */
+	public ESST1AMap create_ESST1AModelicaMap(Resource _key, String _source, String _subjectName) {
+		ESST1AMap mapExcSys = ExcSysMapFactory.getInstance().esst1aXMLToObject(_source);
+		Map<String, Object> cimClassMap = profile_DY.gather_ExcitationSystem_Attributes(_key);
+		Iterator<AttributeMap> imapAttList = mapExcSys.getAttributeMap().iterator();
+		AttributeMap currentmapAtt;
+		while (imapAttList.hasNext()) {
+			currentmapAtt = imapAttList.next();
+			currentmapAtt.setContent((String) cimClassMap.get(currentmapAtt.getCimName()));
+			// System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+
+			// "= "+ currentmapAtt.getContent()+ "; "+ currentmapAtt.getName());
+		}
+		String[] dynamicResource = profile_DY.get_ComponentName(_key, DynamicComponentType.EXCITATION_SYSTEM);
+		mapExcSys.setRdfId(dynamicResource[0]);
+		mapExcSys.setCimName(dynamicResource[1]);
+
+		profile_DY.clearAttributes();
+
+		return mapExcSys;
+	}
+
 	/* TURBINE GOVERNORS */
 	/**
 	 * 

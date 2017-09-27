@@ -9,23 +9,23 @@ import org.apache.jena.rdf.model.Resource;
 
 import cim2model.cim.map.ComponentMap;
 import cim2model.cim.map.ModelDesigner;
-import cim2model.cim.map.ipsl.branches.PwLineMap;
-import cim2model.cim.map.ipsl.buses.PwBusMap;
-import cim2model.cim.map.ipsl.connectors.PwPinMap;
-import cim2model.cim.map.ipsl.loads.LoadMap;
-import cim2model.cim.map.ipsl.machines.GENROEMap;
-import cim2model.cim.map.ipsl.machines.GENROUMap;
-import cim2model.cim.map.ipsl.machines.GENSALMap;
-import cim2model.cim.map.ipsl.transformers.TransformerEndAuxiliarMap;
-import cim2model.cim.map.ipsl.transformers.TwoWindingTransformerMap;
+import cim2model.cim.map.openipsl.branches.PwLineMap;
+import cim2model.cim.map.openipsl.buses.PwBusMap;
+import cim2model.cim.map.openipsl.connectors.PwPinMap;
+import cim2model.cim.map.openipsl.loads.LoadMap;
+import cim2model.cim.map.openipsl.machines.GENROEMap;
+import cim2model.cim.map.openipsl.machines.GENROUMap;
+import cim2model.cim.map.openipsl.machines.GENSALMap;
+import cim2model.cim.map.openipsl.transformers.TransformerEndAuxiliarMap;
+import cim2model.cim.map.openipsl.transformers.TwoWindingTransformerMap;
 import cim2model.modelica.MOAttribute;
 import cim2model.modelica.MOClass;
 import cim2model.modelica.MOConnector;
 import cim2model.modelica.MOPlant;
 import cim2model.modelica.ModelBuilder;
-import cim2model.modelica.ipsl.controls.es.IPSLExcitationSystem;
-import cim2model.modelica.ipsl.controls.tg.IPSLTurbineGovernor;
-import cim2model.modelica.ipsl.machines.IPSLMachine;
+import cim2model.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
+import cim2model.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
+import cim2model.modelica.openipsl.machines.OpenIPSLMachine;
 
 public class CIM2MOD 
 {
@@ -52,11 +52,11 @@ public class CIM2MOD
 	 * @param _machineType
 	 * @param _mopin
 	 */
-	public static void factory_Plant(IPSLMachine _momachine, String _machineType, MOConnector _mopin)
+	public static void factory_Plant(OpenIPSLMachine _momachine, String _machineType, MOConnector _mopin)
 	{
 		MOPlant moplanta= null;
-		IPSLExcitationSystem moexcsys= null;
-		IPSLTurbineGovernor motgov= null;
+		OpenIPSLExcitationSystem moexcsys= null;
+		OpenIPSLTurbineGovernor motgov= null;
 		MOClass mopss= null;
 		ComponentMap mapExcSys= null;
 		// ComponentMap mapPSS= null;
@@ -70,15 +70,19 @@ public class CIM2MOD
 			{
 				switch (excSysData.getKey())
 				{
-				case "ESCD1A":
+				case "ESDC1A":
 					mapExcSys= cartografo.create_ESDC1AModelicaMap(
 							excSysData.getValue(),
-						"./res/map/ipsl/controls/es/cim_iteslalibrary_esdc1a.xml", excSysData.getKey());
+							"./res/map/openipsl/controls/es/cim_iteslalibrary_esdc1a.xml", excSysData.getKey());
 					break;
-				case "ExcSEXS": 
+				case "SEXS":
 					mapExcSys= cartografo.create_ExcSEXSModelicaMap(
 							excSysData.getValue(),
-						"./res/map/ipsl/controls/es/cim_iteslalibrary_excsexs.xml", excSysData.getKey());
+							"./res/map/openipsl/controls/es/cim_iteslalibrary_excsexs.xml", excSysData.getKey());
+					break;
+				case "ESST1A":
+					mapExcSys = cartografo.create_ESST1AModelicaMap(excSysData.getValue(),
+							"./res/map/openipsl/controls/es/cim_iteslalibrary_esst1a.xml", excSysData.getKey());
 					break;
 				}
 				moexcsys= constructor.create_ExcSysComponent(mapExcSys);
@@ -92,12 +96,12 @@ public class CIM2MOD
 				case "GovHydro1":
 					mapTGov= cartografo.create_HyGOVModelicaMap(
 							tGovData.getValue(),
-						"./res/map/ipsl/controls/tg/cim_iteslalibrary_hygov.xml", tGovData.getKey());
+							"./res/map/openipsl/controls/tg/cim_iteslalibrary_hygov.xml", tGovData.getKey());
 					break;
 				case "GovSteamSGO": 
 					mapTGov= cartografo.create_IEESGOModelicaMap(
 							tGovData.getValue(),
-						"./res/map/ipsl/controls/tg/cim_iteslalibrary_ieesgo.xml", tGovData.getKey());
+							"./res/map/openipsl/controls/tg/cim_iteslalibrary_ieesgo.xml", tGovData.getKey());
 					break;
 				}
 				motgov= constructor.create_TGovComponent(mapTGov);
@@ -108,14 +112,17 @@ public class CIM2MOD
 //			{
 //				HYGOVMap mapExcSys= cartografo.create_HYGOVModelicaMap(
 //						excSysData.getValue(),
-//					"./res/map/ipsl/controls/es/cim_iteslalibrary_esdc1a.xml", excSysData.getKey());
+			// "./res/map/openipsl/controls/es/cim_iteslalibrary_esdc1a.xml",
+			// excSysData.getKey());
 //				moexcsys= constructor.create_ExcSysComponent(mapExcSys);
 //			}
 			moplanta= new PlantBuilder().machine(_momachine).excitationSystem(moexcsys).
 					turbineGovernor(motgov).stabilizer(mopss).buildPlant();
 			MOConnector pinPlant= new MOConnector(_mopin, "plantaPin");
 			moplanta.add_Terminal(pinPlant);
-			PlantBuilder.assemble_plant(moplanta, pinPlant);
+			MOClass constblock = constructor.create_ConstantBlock();
+			PlantBuilder.assemble_plant(moplanta, pinPlant, constblock);
+			moplanta.add_ContantBlock(constblock);
 			constructor.add_plantNetwork(moplanta);
 			constructor.add_equipmentNetwork(_momachine);
 			
@@ -147,7 +154,7 @@ public class CIM2MOD
 //				System.out.println(cimClassResource[0]+ " is the rfd_id; "+ cimClassResource[1]+ " is the CIM name");
 				PwPinMap mapTerminal= 
 						cartografo.create_TerminalModelicaMap(key, 
-								"./res/map/ipsl/connectors/cim_iteslalibrary_pwpin.xml", 
+								"./res/map/openipsl/connectors/cim_iteslalibrary_pwpin.xml",
 								cimClassResource);
 				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
 				MOConnector mopinbus = constructor.create_PinConnector(mapTerminal);
@@ -163,7 +170,7 @@ public class CIM2MOD
 				/* According to CIM Composer, SynchMachine has one terminal */
 				if (equipmentResource[1].equals("SynchronousMachine"))
 				{
-					IPSLMachine momachine= null;
+					OpenIPSLMachine momachine = null;
 					String machineType= cartografo.typeOf_SynchronousMachine(
 							cartografo.get_CurrentConnectionMap().get_ConductingEquipment());
 //					if (machineType.equals("GENCLS")) {
@@ -175,19 +182,19 @@ public class CIM2MOD
 					if (machineType.equals("GENROU")) {
 						GENROUMap mapSyncMach= cartografo.create_GENROUModelicaMap(
 								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
-								"./res/map/ipsl/machines/cim_iteslalibrary_genrou.xml", equipmentResource);
+								"./res/map/openipsl/machines/cim_iteslalibrary_genrou.xml", equipmentResource);
 						momachine= constructor.create_MachineComponent(mapSyncMach);
 					}
 					if (machineType.equals("GENSAL")){
 						GENSALMap mapSyncMach= cartografo.create_GENSALModelicaMap(
 								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
-								"./res/map/ipsl/machines/cim_iteslalibrary_gensal.xml", equipmentResource);
+								"./res/map/openipsl/machines/cim_iteslalibrary_gensal.xml", equipmentResource);
 						momachine= constructor.create_MachineComponent(mapSyncMach);
 					}
 					if (machineType.equals("GENROE")){
 						GENROEMap mapSyncMach= cartografo.create_GENROEModelicaMap(
 								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
-								"./res/map/ipsl/machines/cim_iteslalibrary_genroe.xml", equipmentResource);
+								"./res/map/openipsl/machines/cim_iteslalibrary_genroe.xml", equipmentResource);
 						momachine= constructor.create_MachineComponent(mapSyncMach);
 					}
 					momachine.add_Terminal(mopin);
@@ -200,7 +207,7 @@ public class CIM2MOD
 				{
 					LoadMap mapEnergyC= cartografo.create_LoadModelicaMap(
 							cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
-							"./res/map/ipsl/loads/cim_iteslalibrary_load.xml", equipmentResource);
+							"./res/map/openipsl/loads/cim_iteslalibrary_load.xml", equipmentResource);
 					MOClass moload= constructor.create_LoadComponent(mapEnergyC);
 					moload.add_Terminal(mopin);
 					moload.update_powerFlow(mopin);
@@ -218,7 +225,7 @@ public class CIM2MOD
 					{/* false, create map of the line and add the first terminal */
 						PwLineMap mapACLine= cartografo.create_LineModelicaMap(
 								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
-								"./res/map/ipsl/branches/cim_iteslalibrary_pwline.xml", equipmentResource);
+								"./res/map/openipsl/branches/cim_iteslalibrary_pwline.xml", equipmentResource);
 						moline= constructor.create_LineComponent(mapACLine);
 						moline.add_Terminal(mopin);
 						constructor.add_equipmentNetwork(moline);
@@ -237,7 +244,7 @@ public class CIM2MOD
 					{/* false, create map of the line and add the first terminal */
 						PwBusMap mapTopoNode= cartografo.create_BusModelicaMap(
 								cartografo.get_CurrentConnectionMap().get_TopologicalNode(), 
-										"./res/map/ipsl/buses/cim_iteslalibrary_pwbus.xml", topologyResource);
+								"./res/map/openipsl/buses/cim_iteslalibrary_pwbus.xml", topologyResource);
 						mobus= constructor.create_BusComponent(mapTopoNode);
 						mopinbus.set_InstanceName("p"); // trick to set all pin
 						mobus.add_Terminal(mopinbus);
@@ -249,13 +256,14 @@ public class CIM2MOD
 			{
 				String [] transformerResource, terminalResource;
 				TransformerEndAuxiliarMap auxiliarTwtMap= cartografo.create_TransformerModelicaMap(key, 
-								"./res/map/ipsl/branches/cim_iteslalibrary_twowindingtransformer.xml", 
+						"./res/map/openipsl/branches/cim_iteslalibrary_twowindingtransformer.xml",
 								cimClassResource);
 				TwoWindingTransformerMap twtMap= auxiliarTwtMap.get_TransformerEnd_Map();
 				transformerResource= cartografo.get_EquipmentClassName(auxiliarTwtMap.get_PowerTransformer_Resource());
 				terminalResource= cartografo.get_EquipmentClassName(auxiliarTwtMap.get_Terminal_Resource());
 				PwPinMap mapTerminal= cartografo.create_TerminalModelicaMap(
-						auxiliarTwtMap.get_Terminal_Resource(), "./res/map/ipsl/connectors/cim_iteslalibrary_pwpin.xml", 
+						auxiliarTwtMap.get_Terminal_Resource(),
+						"./res/map/openipsl/connectors/cim_iteslalibrary_pwpin.xml", 
 						terminalResource);
 				/*Create the terminal object associated with this PowerTransformerEnd*/
 				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
@@ -282,7 +290,7 @@ public class CIM2MOD
 		constructor.connect_Components(cartografo.get_ConnectionMap());
 		for (MOPlant plant: constructor.get_Network().get_planta())
 		{
-			String plantPackage= constructor.get_Network().get_Name()+ "/Generators";
+			String plantPackage = constructor.get_Network().get_Name() + "/PowerPlant";
 			constructor.save_ModelicaFile(plant.to_ModelicaClass(), plant.get_Name(),
 					plantPackage);
 		}

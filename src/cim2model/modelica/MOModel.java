@@ -20,7 +20,7 @@ public abstract class MOModel
 		this.name= _name;
 		this.stereotype= _stereotype;
 		this.pakage= "package";
-		this.comment= "something here";
+		this.comment = "automatically generated comment";
 		this.annotation= "annotation ()";
 		this.rdfid= "";
 	}

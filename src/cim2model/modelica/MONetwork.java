@@ -3,7 +3,7 @@ package cim2model.modelica;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import cim2model.modelica.ipsl.machines.IPSLMachine;
+import cim2model.modelica.openipsl.machines.OpenIPSLMachine;
 
 /**
  * Class with the definition of a high level modelica class, aka model
@@ -109,7 +109,7 @@ public class MONetwork extends MOModel
 		/* VARIABLE SECTION */
 		for (MOClass component: this.equipment)
 		{
-			if (!(component instanceof IPSLMachine))
+			if (!(component instanceof OpenIPSLMachine))
 			{
 				pencil.append("\t");
 				pencil.append(component.to_ModelicaInstance());
