@@ -1,8 +1,8 @@
-package cim2model.modelica.ipsl.machines;
+package cim2model.modelica.openipsl.machines;
 
 import cim2model.modelica.MOClass;
 
-public class IPSLMachine extends MOClass {
+public class OpenIPSLMachine extends MOClass {
 	/* Inputs */
 	public String PMECH= "PMECH";
 	public String EFD= "EFD";
@@ -16,7 +16,7 @@ public class IPSLMachine extends MOClass {
 	protected String ISORCE;
 	protected String XADIFD;
 	
-	public IPSLMachine(String _name) {
+	public OpenIPSLMachine(String _name) {
 		super(_name);
 	}
 

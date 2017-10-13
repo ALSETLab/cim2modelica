@@ -6,7 +6,7 @@
 //
 
 
-package cim2model.cim.map.ipsl.machines;
+package cim2model.cim.map.openipsl.machines;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import cim2model.cim.map.ComponentMap;

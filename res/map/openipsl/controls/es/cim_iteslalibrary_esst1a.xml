@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--Created by fragom-->
+<!DOCTYPE model SYSTEM "cim_iteslalibrary_esdc1a.dtd">
+<!-- CIM class to be included into ExcitationSystemDynamics packages, instance of the CIM class ExcitationSystemDynamics class -->
+<eSST1AMap cim_name="ExcIEEEST1A" rdf_id="" rdf_resource="" package="OpenIPSL.Electrical.Controls.PSSE.ES" name="ESST1A" stereotype="class">
+  <attributeMap cim_name="IdentifiedObject.name" name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.tr" name="T_R" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.ka" name="K_A" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.ta" name="T_A" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.tb" name="T_B" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.kc" name="K_C" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.tc" name="T_C" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.tb1" name="T_B1" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.tc1" name="T_C1" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.klr" name="K_LR" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.ilr" name="I_LR" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.kf" name="K_F" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.tf" name="T_F" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.vrmin" name="V_RMIN" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.vrmax" name="V_RMAX" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.vimin" name="V_IMIN" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.vimax" name="V_IMAX" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.vamin" name="V_AMIN" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+   <attributeMap cim_name="ExcIEEEST1A.vamax" name="V_AMAX" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+</eSST1AMap>

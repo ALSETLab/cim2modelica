@@ -6,7 +6,7 @@
 //
 
 
-package cim2model.cim.map.ipsl.connectors;
+package cim2model.cim.map.openipsl.connectors;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;

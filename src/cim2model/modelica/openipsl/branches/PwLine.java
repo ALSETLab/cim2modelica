@@ -1,4 +1,4 @@
-package cim2model.modelica.ipsl.branches;
+package cim2model.modelica.openipsl.branches;
 
 import cim2model.modelica.MOAttribute;
 import cim2model.modelica.MOClass;

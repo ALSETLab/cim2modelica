@@ -1,8 +1,8 @@
-package cim2model.modelica.ipsl.controls.tg;
+package cim2model.modelica.openipsl.controls.tg;
 
 import cim2model.modelica.MOClass;
 
-public class IPSLTurbineGovernor extends MOClass 
+public class OpenIPSLTurbineGovernor extends MOClass 
 {
 	/* Inputs */
 	public String PMECH0= "PMECH0";
@@ -13,7 +13,7 @@ public class IPSLTurbineGovernor extends MOClass
 	private boolean PMECH0connected;
 	private boolean SPEEDconnected;
 	
-	public IPSLTurbineGovernor(String _name) 
+	public OpenIPSLTurbineGovernor(String _name) 
 	{
 		super(_name);
 		this.PMECH0connected= this.SPEEDconnected= false;

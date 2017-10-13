@@ -1,4 +1,4 @@
-package cim2model.cim.map.ipsl.controls.es;
+package cim2model.cim.map.openipsl.controls.es;
 
 import java.io.File;
 
@@ -59,4 +59,24 @@ public class ExcSysMapFactory
             return null;
         }
     }
+
+	/**
+	 * 
+	 * @param _xmlmap
+	 * @return
+	 */
+	public ESST1AMap esst1aXMLToObject(String _xmlmap) {
+		JAXBContext context;
+		Unmarshaller un;
+
+		try {
+			context = JAXBContext.newInstance(ESST1AMap.class);
+			un = context.createUnmarshaller();
+			ESST1AMap map = (ESST1AMap) un.unmarshal(new File(_xmlmap));
+			return map;
+		} catch (JAXBException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

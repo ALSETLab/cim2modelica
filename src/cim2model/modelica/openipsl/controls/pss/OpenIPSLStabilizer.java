@@ -1,8 +1,8 @@
-package cim2model.modelica.ipsl.controls.pss;
+package cim2model.modelica.openipsl.controls.pss;
 
-public class IPSLStabilizer {
+public class OpenIPSLStabilizer {
 
-	public IPSLStabilizer() {
+	public OpenIPSLStabilizer() {
 	}
 
 }

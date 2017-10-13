@@ -1,4 +1,4 @@
-package cim2model.cim.map.ipsl;
+package cim2model.cim.map.openipsl;
 
 public enum DynamicComponentType 
 {

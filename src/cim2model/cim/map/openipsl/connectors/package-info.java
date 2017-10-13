@@ -5,4 +5,4 @@
  * @author fragom
  *
  */
-package cim2model.cim.map.ipsl.connectors;
+package cim2model.cim.map.openipsl.connectors;

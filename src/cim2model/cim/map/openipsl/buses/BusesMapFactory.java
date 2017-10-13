@@ -1,4 +1,4 @@
-package cim2model.cim.map.ipsl.buses;
+package cim2model.cim.map.openipsl.buses;
 
 import java.io.File;
 

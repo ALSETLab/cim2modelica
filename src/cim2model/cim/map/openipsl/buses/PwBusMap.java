@@ -1,4 +1,4 @@
-package cim2model.cim.map.ipsl.buses;
+package cim2model.cim.map.openipsl.buses;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import cim2model.cim.map.ComponentMap;

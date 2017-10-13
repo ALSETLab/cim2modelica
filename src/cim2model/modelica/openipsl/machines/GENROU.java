@@ -1,4 +1,4 @@
-package cim2model.modelica.ipsl.machines;
+package cim2model.modelica.openipsl.machines;
 
 import cim2model.modelica.MOClass;
 

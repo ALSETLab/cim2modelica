@@ -1,4 +1,4 @@
-package cim2model.cim.map.ipsl.transformers;
+package cim2model.cim.map.openipsl.transformers;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;

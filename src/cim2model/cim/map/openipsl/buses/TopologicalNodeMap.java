@@ -6,7 +6,7 @@
 //
 
 
-package cim2model.cim.map.ipsl.buses;
+package cim2model.cim.map.openipsl.buses;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import cim2model.cim.map.ipsl.base.SvVoltageMap;
+import cim2model.cim.map.openipsl.base.SvVoltageMap;
 
 
 /**

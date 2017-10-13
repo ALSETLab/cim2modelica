@@ -1,6 +1,7 @@
-package cim2model.cim.map.ipsl.controls.es;
+package cim2model.cim.map.openipsl.controls.es;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
 import cim2model.cim.map.ComponentMap;
 
 /**
@@ -22,7 +23,7 @@ import cim2model.cim.map.ComponentMap;
  * 
  */
 
-@XmlRootElement(name = "ESDC1AMap")
+@XmlRootElement(name = "eSDC1AMap")
 public class ESDC1AMap extends ComponentMap {
     
 }

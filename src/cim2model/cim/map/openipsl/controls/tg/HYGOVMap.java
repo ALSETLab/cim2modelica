@@ -1,4 +1,4 @@
-package cim2model.cim.map.ipsl.controls.tg;
+package cim2model.cim.map.openipsl.controls.tg;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import cim2model.cim.map.ComponentMap;

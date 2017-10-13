@@ -1,8 +1,8 @@
-package cim2model.modelica.ipsl.controls.es;
+package cim2model.modelica.openipsl.controls.es;
 
 import cim2model.modelica.MOClass;
 
-public class IPSLExcitationSystem extends MOClass
+public class OpenIPSLExcitationSystem extends MOClass
 {
 	/* Inputs */
 	public String EFD0= "EFD0";
@@ -10,6 +10,7 @@ public class IPSLExcitationSystem extends MOClass
 	public String VOTHSG= "VOTHSG";
 	public String VUEL= "VUEL";
 	public String VOEL= "VOEL";
+	public String XADIFD = "XADIFD";
 	/* Outputs */
 	public String EFD= "EFD";
 	
@@ -18,10 +19,12 @@ public class IPSLExcitationSystem extends MOClass
 	private boolean VOTHSGconnected;
 	private boolean VUELconnected;
 	private boolean VOELconnected;
+	private boolean XADIFDconnected;
 	
-	public IPSLExcitationSystem(String _name) {
+	public OpenIPSLExcitationSystem(String _name) {
 		super(_name);
-		this.EFD0connected= this.ECOMPconnected= this.VOTHSGconnected= this.VUELconnected= this.VOELconnected= false;
+		this.EFD0connected = this.ECOMPconnected = this.VOTHSGconnected = false;
+		this.XADIFDconnected = this.VUELconnected = this.VOELconnected = false;
 	}
 	
 	public boolean isConnected(String _input)
@@ -38,6 +41,8 @@ public class IPSLExcitationSystem extends MOClass
 			connected= this.VUELconnected;
 		if (_input.equals(VOEL))
 			connected= this.VOELconnected;
+		if (_input.equals(XADIFD))
+			connected = this.XADIFDconnected;
 		
 		return connected;
 	}
@@ -54,5 +59,7 @@ public class IPSLExcitationSystem extends MOClass
 			this.VUELconnected= true;
 		if (_input.equals(VOEL))
 			this.VOELconnected= true;
+		if (_input.equals(XADIFD))
+			this.XADIFDconnected = true;
 	}
 }
