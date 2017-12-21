@@ -6,7 +6,7 @@ import org.apache.jena.rdf.model.Resource;
 
 import cim2model.cim.EQProfileModel;
 import cim2model.cim.GEProfileModel;
-import cim2model.io.ReaderCIM;
+import cim2model.utils.ReaderCIM;
 
 /**
  * 

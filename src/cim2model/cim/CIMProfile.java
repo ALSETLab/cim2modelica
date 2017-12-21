@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.jena.rdf.model.Model;
 
-import cim2model.io.ReaderCIM;
+import cim2model.utils.ReaderCIM;
 
 public abstract class CIMProfile {
 	private static final String xmlns_cim = "http://iec.ch/TC57/2013/CIM-schema-cim16#";

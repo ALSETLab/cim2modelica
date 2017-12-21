@@ -42,7 +42,7 @@ import cim2model.cim.map.openipsl.machines.SynchMachineMapFactory;
 import cim2model.cim.map.openipsl.transformers.TransformerEndAuxiliarMap;
 import cim2model.cim.map.openipsl.transformers.TransformerMapFactory;
 import cim2model.cim.map.openipsl.transformers.TwoWindingTransformerMap;
-import cim2model.io.ReaderCIM;
+import cim2model.utils.ReaderCIM;
 
 /**
  * Read mapping files and create appropriate objects ComponentMap, Get corresponding values from CIM model 

@@ -8,14 +8,9 @@
 
 package cim2model.cim.map.openipsl.branches;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import cim2model.cim.map.ComponentMap;
-import cim2model.cim.map.TerminalMap;
 
 
 /**
@@ -42,38 +37,5 @@ import cim2model.cim.map.TerminalMap;
 
 @XmlRootElement(name = "pwLineMap")
 public class PwLineMap extends ComponentMap{
-
-    @XmlElement(required = true)
-    protected List<TerminalMap> mapTerminal;
- 
-
-    /**
-     * Gets the value of the mapTerminal property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the mapTerminal property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getMapTerminal().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link TerminalMap }
-     * 
-     * 
-     */
-    public List<TerminalMap> get_TerminalMap() {
-        if (mapTerminal == null) {
-            mapTerminal = new ArrayList<TerminalMap>();
-        }
-        return this.mapTerminal;
-    }
 
 }

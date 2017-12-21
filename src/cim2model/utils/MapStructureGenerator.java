@@ -1,4 +1,4 @@
-package cim2model;
+package cim2model.utils;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,7 +15,7 @@ public class MapStructureGenerator {
 	public static void main(String[] args)
 			throws BadCommandLineException, IOException {
 		final String targetDir = "src";
-		final String targetPackage = "cim2model.cim.map";
+		final String targetPackage = "cim2model.cim";
 		final String xsdFile = args[0];
         Path path = Paths.get(targetDir);
         if(!Files.exists(path)) {

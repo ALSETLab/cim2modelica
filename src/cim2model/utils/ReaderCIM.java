@@ -1,4 +1,4 @@
-package cim2model.io;
+package cim2model.utils;
 import java.io.File;
 import java.io.InputStream;
 
