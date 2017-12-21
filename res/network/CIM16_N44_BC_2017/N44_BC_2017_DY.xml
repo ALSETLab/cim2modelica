@@ -18,9 +18,9 @@
     <cim:ExcSEXS.emin>0</cim:ExcSEXS.emin>
     <cim:ExcSEXS.emax>4</cim:ExcSEXS.emax>
     <cim:ExcSEXS.kc>1</cim:ExcSEXS.kc>
-    <cim:ExcSEXS.tc>0</cim:ExcSEXS.tc>
-    <cim:ExcSEXS.efdmin>9999</cim:ExcSEXS.efdmin>
-    <cim:ExcSEXS.efdmax>-9999</cim:ExcSEXS.efdmax>
+    <cim:ExcSEXS.tc>0.000001</cim:ExcSEXS.tc>
+    <cim:ExcSEXS.efdmin>-9999</cim:ExcSEXS.efdmin>
+    <cim:ExcSEXS.efdmax>9999</cim:ExcSEXS.efdmax>
     <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_d712e9b1-25db-11e7-afca-b46d83638f70" />
     <cim:DynamicsFunctionBlock.enabled>true</cim:DynamicsFunctionBlock.enabled>
     <cim:IdentifiedObject.name>SEXS</cim:IdentifiedObject.name>
@@ -33,9 +33,9 @@
     <cim:ExcSEXS.emin>0</cim:ExcSEXS.emin>
     <cim:ExcSEXS.emax>4</cim:ExcSEXS.emax>
     <cim:ExcSEXS.kc>1</cim:ExcSEXS.kc>
-    <cim:ExcSEXS.tc>0</cim:ExcSEXS.tc>
-    <cim:ExcSEXS.efdmin>9999</cim:ExcSEXS.efdmin>
-    <cim:ExcSEXS.efdmax>-9999</cim:ExcSEXS.efdmax>
+    <cim:ExcSEXS.tc>0.000001</cim:ExcSEXS.tc>
+    <cim:ExcSEXS.efdmin>-9999</cim:ExcSEXS.efdmin>
+    <cim:ExcSEXS.efdmax>9999</cim:ExcSEXS.efdmax>
     <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_d712e9b4-25db-11e7-afca-b46d83638f70" />
     <cim:DynamicsFunctionBlock.enabled>true</cim:DynamicsFunctionBlock.enabled>
     <cim:IdentifiedObject.name>SEXS</cim:IdentifiedObject.name>
@@ -48,9 +48,9 @@
     <cim:ExcSEXS.emin>0</cim:ExcSEXS.emin>
     <cim:ExcSEXS.emax>4</cim:ExcSEXS.emax>
     <cim:ExcSEXS.kc>1</cim:ExcSEXS.kc>
-    <cim:ExcSEXS.tc>0</cim:ExcSEXS.tc>
-    <cim:ExcSEXS.efdmin>9999</cim:ExcSEXS.efdmin>
-    <cim:ExcSEXS.efdmax>-9999</cim:ExcSEXS.efdmax>
+    <cim:ExcSEXS.tc>0.000001</cim:ExcSEXS.tc>
+    <cim:ExcSEXS.efdmin>-9999</cim:ExcSEXS.efdmin>
+    <cim:ExcSEXS.efdmax>9999</cim:ExcSEXS.efdmax>
     <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_d712e9cf-25db-11e7-afca-b46d83638f70" />
     <cim:DynamicsFunctionBlock.enabled>true</cim:DynamicsFunctionBlock.enabled>
     <cim:IdentifiedObject.name>SEXS</cim:IdentifiedObject.name>
@@ -63,9 +63,9 @@
     <cim:ExcSEXS.emin>0</cim:ExcSEXS.emin>
     <cim:ExcSEXS.emax>4</cim:ExcSEXS.emax>
     <cim:ExcSEXS.kc>1</cim:ExcSEXS.kc>
-    <cim:ExcSEXS.tc>0</cim:ExcSEXS.tc>
-    <cim:ExcSEXS.efdmin>9999</cim:ExcSEXS.efdmin>
-    <cim:ExcSEXS.efdmax>-9999</cim:ExcSEXS.efdmax>
+    <cim:ExcSEXS.tc>0.000001</cim:ExcSEXS.tc>
+    <cim:ExcSEXS.efdmin>-9999</cim:ExcSEXS.efdmin>
+    <cim:ExcSEXS.efdmax>9999</cim:ExcSEXS.efdmax>
     <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_d712e9d2-25db-11e7-afca-b46d83638f70" />
     <cim:DynamicsFunctionBlock.enabled>true</cim:DynamicsFunctionBlock.enabled>
     <cim:IdentifiedObject.name>SEXS</cim:IdentifiedObject.name>
@@ -78,9 +78,9 @@
     <cim:ExcSEXS.emin>0</cim:ExcSEXS.emin>
     <cim:ExcSEXS.emax>4</cim:ExcSEXS.emax>
     <cim:ExcSEXS.kc>1</cim:ExcSEXS.kc>
-    <cim:ExcSEXS.tc>0</cim:ExcSEXS.tc>
-    <cim:ExcSEXS.efdmin>9999</cim:ExcSEXS.efdmin>
-    <cim:ExcSEXS.efdmax>-9999</cim:ExcSEXS.efdmax>
+    <cim:ExcSEXS.tc>0.000001</cim:ExcSEXS.tc>
+    <cim:ExcSEXS.efdmin>-9999</cim:ExcSEXS.efdmin>
+    <cim:ExcSEXS.efdmax>9999</cim:ExcSEXS.efdmax>
     <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_d712e9d5-25db-11e7-afca-b46d83638f70" />
     <cim:DynamicsFunctionBlock.enabled>true</cim:DynamicsFunctionBlock.enabled>
     <cim:IdentifiedObject.name>SEXS</cim:IdentifiedObject.name>
@@ -93,9 +93,9 @@
     <cim:ExcSEXS.emin>0</cim:ExcSEXS.emin>
     <cim:ExcSEXS.emax>4</cim:ExcSEXS.emax>
     <cim:ExcSEXS.kc>1</cim:ExcSEXS.kc>
-    <cim:ExcSEXS.tc>0</cim:ExcSEXS.tc>
-    <cim:ExcSEXS.efdmin>9999</cim:ExcSEXS.efdmin>
-    <cim:ExcSEXS.efdmax>-9999</cim:ExcSEXS.efdmax>
+    <cim:ExcSEXS.tc>0.000001</cim:ExcSEXS.tc>
+    <cim:ExcSEXS.efdmin>-9999</cim:ExcSEXS.efdmin>
+    <cim:ExcSEXS.efdmax>9999</cim:ExcSEXS.efdmax>
     <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_d712e9d8-25db-11e7-afca-b46d83638f70" />
     <cim:DynamicsFunctionBlock.enabled>true</cim:DynamicsFunctionBlock.enabled>
     <cim:IdentifiedObject.name>SEXS</cim:IdentifiedObject.name>
@@ -108,9 +108,9 @@
     <cim:ExcSEXS.emin>-4</cim:ExcSEXS.emin>
     <cim:ExcSEXS.emax>4</cim:ExcSEXS.emax>
     <cim:ExcSEXS.kc>1</cim:ExcSEXS.kc>
-    <cim:ExcSEXS.tc>0</cim:ExcSEXS.tc>
-    <cim:ExcSEXS.efdmin>9999</cim:ExcSEXS.efdmin>
-    <cim:ExcSEXS.efdmax>-9999</cim:ExcSEXS.efdmax>
+    <cim:ExcSEXS.tc>0.000001</cim:ExcSEXS.tc>
+    <cim:ExcSEXS.efdmin>-9999</cim:ExcSEXS.efdmin>
+    <cim:ExcSEXS.efdmax>9999</cim:ExcSEXS.efdmax>
     <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_d712e9e7-25db-11e7-afca-b46d83638f70" />
     <cim:DynamicsFunctionBlock.enabled>true</cim:DynamicsFunctionBlock.enabled>
     <cim:IdentifiedObject.name>SEXS</cim:IdentifiedObject.name>
@@ -123,9 +123,9 @@
     <cim:ExcSEXS.emin>-4</cim:ExcSEXS.emin>
     <cim:ExcSEXS.emax>4</cim:ExcSEXS.emax>
     <cim:ExcSEXS.kc>1</cim:ExcSEXS.kc>
-    <cim:ExcSEXS.tc>0</cim:ExcSEXS.tc>
-    <cim:ExcSEXS.efdmin>9999</cim:ExcSEXS.efdmin>
-    <cim:ExcSEXS.efdmax>-9999</cim:ExcSEXS.efdmax>
+    <cim:ExcSEXS.tc>0.000001</cim:ExcSEXS.tc>
+    <cim:ExcSEXS.efdmin>-9999</cim:ExcSEXS.efdmin>
+    <cim:ExcSEXS.efdmax>9999</cim:ExcSEXS.efdmax>
     <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_d712e9ea-25db-11e7-afca-b46d83638f70" />
     <cim:DynamicsFunctionBlock.enabled>true</cim:DynamicsFunctionBlock.enabled>
     <cim:IdentifiedObject.name>SEXS</cim:IdentifiedObject.name>
@@ -138,9 +138,9 @@
     <cim:ExcSEXS.emin>-4</cim:ExcSEXS.emin>
     <cim:ExcSEXS.emax>4</cim:ExcSEXS.emax>
     <cim:ExcSEXS.kc>1</cim:ExcSEXS.kc>
-    <cim:ExcSEXS.tc>0</cim:ExcSEXS.tc>
-    <cim:ExcSEXS.efdmin>9999</cim:ExcSEXS.efdmin>
-    <cim:ExcSEXS.efdmax>-9999</cim:ExcSEXS.efdmax>
+    <cim:ExcSEXS.tc>0.000001</cim:ExcSEXS.tc>
+    <cim:ExcSEXS.efdmin>-9999</cim:ExcSEXS.efdmin>
+    <cim:ExcSEXS.efdmax>9999</cim:ExcSEXS.efdmax>
     <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_d712e9ed-25db-11e7-afca-b46d83638f70" />
     <cim:DynamicsFunctionBlock.enabled>true</cim:DynamicsFunctionBlock.enabled>
     <cim:IdentifiedObject.name>SEXS</cim:IdentifiedObject.name>
@@ -153,9 +153,9 @@
     <cim:ExcSEXS.emin>-4</cim:ExcSEXS.emin>
     <cim:ExcSEXS.emax>4</cim:ExcSEXS.emax>
     <cim:ExcSEXS.kc>1</cim:ExcSEXS.kc>
-    <cim:ExcSEXS.tc>0</cim:ExcSEXS.tc>
-    <cim:ExcSEXS.efdmin>9999</cim:ExcSEXS.efdmin>
-    <cim:ExcSEXS.efdmax>-9999</cim:ExcSEXS.efdmax>
+    <cim:ExcSEXS.tc>0.000001</cim:ExcSEXS.tc>
+    <cim:ExcSEXS.efdmin>-9999</cim:ExcSEXS.efdmin>
+    <cim:ExcSEXS.efdmax>9999</cim:ExcSEXS.efdmax>
     <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_d712e9f0-25db-11e7-afca-b46d83638f70" />
     <cim:DynamicsFunctionBlock.enabled>true</cim:DynamicsFunctionBlock.enabled>
     <cim:IdentifiedObject.name>SEXS</cim:IdentifiedObject.name>
@@ -168,9 +168,9 @@
     <cim:ExcSEXS.emin>0</cim:ExcSEXS.emin>
     <cim:ExcSEXS.emax>4</cim:ExcSEXS.emax>
     <cim:ExcSEXS.kc>1</cim:ExcSEXS.kc>
-    <cim:ExcSEXS.tc>0</cim:ExcSEXS.tc>
-    <cim:ExcSEXS.efdmin>9999</cim:ExcSEXS.efdmin>
-    <cim:ExcSEXS.efdmax>-9999</cim:ExcSEXS.efdmax>
+    <cim:ExcSEXS.tc>0.000001</cim:ExcSEXS.tc>
+    <cim:ExcSEXS.efdmin>-9999</cim:ExcSEXS.efdmin>
+    <cim:ExcSEXS.efdmax>9999</cim:ExcSEXS.efdmax>
     <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_d712ea07-25db-11e7-afca-b46d83638f70" />
     <cim:DynamicsFunctionBlock.enabled>true</cim:DynamicsFunctionBlock.enabled>
     <cim:IdentifiedObject.name>SEXS</cim:IdentifiedObject.name>
@@ -183,9 +183,9 @@
     <cim:ExcSEXS.emin>0</cim:ExcSEXS.emin>
     <cim:ExcSEXS.emax>4</cim:ExcSEXS.emax>
     <cim:ExcSEXS.kc>1</cim:ExcSEXS.kc>
-    <cim:ExcSEXS.tc>0</cim:ExcSEXS.tc>
-    <cim:ExcSEXS.efdmin>9999</cim:ExcSEXS.efdmin>
-    <cim:ExcSEXS.efdmax>-9999</cim:ExcSEXS.efdmax>
+    <cim:ExcSEXS.tc>0.000001</cim:ExcSEXS.tc>
+    <cim:ExcSEXS.efdmin>-9999</cim:ExcSEXS.efdmin>
+    <cim:ExcSEXS.efdmax>9999</cim:ExcSEXS.efdmax>
     <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_d712ea0a-25db-11e7-afca-b46d83638f70" />
     <cim:DynamicsFunctionBlock.enabled>true</cim:DynamicsFunctionBlock.enabled>
     <cim:IdentifiedObject.name>SEXS</cim:IdentifiedObject.name>
@@ -198,9 +198,9 @@
     <cim:ExcSEXS.emin>0</cim:ExcSEXS.emin>
     <cim:ExcSEXS.emax>4</cim:ExcSEXS.emax>
     <cim:ExcSEXS.kc>1</cim:ExcSEXS.kc>
-    <cim:ExcSEXS.tc>0</cim:ExcSEXS.tc>
-    <cim:ExcSEXS.efdmin>9999</cim:ExcSEXS.efdmin>
-    <cim:ExcSEXS.efdmax>-9999</cim:ExcSEXS.efdmax>
+    <cim:ExcSEXS.tc>0.000001</cim:ExcSEXS.tc>
+    <cim:ExcSEXS.efdmin>-9999</cim:ExcSEXS.efdmin>
+    <cim:ExcSEXS.efdmax>9999</cim:ExcSEXS.efdmax>
     <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_d712ea0d-25db-11e7-afca-b46d83638f70" />
     <cim:DynamicsFunctionBlock.enabled>true</cim:DynamicsFunctionBlock.enabled>
     <cim:IdentifiedObject.name>SEXS</cim:IdentifiedObject.name>
@@ -213,9 +213,9 @@
     <cim:ExcSEXS.emin>0</cim:ExcSEXS.emin>
     <cim:ExcSEXS.emax>4</cim:ExcSEXS.emax>
     <cim:ExcSEXS.kc>1</cim:ExcSEXS.kc>
-    <cim:ExcSEXS.tc>0</cim:ExcSEXS.tc>
-    <cim:ExcSEXS.efdmin>9999</cim:ExcSEXS.efdmin>
-    <cim:ExcSEXS.efdmax>-9999</cim:ExcSEXS.efdmax>
+    <cim:ExcSEXS.tc>0.000001</cim:ExcSEXS.tc>
+    <cim:ExcSEXS.efdmin>-9999</cim:ExcSEXS.efdmin>
+    <cim:ExcSEXS.efdmax>9999</cim:ExcSEXS.efdmax>
     <cim:ExcitationSystemDynamics.SynchronousMachineDynamics rdf:resource="#_d712ea10-25db-11e7-afca-b46d83638f70" />
     <cim:DynamicsFunctionBlock.enabled>true</cim:DynamicsFunctionBlock.enabled>
     <cim:IdentifiedObject.name>SEXS</cim:IdentifiedObject.name>
