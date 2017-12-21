@@ -42,3 +42,14 @@ imapAttList= mapAttList.iterator();
 while (imapAttList.hasNext()) {
 	System.out.println(imapAttList.next().toString());
 }
+
+#Annotation implementation
+· Components -> annotation (Placement(transformation(extent={{-6,-6},{6,6}}, rotation=-90, origin={44,-60})))
+· Connect equation -> annotation (Line(points={{-40,0},{-27,0}}, color={0,0,255}))
+
+When creating the map object, add the coordinates of each Terminal ->
+-> when adding a Pin to a moClass, update coordinates of moClass
+when to update the coordinates of a connect equation?
+The coordinates have to be in each TerminalMap -> 
+-> ConnectMap has Terminal from ConductinEquipment and Terminal from TopologicalNode
+-> when add Terminal/Pin to moClass, update moEquationConnect
