@@ -4,37 +4,24 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 
-public class TPProfileModel {
+public class TPProfileModel extends CIMProfile {
 	//TODO use of JENA Properties for finding tags (see EQProfileModel:gather_BasePower_Attributes(...))
 //	private String id;
-	private Map<String, Object> attribute;
 	private Map<Resource, RDFNode> topologicalNodes;
 	private Map<Resource, RDFNode> terminals;
-	private Model rdfModel;
 
-	/**
-	 * 
-	 */
-	public TPProfileModel()
-	{
-		attribute= new HashMap<String, Object>();
-		topologicalNodes= new HashMap<Resource, RDFNode>();
-		terminals= new HashMap<Resource, RDFNode>();
-	}
 	/**
 	 * 
 	 * @param _model
 	 */
-	public TPProfileModel(Model _model)
+	public TPProfileModel(String _source_SV_profile)
 	{
-		this.rdfModel= _model;
-		attribute= new HashMap<String, Object>();
+		super(_source_SV_profile);
 		topologicalNodes= new HashMap<Resource, RDFNode>();
 		terminals= new HashMap<Resource, RDFNode>();
 	}
@@ -240,10 +227,4 @@ public class TPProfileModel {
 		}
 		return this.attribute;
 	}
-	
-	public void clearAttributes()
-	{
-		this.attribute.clear();
-	}
-	
 }

@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
@@ -13,36 +12,22 @@ import org.apache.jena.rdf.model.StmtIterator;
 
 import cim2model.cim.map.openipsl.DynamicComponentType;
 
-public class DYProfileModel {
+public class DYProfileModel extends CIMProfile {
 	//TODO method find_xxx to be unified for regulators component
 	//TODO use of JENA Properties for finding tags (see EQProfileModel:gather_BasePower_Attributes(...))
 //	private String id;
-	private Map<String, Object> attribute;
 	private Map<Resource, RDFNode> excsys;
 	private Map<Resource, RDFNode> tgov;
 	private Map<Resource, RDFNode> pss;
 	private Map<Resource, RDFNode> synchmach;
-	private Model rdfModel;
 
-	/**
-	 * 
-	 */
-	public DYProfileModel()
-	{
-		attribute= new HashMap<String, Object>();
-		excsys= new HashMap<Resource, RDFNode>();
-		tgov= new HashMap<Resource, RDFNode>();
-		pss= new HashMap<Resource, RDFNode>();
-		synchmach= new HashMap<Resource, RDFNode>();
-	}
 	/**
 	 * 
 	 * @param _model
 	 */
-	public DYProfileModel(Model _model)
+	public DYProfileModel(String _source_SV_profile)
 	{
-		this.rdfModel= _model;
-		attribute= new HashMap<String, Object>();
+		super(_source_SV_profile);
 		excsys= new HashMap<Resource, RDFNode>();
 		tgov= new HashMap<Resource, RDFNode>();
 		pss= new HashMap<Resource, RDFNode>();
@@ -113,6 +98,7 @@ public class DYProfileModel {
 //	}
 		
 	
+	@Override
 	public void clearAttributes()
 	{
 		this.attribute.clear();
@@ -251,7 +237,7 @@ public class DYProfileModel {
 	 * @return Hashmap containing Component ID (Subject), CIM name for the Component (Object): URL#Class
 	 */
 	public Map<Resource,RDFNode> gather_ExcitationSystems()
-	{//TODO gather all TG models without using the name explicitly
+	{
 		Resource s,p;
 		RDFNode o;
 		Statement stmt;
@@ -263,12 +249,7 @@ public class DYProfileModel {
 		    s = stmt.getSubject();
             p = stmt.getPredicate();
             o = stmt.getObject();
-            String [] componentName= o.toString().split("#");
             //p as "type" means that the statement is referring to the component
-			// TODO change this condition to something more general, and more
-			// general is to check if the
-			// statemet / resource is
-			// ExcitationSystemDynamics.SynchronousMachineDynamics
 			if (p.isURIResource() && p.getLocalName().equals("ExcitationSystemDynamics.SynchronousMachineDynamics"))
             { 
 //            	System.out.println("Subject :"+ s.getURI());

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.ResIterator;
@@ -15,32 +14,20 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
 
-public class EQProfileModel 
+public class EQProfileModel extends CIMProfile
 {
 	static final String CIMns= "http://iec.ch/TC57/2013/CIM-schema-cim16#";
 //	private String id;
-	private Map<String, Object> attribute;
 	private Map<Resource, RDFNode> component;
 	private Map<Resource, String> substations;
-	private Model rdfModel;
-
-	/**
-	 * 
-	 */
-	public EQProfileModel()
-	{
-		attribute= new HashMap<String, Object>();
-		component= new HashMap<Resource, RDFNode>();
-	}
 	
 	/**
 	 * 
 	 * @param _model
 	 */
-	public EQProfileModel(Model _model)
+	public EQProfileModel(String _source_SV_profile)
 	{
-		this.rdfModel= _model;
-		attribute= new HashMap<String, Object>();
+		super(_source_SV_profile);
 		component= new HashMap<Resource, RDFNode>();
 	}
 	
@@ -57,7 +44,7 @@ public class EQProfileModel
 		for (final ResIterator it= this.rdfModel.listResourcesWithProperty(RDF.type, substationTag); it.hasNext();)
 		{
 			final Resource attTag= it.next();
-			substations.put(it.next(), 
+			substations.put(attTag, 
 					attTag.getProperty(nameTag).getLiteral().getValue().toString());
 			
 		}
@@ -154,7 +141,10 @@ public class EQProfileModel
 			{
 				if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.ConductingEquipment"))
 				{
-					/* Add the rfd_id of the CondictingEquipment which Terminal is related to */
+					/*
+					 * Add the rdf:resource of the CondictingEquipment which
+					 * Terminal is related to
+					 */
 					this.attribute.put(terminalAttribute.getPredicate().getLocalName(), 
 							terminalAttribute.getResource());
 				}
@@ -166,6 +156,20 @@ public class EQProfileModel
 		return this.attribute;
 	}
 	
+	/**
+	 * 
+	 * @param _subject
+	 * @return
+	 */
+	public Map<String, Object> get_TerminalCN(Resource _subject) {
+		final Property resourceCN = ResourceFactory
+				.createProperty(CIMns + "Terminal.ConnectivityNode");
+		this.attribute.put(
+				_subject.getProperty(resourceCN).getPredicate().getLocalName(),
+				_subject.getProperty(resourceCN).getObject().asResource());
+		return this.attribute;
+	}
+
 	/**
 	 * 
 	 * @param _subject
@@ -374,7 +378,9 @@ public class EQProfileModel
 					while( iLoadResponse.hasNext() ) 
 					{
 						classAttribute= iLoadResponse.next();
-						if (classAttribute.getAlt().isLiteral()) {
+						if (classAttribute.getAlt().isLiteral()
+								&& !classAttribute.getPredicate().getLocalName()
+										.equals("IdentifiedObject.name")) {
 							this.attribute.put(classAttribute.getPredicate().getLocalName(), classAttribute.getString());
 						}
 					}
@@ -504,6 +510,7 @@ public class EQProfileModel
 		return this.attribute;
 	}
 	
+	@Override
 	public void clearAttributes()
 	{
 		this.attribute.clear();

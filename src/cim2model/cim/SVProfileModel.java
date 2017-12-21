@@ -5,37 +5,24 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 
-public class SVProfileModel {
+public class SVProfileModel extends CIMProfile {
 	//TODO use of JENA Properties for finding tags (see EQProfileModel:gather_BasePower_Attributes(...))
 //	private String id;
-	private Map<String, Object> attribute;
 	private Map<Resource, RDFNode> svPowerFlow;
 	private Map<Resource, RDFNode> svVoltage;
-	private Model rdfModel;
 
-	/**
-	 * 
-	 */
-	public SVProfileModel()
-	{
-		attribute= new HashMap<String, Object>();
-		svPowerFlow= new HashMap<Resource, RDFNode>();
-		svVoltage= new HashMap<Resource, RDFNode>();
-	}
 	/**
 	 * 
 	 * @param _model
 	 */
-	public SVProfileModel(Model _model)
+	public SVProfileModel(String _source_SV_profile)
 	{
-		this.rdfModel= _model;
-		attribute= new HashMap<String, Object>();
+		super(_source_SV_profile);
 		svPowerFlow= new HashMap<Resource, RDFNode>();
 		svVoltage= new HashMap<Resource, RDFNode>();
 	}
@@ -244,6 +231,7 @@ public class SVProfileModel {
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}
 	
+	@Override
 	public void clearAttributes()
 	{
 		this.attribute.clear();
