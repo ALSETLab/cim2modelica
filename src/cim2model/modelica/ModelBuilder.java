@@ -1,9 +1,5 @@
 package cim2model.modelica;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -103,37 +99,36 @@ public class ModelBuilder
 	
 	public MOConnector create_PinConnector(PwPinMap _terminalMap)
 	{
-		MOConnector pin= new MOConnector(_terminalMap.getName());
-		ArrayList<AttributeMap> mapAttList= 
-				(ArrayList<AttributeMap>)_terminalMap.getAttributeMap();
-		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
-		AttributeMap current;
-		while (imapAttList.hasNext()) {
-			current= imapAttList.next();
-			if (current.getCimName().equals("IdentifiedObject.name")){
-				if (current.getContent().equals("T1"))
-						pin.set_InstanceName("p");
-				if (current.getContent().equals("T2"))
-						pin.set_InstanceName("n");
-				// System.out.println("after= " + current.getContent() + " - " +
-				// pin.get_InstanceName());
-			}
-			else{
-				MOAttribute variable= new MOAttribute();
-				variable.set_Name(current.getName());
-				variable.set_Value(current.getContent());
-				variable.set_Variability(current.getVariability());
-				variable.set_Visibility(current.getVisibility());
-				variable.set_Flow(Boolean.valueOf(current.getFlow()));
-				pin.set_Attribute(variable);
-			}
-		}
-		pin.set_Stereotype(_terminalMap.getStereotype());
-		pin.set_Package(_terminalMap.getPackage());
-		//for internal identification only
-		pin.set_RdfId(_terminalMap.getRdfId());
-		
-		return pin;
+    	MOConnector pin= new MOConnector(_terminalMap.getName());
+    	ArrayList<AttributeMap> mapAttList= 
+    			(ArrayList<AttributeMap>)_terminalMap.getAttributeMap();
+    	Iterator<AttributeMap> imapAttList= mapAttList.iterator();
+    	AttributeMap current;
+    	while (imapAttList.hasNext()) {
+    	    current= imapAttList.next();
+	    if (current.getCimName().equals("IdentifiedObject.name")) {
+		if (current.getContent().equals("T1"))
+		    pin.set_InstanceName("p");
+		if (current.getContent().equals("T2"))
+		    pin.set_InstanceName("n");
+    		// System.out.println("after= " + current.getContent() + " - " +
+    		// pin.get_InstanceName());
+	    } else {
+		MOAttribute variable = new MOAttribute();
+		variable.set_Name(current.getName());
+		variable.set_Value(current.getContent());
+		variable.set_Variability(current.getVariability());
+		variable.set_Visibility(current.getVisibility());
+		variable.set_Flow(Boolean.valueOf(current.getFlow()));
+		pin.set_Attribute(variable);
+	    }
+	}
+	pin.set_Stereotype(_terminalMap.getStereotype());
+	pin.set_Package(_terminalMap.getPackage());
+	//for internal identification only
+	pin.set_RdfId(_terminalMap.getRdfId());
+	
+	return pin;
 	}
 	
 	/**
@@ -192,7 +187,7 @@ public class ModelBuilder
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getName());
 				if (current.getContent()== null)
-					variable.set_Value("0");
+					variable.set_Value("0.000001");
 				else
 					variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
@@ -203,8 +198,9 @@ public class ModelBuilder
 		}
 		syncMach.set_Stereotype(_mapSyncMach.getStereotype());
 		syncMach.set_Package(_mapSyncMach.getPackage());
+		// rdf:id used internally for generatin annotations
 		syncMach.set_RdfId(_mapSyncMach.getRdfId());
-		
+
 		return syncMach;
 	}
 	
@@ -227,7 +223,7 @@ public class ModelBuilder
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getName());
 				if (current.getContent()== null)
-					variable.set_Value("0");
+					variable.set_Value("0.000001");
 				else
 					variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
@@ -238,8 +234,9 @@ public class ModelBuilder
 		}
 		excSys.set_Stereotype(_mapExcSys.getStereotype());
 		excSys.set_Package(_mapExcSys.getPackage());
-		//for internal identification only
+		// rdf:id used internally for generatin annotations
 		excSys.set_RdfId(_mapExcSys.getRdfId());
+
 		return excSys;
 	}
 	
@@ -262,7 +259,7 @@ public class ModelBuilder
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getName());
 				if (current.getContent()== null)
-					variable.set_Value("0");
+					variable.set_Value("0.000001");
 				else
 					variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
@@ -273,7 +270,7 @@ public class ModelBuilder
 		}
 		tgov.set_Stereotype(_mapTGov.getStereotype());
 		tgov.set_Package(_mapTGov.getPackage());
-		//for internal identification only
+		// rdf:id used internally for generatin annotations
 		tgov.set_RdfId(_mapTGov.getRdfId());
 		
 		return tgov;
@@ -316,7 +313,7 @@ public class ModelBuilder
 					MOAttribute variable= new MOAttribute();
 					variable.set_Name(current.getName());
 					if (current.getContent()== null)
-						variable.set_Value("0");
+						variable.set_Value("0.000001");
 					else
 						variable.set_Value(current.getContent());
 					variable.set_Datatype(current.getDatatype());
@@ -329,9 +326,9 @@ public class ModelBuilder
 		}
 		pwLoad.set_Stereotype(_mapEnergyC.getStereotype());
 		pwLoad.set_Package(_mapEnergyC.getPackage());
-		//for internal identification only
+		// rdf:id used internally for generatin annotations
 		pwLoad.set_RdfId(_mapEnergyC.getRdfId());
-		
+
 		return pwLoad;
 	}
 	
@@ -356,7 +353,7 @@ public class ModelBuilder
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getName());
 				if (current.getContent()== null)
-					variable.set_Value("0");
+					variable.set_Value("0.000001");
 				else
 					variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
@@ -367,6 +364,7 @@ public class ModelBuilder
 		}
 		pwline.set_Stereotype(_mapACLine.getStereotype());
 		pwline.set_Package(_mapACLine.getPackage());
+		// rdf:id used internally for generatin annotations
 		pwline.set_RdfId(_mapACLine.getRdfId());
 		
 		return pwline;
@@ -377,7 +375,8 @@ public class ModelBuilder
 	 * @param _mapPowTrans
 	 * @return
 	 */
-	public MOClass create_TransformerComponent(TwoWindingTransformerMap _mapPowTrans)
+	public MOClass create_TransformerComponent(
+			TwoWindingTransformerMap _mapPowTrans)
 	{
 		MOClass twtransformer= new MOClass(_mapPowTrans.getName());
 		AttributeMap current;
@@ -400,7 +399,7 @@ public class ModelBuilder
 					MOAttribute variable= new MOAttribute();
 					variable.set_Name(current.getName());
 					if (current.getContent()== null)
-						variable.set_Value("0");
+						variable.set_Value("0.000001");
 					else
 						variable.set_Value(current.getContent());
 					variable.set_Variability(current.getVariability());
@@ -412,6 +411,7 @@ public class ModelBuilder
 		}
 		twtransformer.set_Stereotype(_mapPowTrans.getStereotype());
 		twtransformer.set_Package(_mapPowTrans.getPackage());
+		// rdf:id used internally for generatin annotations
 		twtransformer.set_RdfId(_mapPowTrans.getRdfId());
 		
 		return twtransformer;
@@ -493,7 +493,7 @@ public class ModelBuilder
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getName());
 				if (current.getContent()== null)
-					variable.set_Value("0");
+					variable.set_Value("0.000001");
 				else
 					variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
@@ -505,42 +505,9 @@ public class ModelBuilder
 		pwbus.setStereotype(_mapTopoNode.getStereotype());
 		pwbus.set_Package(_mapTopoNode.getPackage());
 		pwbus.set_RdfId(_mapTopoNode.getRdfId());
-		
+
 		return pwbus;
 	}
-	
-//	public MOClass create_FaultComponent(PwFaultMap _mapFault)
-//	{
-//		PwLine pwline= new PwLine(_mapFault.getName());
-//		ArrayList<AttributeMap> mapAttList= 
-//				(ArrayList<AttributeMap>)_mapFault.getAttributeMap();
-//		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
-//		AttributeMap current;
-//		while (imapAttList.hasNext()) {
-//			current= imapAttList.next();
-//			if (current.getCimName().equals("IdentifiedObject.name")){
-//				pwline.set_InstanceName(current.getContent());
-//			}
-//			else{
-//				MOAttribute variable= new MOAttribute();
-//				variable.set_Name(current.getName());
-//				if (current.getContent()== null)
-//					variable.set_Value("0");
-//				else
-//					variable.set_Value(current.getContent());
-//				variable.set_Variability(current.getVariability());
-//				variable.set_Visibility(current.getVisibility());
-//				variable.set_Flow(Boolean.valueOf(current.getFlow()));
-//				pwline.add_Attribute(variable);
-//			}
-//		}
-//		pwline.set_Stereotype(_mapFault.getStereotype());
-//		pwline.set_Package(_mapFault.getPackage());
-//		//for internal identification only
-//		pwline.set_RdfId(_mapFault.getRfdId());
-//		
-//		return pwline;
-//	}
 	
 	/**
 	 * Use of the RDF_ID for internal identification only
@@ -625,32 +592,64 @@ public class ModelBuilder
 			catch(NullPointerException npe)
 			{
 				// System.err.println("Still some equipment left to map");
-				// TODO logging
 			}
 		}
 		// System.out.println(this.powsys.to_ModelicaClass());
 	}
-	
-	public void save_ModelicaFile(String _moCode, String _nameModel, String _folder)
-	{
-		BufferedWriter writer = null;
-		try {
-			String nomFitxer = "./model/" + _folder + "/" + _nameModel + ".mo";
-			File fitxer = new File(nomFitxer);
-			if (!fitxer.getParentFile().exists())
-				fitxer.getParentFile().mkdirs();
-		    writer = new BufferedWriter(new FileWriter(fitxer));
-		    writer.write(_moCode);
-		}
-		catch ( IOException _e){
-		}
-		finally {
-		    try{
-		        if ( writer != null)
-		        writer.close( );
-		    }
-		    catch ( IOException _e){
-		    }
-		}
+
+	/**
+	 * 
+	 * @param _modelName
+	 * @param _packeteName
+	 * @return
+	 */
+	public String package_information(String _modelName, String _packeteName) {
+		StringBuilder llapis = new StringBuilder();
+		String packeteInfo;
+
+		llapis.append("within ");
+		llapis.append(_modelName); llapis.append(";\n");
+		llapis.append("package ");
+		llapis.append(_packeteName);
+		llapis.append(" ");
+		llapis.append('"');
+		llapis.append("Automatically Generated Comment");
+		llapis.append('"');
+		llapis.append("\n");
+		llapis.append("annotation (Documentation);");
+		llapis.append("\nend ");
+		llapis.append(_packeteName);
+		llapis.append(";\n");
+		
+		packeteInfo = llapis.toString();
+		llapis = null;
+		return packeteInfo;
+	}
+	/**
+	 * 
+	 * @param _packeteName
+	 * @param _comment
+	 * @return
+	 */
+	public String model_package_information(String _packeteName,
+			String _comment) {
+		StringBuilder llapis = new StringBuilder();
+		String packeteInfo;
+
+		llapis.append("package ");
+		llapis.append(_packeteName);
+		llapis.append(" ");
+		llapis.append('"');
+		llapis.append(_comment);
+		llapis.append('"');
+		llapis.append("\n");
+		llapis.append(
+				"annotation (uses(OpenIPSL(version=\"1.5.0\"), Modelica(version=\"3.2.2\")),Documentation);\n");
+		llapis.append("end ");
+		llapis.append(_packeteName);
+		llapis.append(";");
+		packeteInfo = llapis.toString();
+		llapis = null;
+		return packeteInfo;
 	}
 }

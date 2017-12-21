@@ -16,6 +16,7 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 
+import cim2model.cim.CIMProfile;
 import cim2model.cim.DYProfileModel;
 import cim2model.cim.EQProfileModel;
 import cim2model.cim.SVProfileModel;
@@ -41,7 +42,6 @@ import cim2model.cim.map.openipsl.machines.SynchMachineMapFactory;
 import cim2model.cim.map.openipsl.transformers.TransformerEndAuxiliarMap;
 import cim2model.cim.map.openipsl.transformers.TransformerMapFactory;
 import cim2model.cim.map.openipsl.transformers.TwoWindingTransformerMap;
-import cim2model.io.ReaderCIM;
 
 /**
  * Read mapping files and create appropriate objects ComponentMap, Get corresponding values from CIM model 
@@ -53,58 +53,47 @@ public class ModelDesigner
 {
 	static final String CIMns = "http://iec.ch/TC57/2013/CIM-schema-cim16#";
 	ArrayList<ConnectionMap> connections;
-	Map<Resource, RDFNode> classes_EQ;
-	Map<Resource, RDFNode> tagsTP_tn;
-	Map<Resource, RDFNode> classes_SV;
-	ReaderCIM reader_EQ_profile;
-	ReaderCIM reader_TP_profile;
-	ReaderCIM reader_SV_profile;
-	ReaderCIM reader_DY_profile;
 	EQProfileModel profile_EQ;
 	TPProfileModel profile_TP;
 	SVProfileModel profile_SV;
 	DYProfileModel profile_DY;
 	
-	public ModelDesigner(String _source_EQ_profile, String _source_TP_profile, 
-			String _source_SV_profile, String _source_DY_profile)
+	public ModelDesigner(CIMProfile _profileEQ, CIMProfile _profileTP,
+			CIMProfile _profileSV, CIMProfile _profileDY)
 	{
-		reader_EQ_profile= new ReaderCIM(_source_EQ_profile);
-		reader_TP_profile= new ReaderCIM(_source_TP_profile);
-		reader_SV_profile= new ReaderCIM(_source_SV_profile);
-		reader_DY_profile= new ReaderCIM(_source_DY_profile);
-		this.connections= new ArrayList<ConnectionMap>();
+		this.profile_EQ = (EQProfileModel) _profileEQ;
+		this.profile_TP = (TPProfileModel) _profileTP;
+		this.profile_SV = (SVProfileModel) _profileSV;
+		this.profile_DY = (DYProfileModel) _profileDY;
+		this.connections = new ArrayList<ConnectionMap>();
 	}
 	
-	public Map<Resource, RDFNode> load_EQ_profile(String _xmlns_cim)
+	public Map<Resource, RDFNode> load_EQ_profile()
 	{
-		profile_EQ = new EQProfileModel(reader_EQ_profile.read_profile(_xmlns_cim));
+		Map<Resource, RDFNode> classes_EQ;
 		classes_EQ = profile_EQ.gatherComponents();
-		
 		return classes_EQ;
 	}
 	
-	public void load_TP_profile(String _xmlns_cim)
+	public void load_TP_profile()
 	{
-		profile_TP = new TPProfileModel(reader_TP_profile.read_profile(_xmlns_cim));
 		profile_TP.gather_TopologicalNodes();
 		profile_TP.gather_Terminals();
 	}
 	
-	public void load_SV_profile(String _xmlns_cim)
+	public void load_SV_profile()
 	{
-		profile_SV = new SVProfileModel(reader_SV_profile.read_profile(_xmlns_cim));
 		profile_SV.gather_SvPowerFlow();
 		profile_SV.gather_SvVoltage();
 	}
 	
-	public void load_DY_profile(String _xmlns_cim)
+	public void load_DY_profile()
 	{
-		profile_DY = new DYProfileModel(reader_DY_profile.read_profile(_xmlns_cim));
 		profile_DY.gather_SynchronousMachines();
 		profile_DY.gather_ExcitationSystems();
 		profile_DY.gather_TurbineGovernors();
 	}
-	
+
 	/**
 	 * 
 	 * @param _key
@@ -165,7 +154,7 @@ public class ModelDesigner
 	 * @param _cn
 	 * @param _tn
 	 */
-	private void add_newConnectionMap(PwPinMap _mapTerminal, Resource _cn, Resource _tn)
+	private void create_newConnectionMap(PwPinMap _mapTerminal, Resource _cn, Resource _tn)
 	{
 		ConnectionMap nuevaConnection = new ConnectionMap(
 				_mapTerminal.getRdfId(), 
@@ -173,11 +162,9 @@ public class ModelDesigner
 				_mapTerminal.getTopologicalNode().split("#")[1]);
 		nuevaConnection.set_ConductingEquipment(_cn);
 		nuevaConnection.set_TopologicalNode(_tn);
-		
 		this.connections.add(nuevaConnection);
 	}
 	/**
-	 * 1) 
 	 * 2) Creates a new instance of ConnectionMap, with Id T, Id Cn & Id Tn with the mapTerminal
 	 * @param key
 	 * @param _source
@@ -192,8 +179,8 @@ public class ModelDesigner
 		PwPinMap mapTerminal= pwpinXMLToObject(_source);
 		/* load corresponding tag cim:Terminal */
 		profile_EQ_map= profile_EQ.get_TerminalEQ(key);
-		mapTerminal.get_AttributeMap("IdentifiedObject.name").setContent(
-				(String)profile_EQ_map.get("IdentifiedObject.name"));
+	mapTerminal.get_AttributeMap("IdentifiedObject.name")
+		.setContent((String) profile_EQ_map.get("IdentifiedObject.name"));
 		if (profile_SV.has_SvPowerFlow(key))
 		{
 			profile_SV_map= profile_SV.get_TerminalSvPowerFlow(key);
@@ -212,10 +199,12 @@ public class ModelDesigner
 				mapTerminal.get_AttributeMap("SvVoltage.angle").setContent((String)profile_SV_map.get("SvVoltage.angle"));
 			}
 		}
+		mapTerminal.setTopologicalNode(profile_TP.get_TerminalTN(key));
+		mapTerminal.setConnectivityNode(profile_EQ.get_TerminalCN(key)
+				.get("Terminal.ConnectivityNode").toString());
 		mapTerminal.setRdfId(_subjectID[0]);
 		mapTerminal.setCimName(_subjectID[1]);
-		//
-		this.add_newConnectionMap(mapTerminal, 
+		this.create_newConnectionMap(mapTerminal, 
 				(Resource)profile_EQ_map.get("Terminal.ConductingEquipment"),
 				profile_TP.get_TNTerminal(profile_TP.get_TerminalTN(key)));
 		profile_EQ.clearAttributes();
@@ -385,7 +374,7 @@ public class ModelDesigner
 		Resource machDynamics = profile_DY.find_SynchronousMachineDynamic_Tag(_key);
 		Entry<Resource,RDFNode> excSysTag= profile_DY.find_ExcitationSystem(machDynamics);
 		if (excSysTag!= null)
-		{// TODO get the name of the excitation system
+		{
 			excSysData= new AbstractMap.SimpleEntry<String,Resource>(
 					excSysTag.getKey().getProperty(nameTag).getLiteral().getValue().toString(), excSysTag.getKey());
 		}

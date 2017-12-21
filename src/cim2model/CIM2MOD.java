@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 
+import cim2model.cim.CIMProfileType;
 import cim2model.cim.map.ComponentMap;
 import cim2model.cim.map.ModelDesigner;
 import cim2model.cim.map.openipsl.branches.PwLineMap;
@@ -26,23 +27,30 @@ import cim2model.modelica.ModelBuilder;
 import cim2model.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
 import cim2model.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
 import cim2model.modelica.openipsl.machines.OpenIPSLMachine;
+import cim2model.utils.ModelWriter;
+import cim2model.utils.ProfileFactory;
+import cim2model.utils.ProfileReader;
 
 public class CIM2MOD 
 {
-	private static String xmlns_cim;
 	private static ModelDesigner cartografo;
 	private static ModelBuilder constructor;
 	
 	public static void setUp (String[] args)
 	{
-		String _source_EQ_profile= args[0];
-		String _source_TP_profile= args[1];
-		String _source_SV_profile= args[2];
-		String _source_DY_profile= args[3];
-		cartografo= new ModelDesigner(_source_EQ_profile, _source_TP_profile, 
-				_source_SV_profile, _source_DY_profile);
-		constructor= new ModelBuilder(args[4]);
-		xmlns_cim= args[5];
+		ProfileReader lector = new ProfileReader(args[0]);
+		ProfileFactory profiFact = new ProfileFactory();
+		lector.read_Directory();
+		cartografo = new ModelDesigner(
+				profiFact.getProfile(lector.get_source_EQ_profile(),
+						CIMProfileType.EQUIPMENT),
+				profiFact.getProfile(lector.get_source_TP_profile(),
+						CIMProfileType.TOPOLOGY),
+				profiFact.getProfile(lector.get_source_SV_profile(),
+						CIMProfileType.STATE_VARIABLE),
+				profiFact.getProfile(lector.get_source_DY_profile(),
+						CIMProfileType.DYNAMICS));
+		constructor = new ModelBuilder(args[1]);
 	}
 	
 	/**
@@ -125,28 +133,57 @@ public class CIM2MOD
 			moplanta.add_ContantBlock(constblock);
 			constructor.add_plantNetwork(moplanta);
 			constructor.add_equipmentNetwork(_momachine);
-			
+			// TODO tu repassa aixó quq el pin dels generadors surt null
 		}
 		else
 			constructor.add_equipmentNetwork(_momachine);	
 	}
 	
+	public static void assemble_ModelicaModel(ModelDesigner _cartografo,
+			ModelBuilder _constructor) {
+		ModelWriter escriptor = new ModelWriter();
+		String plantPackage = "", plantPackageFolder = "";
+		ArrayList<String> plantsName = new ArrayList<String>();
+		constructor.connect_Components(cartografo.get_ConnectionMap());
+		for (MOPlant plant : constructor.get_Network().get_planta()) {
+			plantPackageFolder = constructor.get_Network().get_Name()
+					+ "/PowerPlant";
+			plantPackage = constructor.get_Network().get_Name() + ".PowerPlant";
+			escriptor.save_ModelicaFile(plant.to_ModelicaClass(plantPackage),
+					plant.get_Name(), plantPackageFolder);
+			plantsName.add(plant.get_Name());
+		}
+		escriptor.save_ModelicaFile(
+				constructor.get_Network()
+						.to_ModelicaClass(constructor.get_Network().get_Name()),
+				constructor.get_Network().get_Name(),
+				constructor.get_Network().get_Name());
+		escriptor.pack_ModelicaPackage(
+				constructor.package_information(
+						constructor.get_Network().get_Name(), "PowerPlant"),
+				plantsName,
+				constructor.get_Network().get_Name() + "/PowerPlant");
+		escriptor.pack_ModelicaModel(
+				constructor.model_package_information(
+						constructor.get_Network().get_Name(),
+						"Automatically generated comment"),
+				"PowerPlant", constructor.get_Network().get_Name(),
+				constructor.get_Network().get_Name());
+		escriptor = null;
+	}
+
 	public static void main(String[] args) 
 	{
 		setUp(args);
-		
-		Map<Resource, RDFNode> profile_EQ;
-//		Map<Resource, RDFNode> profile_TP;
 //		Map<Resource, RDFNode> profile_SV;
 		String [] cimClassResource;
 		String [] equipmentResource, topologyResource;
-		
-		profile_EQ= cartografo.load_EQ_profile(xmlns_cim);
-		cartografo.load_TP_profile(xmlns_cim);
-		cartografo.load_SV_profile(xmlns_cim);
-		cartografo.load_DY_profile(xmlns_cim);
+		Map<Resource, RDFNode> profile_EQ = cartografo.load_EQ_profile();
+		cartografo.load_TP_profile();
+		cartografo.load_SV_profile();
+		cartografo.load_DY_profile();
 		for (Resource key : profile_EQ.keySet())
-		{	
+		{
 			cimClassResource= cartografo.get_EquipmentClassName(key);
 			/* subjectResource[0] is the rdf_id, subjectResource[1] is the CIM name */
 			if (cimClassResource[1].equals("Terminal"))
@@ -183,19 +220,22 @@ public class CIM2MOD
 						GENROUMap mapSyncMach= cartografo.create_GENROUModelicaMap(
 								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
 								"./res/map/openipsl/machines/cim_iteslalibrary_genrou.xml", equipmentResource);
-						momachine= constructor.create_MachineComponent(mapSyncMach);
+						momachine = constructor
+								.create_MachineComponent(mapSyncMach);
 					}
 					if (machineType.equals("GENSAL")){
 						GENSALMap mapSyncMach= cartografo.create_GENSALModelicaMap(
 								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
 								"./res/map/openipsl/machines/cim_iteslalibrary_gensal.xml", equipmentResource);
-						momachine= constructor.create_MachineComponent(mapSyncMach);
+						momachine = constructor
+								.create_MachineComponent(mapSyncMach);
 					}
 					if (machineType.equals("GENROE")){
 						GENROEMap mapSyncMach= cartografo.create_GENROEModelicaMap(
 								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
 								"./res/map/openipsl/machines/cim_iteslalibrary_genroe.xml", equipmentResource);
-						momachine= constructor.create_MachineComponent(mapSyncMach);
+						momachine = constructor
+								.create_MachineComponent(mapSyncMach);
 					}
 					momachine.add_Terminal(mopin);
 					momachine.update_powerFlow(mopin);
@@ -208,7 +248,8 @@ public class CIM2MOD
 					LoadMap mapEnergyC= cartografo.create_LoadModelicaMap(
 							cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
 							"./res/map/openipsl/loads/cim_iteslalibrary_load.xml", equipmentResource);
-					MOClass moload= constructor.create_LoadComponent(mapEnergyC);
+					MOClass moload = constructor
+							.create_LoadComponent(mapEnergyC);
 					moload.add_Terminal(mopin);
 					moload.update_powerFlow(mopin);
 					constructor.add_equipmentNetwork(moload);
@@ -226,7 +267,7 @@ public class CIM2MOD
 						PwLineMap mapACLine= cartografo.create_LineModelicaMap(
 								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
 								"./res/map/openipsl/branches/cim_iteslalibrary_pwline.xml", equipmentResource);
-						moline= constructor.create_LineComponent(mapACLine);
+						moline = constructor.create_LineComponent(mapACLine);
 						moline.add_Terminal(mopin);
 						constructor.add_equipmentNetwork(moline);
 					}
@@ -245,7 +286,7 @@ public class CIM2MOD
 						PwBusMap mapTopoNode= cartografo.create_BusModelicaMap(
 								cartografo.get_CurrentConnectionMap().get_TopologicalNode(), 
 								"./res/map/openipsl/buses/cim_iteslalibrary_pwbus.xml", topologyResource);
-						mobus= constructor.create_BusComponent(mapTopoNode);
+						mobus = constructor.create_BusComponent(mapTopoNode);
 						mopinbus.set_InstanceName("p"); // trick to set all pin
 						mobus.add_Terminal(mopinbus);
 						constructor.add_equipmentNetwork(mobus);
@@ -277,7 +318,8 @@ public class CIM2MOD
 						moTransformer.add_Attribute(moparam);
 				}
 				else {
-					moTransformer= constructor.create_TransformerComponent(twtMap);
+					moTransformer = constructor
+							.create_TransformerComponent(twtMap);
 					moTransformer.add_Terminal(mopin);
 					for(MOAttribute moparam: moPowTransEnd)
 						moTransformer.add_Attribute(moparam);
@@ -285,16 +327,7 @@ public class CIM2MOD
 				}
 				moPowTransEnd.clear(); moPowTransEnd= null;
 			}
-
 		}
-		constructor.connect_Components(cartografo.get_ConnectionMap());
-		for (MOPlant plant: constructor.get_Network().get_planta())
-		{
-			String plantPackage = constructor.get_Network().get_Name() + "/PowerPlant";
-			constructor.save_ModelicaFile(plant.to_ModelicaClass(), plant.get_Name(),
-					plantPackage);
-		}
-		constructor.save_ModelicaFile(constructor.get_Network().to_ModelicaClass(),
-				constructor.get_Network().get_Name(), constructor.get_Network().get_Name());
+		assemble_ModelicaModel(cartografo, constructor);
 	}
 }
