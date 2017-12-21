@@ -1,5 +1,7 @@
 package cim2model.modelica;
 
+import java.util.ArrayList;
+
 /**
  * Generic class which contains general attributes to create a Modelica class
  * @author fragom
@@ -14,6 +16,7 @@ public abstract class MOModel
 	protected String pakage;
 	protected String comment;
 	protected String annotation;
+	protected ArrayList<String> coord_eq;
 	
 	public MOModel(String _name, String _stereotype)
 	{
@@ -23,6 +26,7 @@ public abstract class MOModel
 		this.comment = "automatically generated comment";
 		this.annotation= "annotation ()";
 		this.rdfid= "";
+		this.coord_eq = new ArrayList<String>();
 	}
 	
 	/**
@@ -98,5 +102,19 @@ public abstract class MOModel
 	 */
 	public void set_Package(String pakage) {
 		this.pakage = pakage;
+	}
+
+	public ArrayList<String> get_Coord() {
+		return coord_eq;
+	}
+
+	public void set_Coord(String _x, String _y) {
+		// this.coord_bus.clear();
+		if (_x.substring(_x.length() - 1) == ".")
+			_x = _x.substring(0, _x.length() - 1);
+		this.coord_eq.add(_x);
+		if (_y.substring(_y.length() - 1) == ".")
+			_y = _y.substring(0, _y.length() - 1);
+		this.coord_eq.add(_y);
 	}
 }

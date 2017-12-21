@@ -3,6 +3,9 @@ package cim2model.modelica;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import cim2model.cim.DLProfileModel;
+import cim2model.cim.map.openipsl.connectors.PwPinMap;
+
 /**
  * Generic class for implementing the declaration of a modelica class. this class will be used to store 
  * characteristics of a component model
@@ -21,6 +24,7 @@ public class MOClass extends MOModel
 	public MOClass(String _name) 
 	{
 		super(_name, "class");
+		this.annotation = "annotation (Placement(transformation(extent={{30,-40},{50,-20}})))";
 		this.visibility= "public";
 		this.variability= "parameter";
 		this.attributes= new ArrayList<MOAttribute>();
@@ -82,7 +86,7 @@ public class MOClass extends MOModel
 	public void setStereotype(String stereotype) {
 		this.stereotype = stereotype;
 	}
-	
+
 	public boolean exist_Attribute(String _name){
 		boolean exists= false;
 		MOAttribute current;
@@ -226,6 +230,51 @@ public class MOClass extends MOModel
 		update_pin_current(_pin);
 	}
 	
+	public void update_ComponentAnnotation(PwPinMap _pin,
+			DLProfileModel _diagramLayout) {
+
+		String[] coordPoint = _diagramLayout.get_ObjectPoint(
+				_diagramLayout.get_Object(
+						_pin.getConnectivityNode().split("#")[1]),
+				"1");
+		this.set_Coord(coordPoint[0], coordPoint[0]);
+
+		StringBuilder pencil = new StringBuilder();
+		if (this.coord_eq.size() != 0 || this.coord_eq.size() != 0) {
+			// extent={{-10,-10},{10,10}},
+			pencil.append(
+					"annotation (Placement(visible= true, transformation(");
+			pencil.append("origin={");
+			pencil.append(this.coord_eq.get(0));
+			pencil.append(",");
+			pencil.append(this.coord_eq.get(1));
+			pencil.append("}, extent= {{-10,-10},{10,10}})))");
+		} else
+			pencil.append("annotation ();");
+		this.annotation = pencil.toString();
+		pencil = null;
+	}
+
+	public void update_ComponentAnnotation(DLProfileModel _diagramLayout) {
+		String[] coordPoint = _diagramLayout.get_ObjectPoint(
+				_diagramLayout.get_Object(this.get_RdfId()), "1");
+		this.set_Coord(coordPoint[0], coordPoint[0]);
+
+		StringBuilder pencil = new StringBuilder();
+		if (this.coord_eq.size() != 0 || this.coord_eq.size() != 0) {
+			pencil.append(
+					"annotation (Placement(visible= true, transformation(");
+			pencil.append("origin={");
+			pencil.append(this.coord_eq.get(0));
+			pencil.append(",");
+			pencil.append(this.coord_eq.get(1));
+			pencil.append("}, extent= {{-10,-10},{10,10}})))");
+		} else
+			pencil.append("annotation ();");
+		this.annotation = pencil.toString();
+		pencil = null;
+	}
+
 	/**
 	 * class name "some comments"
 	 * 		parameter 

@@ -13,7 +13,9 @@ public class ConnectionMap
 {
 	private String t_id;
 	private String ce_id;
+	private String[] ce_pos;
 	private String tn_id;
+	private String[] tn_pos;
 	private Resource conductingEquipment;
 	private Resource topologicalNode;
 	private MOPlant planta;
@@ -49,6 +51,21 @@ public class ConnectionMap
 	public void set_Ce_id(String ce_id) {
 		this.ce_id = ce_id;
 	}
+
+	/**
+	 * @return the ce_pos
+	 */
+	public String[] getCe_pos() {
+		return ce_pos;
+	}
+
+	/**
+	 * @param ce_pos
+	 *            the ce_pos to set
+	 */
+	public void setCe_pos(String[] ce_pos) {
+		this.ce_pos = ce_pos;
+	}
 	/**
 	 * @return the tn_id
 	 */
@@ -62,6 +79,20 @@ public class ConnectionMap
 		this.tn_id = tn_id;
 	}
 	
+	/**
+	 * @return the tn_pos
+	 */
+	public String[] getTn_pos() {
+		return tn_pos;
+	}
+
+	/**
+	 * @param tn_pos  the tn_pos to set
+	 */
+	public void setTn_pos(String[] tn_pos) {
+		this.tn_pos = tn_pos;
+	}
+
 	/**
 	 * @return the conductingEquipment
 	 */

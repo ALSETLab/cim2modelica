@@ -94,12 +94,15 @@ public class MONetwork extends MOModel
 		return exists;
 	}
 	
-	public String to_ModelicaClass()
+	public String to_ModelicaClass(String _package)
 	{
 		String code= "";
 		StringBuilder pencil= new StringBuilder();
 		
 		/* HEADER */
+		pencil.append("within ");
+		pencil.append(_package);
+		pencil.append(";\n");
 		pencil.append(this.stereotype); pencil.append(" ");
 		pencil.append(this.name); 
 		pencil.append(" ");

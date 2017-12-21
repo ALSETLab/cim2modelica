@@ -1,5 +1,6 @@
 package cim2model.modelica;
 
+import java.util.ArrayList;
 /**
  * Implementation of a tuple, to store pair of MOClass that are connected to each other
  * @author fragom
@@ -9,6 +10,8 @@ public class MOConnectNode
 {
 	public final String id_equipment, pin_equipment;
 	public final String id_bus, pin_bus;
+	public final ArrayList<String> coord_eq, coord_bus;
+	public final String annotation;
     
 	/**
 	 * Connecting equipment with bus/equipment
@@ -19,10 +22,13 @@ public class MOConnectNode
 	 */
     public MOConnectNode(String _u, String _pin_u, String _y, String _pin_y) 
     {
-      this.id_equipment = _u;
-      this.pin_equipment = _pin_u;
-      this.id_bus = _y;
-      this.pin_bus = _pin_y;
+		this.id_equipment = _u;
+		this.coord_eq = new ArrayList<String>();
+		this.pin_equipment = _pin_u;
+		this.id_bus = _y;
+		this.pin_bus = _pin_y;
+		this.coord_bus = new ArrayList<String>();
+		this.annotation = "annotation (Line(points={{10,10},{20,10}}, color={0,0,255}))";
     }
     
     /**
@@ -53,6 +59,31 @@ public class MOConnectNode
 		return pin_bus;
 	}
 
+	public ArrayList<String> get_CoordEQ() {
+		return coord_eq;
+	}
+
+	public void set_CoordEQ(String _x, String _y) {
+		// this.coord_eq.clear();
+		this.coord_eq.add(_x);
+		this.coord_eq.add(_y);
+	}
+
+	public ArrayList<String> get_CoordBUS() {
+		return coord_bus;
+	}
+
+	public void set_CoordBUS(String _x, String _y) {
+		// this.coord_bus.clear();
+		this.coord_bus.add(_x);
+		this.coord_bus.add(_y);
+	}
+
+	/**
+	 * 
+	 * @param isNetwork
+	 * @return
+	 */
 	public String to_ModelicaEquation(String isNetwork)
 	{
 		String code= "";
@@ -61,6 +92,27 @@ public class MOConnectNode
 		if (isNetwork.equals("plant"))
 			code= this.connect_equipmentPlant();
 		return code;
+	}
+
+	private String update_ConnectAnnotation() {
+		String anotacion = "";
+		StringBuilder pencil = new StringBuilder();
+
+		if (this.coord_bus.size() != 0 || this.coord_eq.size() != 0) {
+			pencil.append("annotation (Line(points={{");
+			pencil.append(this.coord_eq.get(0));
+			pencil.append(",");
+			pencil.append(this.coord_eq.get(1));
+			pencil.append("},{");
+			pencil.append(this.coord_bus.get(0));
+			pencil.append(",");
+			pencil.append(this.coord_bus.get(1));
+			pencil.append("}}, color={0,0,255}));");
+		} else
+			pencil.append("annotation ();");
+		anotacion = pencil.toString();
+		pencil = null;
+		return anotacion;
 	}
 	/**
      * Writes connect equation between network equipment, at network level, 
@@ -92,7 +144,9 @@ public class MOConnectNode
 //		else
 //			pencil.append("n");
 //		pencil.append(this.pin_component_y);
-		pencil.append(");"); pencil.append("\n");
+		pencil.append(")");
+		pencil.append(this.update_ConnectAnnotation());
+		pencil.append("\n");
 		
 		code= pencil.toString();
 		pencil= null;

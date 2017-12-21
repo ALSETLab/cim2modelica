@@ -187,12 +187,15 @@ public class MOPlant extends MOModel
 		return exists;
 	}
 	
-	public String to_ModelicaClass()
+	public String to_ModelicaClass(String _package)
 	{
 		String code= "";
 		StringBuilder pencil= new StringBuilder();
 		
 		/* HEADER */
+		pencil.append("within ");
+		pencil.append(_package);
+		pencil.append(";\n");
 		pencil.append(this.stereotype); pencil.append(" ");
 		pencil.append(this.name); pencil.append(" ");
 		pencil.append('"');
@@ -278,6 +281,26 @@ public class MOPlant extends MOModel
 //		if (isNetwork.equals("plant"))
 //			code= this.connect_equipmentPlant();
 		return code;
+	}
+
+	public void update_ComponentAnnotation(OpenIPSLMachine _momachine) {
+		this.set_Coord(_momachine.get_Coord().get(0),
+				_momachine.get_Coord().get(0));
+
+		StringBuilder pencil = new StringBuilder();
+		if (this.coord_eq.size() != 0 || this.coord_eq.size() != 0) {
+			// extent={{-10,-10},{10,10}},
+			pencil.append(
+					"annotation (Placement(visible= true, transformation(");
+			pencil.append("origin={");
+			pencil.append(this.coord_eq.get(0));
+			pencil.append(",");
+			pencil.append(this.coord_eq.get(1));
+			pencil.append("}, extent= {{-10,-10},{10,10}})))");
+		} else
+			pencil.append("annotation ();");
+		this.annotation = pencil.toString();
+		pencil = null;
 	}
 	
 }
