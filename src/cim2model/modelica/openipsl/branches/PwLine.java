@@ -7,6 +7,7 @@ public class PwLine extends MOClass
 {
 	public PwLine(String _name) {
 		super(_name);
+		this.annotation = "annotation (Placement(transformation(extent={{34,26},{46,34}})))";
 	}
 	
 	@Override

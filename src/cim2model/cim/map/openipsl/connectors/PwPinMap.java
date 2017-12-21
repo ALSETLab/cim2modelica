@@ -42,7 +42,7 @@ public class PwPinMap extends ComponentMap{
     protected String conductingEquipment;
     @XmlAttribute(name = "TopologicalNode", required = true)
     protected String topologicalNode;
-       
+	protected String connectivityNode;
     /**
      * Gets the value of the conductingEquipment property.
      * 
@@ -91,7 +91,26 @@ public class PwPinMap extends ComponentMap{
         this.topologicalNode = value;
     }
 
-    
+	/**
+	 * Gets the value of the topologicalNode property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getConnectivityNode() {
+		return connectivityNode;
+	}
+
+	/**
+	 * Sets the value of the topologicalNode property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setConnectivityNode(String value) {
+		this.connectivityNode = value;
+	}
 
     @Override
     public String toString()
