@@ -15,26 +15,27 @@ Description
 <li>Select JAVA> Runnable JAR file </li>
 <li>Select Launch configuration, which you use to run the code</li>
 <li>Give a name to the .jar file</li>
-<li>Select option Extract required libraries into generated JAR</li>
+<li>Select option <i>Package required libraries into generated JAR</i></li>
 </p>
 <p>
 <h5>Using the tool:</h5>
 Create a working folder and download:
 <li> The .jar file under the <i>dist</i> folder
-<li>Create a <i>res</i> folder containing two sub folders:
+<li>Place a <i>res</i> folder containing two sub folders:
 <ul>Folder <i>map</i> containing the mapping rules for populating the CIM values into the Modelica component instances of he model</ul>
 <ul>Folder <i>network</i> containing the CIM files of the network model</ul>
 </li>
-<i>(You can get those folders from the repository and... make sure you have the java 1.6 or later installed)</i>
+The <b>cim2modelica.jar</b> contains the necessary libraries to run the tool.
+
 </p>
 <p>
 <li>Execute the .jar file in command line:
-<ul><b>java -jar EQ.xml TP.xml SV.xml DY.xml model-name cim-schema </b></ul>
+<ul><b>java -jar <i>./folder_CIM_model</i> <i>model_given_name</i> </b></ul>
 </li>
-<li><i>EQ.xml</i> - equipment profile cim file</li>
-<li><i>TP.xml</i> - topology profile cim file</li>
-<li><i>SV.xml</i> - state variable profile cim file</li>
-<li><i>DY.xml</i> - dynamics profile cim file</li>
-<li><i>model-name</i> - name for the resulting Modelica model</li>
-<li><i>cim-schema</i> - xml schema supported by CIM (current schema to use: http://iec.ch/TC57/2013/CIM-schema-cim16#)</li>
+<p> The <i>model_given_name</i> is the name for the resulting Modelica model. And, make sure that within the <i>./folder_CIM_model</i> there are the following CIM profiles’ files:</p>
+<li><i>CIM_model_EQ.xml</i> - equipment profile cim file</li>
+<li><i>CIM_model_TP.xml</i> - topology profile cim file</li>
+<li><i>CIM_model_SV.xml</i> - state variable profile cim file</li>
+<li><i>CIM_model_DY.xml</i> - dynamics profile cim file</li>
+
 </p>

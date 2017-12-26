@@ -57,6 +57,13 @@ public class CIM2MOD
 		constructor = new ModelBuilder(args[1]);
 	}
 	
+	/**
+	 * 
+	 * @param _machineType
+	 * @param _mopin
+	 * @param _equipmentResource
+	 * @return
+	 */
 	public static OpenIPSLMachine factory_Machine(String _machineType,
 			MOConnector _mopin, String[] _equipmentResource) {
 		OpenIPSLMachine momachine = null;
