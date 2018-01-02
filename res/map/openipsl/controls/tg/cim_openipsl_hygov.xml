@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!--Created by fragom-->
-<!DOCTYPE model SYSTEM "cim_iteslalibrary_hygov.dtd">
+<!DOCTYPE model SYSTEM "cim_openipsl_hygov.dtd">
 <hYGOVMap cim_name="GovHydro1" rfd_id="" rfd_resource="" package="OpenIPSL.Electrical.Controls.PSSE.TG" name="HYGOV" stereotype="class">
 	<attributeMap cim_name="IdentifiedObject.name" name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
 	<attributeMap cim_name="GovHydro1.rperm" name="R" datatype="Real" variability="parameter" visibility="public">0.0</attributeMap>

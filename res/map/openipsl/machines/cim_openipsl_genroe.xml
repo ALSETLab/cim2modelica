@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE model SYSTEM "cim_iteslalibrary_genrou.dtd">
+<!DOCTYPE model SYSTEM "cim_openipsl_genrou.dtd">
 <GENROEMap cim_name="SynchronousMachine" rdf_id="" rdf_resource="" package="OpenIPSL.Electrical.Machines.PSSE" name="GENROE" stereotype="class">
   <attributeMap cim_name="BasePower.basePower" name="S_b" datatype="Real" variability="parameter" visibility="public"></attributeMap>
   <attributeMap cim_name="RotatingMachine.ratedS" name="M_b" datatype="Real" variability="parameter" visibility="public"></attributeMap>

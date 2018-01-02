@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE model SYSTEM "cim_iteslalibrary_gensal.dtd">
+<!DOCTYPE model SYSTEM "cim_openipsl_gensal.dtd">
 <GENSALMap cim_name="SynchronousMachine" rdf_id="" rdf_resource="" 
 	package="OpenIPSL.Electrical.Machines.PSSE" name="GENSAL" stereotype="class">
   <attributeMap cim_name="IdentifiedObject.name" name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>

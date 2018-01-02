@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!--Created by fragom-->
-<!DOCTYPE model SYSTEM "cim_iteslalibrary_excsexs.dtd">
+<!DOCTYPE model SYSTEM "cim_openipsl_excsexs.dtd">
 <excSEXSMap cim_name="ExcSEXS" rdf_id="" rdf_resource="" package="OpenIPSL.Electrical.Controls.CGMES.ES" name="ExcSEXS" stereotype="class">
 	<attributeMap cim_name="IdentifiedObject.name"
 		datatype="String" variability="none"

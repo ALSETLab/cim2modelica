@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!--Created by fragom-->
-<!DOCTYPE model SYSTEM "cim_iteslalibrary_esdc1a.dtd">
+<!DOCTYPE model SYSTEM "cim_openipsl_esdc1a.dtd">
 <!-- CIM class to be included into ExcitationSystemDynamics packages, instance of the CIM class ExcitationSystemDynamics class -->
 <eSDC1AMap cim_name="ExcIEEEDC1A" rdf_id="" rdf_resource="" package="OpenIPSL.Electrical.Controls.PSSE.ES" name="ESDC1A" stereotype="class">
   <attributeMap cim_name="IdentifiedObject.name" name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!--Created by fragom-->
-<!DOCTYPE model SYSTEM "cim_iteslalibrary_ieesgo.dtd">
+<!DOCTYPE model SYSTEM "cim_openipsl_ieesgo.dtd">
 <iEESGOMap cim_name="GovSteamSGO" rfd_id="" rfd_resource="" package="OpenIPSL.Electrical.Controls.PSSE.TG" name="IEESGO" stereotype="class">
 	<attributeMap cim_name="IdentifiedObject.name" datatype="String" variability="none" visibility="none" name="InstanceName">name</attributeMap>
 	<attributeMap cim_name="GovSteamSGO.k1" name="K_1" datatype="String" variability="parameter" visibility="public">0.0</attributeMap>
