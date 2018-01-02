@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!--Created by fragom-->
-<!DOCTYPE model SYSTEM "cim_iteslalibrary_twowindingtransformer.dtd">
+<!DOCTYPE model SYSTEM "cim_openipsl_twowindingtransformer.dtd">
 <twoWindingTransformerMap cim_name="PowerTransformerEnd" rdf_id="" rdf_resource="" package="OpenIPSL.Electrical.Branches.PSSE" name="TwoWindingTransformer" stereotype="class" 
   PowerTransformer="rfd:resource" RatioTapChanger="rfd:resource" Terminal="rfd:resource">
   <attributeMap cim_name="IdentifiedObject.name" name="InstanceName" datatype="String" variability="none" visibility="none">name</attributeMap>
