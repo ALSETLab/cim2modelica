@@ -1,11 +1,11 @@
-package cim2model.utils;
+package cim2modelica.utils;
 
-import cim2model.cim.CIMProfile;
-import cim2model.cim.CIMProfileType;
-import cim2model.cim.DYProfileModel;
-import cim2model.cim.EQProfileModel;
-import cim2model.cim.SVProfileModel;
-import cim2model.cim.TPProfileModel;
+import cim2modelica.cim.CIMProfile;
+import cim2modelica.cim.CIMProfileType;
+import cim2modelica.cim.DYProfileModel;
+import cim2modelica.cim.EQProfileModel;
+import cim2modelica.cim.SVProfileModel;
+import cim2modelica.cim.TPProfileModel;
 
 public class ProfileFactory {
 	public CIMProfile getProfile(String _source_Profile,

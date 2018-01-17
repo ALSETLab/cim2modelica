@@ -1,4 +1,4 @@
-package cim2model;
+package cim2modelica;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -7,29 +7,33 @@ import java.util.Map.Entry;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 
-import cim2model.cim.CIMProfileType;
-import cim2model.cim.map.ComponentMap;
-import cim2model.cim.map.ModelDesigner;
-import cim2model.cim.map.openipsl.branches.PwLineMap;
-import cim2model.cim.map.openipsl.buses.PwBusMap;
-import cim2model.cim.map.openipsl.connectors.PwPinMap;
-import cim2model.cim.map.openipsl.loads.LoadMap;
-import cim2model.cim.map.openipsl.machines.GENROEMap;
-import cim2model.cim.map.openipsl.machines.GENROUMap;
-import cim2model.cim.map.openipsl.machines.GENSALMap;
-import cim2model.cim.map.openipsl.transformers.TransformerEndAuxiliarMap;
-import cim2model.cim.map.openipsl.transformers.TwoWindingTransformerMap;
-import cim2model.modelica.MOAttribute;
-import cim2model.modelica.MOClass;
-import cim2model.modelica.MOConnector;
-import cim2model.modelica.MOPlant;
-import cim2model.modelica.ModelBuilder;
-import cim2model.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
-import cim2model.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
-import cim2model.modelica.openipsl.machines.OpenIPSLMachine;
-import cim2model.utils.ModelWriter;
-import cim2model.utils.ProfileFactory;
-import cim2model.utils.ProfileReader;
+import cim2modelica.cim.CIMProfileType;
+import cim2modelica.cim.DYProfileModel;
+import cim2modelica.cim.EQProfileModel;
+import cim2modelica.cim.SVProfileModel;
+import cim2modelica.cim.TPProfileModel;
+import cim2modelica.cim.map.ComponentMap;
+import cim2modelica.cim.map.ModelDesigner;
+import cim2modelica.cim.map.openipsl.branches.PwLineMap;
+import cim2modelica.cim.map.openipsl.buses.PwBusMap;
+import cim2modelica.cim.map.openipsl.connectors.PwPinMap;
+import cim2modelica.cim.map.openipsl.loads.LoadMap;
+import cim2modelica.cim.map.openipsl.machines.GENROEMap;
+import cim2modelica.cim.map.openipsl.machines.GENROUMap;
+import cim2modelica.cim.map.openipsl.machines.GENSALMap;
+import cim2modelica.cim.map.openipsl.transformers.TransformerEndAuxiliarMap;
+import cim2modelica.cim.map.openipsl.transformers.TwoWindingTransformerMap;
+import cim2modelica.modelica.MOAttribute;
+import cim2modelica.modelica.MOClass;
+import cim2modelica.modelica.MOConnector;
+import cim2modelica.modelica.MOPlant;
+import cim2modelica.modelica.ModelBuilder;
+import cim2modelica.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
+import cim2modelica.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
+import cim2modelica.modelica.openipsl.machines.OpenIPSLMachine;
+import cim2modelica.utils.ModelWriter;
+import cim2modelica.utils.ProfileFactory;
+import cim2modelica.utils.ProfileReader;
 
 public class CIM2MOD 
 {
@@ -42,19 +46,30 @@ public class CIM2MOD
 	 */
 	public static void setUp (String[] args)
 	{
-		ProfileReader lector = new ProfileReader(args[0]);
-		ProfileFactory profiFact = new ProfileFactory();
-		lector.read_Directory();
-		cartografo = new ModelDesigner(
-				profiFact.getProfile(lector.get_source_EQ_profile(),
-						CIMProfileType.EQUIPMENT),
-				profiFact.getProfile(lector.get_source_TP_profile(),
-						CIMProfileType.TOPOLOGY),
-				profiFact.getProfile(lector.get_source_SV_profile(),
-						CIMProfileType.STATE_VARIABLE),
-				profiFact.getProfile(lector.get_source_DY_profile(),
-						CIMProfileType.DYNAMICS));
-		constructor = new ModelBuilder(args[1]);
+		if (args[0].equals("-d"))
+		{ //read folder containing the cim profile files
+			ProfileReader lector = new ProfileReader(args[2]);
+			ProfileFactory profiFact = new ProfileFactory();
+			lector.read_Directory();
+			cartografo = new ModelDesigner(
+					profiFact.getProfile(lector.get_source_EQ_profile(),
+							CIMProfileType.EQUIPMENT),
+					profiFact.getProfile(lector.get_source_TP_profile(),
+							CIMProfileType.TOPOLOGY),
+					profiFact.getProfile(lector.get_source_SV_profile(),
+							CIMProfileType.STATE_VARIABLE),
+					profiFact.getProfile(lector.get_source_DY_profile(),
+							CIMProfileType.DYNAMICS));
+			constructor = new ModelBuilder(args[1]);
+		}
+		if (args[0].equals("-p"))
+		{ // read the cim profile files separately
+			cartografo = new ModelDesigner(new EQProfileModel(args[2]),
+					new TPProfileModel(args[3]), new SVProfileModel(args[4]),
+					new DYProfileModel(args[5]));
+			constructor= new ModelBuilder(args[1]);
+		}
+		
 	}
 	
 	/**

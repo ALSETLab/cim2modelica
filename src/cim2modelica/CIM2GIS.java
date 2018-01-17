@@ -1,10 +1,10 @@
-package cim2model;
+package cim2modelica;
 
 import java.util.Map;
 
 import org.apache.jena.rdf.model.Resource;
 
-import cim2model.cim.map.GISDesigner;
+import cim2modelica.cim.map.GISDesigner;
 
 public class CIM2GIS 
 {

@@ -1,12 +1,12 @@
-package cim2model;
+package cim2modelica;
 
-import cim2model.modelica.MOClass;
-import cim2model.modelica.MOConnectNode;
-import cim2model.modelica.MOConnector;
-import cim2model.modelica.MOPlant;
-import cim2model.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
-import cim2model.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
-import cim2model.modelica.openipsl.machines.OpenIPSLMachine;
+import cim2modelica.modelica.MOClass;
+import cim2modelica.modelica.MOConnectNode;
+import cim2modelica.modelica.MOConnector;
+import cim2modelica.modelica.MOPlant;
+import cim2modelica.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
+import cim2modelica.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
+import cim2modelica.modelica.openipsl.machines.OpenIPSLMachine;
 
 public class PlantBuilder 
 {

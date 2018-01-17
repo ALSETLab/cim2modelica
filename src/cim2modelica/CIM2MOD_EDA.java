@@ -1,4 +1,4 @@
-package cim2model;
+package cim2modelica;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -7,33 +7,33 @@ import java.util.Map.Entry;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 
-import cim2model.cim.DLProfileModel;
-import cim2model.cim.map.ComponentMap;
-import cim2model.cim.map.ModelDesigner;
-import cim2model.cim.map.openipsl.branches.PwLineMap;
-import cim2model.cim.map.openipsl.buses.PwBusMap;
-import cim2model.cim.map.openipsl.connectors.PwPinMap;
-import cim2model.cim.map.openipsl.loads.LoadMap;
-import cim2model.cim.map.openipsl.machines.GENROEMap;
-import cim2model.cim.map.openipsl.machines.GENROUMap;
-import cim2model.cim.map.openipsl.machines.GENSALMap;
-import cim2model.cim.map.openipsl.transformers.TransformerEndAuxiliarMap;
-import cim2model.cim.map.openipsl.transformers.TwoWindingTransformerMap;
-import cim2model.modelica.MOAttribute;
-import cim2model.modelica.MOClass;
-import cim2model.modelica.MOConnector;
-import cim2model.modelica.MOPlant;
-import cim2model.modelica.ModelBuilder;
-import cim2model.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
-import cim2model.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
-import cim2model.modelica.openipsl.machines.OpenIPSLMachine;
-import cim2model.utils.ProfileReader;
+import cim2modelica.cim.DLProfileModel;
+import cim2modelica.cim.map.ComponentMap;
+import cim2modelica.cim.map.ModelCADDesigner;
+import cim2modelica.cim.map.openipsl.branches.PwLineMap;
+import cim2modelica.cim.map.openipsl.buses.PwBusMap;
+import cim2modelica.cim.map.openipsl.connectors.PwPinMap;
+import cim2modelica.cim.map.openipsl.loads.LoadMap;
+import cim2modelica.cim.map.openipsl.machines.GENROEMap;
+import cim2modelica.cim.map.openipsl.machines.GENROUMap;
+import cim2modelica.cim.map.openipsl.machines.GENSALMap;
+import cim2modelica.cim.map.openipsl.transformers.TransformerEndAuxiliarMap;
+import cim2modelica.cim.map.openipsl.transformers.TwoWindingTransformerMap;
+import cim2modelica.modelica.MOAttribute;
+import cim2modelica.modelica.MOClass;
+import cim2modelica.modelica.MOConnector;
+import cim2modelica.modelica.MOPlant;
+import cim2modelica.modelica.ModelCADBuilder;
+import cim2modelica.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
+import cim2modelica.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
+import cim2modelica.modelica.openipsl.machines.OpenIPSLMachine;
+import cim2modelica.utils.ProfileReader;
 
 public class CIM2MOD_EDA 
 {
 	private static String xmlns_cim;
-	private static ModelDesigner cartografo;
-	private static ModelBuilder constructor;
+	private static ModelCADDesigner cartografo;
+	private static ModelCADBuilder constructor;
 	
 	// TODO check if DL profile exist as a parameter
 	// TODO if there is no DL profile, us methods withoud DLProfileModel ojbects
@@ -41,10 +41,10 @@ public class CIM2MOD_EDA
 	{
 		ProfileReader lector = new ProfileReader(args[0]);
 		lector.read_Directory();
-		cartografo = new ModelDesigner(lector.get_source_EQ_profile(),
+		cartografo = new ModelCADDesigner(lector.get_source_EQ_profile(),
 				lector.get_source_TP_profile(), lector.get_source_SV_profile(),
 				lector.get_source_DY_profile(), lector.get_source_DL_profile());
-		constructor = new ModelBuilder(args[1]);
+		constructor = new ModelCADBuilder(args[1]);
 		xmlns_cim = "http://iec.ch/TC57/2013/CIM-schema-cim16#";
 	}
 	
@@ -187,26 +187,28 @@ public class CIM2MOD_EDA
 						GENROUMap mapSyncMach= cartografo.create_GENROUModelicaMap(
 								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
 								"./res/map/openipsl/machines/cim_iteslalibrary_genrou.xml", equipmentResource);
-						momachine = constructor.create_MachineComponent(
-								mapSyncMach, profile_DL);
+						momachine = constructor
+								.create_MachineComponent(mapSyncMach);
 					}
 					if (machineType.equals("GENSAL")){
 						GENSALMap mapSyncMach= cartografo.create_GENSALModelicaMap(
 								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
 								"./res/map/openipsl/machines/cim_iteslalibrary_gensal.xml", equipmentResource);
-						momachine = constructor.create_MachineComponent(
-								mapSyncMach, profile_DL);
+						momachine = constructor
+								.create_MachineComponent(mapSyncMach);
 					}
 					if (machineType.equals("GENROE")){
 						GENROEMap mapSyncMach= cartografo.create_GENROEModelicaMap(
 								cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
 								"./res/map/openipsl/machines/cim_iteslalibrary_genroe.xml", equipmentResource);
-						momachine = constructor.create_MachineComponent(
-								mapSyncMach, profile_DL);
+						momachine = constructor
+								.create_MachineComponent(mapSyncMach);
 					}
 					momachine.add_Terminal(mopin);
 					momachine.update_ComponentAnnotation(profile_DL);
 					momachine.update_powerFlow(mopin);
+					// CAD
+					constructor.create_MachineAnnotation(momachine, profile_DL);
 					factory_Plant(momachine, machineType, mopin);
 				}
 				/* EnergyConsumer has one terminal */

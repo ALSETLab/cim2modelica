@@ -1,4 +1,4 @@
-package cim2model.utils;
+package cim2modelica.utils;
 
 import java.io.BufferedWriter;
 import java.io.File;
