@@ -1,6 +1,6 @@
-package cim2model.cim.map.openipsl.buses;
+package cim2modelica.cim.map.openipsl.buses;
 
-import cim2model.modelica.MOClass;
+import cim2modelica.modelica.MOClass;
 
 public class Bus extends MOClass 
 {

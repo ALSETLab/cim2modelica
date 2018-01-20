@@ -1,11 +1,11 @@
-package cim2model.cim;
+package cim2modelica.cim;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.jena.rdf.model.Model;
 
-import cim2model.utils.ReaderCIM;
+import cim2modelica.utils.ReaderCIM;
 
 public abstract class CIMProfile {
 	private static final String xmlns_cim = "http://iec.ch/TC57/2013/CIM-schema-cim16#";

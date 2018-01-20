@@ -1,12 +1,12 @@
-package cim2model.cim.map;
+package cim2modelica.cim.map;
 
 import java.util.Map;
 
 import org.apache.jena.rdf.model.Resource;
 
-import cim2model.cim.EQProfileModel;
-import cim2model.cim.GEProfileModel;
-import cim2model.utils.ReaderCIM;
+import cim2modelica.cim.EQProfileModel;
+import cim2modelica.cim.GEProfileModel;
+import cim2modelica.utils.ReaderCIM;
 
 /**
  * 

@@ -5,4 +5,4 @@
  * @author fragom
  *
  */
-package cim2model;
+package cim2modelica;

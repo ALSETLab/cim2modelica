@@ -1,4 +1,4 @@
-package cim2model.cim.map.openipsl.transformers;
+package cim2modelica.cim.map.openipsl.transformers;
 
 import org.apache.jena.rdf.model.Resource;
 

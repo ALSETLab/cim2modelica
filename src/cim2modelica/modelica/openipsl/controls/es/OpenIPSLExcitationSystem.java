@@ -1,6 +1,6 @@
-package cim2model.modelica.openipsl.controls.es;
+package cim2modelica.modelica.openipsl.controls.es;
 
-import cim2model.modelica.MOClass;
+import cim2modelica.modelica.MOClass;
 
 public class OpenIPSLExcitationSystem extends MOClass
 {

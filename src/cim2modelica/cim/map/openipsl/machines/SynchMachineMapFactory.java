@@ -1,4 +1,4 @@
-package cim2model.cim.map.openipsl.machines;
+package cim2modelica.cim.map.openipsl.machines;
 
 import java.io.File;
 

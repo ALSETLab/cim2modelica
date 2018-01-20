@@ -5,4 +5,4 @@
  * @author fragom
  *
  */
-package cim2model.cim.map.openipsl.base;
+package cim2modelica.cim.map.openipsl.base;

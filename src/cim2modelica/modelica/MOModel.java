@@ -1,4 +1,4 @@
-package cim2model.modelica;
+package cim2modelica.modelica;
 
 import java.util.ArrayList;
 

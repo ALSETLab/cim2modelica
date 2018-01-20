@@ -6,7 +6,7 @@
 //
 
 
-package cim2model.cim.map;
+package cim2modelica.cim.map;
 
 import java.util.ArrayList;
 import java.util.Iterator;

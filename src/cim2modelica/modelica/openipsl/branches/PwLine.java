@@ -1,7 +1,7 @@
-package cim2model.modelica.openipsl.branches;
+package cim2modelica.modelica.openipsl.branches;
 
-import cim2model.modelica.MOAttribute;
-import cim2model.modelica.MOClass;
+import cim2modelica.modelica.MOAttribute;
+import cim2modelica.modelica.MOClass;
 
 public class PwLine extends MOClass 
 {

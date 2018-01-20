@@ -1,8 +1,8 @@
-package cim2model.cim.map;
+package cim2modelica.cim.map;
 
 import org.apache.jena.rdf.model.Resource;
 
-import cim2model.modelica.MOPlant;
+import cim2modelica.modelica.MOPlant;
 
 /**
  * Stores the relation of conducting equipment and topological node through the name of the terminal

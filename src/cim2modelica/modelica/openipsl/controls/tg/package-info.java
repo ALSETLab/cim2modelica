@@ -5,4 +5,4 @@
  * @author fran_jo
  *
  */
-package cim2model.modelica.openipsl.controls.tg;
+package cim2modelica.modelica.openipsl.controls.tg;

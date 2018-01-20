@@ -1,6 +1,6 @@
-package cim2model.modelica.openipsl.controls.tg;
+package cim2modelica.modelica.openipsl.controls.tg;
 
-import cim2model.modelica.MOClass;
+import cim2modelica.modelica.MOClass;
 
 public class OpenIPSLTurbineGovernor extends MOClass 
 {

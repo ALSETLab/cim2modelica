@@ -20,7 +20,7 @@ public class MappingStructureGenerator {
 		if (!Files.exists(path)) {
 			Files.createDirectories(path);
 		}
-		Driver.run(new String[]{"-d", targetDir, "-p", args[1], args[2]},
+		Driver.run(new String[]{"-d", targetDir, "-p", args[0], args[1]},
 				new XJCListener() {
 
 			@Override

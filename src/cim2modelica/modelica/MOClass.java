@@ -1,10 +1,10 @@
-package cim2model.modelica;
+package cim2modelica.modelica;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import cim2model.cim.DLProfileModel;
-import cim2model.cim.map.openipsl.connectors.PwPinMap;
+import cim2modelica.cim.DLProfileModel;
+import cim2modelica.cim.map.openipsl.connectors.PwPinMap;
 
 /**
  * Generic class for implementing the declaration of a modelica class. this class will be used to store 
@@ -22,7 +22,7 @@ public class MOClass extends MOModel
 	protected ArrayList<MOEquation> equations;
 	
 	public MOClass(String _name) 
-	{
+	{ // TODO CAD
 		super(_name, "class");
 		this.annotation = "annotation (Placement(transformation(extent={{30,-40},{50,-20}})))";
 		this.visibility= "public";
@@ -135,6 +135,9 @@ public class MOClass extends MOModel
 	 * @param variable
 	 */
 	public void add_Terminal(MOConnector pin) {
+		// TODO CAD
+		pin.set_Annotation(
+				"annotation (Placement(transformation(extent={{90,-10},{110,10}})));");
 		this.terminals.add(pin);
 	}
 	/**
@@ -293,7 +296,7 @@ public class MOClass extends MOModel
 		pencil.append(this.stereotype); pencil.append(" ");
 		pencil.append(this.name); pencil.append(" ");
 		pencil.append('"');
-		pencil.append(this.annotation);
+		pencil.append(this.comment);
 		pencil.append('"'); pencil.append("\n");
 		for (MOConnector pin: this.terminals)
 		{

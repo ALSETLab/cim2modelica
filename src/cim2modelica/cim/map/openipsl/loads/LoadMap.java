@@ -6,7 +6,7 @@
 //
 
 
-package cim2model.cim.map.openipsl.loads;
+package cim2modelica.cim.map.openipsl.loads;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import cim2model.cim.map.AttributeMap;
+import cim2modelica.cim.map.AttributeMap;
 
 
 /**

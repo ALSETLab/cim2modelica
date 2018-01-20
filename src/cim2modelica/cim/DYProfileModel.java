@@ -1,4 +1,4 @@
-package cim2model.cim;
+package cim2modelica.cim;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -10,7 +10,7 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 
-import cim2model.cim.map.openipsl.DynamicComponentType;
+import cim2modelica.cim.map.openipsl.DynamicComponentType;
 
 public class DYProfileModel extends CIMProfile {
 	//TODO method find_xxx to be unified for regulators component

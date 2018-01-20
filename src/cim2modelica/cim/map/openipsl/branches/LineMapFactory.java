@@ -1,4 +1,4 @@
-package cim2model.cim.map.openipsl.branches;
+package cim2modelica.cim.map.openipsl.branches;
 
 import java.io.File;
 

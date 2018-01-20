@@ -1,9 +1,9 @@
-package cim2model.modelica;
+package cim2modelica.modelica;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import cim2model.modelica.openipsl.machines.OpenIPSLMachine;
+import cim2modelica.modelica.openipsl.machines.OpenIPSLMachine;
 
 /**
  * Class with the definition of a high level modelica class, aka model

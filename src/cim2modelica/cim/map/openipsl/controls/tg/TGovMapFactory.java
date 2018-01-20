@@ -1,4 +1,4 @@
-package cim2model.cim.map.openipsl.controls.tg;
+package cim2modelica.cim.map.openipsl.controls.tg;
 
 import java.io.File;
 

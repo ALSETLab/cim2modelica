@@ -1,4 +1,4 @@
-package cim2model.cim.map.openipsl.controls.es;
+package cim2modelica.cim.map.openipsl.controls.es;
 
 import java.io.File;
 
@@ -73,6 +73,26 @@ public class ExcSysMapFactory
 			context = JAXBContext.newInstance(ESST1AMap.class);
 			un = context.createUnmarshaller();
 			ESST1AMap map = (ESST1AMap) un.unmarshal(new File(_xmlmap));
+			return map;
+		} catch (JAXBException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * 
+	 * @param _xmlmap
+	 * @return
+	 */
+	public SEXSMap sexsXMLToObject(String _xmlmap) {
+		JAXBContext context;
+		Unmarshaller un;
+
+		try {
+			context = JAXBContext.newInstance(SEXSMap.class);
+			un = context.createUnmarshaller();
+			SEXSMap map = (SEXSMap) un.unmarshal(new File(_xmlmap));
 			return map;
 		} catch (JAXBException e) {
 			e.printStackTrace();

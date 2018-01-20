@@ -1,4 +1,4 @@
-package cim2model.modelica;
+package cim2modelica.modelica;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,19 +7,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import cim2model.cim.map.AttributeMap;
-import cim2model.cim.map.ComponentMap;
-import cim2model.cim.map.ConnectionMap;
-import cim2model.cim.map.openipsl.branches.PwLineMap;
-import cim2model.cim.map.openipsl.buses.Bus;
-import cim2model.cim.map.openipsl.buses.PwBusMap;
-import cim2model.cim.map.openipsl.connectors.PwPinMap;
-import cim2model.cim.map.openipsl.loads.LoadMap;
-import cim2model.cim.map.openipsl.transformers.TwoWindingTransformerMap;
-import cim2model.modelica.openipsl.branches.PwLine;
-import cim2model.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
-import cim2model.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
-import cim2model.modelica.openipsl.machines.OpenIPSLMachine;
+import cim2modelica.cim.DLProfileModel;
+import cim2modelica.cim.map.AttributeMap;
+import cim2modelica.cim.map.ComponentMap;
+import cim2modelica.cim.map.ConnectionMap;
+import cim2modelica.cim.map.openipsl.branches.PwLineMap;
+import cim2modelica.cim.map.openipsl.buses.Bus;
+import cim2modelica.cim.map.openipsl.buses.PwBusMap;
+import cim2modelica.cim.map.openipsl.connectors.PwPinMap;
+import cim2modelica.cim.map.openipsl.loads.LoadMap;
+import cim2modelica.cim.map.openipsl.transformers.TwoWindingTransformerMap;
+import cim2modelica.modelica.openipsl.branches.PwLine;
+import cim2modelica.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
+import cim2modelica.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
+import cim2modelica.modelica.openipsl.machines.OpenIPSLMachine;
 
 public class ModelCADBuilder 
 {
@@ -135,6 +136,21 @@ public class ModelCADBuilder
 		
 		return pin;
 	}
+	/**
+	 * TODO CAD
+	 * 
+	 * @param _pin
+	 */
+	public void create_PinAnnotation(MOConnector _pin) {
+		_pin.set_AnnotationIcon(
+				"annotation ( Icon(graphics={Rectangle(extent={{-100,100},{100,-100}}, "
+						+ "lineColor={0,0,255},fillColor={0,0,255}, fillPattern=FillPattern.Solid)}),"
+						+ "Diagram(graphics={Text( extent={{-100,160},{100,120}},lineColor={0,0,255}, "
+						+ "textString=\"%name\"),"
+						+ "Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255},"
+						+ "fillColor={0,0,255}, fillPattern=FillPattern.Solid)}),"
+						+ "Documentation);");
+	}
 	
 	/**
 	 * 
@@ -207,6 +223,13 @@ public class ModelCADBuilder
 		syncMach.set_RdfId(_mapSyncMach.getRdfId());
 
 		return syncMach;
+	}
+	public void create_MachineAnnotation(OpenIPSLMachine _momachine,
+			DLProfileModel _profileDL) {
+		// TODO coordinates component, _profileDL
+		/*
+		 * annotation (Placement(transformation(extent={{-100,-20},{-60,20}})))
+		 */
 	}
 	
 	/**
@@ -597,6 +620,11 @@ public class ModelCADBuilder
 			}
 			if (!this.powsys.exist_Connection(conexio))
 				this.powsys.add_Connection(conexio);
+				// TODO to each connection add this annotation
+				/*
+				 * annotation (Line(points={{-60,0},{-60,0},{-40,0}},
+				 * color={0,0,255}))
+				 */
 			}
 			catch(NullPointerException npe)
 			{

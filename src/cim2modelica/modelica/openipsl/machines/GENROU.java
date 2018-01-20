@@ -1,6 +1,6 @@
-package cim2model.modelica.openipsl.machines;
+package cim2modelica.modelica.openipsl.machines;
 
-import cim2model.modelica.MOClass;
+import cim2modelica.modelica.MOClass;
 
 public class GENROU extends MOClass
 {

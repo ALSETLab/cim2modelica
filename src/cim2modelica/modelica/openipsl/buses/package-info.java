@@ -5,4 +5,4 @@
  * @author fran_jo
  *
  */
-package cim2model.modelica.openipsl.buses;
+package cim2modelica.modelica.openipsl.buses;

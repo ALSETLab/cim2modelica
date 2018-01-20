@@ -6,7 +6,7 @@
 //
 
 
-package cim2model.cim.map.openipsl.base;
+package cim2modelica.cim.map.openipsl.base;
 
 import java.util.ArrayList;
 import java.util.List;

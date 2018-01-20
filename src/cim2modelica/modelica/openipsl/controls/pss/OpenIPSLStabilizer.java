@@ -1,4 +1,4 @@
-package cim2model.modelica.openipsl.controls.pss;
+package cim2modelica.modelica.openipsl.controls.pss;
 
 public class OpenIPSLStabilizer {
 

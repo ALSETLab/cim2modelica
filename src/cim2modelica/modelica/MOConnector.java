@@ -1,4 +1,4 @@
-package cim2model.modelica;
+package cim2modelica.modelica;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,6 +14,8 @@ public class MOConnector extends MOModel
 	private String variability;
 	private String instanceName; 
 	private ArrayList<MOAttribute> attributes;
+	// CAD
+	private String annotationIcon;
 	
 	public MOConnector(String _name)
 	{
@@ -21,6 +23,7 @@ public class MOConnector extends MOModel
 		this.visibility= "public";
 		this.variability= "none";
 		this.attributes= new ArrayList<MOAttribute>();
+		this.annotationIcon = "annotation (Documentation)";
 	}
 
 	public MOConnector(MOConnector _machinePin, String _plantPin)
@@ -32,6 +35,7 @@ public class MOConnector extends MOModel
 		this.visibility= _machinePin.get_Visibility();
 		this.variability= _machinePin.get_Variability();
 		this.attributes= _machinePin.get_Attributes();
+		this.annotationIcon = "annotation (Documentation)";
 		this.instanceName= _plantPin;
 	}
 	
@@ -114,6 +118,9 @@ public class MOConnector extends MOModel
 		this.attributes = attributes;
 	}
 	
+	public void set_AnnotationIcon(String _annotation) {
+		this.annotationIcon = _annotation;
+	}
 	/**
 	 * connector name "some comments"
 	 * 		parameter 
@@ -129,7 +136,7 @@ public class MOConnector extends MOModel
 		pencil.append("connector ");
 		pencil.append(this.name);
 		pencil.append(" "); pencil.append('"');
-		pencil.append(this.annotation);
+		pencil.append(this.comment);
 		pencil.append('"'); pencil.append("\n");
 		for (MOAttribute item: this.attributes)
 		{
@@ -137,6 +144,7 @@ public class MOConnector extends MOModel
 			pencil.append(item.to_Modelica());
 			pencil.append("\n");
 		}
+		pencil.append(this.annotationIcon);
 		pencil.append("end ");
 		pencil.append(this.name);
 		pencil.append(";");

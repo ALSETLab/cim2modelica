@@ -1,4 +1,4 @@
-package cim2model.cim.map;
+package cim2modelica.cim.map;
 
 import java.io.File;
 import java.util.AbstractMap;
@@ -16,32 +16,34 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 
-import cim2model.cim.CIMProfile;
-import cim2model.cim.DYProfileModel;
-import cim2model.cim.EQProfileModel;
-import cim2model.cim.SVProfileModel;
-import cim2model.cim.TPProfileModel;
-import cim2model.cim.map.openipsl.DynamicComponentType;
-import cim2model.cim.map.openipsl.branches.LineMapFactory;
-import cim2model.cim.map.openipsl.branches.PwLineMap;
-import cim2model.cim.map.openipsl.buses.BusesMapFactory;
-import cim2model.cim.map.openipsl.buses.PwBusMap;
-import cim2model.cim.map.openipsl.connectors.PwPinMap;
-import cim2model.cim.map.openipsl.controls.es.ESDC1AMap;
-import cim2model.cim.map.openipsl.controls.es.ESST1AMap;
-import cim2model.cim.map.openipsl.controls.es.ExcSEXSMap;
-import cim2model.cim.map.openipsl.controls.es.ExcSysMapFactory;
-import cim2model.cim.map.openipsl.controls.tg.HYGOVMap;
-import cim2model.cim.map.openipsl.controls.tg.IEESGOMap;
-import cim2model.cim.map.openipsl.controls.tg.TGovMapFactory;
-import cim2model.cim.map.openipsl.loads.LoadMap;
-import cim2model.cim.map.openipsl.machines.GENROEMap;
-import cim2model.cim.map.openipsl.machines.GENROUMap;
-import cim2model.cim.map.openipsl.machines.GENSALMap;
-import cim2model.cim.map.openipsl.machines.SynchMachineMapFactory;
-import cim2model.cim.map.openipsl.transformers.TransformerEndAuxiliarMap;
-import cim2model.cim.map.openipsl.transformers.TransformerMapFactory;
-import cim2model.cim.map.openipsl.transformers.TwoWindingTransformerMap;
+import cim2modelica.cim.CIMProfile;
+import cim2modelica.cim.DYProfileModel;
+import cim2modelica.cim.EQProfileModel;
+import cim2modelica.cim.SVProfileModel;
+import cim2modelica.cim.TPProfileModel;
+import cim2modelica.cim.map.openipsl.DynamicComponentType;
+import cim2modelica.cim.map.openipsl.branches.LineMapFactory;
+import cim2modelica.cim.map.openipsl.branches.PwLineMap;
+import cim2modelica.cim.map.openipsl.buses.BusesMapFactory;
+import cim2modelica.cim.map.openipsl.buses.PwBusMap;
+import cim2modelica.cim.map.openipsl.connectors.PwPinMap;
+import cim2modelica.cim.map.openipsl.controls.es.ESDC1AMap;
+import cim2modelica.cim.map.openipsl.controls.es.ESST1AMap;
+import cim2modelica.cim.map.openipsl.controls.es.ExcSEXSMap;
+import cim2modelica.cim.map.openipsl.controls.es.ExcSysMapFactory;
+import cim2modelica.cim.map.openipsl.controls.es.SEXSMap;
+import cim2modelica.cim.map.openipsl.controls.tg.HYGOVMap;
+import cim2modelica.cim.map.openipsl.controls.tg.IEESGOMap;
+import cim2modelica.cim.map.openipsl.controls.tg.TGovMapFactory;
+import cim2modelica.cim.map.openipsl.loads.LoadMap;
+import cim2modelica.cim.map.openipsl.loads.LoadMapFactory;
+import cim2modelica.cim.map.openipsl.machines.GENROEMap;
+import cim2modelica.cim.map.openipsl.machines.GENROUMap;
+import cim2modelica.cim.map.openipsl.machines.GENSALMap;
+import cim2modelica.cim.map.openipsl.machines.SynchMachineMapFactory;
+import cim2modelica.cim.map.openipsl.transformers.TransformerEndAuxiliarMap;
+import cim2modelica.cim.map.openipsl.transformers.TransformerMapFactory;
+import cim2modelica.cim.map.openipsl.transformers.TwoWindingTransformerMap;
 
 /**
  * Read mapping files and create appropriate objects ComponentMap, Get corresponding values from CIM model 
@@ -442,6 +444,39 @@ public class ModelDesigner
 	 * @param _subjectID
 	 * @return
 	 */
+	public SEXSMap create_SEXSModelicaMap(Resource _key, String _source,
+			String _subjectName) {
+		SEXSMap mapExcSys = ExcSysMapFactory.getInstance()
+				.sexsXMLToObject(_source);
+		Map<String, Object> cimClassMap = profile_DY
+				.gather_ExcitationSystem_Attributes(_key);
+		Iterator<AttributeMap> imapAttList = mapExcSys.getAttributeMap()
+				.iterator();
+		AttributeMap currentmapAtt;
+		while (imapAttList.hasNext()) {
+			currentmapAtt = imapAttList.next();
+			currentmapAtt.setContent(
+					(String) cimClassMap.get(currentmapAtt.getCimName()));
+			// System.out.println("currentmapatt: "+ currentmapAtt.getCimName()+
+			// "= "+ currentmapAtt.getContent()+ "; "+ currentmapAtt.getName());
+		}
+		String[] dynamicResource = profile_DY.get_ComponentName(_key,
+				DynamicComponentType.EXCITATION_SYSTEM);
+		mapExcSys.setRdfId(dynamicResource[0]);
+		mapExcSys.setCimName(dynamicResource[1]);
+
+		profile_DY.clearAttributes();
+
+		return mapExcSys;
+	}
+
+	/**
+	 * 
+	 * @param key
+	 * @param _source
+	 * @param _subjectID
+	 * @return
+	 */
 	public ESST1AMap create_ESST1AModelicaMap(Resource _key, String _source, String _subjectName) {
 		ESST1AMap mapExcSys = ExcSysMapFactory.getInstance().esst1aXMLToObject(_source);
 		Map<String, Object> cimClassMap = profile_DY.gather_ExcitationSystem_Attributes(_key);
@@ -538,26 +573,7 @@ public class ModelDesigner
 	
 	
 	/* NETWORK COMPONENTS MAP */
-	/**
-	 * 
-	 * @param _xmlmap
-	 * @return
-	 */
-	private static LoadMap loadXMLToObject(String _xmlmap) {
-		JAXBContext context;
-		Unmarshaller un;
-		
-		try{
-			context = JAXBContext.newInstance(LoadMap.class);
-	        un = context.createUnmarshaller();
-	        LoadMap map = (LoadMap) un.unmarshal(new File(_xmlmap));
-	        return map;
-        } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+
 	/**
 	 * 
 	 * @param key
@@ -567,7 +583,8 @@ public class ModelDesigner
 	 */
 	public LoadMap create_LoadModelicaMap(Resource key, String _source, String[] _subjectID)
 	{
-		LoadMap mapEnergyC= loadXMLToObject(_source);
+		LoadMap mapEnergyC = LoadMapFactory.getInstance()
+				.loadXMLToObject(_source);
 		Map<String, Object> cimClassMap= profile_EQ.gather_EnergyConsumerAtt(key);
 		Iterator<AttributeMap> imapAttList= mapEnergyC.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;

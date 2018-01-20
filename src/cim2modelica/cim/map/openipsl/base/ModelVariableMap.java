@@ -6,7 +6,7 @@
 //
 
 
-package cim2model.cim.map.openipsl.base;
+package cim2modelica.cim.map.openipsl.base;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

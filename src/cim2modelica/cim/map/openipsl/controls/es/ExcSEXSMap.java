@@ -1,7 +1,8 @@
-package cim2model.cim.map.openipsl.controls.es;
+package cim2modelica.cim.map.openipsl.controls.es;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import cim2model.cim.map.ComponentMap;
+
+import cim2modelica.cim.map.ComponentMap;
 
 /**
  * <p>Java class for anonymous complex type.

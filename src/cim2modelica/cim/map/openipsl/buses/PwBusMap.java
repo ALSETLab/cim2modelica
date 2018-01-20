@@ -1,7 +1,8 @@
-package cim2model.cim.map.openipsl.buses;
+package cim2modelica.cim.map.openipsl.buses;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import cim2model.cim.map.ComponentMap;
+
+import cim2modelica.cim.map.ComponentMap;
 
 
 /**

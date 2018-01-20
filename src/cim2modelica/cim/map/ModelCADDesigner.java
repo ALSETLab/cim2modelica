@@ -1,4 +1,4 @@
-package cim2model.cim.map;
+package cim2modelica.cim.map;
 
 import java.io.File;
 import java.util.AbstractMap;
@@ -16,33 +16,33 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 
-import cim2model.cim.DLProfileModel;
-import cim2model.cim.DYProfileModel;
-import cim2model.cim.EQProfileModel;
-import cim2model.cim.SVProfileModel;
-import cim2model.cim.TPProfileModel;
-import cim2model.cim.map.openipsl.DynamicComponentType;
-import cim2model.cim.map.openipsl.branches.LineMapFactory;
-import cim2model.cim.map.openipsl.branches.PwLineMap;
-import cim2model.cim.map.openipsl.buses.BusesMapFactory;
-import cim2model.cim.map.openipsl.buses.PwBusMap;
-import cim2model.cim.map.openipsl.connectors.PwPinMap;
-import cim2model.cim.map.openipsl.controls.es.ESDC1AMap;
-import cim2model.cim.map.openipsl.controls.es.ESST1AMap;
-import cim2model.cim.map.openipsl.controls.es.ExcSEXSMap;
-import cim2model.cim.map.openipsl.controls.es.ExcSysMapFactory;
-import cim2model.cim.map.openipsl.controls.tg.HYGOVMap;
-import cim2model.cim.map.openipsl.controls.tg.IEESGOMap;
-import cim2model.cim.map.openipsl.controls.tg.TGovMapFactory;
-import cim2model.cim.map.openipsl.loads.LoadMap;
-import cim2model.cim.map.openipsl.machines.GENROEMap;
-import cim2model.cim.map.openipsl.machines.GENROUMap;
-import cim2model.cim.map.openipsl.machines.GENSALMap;
-import cim2model.cim.map.openipsl.machines.SynchMachineMapFactory;
-import cim2model.cim.map.openipsl.transformers.TransformerEndAuxiliarMap;
-import cim2model.cim.map.openipsl.transformers.TransformerMapFactory;
-import cim2model.cim.map.openipsl.transformers.TwoWindingTransformerMap;
-import cim2model.utils.ReaderCIM;
+import cim2modelica.cim.DLProfileModel;
+import cim2modelica.cim.DYProfileModel;
+import cim2modelica.cim.EQProfileModel;
+import cim2modelica.cim.SVProfileModel;
+import cim2modelica.cim.TPProfileModel;
+import cim2modelica.cim.map.openipsl.DynamicComponentType;
+import cim2modelica.cim.map.openipsl.branches.LineMapFactory;
+import cim2modelica.cim.map.openipsl.branches.PwLineMap;
+import cim2modelica.cim.map.openipsl.buses.BusesMapFactory;
+import cim2modelica.cim.map.openipsl.buses.PwBusMap;
+import cim2modelica.cim.map.openipsl.connectors.PwPinMap;
+import cim2modelica.cim.map.openipsl.controls.es.ESDC1AMap;
+import cim2modelica.cim.map.openipsl.controls.es.ESST1AMap;
+import cim2modelica.cim.map.openipsl.controls.es.ExcSEXSMap;
+import cim2modelica.cim.map.openipsl.controls.es.ExcSysMapFactory;
+import cim2modelica.cim.map.openipsl.controls.tg.HYGOVMap;
+import cim2modelica.cim.map.openipsl.controls.tg.IEESGOMap;
+import cim2modelica.cim.map.openipsl.controls.tg.TGovMapFactory;
+import cim2modelica.cim.map.openipsl.loads.LoadMap;
+import cim2modelica.cim.map.openipsl.machines.GENROEMap;
+import cim2modelica.cim.map.openipsl.machines.GENROUMap;
+import cim2modelica.cim.map.openipsl.machines.GENSALMap;
+import cim2modelica.cim.map.openipsl.machines.SynchMachineMapFactory;
+import cim2modelica.cim.map.openipsl.transformers.TransformerEndAuxiliarMap;
+import cim2modelica.cim.map.openipsl.transformers.TransformerMapFactory;
+import cim2modelica.cim.map.openipsl.transformers.TwoWindingTransformerMap;
+import cim2modelica.utils.ReaderCIM;
 
 /**
  * Read mapping files and create appropriate objects ComponentMap, Get corresponding values from CIM model 

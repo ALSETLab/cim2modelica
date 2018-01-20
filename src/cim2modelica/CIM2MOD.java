@@ -142,11 +142,17 @@ public class CIM2MOD
 								excSysData.getKey());
 					break;
 				case "SEXS":
-					mapExcSys= cartografo.create_ExcSEXSModelicaMap(
+					mapExcSys= cartografo.create_SEXSModelicaMap(
 							excSysData.getValue(),
-								"./res/map/openipsl/controls/es/cim_openipsl_excsexs.xml",
+								"./res/map/openipsl/controls/es/cim_openipsl_sexs.xml",
 								excSysData.getKey());
 					break;
+					// case "SEXS":
+					// mapExcSys= cartografo.create_ExcSEXSModelicaMap(
+					// excSysData.getValue(),
+					// "./res/map/openipsl/controls/es/cim_openipsl_excsexs.xml",
+					// excSysData.getKey());
+					// break;
 				case "ESST1A":
 					mapExcSys = cartografo.create_ESST1AModelicaMap(excSysData.getValue(),
 								"./res/map/openipsl/controls/es/cim_openipsl_esst1a.xml",

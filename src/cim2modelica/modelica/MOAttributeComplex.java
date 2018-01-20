@@ -1,4 +1,4 @@
-package cim2model.modelica;
+package cim2modelica.modelica;
 
 /**
  * Generic class to implement the declaration of a Modelica Parameter.

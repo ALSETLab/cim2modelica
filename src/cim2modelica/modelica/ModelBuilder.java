@@ -1,21 +1,21 @@
-package cim2model.modelica;
+package cim2modelica.modelica;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import cim2model.cim.map.AttributeMap;
-import cim2model.cim.map.ComponentMap;
-import cim2model.cim.map.ConnectionMap;
-import cim2model.cim.map.openipsl.branches.PwLineMap;
-import cim2model.cim.map.openipsl.buses.Bus;
-import cim2model.cim.map.openipsl.buses.PwBusMap;
-import cim2model.cim.map.openipsl.connectors.PwPinMap;
-import cim2model.cim.map.openipsl.loads.LoadMap;
-import cim2model.cim.map.openipsl.transformers.TwoWindingTransformerMap;
-import cim2model.modelica.openipsl.branches.PwLine;
-import cim2model.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
-import cim2model.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
-import cim2model.modelica.openipsl.machines.OpenIPSLMachine;
+import cim2modelica.cim.map.AttributeMap;
+import cim2modelica.cim.map.ComponentMap;
+import cim2modelica.cim.map.ConnectionMap;
+import cim2modelica.cim.map.openipsl.branches.PwLineMap;
+import cim2modelica.cim.map.openipsl.buses.Bus;
+import cim2modelica.cim.map.openipsl.buses.PwBusMap;
+import cim2modelica.cim.map.openipsl.connectors.PwPinMap;
+import cim2modelica.cim.map.openipsl.loads.LoadMap;
+import cim2modelica.cim.map.openipsl.transformers.TwoWindingTransformerMap;
+import cim2modelica.modelica.openipsl.branches.PwLine;
+import cim2modelica.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
+import cim2modelica.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
+import cim2modelica.modelica.openipsl.machines.OpenIPSLMachine;
 
 public class ModelBuilder 
 {

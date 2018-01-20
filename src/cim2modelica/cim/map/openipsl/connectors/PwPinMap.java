@@ -6,12 +6,12 @@
 //
 
 
-package cim2model.cim.map.openipsl.connectors;
+package cim2modelica.cim.map.openipsl.connectors;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import cim2model.cim.map.ComponentMap;
+import cim2modelica.cim.map.ComponentMap;
 
 
 /**
