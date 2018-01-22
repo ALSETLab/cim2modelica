@@ -13,12 +13,12 @@
   <cim:SvPowerFlow rdf:ID="_8a6b5439-3fd7-11e7-8574-24fd522f1a90">
     <cim:SvPowerFlow.Terminal rdf:resource="#_8a6b5437-3fd7-11e7-8574-24fd522f1a90" />
     <cim:SvPowerFlow.p>967</cim:SvPowerFlow.p>
-    <cim:SvPowerFlow.q>100</cim:SvPowerFlow.q>
+    <cim:SvPowerFlow.q>-84.70</cim:SvPowerFlow.q>
   </cim:SvPowerFlow>
   <cim:SvPowerFlow rdf:ID="_8a6b543e-3fd7-11e7-8574-24fd522f1a90">
     <cim:SvPowerFlow.Terminal rdf:resource="#_8a6b543c-3fd7-11e7-8574-24fd522f1a90" />
     <cim:SvPowerFlow.p>1767</cim:SvPowerFlow.p>
-    <cim:SvPowerFlow.q>100</cim:SvPowerFlow.q>
+    <cim:SvPowerFlow.q>-230.2</cim:SvPowerFlow.q>
   </cim:SvPowerFlow>
   <cim:SvPowerFlow rdf:ID="_8a6b5442-3fd7-11e7-8574-24fd522f1a90">
     <cim:SvPowerFlow.Terminal rdf:resource="#_8a6b5440-3fd7-11e7-8574-24fd522f1a90" />
@@ -32,23 +32,23 @@
   </cim:SvPowerFlow>
   <cim:SvPowerFlow rdf:ID="_8a6b544e-3fd7-11e7-8574-24fd522f1a90">
     <cim:SvPowerFlow.Terminal rdf:resource="#_8a6b544d-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:SvPowerFlow.p>-700</cim:SvPowerFlow.p>
-    <cim:SvPowerFlow.q>-185.003</cim:SvPowerFlow.q>
+    <cim:SvPowerFlow.p>700</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>185.003</cim:SvPowerFlow.q>
   </cim:SvPowerFlow>
   <cim:SvPowerFlow rdf:ID="_8a6b5457-3fd7-11e7-8574-24fd522f1a90">
     <cim:SvPowerFlow.Terminal rdf:resource="#_8a6b5456-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:SvPowerFlow.p>-700</cim:SvPowerFlow.p>
-    <cim:SvPowerFlow.q>-234.581</cim:SvPowerFlow.q>
+    <cim:SvPowerFlow.p>700</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>234.581</cim:SvPowerFlow.q>
   </cim:SvPowerFlow>
   <cim:SvPowerFlow rdf:ID="_8a6b5463-3fd7-11e7-8574-24fd522f1a90">
     <cim:SvPowerFlow.Terminal rdf:resource="#_8a6b5462-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:SvPowerFlow.p>-719.091</cim:SvPowerFlow.p>
-    <cim:SvPowerFlow.q>-175.997</cim:SvPowerFlow.q>
+    <cim:SvPowerFlow.p>719.091</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>175.997</cim:SvPowerFlow.q>
   </cim:SvPowerFlow>
   <cim:SvPowerFlow rdf:ID="_8a6b546c-3fd7-11e7-8574-24fd522f1a90">
     <cim:SvPowerFlow.Terminal rdf:resource="#_8a6b546b-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:SvPowerFlow.p>-700</cim:SvPowerFlow.p>
-    <cim:SvPowerFlow.q>-202.046</cim:SvPowerFlow.q>
+    <cim:SvPowerFlow.p>700</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>202.046</cim:SvPowerFlow.q>
   </cim:SvPowerFlow>
   <cim:SvShuntCompensatorSections rdf:ID="_8a6b5441-3fd7-11e7-8574-24fd522f1a90">
     <cim:SvShuntCompensatorSections.ShuntCompensator rdf:resource="#_8a6b543f-3fd7-11e7-8574-24fd522f1a90" />

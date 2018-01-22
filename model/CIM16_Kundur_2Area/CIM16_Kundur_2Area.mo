@@ -29,8 +29,8 @@ model CIM16_Kundur_2Area "automatically generated comment"
 	OpenIPSL.Electrical.Branches.PSSE.TwoWindingTransformer G3_STEP_UP (R=0,X=0,G=0,B=0,ANG1=0,S_n=900,CW=1,CZ=2,t2=1,VB2=20,VNOM2=20,t1=1,VB1=230,VNOM1=230) "automatically generated comment" annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
 	OpenIPSL.Electrical.Branches.PwLine ln6_7_3(R=1.587,X=15.87,G=0.000001,B=1.10208E-05) "automatically generated comment" annotation (Placement(transformation(extent={{34,26},{46,34}})));
 	OpenIPSL.Electrical.Buses.Bus GEN_G4 "automatically generated comment" annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
-	OpenIPSL.Electrical.Loads.PSSE.Load ld9_1 (angle_0=-32.3521,V_0=223.4151,P_0=1767,Q_0=100) "automatically generated comment" annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
-	OpenIPSL.Electrical.Loads.PSSE.Load ld7_1 (angle_0=-4.8853,V_0=221.0346,P_0=967,Q_0=100) "automatically generated comment" annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
+	OpenIPSL.Electrical.Loads.PSSE.Load ld9_1 (angle_0=-32.3521,V_0=223.4151,P_0=1767,Q_0=-230.2) "automatically generated comment" annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
+	OpenIPSL.Electrical.Loads.PSSE.Load ld7_1 (angle_0=-4.8853,V_0=221.0346,P_0=967,Q_0=-84.70) "automatically generated comment" annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
 	PowerPlant.GENROU_SEXS_8a6b5461 sm_3_1 "automatically generated comment" annotation ();
 	PowerPlant.GENROU_ESDC1A_8a6b5455 sm_2_1 "automatically generated comment" annotation ();
 	PowerPlant.GENROU_SEXS_8a6b544c sm_1_1 "automatically generated comment" annotation ();
