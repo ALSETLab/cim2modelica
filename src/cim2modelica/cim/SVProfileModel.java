@@ -9,6 +9,8 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.log4j.Logger;
+import org.apache.log4j.varia.NullAppender;
 
 public class SVProfileModel extends CIMProfile {
 	//TODO use of JENA Properties for finding tags (see EQProfileModel:gather_BasePower_Attributes(...))
@@ -25,6 +27,8 @@ public class SVProfileModel extends CIMProfile {
 		super(_source_SV_profile);
 		svPowerFlow= new HashMap<Resource, RDFNode>();
 		svVoltage= new HashMap<Resource, RDFNode>();
+		Logger.getRootLogger().removeAllAppenders();
+		Logger.getRootLogger().addAppender(new NullAppender());
 	}
 	
 	/**
@@ -36,8 +40,8 @@ public class SVProfileModel extends CIMProfile {
 		Resource s,p;
 		RDFNode o;
 		Statement stmt;
+		StmtIterator stmtiter = this.rdfModel.listStatements();
 		
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
 		while( stmtiter.hasNext() ) 
 		{
 			stmt= stmtiter.next();
@@ -54,7 +58,8 @@ public class SVProfileModel extends CIMProfile {
             	this.svPowerFlow.put(s, o);
             }
 		}
-		
+		stmtiter.close();
+		stmtiter = null;
 		return this.svPowerFlow;
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}
@@ -65,7 +70,7 @@ public class SVProfileModel extends CIMProfile {
 	 */
 	public boolean has_SvPowerFlow(Resource _t)
 	{
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
+		StmtIterator stmtiter = this.rdfModel.listStatements();
 		boolean found= false;
 		Resource p;
         RDFNode o;
@@ -83,7 +88,8 @@ public class SVProfileModel extends CIMProfile {
             	found= componentName[1].equals(_t.getLocalName());
             }
 		}
-		
+		stmtiter.close();
+		stmtiter = null;
 		return found;
 	}
 	
@@ -123,9 +129,10 @@ public class SVProfileModel extends CIMProfile {
 //	    						attPowerFlow.getLiteral().getValue());
 					}
 				}
+				iProperties = null;
 			}
 		}	
-		iProperties= null; iTags= null;
+		iTags = null;
 		return this.attribute;
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}
@@ -139,8 +146,8 @@ public class SVProfileModel extends CIMProfile {
 		Resource s,p;
 		RDFNode o;
 		Statement stmt;
+		StmtIterator stmtiter = this.rdfModel.listStatements();
 		
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
 		while( stmtiter.hasNext() ) 
 		{
 			stmt= stmtiter.next();
@@ -157,7 +164,8 @@ public class SVProfileModel extends CIMProfile {
             	this.svVoltage.put(s, o);
             }
 		}
-		
+		stmtiter.close();
+		stmtiter = null;
 		return this.svVoltage;
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}
@@ -168,7 +176,7 @@ public class SVProfileModel extends CIMProfile {
 	 */
 	public boolean has_SvVoltage(Resource _t)
 	{
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
+		StmtIterator stmtiter = this.rdfModel.listStatements();
 		boolean found= false;
 		Resource p;
         RDFNode o;
@@ -186,7 +194,8 @@ public class SVProfileModel extends CIMProfile {
             	found= componentName[1].equals(_t.getLocalName());
             }
 		}
-		
+		stmtiter.close();
+		stmtiter = null;
 		return found;
 	}
 	
@@ -224,9 +233,10 @@ public class SVProfileModel extends CIMProfile {
 								attPowerFlow.getLiteral().getValue());
 					}
 				}
+				iProperties = null;
 			}
 		}	
-		iProperties= null; iTags= null;
+		iTags = null;
 		return this.attribute;
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}

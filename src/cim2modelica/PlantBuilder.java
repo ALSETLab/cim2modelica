@@ -37,8 +37,6 @@ public class PlantBuilder
 		newPlant.set_Name(nameModel);
 		newPlant.setInstanceName(machine.get_InstanceName());
 		this.connect_plant(newPlant);
-		//TODO create Modelica.Blocks.Sources.Constant const(k=0) for VOTHSG, VOEL and the rest
-		//TODO create Modelica.Blocks.Sources.Constant const1(k=-Modelica.Constants.inf) for VUEL
 		return newPlant;
     }
 
@@ -66,9 +64,9 @@ public class PlantBuilder
         return this;
     }
     
-	private void connect_stabilizier_excitation(MOPlant _planta) {
-
-	}
+	// private void connect_stabilizier_excitation(MOPlant _planta) {
+	//
+	// }
     /**
      * Method creates the internal connections of the plant: connections between generator and controls
      * @param _planta

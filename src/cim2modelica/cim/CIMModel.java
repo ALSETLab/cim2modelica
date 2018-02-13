@@ -45,7 +45,7 @@ public class CIMModel {
 	 */
 	public Map<Resource,RDFNode> gatherComponents()
 	{
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
+		StmtIterator stmtiter = this.rdfModel.listStatements();
 		while( stmtiter.hasNext() ) 
 		{
 			Statement stmt= stmtiter.next();
@@ -63,7 +63,8 @@ public class CIMModel {
 //            	System.out.println(componentName[0]+ " : "+ componentName[1]);
             }
 		}
-		
+		stmtiter.close();
+		stmtiter = null;
 		return this.component;
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}
@@ -133,8 +134,10 @@ public class CIMModel {
 	public Map<String,Object> getTerminalEQ(Resource _subject)
 	{ 
 		Statement terminalAttribute, topoNodeAttribute, svPFAttribute, svVoltAttribute;
+		StmtIterator terminalAttributes = _subject.listProperties();
+		StmtIterator svPowerFlowAtts, topologicalNodeAtts, svVoltageAtts,
+				baseVoltage;
 		
-		StmtIterator terminalAttributes= _subject.listProperties();
 		while( terminalAttributes.hasNext() ) 
 		{
 			terminalAttribute= terminalAttributes.next();
@@ -147,7 +150,8 @@ public class CIMModel {
 				if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.SvPowerFlow"))
 				{
 					/* retrieve the values of this cim class */
-					StmtIterator svPowerFlowAtts= terminalAttribute.getAlt().listProperties();
+					svPowerFlowAtts = terminalAttribute.getAlt()
+							.listProperties();
 					while( svPowerFlowAtts.hasNext() ) 
 					{
 						svPFAttribute= svPowerFlowAtts.next();
@@ -157,16 +161,19 @@ public class CIMModel {
 						}
 					}
 					svPowerFlowAtts.close();
+					svPowerFlowAtts = null;
 				}
 				if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.TopologicalNode") )
 				{
-					StmtIterator topologicalNodeAtts= terminalAttribute.getAlt().listProperties();
+					topologicalNodeAtts = terminalAttribute.getAlt()
+							.listProperties();
 					while( topologicalNodeAtts.hasNext() ) 
 					{
 						topoNodeAttribute= topologicalNodeAtts.next();
 						if (topoNodeAttribute.getPredicate().getLocalName().equals("TopologicalNode.SvVoltage"))
 						{
-							StmtIterator svVoltageAtts= topoNodeAttribute.getAlt().listProperties();
+							svVoltageAtts = topoNodeAttribute.getAlt()
+									.listProperties();
 							while( svVoltageAtts.hasNext() ) 
 							{
 								svVoltAttribute= svVoltageAtts.next();
@@ -176,10 +183,12 @@ public class CIMModel {
 								}
 							}
 							svVoltageAtts.close();
+							svVoltageAtts = null;
 						}
 						if (topoNodeAttribute.getPredicate().getLocalName().equals("TopologicalNode.BaseVoltage"))
 						{
-							StmtIterator baseVoltage= topoNodeAttribute.getAlt().listProperties();
+							baseVoltage = topoNodeAttribute.getAlt()
+									.listProperties();
 							while( baseVoltage.hasNext() ) 
 							{
 								svVoltAttribute= baseVoltage.next();
@@ -189,11 +198,13 @@ public class CIMModel {
 								}
 							}
 							baseVoltage.close();
+							baseVoltage = null;
 						}
 					}
 					/* Add the rfd_id of the TopologicalNode which Terminal is related to */
 					this.attribute.put(terminalAttribute.getPredicate().getLocalName(), terminalAttribute.getResource());
 					topologicalNodeAtts.close();
+					topologicalNodeAtts = null;
 				}
 				if ( terminalAttribute.getPredicate().getLocalName().equals("Terminal.ConductingEquipment"))
 				{
@@ -202,6 +213,8 @@ public class CIMModel {
 				}
 			}
 		}
+		terminalAttributes.close();
+		terminalAttributes = null;
 		return this.attribute;
 	}
 	
@@ -215,14 +228,15 @@ public class CIMModel {
 		Statement attributeClass, classAttribute;
 		String machineType= "";
 		boolean attfound= false;
+		StmtIterator iAttributes = _subject.listProperties();
+		StmtIterator machDynamicAtts;
 		
-		StmtIterator iAttributes= _subject.listProperties();
 		while( !attfound && iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
 			if ( attributeClass.getPredicate().getLocalName().equals("SynchronousMachine.SynchronousMachineDynamics"))
 			{
-				StmtIterator machDynamicAtts= attributeClass.getAlt().listProperties();
+				machDynamicAtts = attributeClass.getAlt().listProperties();
 				while(!attfound && machDynamicAtts.hasNext() ) 
 				{
 					classAttribute= machDynamicAtts.next();
@@ -233,9 +247,11 @@ public class CIMModel {
 					}
 				}
 				machDynamicAtts.close();
+				machDynamicAtts = null;
 			}
 		}
-		
+		iAttributes.close();
+		iAttributes = null;
 		return machineType;
 	}
 	
@@ -249,22 +265,23 @@ public class CIMModel {
 		Statement attributeClass, machAttribute, classAttribute;
 		String excsType= "";
 		Entry<String, Resource> excsData= null;
-		
 		boolean attfound= false;
+		StmtIterator iAttributes = _subject.listProperties();
+		StmtIterator machDynamicAtts, excsDynAttribute;
 		
-		StmtIterator iAttributes= _subject.listProperties();
 		while( !attfound && iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
 			if ( attributeClass.getPredicate().getLocalName().equals("SynchronousMachine.SynchronousMachineDynamics"))
 			{
-				StmtIterator machDynamicAtts= attributeClass.getAlt().listProperties();
+				machDynamicAtts = attributeClass.getAlt().listProperties();
 				while(!attfound && machDynamicAtts.hasNext() ) 
 				{
 					machAttribute= machDynamicAtts.next();
 					if ( machAttribute.getPredicate().getLocalName().equals("SynchronousMachineDynamics.ExcitationSystemDynamics"))
 					{
-						StmtIterator excsDynAttribute= machAttribute.getAlt().listProperties();
+						excsDynAttribute = machAttribute.getAlt()
+								.listProperties();
 						while(!attfound && excsDynAttribute.hasNext() ) 
 						{
 							classAttribute= excsDynAttribute.next();
@@ -279,11 +296,15 @@ public class CIMModel {
 						System.out.println("ExcS type> "+ excsType);
 						System.out.println("Resource> "+ machAttribute.getResource());
 						excsDynAttribute.close();
+						excsDynAttribute = null;
 					}
 				}
 				machDynamicAtts.close();
+				machDynamicAtts = null;
 			}
 		}
+		iAttributes.close();
+		iAttributes = null;
 		return excsData;
 	}
 	
@@ -295,8 +316,8 @@ public class CIMModel {
 	public Map<String,Object> retrieveAttributesSyncMach(Resource _subject)
 	{ 
 		Statement attributeClass, classAttribute;
-		
 		StmtIterator iAttributes= _subject.listProperties();
+		StmtIterator iLoadResponse, dynamicAtts;
 		while( iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
@@ -308,7 +329,7 @@ public class CIMModel {
 			{
 				if ( attributeClass.getPredicate().getLocalName().equals("RotatingMachine.GeneratingUnit"))
 				{
-					StmtIterator iLoadResponse= attributeClass.getAlt().listProperties();
+					iLoadResponse = attributeClass.getAlt().listProperties();
 					while( iLoadResponse.hasNext() ) 
 					{
 						classAttribute= iLoadResponse.next();
@@ -317,10 +338,11 @@ public class CIMModel {
 						}
 					}
 					iLoadResponse.close();
+					iLoadResponse = null;
 				}
 				if ( attributeClass.getPredicate().getLocalName().equals("SynchronousMachine.SynchronousMachineDynamics"))
 				{
-					StmtIterator dynamicAtts= attributeClass.getAlt().listProperties();
+					dynamicAtts = attributeClass.getAlt().listProperties();
 					while( dynamicAtts.hasNext() ) 
 					{
 						classAttribute= dynamicAtts.next();
@@ -336,9 +358,12 @@ public class CIMModel {
 						}
 					}
 					dynamicAtts.close();
+					dynamicAtts = null;
 				}
 			}
 		}
+		iAttributes.close();
+		iAttributes = null;
 		return this.attribute;
 	}
 	
@@ -350,8 +375,8 @@ public class CIMModel {
 	public Map<String,Object> retrieveAttributesExcSys(Resource _subject)
 	{ 
 		Statement attributeClass;
+		StmtIterator iAttributes = _subject.listProperties();
 		
-		StmtIterator iAttributes= _subject.listProperties();
 		while( iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
@@ -361,6 +386,7 @@ public class CIMModel {
 						attributeClass.getLiteral().getValue());
 			}
 		}
+		iAttributes = null;
 		return this.attribute;
 	}
 	
@@ -377,8 +403,8 @@ public class CIMModel {
 	public Map<String,Object> retrieveAttributesEnergyC(Resource _subject)
 	{ 
 		Statement attributeClass, classAttribute;
-		
 		StmtIterator iAttributes= _subject.listProperties();
+		StmtIterator iLoadResponse, svPowerFlowAtts;
 		while( iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
@@ -390,7 +416,7 @@ public class CIMModel {
 			{
 				if ( attributeClass.getPredicate().getLocalName().equals("EnergyConsumer.LoadResponse"))
 				{
-					StmtIterator iLoadResponse= attributeClass.getAlt().listProperties();
+					iLoadResponse = attributeClass.getAlt().listProperties();
 					while( iLoadResponse.hasNext() ) 
 					{
 						classAttribute= iLoadResponse.next();
@@ -399,11 +425,12 @@ public class CIMModel {
 						}
 					}
 					iLoadResponse.close();
+					iLoadResponse = null;
 				}
 				if ( attributeClass.getPredicate().getLocalName().equals("ConductingEquipment.BaseVoltage"))
 				{
 					//agafar els valor d'aquest component
-					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+					svPowerFlowAtts = attributeClass.getAlt().listProperties();
 					while( svPowerFlowAtts.hasNext() ) 
 					{
 						classAttribute= svPowerFlowAtts.next();
@@ -412,9 +439,11 @@ public class CIMModel {
 						}
 					}
 					svPowerFlowAtts.close();
+					svPowerFlowAtts = null;
 				}
 			}
 		}
+		iAttributes = null;
 		return this.attribute;
 	}
 	
@@ -433,8 +462,9 @@ public class CIMModel {
 	public Map<String,Object> retrieveAttributesTransformer(Resource _subject)
 	{ 
 		Statement attributeClass, attributeSubClass;
+		StmtIterator iAttributes = _subject.listProperties();
+		StmtIterator powTransAtt, ratioTapChangerAtt;
 		
-		StmtIterator iAttributes= _subject.listProperties();
 		while( iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
@@ -448,7 +478,7 @@ public class CIMModel {
 				if ( attributeClass.getPredicate().getLocalName().equals("PowerTransformerEnd.PowerTransformer"))
 				{
 					//From this class, the interest is in the RFD_ID value, since there is one transformer with multiple Ends
-					StmtIterator powTransAtt= attributeClass.getAlt().listProperties();
+					powTransAtt = attributeClass.getAlt().listProperties();
 					while( powTransAtt.hasNext() ) 
 					{
 						attributeSubClass= powTransAtt.next();
@@ -462,8 +492,8 @@ public class CIMModel {
 				}
 				if ( attributeClass.getPredicate().getLocalName().equals("TransformerEnd.RatioTapChanger"))
 				{
-					//agafar els valor d'aquest component
-					StmtIterator ratioTapChangerAtt= attributeClass.getAlt().listProperties();
+					ratioTapChangerAtt = attributeClass.getAlt()
+							.listProperties();
 					while( ratioTapChangerAtt.hasNext() ) 
 					{
 						attributeSubClass= ratioTapChangerAtt.next();
@@ -474,6 +504,7 @@ public class CIMModel {
 					/* Add the rfd_id of the TopologicalNode which Terminal is related to */
 					this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getResource());
 					ratioTapChangerAtt.close();
+					ratioTapChangerAtt = null;
 				}
 				if ( attributeClass.getPredicate().getLocalName().equals("TransformerEnd.Terminal"))
 				{
@@ -483,6 +514,7 @@ public class CIMModel {
 				}
 			}
 		}
+		iAttributes = null;
 		return this.attribute;
 	}
 	
@@ -499,8 +531,9 @@ public class CIMModel {
 	public Map<String,Object> retrieveAttributesTopoNode(Resource _subject)
 	{ 
 		Statement attributeClass, classAttribute;
+		StmtIterator iAttributes = _subject.listProperties();
+		StmtIterator svPowerFlowAtts;
 		
-		StmtIterator iAttributes= _subject.listProperties();
 		while( iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
@@ -512,8 +545,7 @@ public class CIMModel {
 			{
 				if ( attributeClass.getPredicate().getLocalName().equals("TopologicalNode.SvVoltage"))
 				{
-					//agafar els valor d'aquest component
-					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+					svPowerFlowAtts = attributeClass.getAlt().listProperties();
 					while( svPowerFlowAtts.hasNext() ) 
 					{
 						classAttribute= svPowerFlowAtts.next();
@@ -523,10 +555,11 @@ public class CIMModel {
 						}
 					}
 					svPowerFlowAtts.close();
+					svPowerFlowAtts = null;
 				}
 				if ( attributeClass.getPredicate().getLocalName().equals("TopologicalNode.BaseVoltage"))
 				{
-					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+					svPowerFlowAtts = attributeClass.getAlt().listProperties();
 					while( svPowerFlowAtts.hasNext() ) 
 					{
 						classAttribute= svPowerFlowAtts.next();
@@ -536,9 +569,11 @@ public class CIMModel {
 						}
 					}
 					svPowerFlowAtts.close();
+					svPowerFlowAtts = null;
 				}
 			}
 		}
+		iAttributes = null;
 		return this.attribute;
 	}
 	
@@ -553,8 +588,9 @@ public class CIMModel {
 	public Map<String,Object> retrieveAttributesFault(Resource _subject)
 	{ 
 		Statement attributeClass, classAttribute;
+		StmtIterator iAttributes = _subject.listProperties();
+		StmtIterator svPowerFlowAtts;
 		
-		StmtIterator iAttributes= _subject.listProperties();
 		while( iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
@@ -566,21 +602,21 @@ public class CIMModel {
 			{
 				if ( attributeClass.getPredicate().getLocalName().equals("Fault.FaultyEquipment"))
 				{
-					//agafar els valor d'aquest component
-					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+					svPowerFlowAtts = attributeClass.getAlt().listProperties();
 					while( svPowerFlowAtts.hasNext() ) 
 					{
 						classAttribute= svPowerFlowAtts.next();
 						if (classAttribute.getAlt().isLiteral())
 						{
-							System.out.println("puta "+ classAttribute.getPredicate().getURI());
 							this.attribute.put(classAttribute.getPredicate().getURI(), classAttribute.getString());
 						}
 					}
 					svPowerFlowAtts.close();
+					svPowerFlowAtts = null;
 				}
 			}
 		}
+		iAttributes = null;
 		return this.attribute;
 	}
 	

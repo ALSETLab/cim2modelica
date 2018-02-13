@@ -181,8 +181,8 @@ public class ModelDesigner
 		PwPinMap mapTerminal= pwpinXMLToObject(_source);
 		/* load corresponding tag cim:Terminal */
 		profile_EQ_map= profile_EQ.get_TerminalEQ(key);
-	mapTerminal.get_AttributeMap("IdentifiedObject.name")
-		.setContent((String) profile_EQ_map.get("IdentifiedObject.name"));
+		mapTerminal.get_AttributeMap("IdentifiedObject.name").setContent(
+				(String) profile_EQ_map.get("IdentifiedObject.name"));
 		if (profile_SV.has_SvPowerFlow(key))
 		{
 			profile_SV_map= profile_SV.get_TerminalSvPowerFlow(key);
@@ -190,7 +190,7 @@ public class ModelDesigner
 			mapTerminal.get_AttributeMap("SvPowerFlow.q").setContent((String)profile_SV_map.get("SvPowerFlow.q"));
 		}
 		mapTerminal.setConductingEquipment(profile_EQ_map.get("Terminal.ConductingEquipment").toString());
-		if (profile_TP.has_TerminalTN(key)) 
+		if (profile_TP.has_Terminal_TopologialNode(key)) 
 		{
 			mapTerminal.setTopologicalNode(profile_TP.get_TerminalTN(key));
 			resourceTN= profile_TP.get_TNTerminal(profile_TP.get_TerminalTN(key));
@@ -586,6 +586,9 @@ public class ModelDesigner
 		LoadMap mapEnergyC = LoadMapFactory.getInstance()
 				.loadXMLToObject(_source);
 		Map<String, Object> cimClassMap= profile_EQ.gather_EnergyConsumerAtt(key);
+		profile_EQ.gather_BaseVoltage_Attributes(
+				(Resource) cimClassMap.get("Equipment.EquipmentContainer"),
+				cimClassMap);
 		Iterator<AttributeMap> imapAttList= mapEnergyC.getAttributeMap().iterator();
 		AttributeMap currentmapAtt;
 		while (imapAttList.hasNext()) {

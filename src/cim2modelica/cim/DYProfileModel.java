@@ -9,6 +9,8 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.log4j.Logger;
+import org.apache.log4j.varia.NullAppender;
 
 import cim2modelica.cim.map.openipsl.DynamicComponentType;
 
@@ -32,6 +34,8 @@ public class DYProfileModel extends CIMProfile {
 		tgov= new HashMap<Resource, RDFNode>();
 		pss= new HashMap<Resource, RDFNode>();
 		synchmach= new HashMap<Resource, RDFNode>();
+		Logger.getRootLogger().removeAllAppenders();
+		Logger.getRootLogger().addAppender(new NullAppender());
 	}
 	
 	/**
@@ -114,8 +118,8 @@ public class DYProfileModel extends CIMProfile {
 		Resource s,p;
 		RDFNode o;
 		Statement stmt;
+		StmtIterator stmtiter = this.rdfModel.listStatements();
 		
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
 		while( stmtiter.hasNext() ) 
 		{
 			stmt= stmtiter.next();
@@ -134,6 +138,8 @@ public class DYProfileModel extends CIMProfile {
             	this.synchmach.put(s, o);
             }
 		}
+		stmtiter.close();
+		stmtiter = null;
 		return this.synchmach;
 	}
 	/**
@@ -166,7 +172,9 @@ public class DYProfileModel extends CIMProfile {
 					found= rdf_resource[1].equals(rdfid_synchmach[1]);
 				}
 			}
+			iAttributes.close();
 		}
+		iTags = null;
 		if(found)
 			return currentTag;
 		else
@@ -198,6 +206,7 @@ public class DYProfileModel extends CIMProfile {
 				}
 			}
 			iAttributes.close();
+			iAttributes = null;
 		}
 		return machineType;
 	}
@@ -229,6 +238,7 @@ public class DYProfileModel extends CIMProfile {
 			}
 			iAttributes.close();
 		}
+		iAttributes = null;
 	}
 
 	/* EXCITATION SYSTEMS */
@@ -241,8 +251,8 @@ public class DYProfileModel extends CIMProfile {
 		Resource s,p;
 		RDFNode o;
 		Statement stmt;
+		StmtIterator stmtiter = this.rdfModel.listStatements();
 		
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
 		while( stmtiter.hasNext() ) 
 		{
 			stmt= stmtiter.next();
@@ -259,6 +269,8 @@ public class DYProfileModel extends CIMProfile {
             	this.excsys.put(s, o);
             }
 		}
+		stmtiter.close();
+		stmtiter = null;
 		return this.excsys;
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}
@@ -293,7 +305,10 @@ public class DYProfileModel extends CIMProfile {
 					break;
 				}
 			}
+			iAttributes.close();
+			iAttributes = null;
 		}
+		iTags = null;
 		if(found)
 			return excSysTag;
 		else
@@ -317,6 +332,8 @@ public class DYProfileModel extends CIMProfile {
 						attributeClass.getLiteral().getValue());
 			}
 		}
+		iAttributes.close();
+		iAttributes = null;
 		return this.attribute;
 	}
 	
@@ -330,8 +347,7 @@ public class DYProfileModel extends CIMProfile {
 		Resource s,p;
 		RDFNode o;
 		Statement stmt;
-		
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
+		StmtIterator stmtiter = this.rdfModel.listStatements();
 		while( stmtiter.hasNext() ) 
 		{
 			stmt= stmtiter.next();
@@ -351,6 +367,7 @@ public class DYProfileModel extends CIMProfile {
             	this.tgov.put(s, o);
             }
 		}
+		stmtiter = null;
 		return this.tgov;
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}
@@ -384,7 +401,10 @@ public class DYProfileModel extends CIMProfile {
 					found= rdf_resource[1].equals(rdfid_synchmach[1]);
 				}
 			}
+			iAttributes.close();
+			iAttributes = null;
 		}
+		iTags = null;
 		if(found)
 			return turbGovTag;
 		else
@@ -398,8 +418,8 @@ public class DYProfileModel extends CIMProfile {
 	public Map<String,Object> gather_TurbineGovernor_Attributes(Resource _subject)
 	{ 
 		Statement attributeClass;
+		StmtIterator iAttributes = _subject.listProperties();
 		
-		StmtIterator iAttributes= _subject.listProperties();
 		while( iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
@@ -409,6 +429,8 @@ public class DYProfileModel extends CIMProfile {
 						attributeClass.getLiteral().getValue());
 			}
 		}
+		iAttributes.close();
+		iAttributes = null;
 		return this.attribute;
 	}
 }

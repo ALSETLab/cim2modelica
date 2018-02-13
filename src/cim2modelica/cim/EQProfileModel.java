@@ -13,6 +13,8 @@ import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
+import org.apache.log4j.Logger;
+import org.apache.log4j.varia.NullAppender;
 
 public class EQProfileModel extends CIMProfile
 {
@@ -29,6 +31,8 @@ public class EQProfileModel extends CIMProfile
 	{
 		super(_source_SV_profile);
 		component= new HashMap<Resource, RDFNode>();
+		Logger.getRootLogger().removeAllAppenders();
+		Logger.getRootLogger().addAppender(new NullAppender());
 	}
 	
 	/**
@@ -39,11 +43,12 @@ public class EQProfileModel extends CIMProfile
 	{
 		final Resource substationTag= ResourceFactory.createResource(CIMns+"Substation");
 		final Property nameTag= ResourceFactory.createProperty(CIMns+ "IdentifiedObject.name");
+		Resource attTag;
 		substations= new HashMap<Resource, String>();
 		
 		for (final ResIterator it= this.rdfModel.listResourcesWithProperty(RDF.type, substationTag); it.hasNext();)
 		{
-			final Resource attTag= it.next();
+			attTag = it.next();
 			substations.put(attTag, 
 					attTag.getProperty(nameTag).getLiteral().getValue().toString());
 			
@@ -57,13 +62,16 @@ public class EQProfileModel extends CIMProfile
 	 */
 	public Map<Resource,RDFNode> gatherComponents()
 	{
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
+		Resource s, p;
+		RDFNode o;
+		Statement stmt;
+		StmtIterator stmtiter = this.rdfModel.listStatements();
 		while( stmtiter.hasNext() ) 
 		{
-			Statement stmt= stmtiter.next();
-		    Resource s = stmt.getSubject();
-            Resource p = stmt.getPredicate();
-            RDFNode o = stmt.getObject();
+			stmt = stmtiter.next();
+			s = stmt.getSubject();
+			p = stmt.getPredicate();
+			o = stmt.getObject();
             //p as "type" means that the statment is refering to the component
             if (p.isURIResource() && p.getLocalName().equals("type"))
             {
@@ -75,7 +83,7 @@ public class EQProfileModel extends CIMProfile
 //            	System.out.println(componentName[0]+ " : "+ componentName[1]);
             }
 		}
-		
+		stmtiter = null;
 		return this.component;
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}
@@ -105,16 +113,18 @@ public class EQProfileModel extends CIMProfile
 	public Map<String, Object> gather_CIMClassAtt(Resource _subject)
 	{
 		StmtIterator statements= _subject.listProperties();
+		Statement stmt;
 		attribute= new HashMap<String, Object>();
 		while( statements.hasNext() ) 
 		{
-		    Statement stmt= statements.next();
+			stmt = statements.next();
 			if (stmt.getAlt().isLiteral())
 			{
 //				System.out.println("Literal Value -> "+ stmt.getLiteral().getValue());
 				this.attribute.put(stmt.getPredicate().getLocalName(), stmt.getLiteral().getValue());
 			}
 		}
+		statements = null;
 		return this.attribute;
 	}
 	
@@ -180,14 +190,14 @@ public class EQProfileModel extends CIMProfile
 		Statement attributeClass, classAttribute;
 		String machineType= "";
 		boolean attfound= false;
-		
 		StmtIterator iAttributes= _subject.listProperties();
+		StmtIterator machDynamicAtts;
 		while( !attfound && iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
 			if ( attributeClass.getPredicate().getLocalName().equals("SynchronousMachine.SynchronousMachineDynamics"))
 			{
-				StmtIterator machDynamicAtts= attributeClass.getAlt().listProperties();
+				machDynamicAtts = attributeClass.getAlt().listProperties();
 				while(!attfound && machDynamicAtts.hasNext() ) 
 				{
 					classAttribute= machDynamicAtts.next();
@@ -197,10 +207,10 @@ public class EQProfileModel extends CIMProfile
 						attfound= true;
 					}
 				}
-				machDynamicAtts.close();
+				machDynamicAtts = null;
 			}
 		}
-		
+		iAttributes = null;
 		return machineType;
 	}
 	
@@ -214,22 +224,22 @@ public class EQProfileModel extends CIMProfile
 		Statement attributeClass, machAttribute, classAttribute;
 		String excsType= "";
 		Entry<String, Resource> excsData= null;
-		
 		boolean attfound= false;
-		
 		StmtIterator iAttributes= _subject.listProperties();
+		StmtIterator machDynamicAtts, excsDynAttribute;
 		while( !attfound && iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
 			if ( attributeClass.getPredicate().getLocalName().equals("SynchronousMachine.SynchronousMachineDynamics"))
 			{
-				StmtIterator machDynamicAtts= attributeClass.getAlt().listProperties();
+				machDynamicAtts = attributeClass.getAlt().listProperties();
 				while(!attfound && machDynamicAtts.hasNext() ) 
 				{
 					machAttribute= machDynamicAtts.next();
 					if ( machAttribute.getPredicate().getLocalName().equals("SynchronousMachineDynamics.ExcitationSystemDynamics"))
 					{
-						StmtIterator excsDynAttribute= machAttribute.getAlt().listProperties();
+						excsDynAttribute = machAttribute.getAlt()
+								.listProperties();
 						while(!attfound && excsDynAttribute.hasNext() ) 
 						{
 							classAttribute= excsDynAttribute.next();
@@ -243,12 +253,13 @@ public class EQProfileModel extends CIMProfile
 								excsType, machAttribute.getResource());
 //						System.out.println("ExcS type> "+ excsType);
 //						System.out.println("Resource> "+ machAttribute.getResource());
-						excsDynAttribute.close();
+						excsDynAttribute = null;
 					}
 				}
-				machDynamicAtts.close();
+				machDynamicAtts = null;
 			}
 		}
+		iAttributes = null;
 		return excsData;
 	}
 	
@@ -279,6 +290,7 @@ public class EQProfileModel extends CIMProfile
 				}
 			}
 		}
+		iAttributes = null;
 		return this.attribute;
 	}
 	
@@ -291,6 +303,7 @@ public class EQProfileModel extends CIMProfile
 	{
 		Statement subjectAtt, baseVClassAtt;
 		StmtIterator iAttributes= _subject.listProperties();
+		StmtIterator baseVoltageAttribute;
 		
 		while( iAttributes.hasNext() ) 
 		{
@@ -299,7 +312,7 @@ public class EQProfileModel extends CIMProfile
 			{
 				if ( subjectAtt.getPredicate().getLocalName().equals("VoltageLevel.BaseVoltage"))
 				{
-					StmtIterator baseVoltageAttribute= subjectAtt.getAlt().listProperties();
+					baseVoltageAttribute = subjectAtt.getAlt().listProperties();
 					while( baseVoltageAttribute.hasNext() ) 
 					{
 						baseVClassAtt= baseVoltageAttribute.next();
@@ -309,9 +322,11 @@ public class EQProfileModel extends CIMProfile
 									baseVClassAtt.getLiteral().getValue());
 						}
 					}
+					baseVoltageAttribute = null;
 				}
 			}
 		}
+		iAttributes = null;
 	}
 	/**
 	 * 
@@ -339,7 +354,6 @@ public class EQProfileModel extends CIMProfile
 	public Map<String,Object> gather_ExcitationSystem_Attributes(Resource _subject)
 	{ 
 		Statement attributeClass;
-		
 		StmtIterator iAttributes= _subject.listProperties();
 		while( iAttributes.hasNext() ) 
 		{
@@ -350,6 +364,7 @@ public class EQProfileModel extends CIMProfile
 						attributeClass.getLiteral().getValue());
 			}
 		}
+		iAttributes.close();
 		return this.attribute;
 	}
 	
@@ -361,8 +376,8 @@ public class EQProfileModel extends CIMProfile
 	public Map<String,Object> gather_EnergyConsumerAtt(Resource _subject)
 	{ 
 		Statement attributeClass, classAttribute;
-		
 		StmtIterator iAttributes= _subject.listProperties();
+		StmtIterator svPowerFlowAtts, iLoadResponse;
 		while( iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
@@ -370,11 +385,16 @@ public class EQProfileModel extends CIMProfile
 			{
 				this.attribute.put(attributeClass.getPredicate().getLocalName(), attributeClass.getLiteral().getValue());
 			}
-			if (attributeClass.getAlt().isURIResource())
-			{
+			if (attributeClass.getAlt().isURIResource()) {
+				if (attributeClass.getPredicate().getLocalName()
+						.equals("Equipment.EquipmentContainer")) {
+					this.attribute.put(
+							attributeClass.getPredicate().getLocalName(),
+							attributeClass.getResource());
+				}
 				if ( attributeClass.getPredicate().getLocalName().equals("EnergyConsumer.LoadResponse"))
 				{
-					StmtIterator iLoadResponse= attributeClass.getAlt().listProperties();
+					iLoadResponse = attributeClass.getAlt().listProperties();
 					while( iLoadResponse.hasNext() ) 
 					{
 						classAttribute= iLoadResponse.next();
@@ -389,7 +409,7 @@ public class EQProfileModel extends CIMProfile
 				if ( attributeClass.getPredicate().getLocalName().equals("ConductingEquipment.BaseVoltage"))
 				{
 					//agafar els valor d'aquest component
-					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+					svPowerFlowAtts = attributeClass.getAlt().listProperties();
 					while( svPowerFlowAtts.hasNext() ) 
 					{
 						classAttribute= svPowerFlowAtts.next();
@@ -401,6 +421,7 @@ public class EQProfileModel extends CIMProfile
 				}
 			}
 		}
+		iAttributes.close();
 		return this.attribute;
 	}
 	
@@ -419,8 +440,8 @@ public class EQProfileModel extends CIMProfile
 	public Map<String,Object> gather_PowerTransformerEnd_Attributes(Resource _subject)
 	{ 
 		Statement attributeClass, attributeSubClass;
-		
 		StmtIterator iAttributes= _subject.listProperties();
+		StmtIterator ratioTapChangerAtt, powTransAtt;
 		while( iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
@@ -434,7 +455,7 @@ public class EQProfileModel extends CIMProfile
 			{
 				if ( attributeClass.getPredicate().getLocalName().equals("PowerTransformerEnd.PowerTransformer"))
 				{//From this class, the interest is in the rdf:resource, since there is one transformer with multiple Ends
-					StmtIterator powTransAtt= attributeClass.getAlt().listProperties();
+					powTransAtt = attributeClass.getAlt().listProperties();
 					while( powTransAtt.hasNext() ) 
 					{
 						attributeSubClass= powTransAtt.next();
@@ -447,7 +468,8 @@ public class EQProfileModel extends CIMProfile
 				}
 				if ( attributeClass.getPredicate().getLocalName().equals("TransformerEnd.RatioTapChanger"))
 				{//agafar els valor d'aquest component
-					StmtIterator ratioTapChangerAtt= attributeClass.getAlt().listProperties();
+					ratioTapChangerAtt = attributeClass.getAlt()
+							.listProperties();
 					while( ratioTapChangerAtt.hasNext() ) 
 					{
 						attributeSubClass= ratioTapChangerAtt.next();
@@ -464,6 +486,7 @@ public class EQProfileModel extends CIMProfile
 				}
 			}
 		}
+		iAttributes.close();
 		return this.attribute;
 	}
 
@@ -479,8 +502,8 @@ public class EQProfileModel extends CIMProfile
 	public Map<String,Object> retrieveAttributesFault(Resource _subject)
 	{ 
 		Statement attributeClass, classAttribute;
-		
 		StmtIterator iAttributes= _subject.listProperties();
+		StmtIterator svPowerFlowAtts;
 		while( iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
@@ -493,7 +516,7 @@ public class EQProfileModel extends CIMProfile
 				if ( attributeClass.getPredicate().getLocalName().equals("Fault.FaultyEquipment"))
 				{
 					//agafar els valor d'aquest component
-					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+					svPowerFlowAtts = attributeClass.getAlt().listProperties();
 					while( svPowerFlowAtts.hasNext() ) 
 					{
 						classAttribute= svPowerFlowAtts.next();
@@ -507,6 +530,7 @@ public class EQProfileModel extends CIMProfile
 				}
 			}
 		}
+		iAttributes.close();
 		return this.attribute;
 	}
 	

@@ -100,35 +100,35 @@ public class ModelBuilder
 	public MOConnector create_PinConnector(PwPinMap _terminalMap)
 	{
     	MOConnector pin= new MOConnector(_terminalMap.getName());
-    	ArrayList<AttributeMap> mapAttList= 
-    			(ArrayList<AttributeMap>)_terminalMap.getAttributeMap();
-    	Iterator<AttributeMap> imapAttList= mapAttList.iterator();
+		Iterator<AttributeMap> imapAttList = _terminalMap.getAttributeMap()
+				.iterator();
     	AttributeMap current;
     	while (imapAttList.hasNext()) {
     	    current= imapAttList.next();
-	    if (current.getCimName().equals("IdentifiedObject.name")) {
-		if (current.getContent().equals("T1"))
-		    pin.set_InstanceName("p");
-		if (current.getContent().equals("T2"))
-		    pin.set_InstanceName("n");
+			if (current.getCimName().equals("IdentifiedObject.name")) {
+				if (current.getContent().equals("T1"))
+					pin.set_InstanceName("p");
+				if (current.getContent().equals("T2"))
+					pin.set_InstanceName("n");
     		// System.out.println("after= " + current.getContent() + " - " +
     		// pin.get_InstanceName());
-	    } else {
-		MOAttribute variable = new MOAttribute();
-		variable.set_Name(current.getName());
-		variable.set_Value(current.getContent());
-		variable.set_Variability(current.getVariability());
-		variable.set_Visibility(current.getVisibility());
-		variable.set_Flow(Boolean.valueOf(current.getFlow()));
-		pin.set_Attribute(variable);
-	    }
-	}
-	pin.set_Stereotype(_terminalMap.getStereotype());
-	pin.set_Package(_terminalMap.getPackage());
-	//for internal identification only
-	pin.set_RdfId(_terminalMap.getRdfId());
+			} else {
+				MOAttribute variable = new MOAttribute();
+				variable.set_Name(current.getName());
+				variable.set_Value(current.getContent());
+				variable.set_Variability(current.getVariability());
+				variable.set_Visibility(current.getVisibility());
+				variable.set_Flow(Boolean.valueOf(current.getFlow()));
+				pin.set_Attribute(variable);
+			}
+		}
+		imapAttList = null;
+		pin.set_Stereotype(_terminalMap.getStereotype());
+		pin.set_Package(_terminalMap.getPackage());
+		// for internal identification only
+		pin.set_RdfId(_terminalMap.getRdfId());
 	
-	return pin;
+		return pin;
 	}
 	
 	/**
@@ -144,6 +144,7 @@ public class ModelBuilder
 		}
 		if (!exists)
 			this.powsys.add_Component(_component);
+		iComponents = null;
 	}
 
 	/**
@@ -162,6 +163,7 @@ public class ModelBuilder
 			current= iComponents.next();
 			exists= current.get_RdfId().equals(_rdfId);
 		}
+		iComponents = null;
 		if (exists)
 			return current;
 		else
@@ -187,7 +189,7 @@ public class ModelBuilder
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getName());
 				if (current.getContent()== null)
-					variable.set_Value("0.000001");
+					variable.set_Value("0.001");
 				else
 					variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
@@ -196,6 +198,7 @@ public class ModelBuilder
 				syncMach.add_Attribute(variable);
 			}
 		}
+		imapAttList = null;
 		syncMach.set_Stereotype(_mapSyncMach.getStereotype());
 		syncMach.set_Package(_mapSyncMach.getPackage());
 		// rdf:id used internally for generatin annotations
@@ -223,7 +226,7 @@ public class ModelBuilder
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getName());
 				if (current.getContent()== null)
-					variable.set_Value("0.000001");
+					variable.set_Value("0.001");
 				else
 					variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
@@ -232,6 +235,7 @@ public class ModelBuilder
 				excSys.add_Attribute(variable);
 			}
 		}
+		imapAttList = null;
 		excSys.set_Stereotype(_mapExcSys.getStereotype());
 		excSys.set_Package(_mapExcSys.getPackage());
 		// rdf:id used internally for generatin annotations
@@ -259,7 +263,7 @@ public class ModelBuilder
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getName());
 				if (current.getContent()== null)
-					variable.set_Value("0.000001");
+					variable.set_Value("0.001");
 				else
 					variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
@@ -268,6 +272,7 @@ public class ModelBuilder
 				tgov.add_Attribute(variable);
 			}
 		}
+		imapAttList = null;
 		tgov.set_Stereotype(_mapTGov.getStereotype());
 		tgov.set_Package(_mapTGov.getPackage());
 		// rdf:id used internally for generatin annotations
@@ -281,7 +286,9 @@ public class ModelBuilder
 	{
 		MOClass pwLoad= new MOClass(_mapEnergyC.getName());
 		MOAttributeComplex complejo= null;
-		Iterator<AttributeMap> imapAttList= ((ArrayList<AttributeMap>)_mapEnergyC.getAttributeMap()).iterator();
+		Iterator<AttributeMap> imapAttList = _mapEnergyC.getAttributeMap()
+				.iterator();
+		String nombre, parte;
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
@@ -290,8 +297,8 @@ public class ModelBuilder
 			}
 			else {
 				if (current.getDatatype().equals("Complex")) {
-					String nombre= current.getName().split("[.]")[0];
-					String parte= current.getName().split("[.]")[1];
+					nombre = current.getName().split("[.]")[0];
+					parte = current.getName().split("[.]")[1];
 					if (!pwLoad.exist_Attribute(nombre))
 						complejo= new MOAttributeComplex();
 					else
@@ -313,7 +320,7 @@ public class ModelBuilder
 					MOAttribute variable= new MOAttribute();
 					variable.set_Name(current.getName());
 					if (current.getContent()== null)
-						variable.set_Value("0.000001");
+						variable.set_Value("1");
 					else
 						variable.set_Value(current.getContent());
 					variable.set_Datatype(current.getDatatype());
@@ -324,6 +331,7 @@ public class ModelBuilder
 				}
 			}
 		}
+		imapAttList = null;
 		pwLoad.set_Stereotype(_mapEnergyC.getStereotype());
 		pwLoad.set_Package(_mapEnergyC.getPackage());
 		// rdf:id used internally for generatin annotations
@@ -340,9 +348,8 @@ public class ModelBuilder
 	public MOClass create_LineComponent(PwLineMap _mapACLine)
 	{
 		PwLine pwline= new PwLine(_mapACLine.getName());
-		ArrayList<AttributeMap> mapAttList= 
-				(ArrayList<AttributeMap>)_mapACLine.getAttributeMap();
-		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
+		Iterator<AttributeMap> imapAttList = _mapACLine.getAttributeMap()
+				.iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
@@ -353,7 +360,7 @@ public class ModelBuilder
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getName());
 				if (current.getContent()== null)
-					variable.set_Value("0.000001");
+					variable.set_Value("0.001");
 				else
 					variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
@@ -362,6 +369,7 @@ public class ModelBuilder
 				pwline.add_Attribute(variable);
 			}
 		}
+		imapAttList = null;
 		pwline.set_Stereotype(_mapACLine.getStereotype());
 		pwline.set_Package(_mapACLine.getPackage());
 		// rdf:id used internally for generatin annotations
@@ -399,7 +407,7 @@ public class ModelBuilder
 					MOAttribute variable= new MOAttribute();
 					variable.set_Name(current.getName());
 					if (current.getContent()== null)
-						variable.set_Value("0.000001");
+						variable.set_Value("0.001");
 					else
 						variable.set_Value(current.getContent());
 					variable.set_Variability(current.getVariability());
@@ -409,6 +417,7 @@ public class ModelBuilder
 				}
 			}
 		}
+		imapAttList = null;
 		twtransformer.set_Stereotype(_mapPowTrans.getStereotype());
 		twtransformer.set_Package(_mapPowTrans.getPackage());
 		// rdf:id used internally for generatin annotations
@@ -447,6 +456,9 @@ public class ModelBuilder
 //			else if (current.getCimName().equals("SvVoltage.v"))
 //				svvoltage= this.create_TransformerEndAttribute(endNumber, current);
 		}
+		imapAttList = null;
+		ratioTapChanger = null;
+		powerTransEnd = null;
 		return endAttributes;
 	}
 	/**
@@ -461,7 +473,7 @@ public class ModelBuilder
 		MOAttribute variable= new MOAttribute();
 		variable.set_Name(_currentAtt.getName()+ _endNumber.getContent());
 		if (_currentAtt.getContent()== null)
-			variable.set_Value("0");
+			variable.set_Value("0.001");
 		else
 			variable.set_Value(_currentAtt.getContent());
 		variable.set_Variability(_currentAtt.getVariability());
@@ -480,9 +492,8 @@ public class ModelBuilder
 	public MOClass create_BusComponent(PwBusMap _mapTopoNode)
 	{
 		Bus pwbus= new Bus(_mapTopoNode.getName());
-		ArrayList<AttributeMap> mapAttList= 
-				(ArrayList<AttributeMap>)_mapTopoNode.getAttributeMap();
-		Iterator<AttributeMap> imapAttList= mapAttList.iterator();
+		Iterator<AttributeMap> imapAttList = _mapTopoNode.getAttributeMap()
+				.iterator();
 		AttributeMap current;
 		while (imapAttList.hasNext()) {
 			current= imapAttList.next();
@@ -493,7 +504,7 @@ public class ModelBuilder
 				MOAttribute variable= new MOAttribute();
 				variable.set_Name(current.getName());
 				if (current.getContent()== null)
-					variable.set_Value("0.000001");
+					variable.set_Value("0.001");
 				else
 					variable.set_Value(current.getContent());
 				variable.set_Variability(current.getVariability());
@@ -502,6 +513,7 @@ public class ModelBuilder
 				pwbus.add_Attribute(variable);
 			}
 		}
+		imapAttList = null;
 		pwbus.setStereotype(_mapTopoNode.getStereotype());
 		pwbus.set_Package(_mapTopoNode.getPackage());
 		pwbus.set_RdfId(_mapTopoNode.getRdfId());
@@ -562,38 +574,44 @@ public class ModelBuilder
 		while(iConnections.hasNext())
 		{
 			try {
-			currentConnection= iConnections.next();
-			equipment= this.get_equipmentNetwork(currentConnection.get_Ce_id());
-			bus= this.get_equipmentNetwork(currentConnection.get_Tn_id());
-			if (equipment instanceof OpenIPSLMachine)
-			{
-				iPlant= this.powsys.get_planta().iterator();
-				foundPlant= false;
-				while (!foundPlant && iPlant.hasNext()){
-					currentPlant= iPlant.next();
-					foundPlant= currentPlant.getMachine().get_RdfId().equals(currentConnection.get_Ce_id());
+				currentConnection = iConnections.next();
+				equipment = this
+						.get_equipmentNetwork(currentConnection.get_Ce_id());
+				bus = this.get_equipmentNetwork(currentConnection.get_Tn_id());
+				if (equipment instanceof OpenIPSLMachine)
+				{
+					iPlant = this.powsys.get_planta().iterator();
+					foundPlant = false;
+					while (!foundPlant && iPlant.hasNext()) {
+						currentPlant = iPlant.next();
+						foundPlant = currentPlant.getMachine().get_RdfId()
+								.equals(currentConnection.get_Ce_id());
+					}
+					iPlant = null;
+					if (foundPlant)
+						conexio = new MOConnectNode(
+								currentPlant.getInstanceName(),
+								currentPlant.getOutpin().get_InstanceName(),
+								bus.get_InstanceName(),
+								bus.get_Terminal(currentConnection.get_T_id())
+										.get_InstanceName());
 				}
-				if (foundPlant)
-					conexio= new MOConnectNode(currentPlant.getInstanceName(),
-							currentPlant.getOutpin().get_InstanceName(),
+				else {
+					conexio = new MOConnectNode(equipment.get_InstanceName(),
+							equipment.get_Terminal(currentConnection.get_T_id())
+									.get_InstanceName(),
 							bus.get_InstanceName(),
 							bus.get_Terminal(currentConnection.get_T_id()).get_InstanceName());
-			}
-			else
-			{
-				conexio= new MOConnectNode(equipment.get_InstanceName(), 
-						equipment.get_Terminal(currentConnection.get_T_id()).get_InstanceName(),
-						bus.get_InstanceName(), 
-						bus.get_Terminal(currentConnection.get_T_id()).get_InstanceName());
-			}
-			if (!this.powsys.exist_Connection(conexio))
-				this.powsys.add_Connection(conexio);
+				}
+				if (!this.powsys.exist_Connection(conexio))
+					this.powsys.add_Connection(conexio);
 			}
 			catch(NullPointerException npe)
 			{
 				// System.err.println("Still some equipment left to map");
 			}
 		}
+		iConnections = null;
 		// System.out.println(this.powsys.to_ModelicaClass());
 	}
 

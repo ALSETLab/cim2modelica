@@ -11,6 +11,8 @@ import org.apache.jena.rdf.model.ResIterator;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.vocabulary.RDF;
+import org.apache.log4j.Logger;
+import org.apache.log4j.varia.NullAppender;
 
 public class DLProfileModel {
 	static final String CIMns = "http://iec.ch/TC57/2013/CIM-schema-cim16#";
@@ -31,6 +33,8 @@ public class DLProfileModel {
 	{
 		diagramPoints = new HashMap<Resource, RDFNode>();
 		diagramObjects = new HashMap<Resource, RDFNode>();
+		Logger.getRootLogger().removeAllAppenders();
+		Logger.getRootLogger().addAppender(new NullAppender());
 	}
 	/**
 	 * 
@@ -41,6 +45,8 @@ public class DLProfileModel {
 		this.rdfModel= _model;
 		diagramPoints = new HashMap<Resource, RDFNode>();
 		diagramObjects = new HashMap<Resource, RDFNode>();
+		Logger.getRootLogger().removeAllAppenders();
+		Logger.getRootLogger().addAppender(new NullAppender());
 	}
 	
 	public Map<Resource, RDFNode> gather_Object() {

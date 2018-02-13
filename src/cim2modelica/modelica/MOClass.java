@@ -216,13 +216,27 @@ public class MOClass extends MOModel
 	public void update_powerFlow(MOConnector _pin)
 	{
 		Iterator<MOAttribute> iAttributes;
-		MOAttribute currentAtt= null;
+		MOAttribute attbaseV, currentAtt = null;
+		double baseV = 1, componentV = 0;
+		boolean found = false;
+		iAttributes = this.attributes.iterator();
+		while (!found && iAttributes.hasNext()) {
+			attbaseV = iAttributes.next();
+			if (attbaseV.get_Name().equals("V_b")) {
+				found = true;
+				baseV = Double.parseDouble((String) attbaseV.get_Value());
+			}
+		}
 		iAttributes= this.attributes.iterator();
 		while (iAttributes.hasNext())
 		{
 			currentAtt= iAttributes.next();
 			if (currentAtt.get_Name().equals("V_0"))
-				currentAtt.set_Value(_pin.get_Attribute("vr").get_Value());
+			{
+				componentV = Double.parseDouble(
+						(String) _pin.get_Attribute("vr").get_Value());
+				currentAtt.set_Value(String.valueOf(componentV / baseV));
+			}
 			if (currentAtt.get_Name().equals("angle_0"))
 				currentAtt.set_Value(_pin.get_Attribute("vi").get_Value());
 			if (currentAtt.get_Name().equals("P_0"))
@@ -230,6 +244,7 @@ public class MOClass extends MOModel
 			if (currentAtt.get_Name().equals("Q_0"))
 				currentAtt.set_Value(_pin.get_Attribute("ii").get_Value());
 		}
+		iAttributes = null;
 		update_pin_current(_pin);
 	}
 	

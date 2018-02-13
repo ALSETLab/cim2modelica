@@ -61,6 +61,8 @@ public class CIM2MOD
 					profiFact.getProfile(lector.get_source_DY_profile(),
 							CIMProfileType.DYNAMICS));
 			constructor = new ModelBuilder(args[1]);
+			lector = null;
+			profiFact = null;
 		}
 		if (args[0].equals("-p"))
 		{ // read the cim profile files separately
@@ -160,6 +162,7 @@ public class CIM2MOD
 					break;
 				}
 				moexcsys= constructor.create_ExcSysComponent(mapExcSys);
+				mapExcSys = null;
 			}
 			Entry<String, Resource> tGovData= cartografo.typeOf_TurbineGovernor(
 					cartografo.get_CurrentConnectionMap().get_ConductingEquipment());
@@ -181,6 +184,7 @@ public class CIM2MOD
 					break;
 				}
 				motgov= constructor.create_TGovComponent(mapTGov);
+				mapTGov = null;
 			}
 //			Entry<String, Resource> pssData= cartografo.typeOf_ExcitationSystem(
 //					cartografo.get_CurrentConnectionMap().get_ConductingEquipment());
@@ -242,6 +246,7 @@ public class CIM2MOD
 				"PowerPlant", constructor.get_Network().get_Name(),
 				constructor.get_Network().get_Name());
 		escriptor = null;
+		plantsName = null;
 	}
 
 	public static void main(String[] args) 
@@ -250,6 +255,7 @@ public class CIM2MOD
 //		Map<Resource, RDFNode> profile_SV;
 		String [] cimClassResource;
 		String [] equipmentResource, topologyResource;
+		// TODO return only Terminal Class
 		Map<Resource, RDFNode> profile_EQ = cartografo.load_EQ_profile();
 		cartografo.load_TP_profile();
 		cartografo.load_SV_profile();
@@ -267,6 +273,7 @@ public class CIM2MOD
 								cimClassResource);
 				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
 				MOConnector mopinbus = constructor.create_PinConnector(mapTerminal);
+				mapTerminal= null;
 				/* after loading terminal, load the resource connected to it, 
 				 * a.k.a., ConductingEquipment 
 				 * a.k.a. TopologicalNode */
@@ -293,8 +300,8 @@ public class CIM2MOD
 							cartografo.get_CurrentConnectionMap().get_ConductingEquipment(), 
 							"./res/map/openipsl/loads/cim_openipsl_load.xml",
 							equipmentResource);
-					MOClass moload = constructor
-							.create_LoadComponent(mapEnergyC);
+					MOClass moload = constructor.create_LoadComponent(mapEnergyC);
+					mapEnergyC= null;
 					moload.add_Terminal(mopin);
 					moload.update_powerFlow(mopin);
 					constructor.add_equipmentNetwork(moload);
@@ -314,6 +321,7 @@ public class CIM2MOD
 								"./res/map/openipsl/branches/cim_openipsl_pwline.xml",
 								equipmentResource);
 						moline = constructor.create_LineComponent(mapACLine);
+						mapACLine= null;
 						moline.add_Terminal(mopin);
 						constructor.add_equipmentNetwork(moline);
 					}
@@ -334,6 +342,7 @@ public class CIM2MOD
 								"./res/map/openipsl/buses/cim_openipsl_pwbus.xml",
 								topologyResource);
 						mobus = constructor.create_BusComponent(mapTopoNode);
+						mapTopoNode = null;
 						mopinbus.set_InstanceName("p"); // trick to set all pin
 						mobus.add_Terminal(mopinbus);
 						constructor.add_equipmentNetwork(mobus);
@@ -353,6 +362,7 @@ public class CIM2MOD
 						auxiliarTwtMap.get_Terminal_Resource(),
 						"./res/map/openipsl/connectors/cim_openipsl_pwpin.xml",
 						terminalResource);
+				auxiliarTwtMap = null;
 				/*Create the terminal object associated with this PowerTransformerEnd*/
 				MOConnector mopin= constructor.create_PinConnector(mapTerminal);
 				/*Create additional attribute for the ratio tap changer associated with the PowerTransformerEnd*/
@@ -372,6 +382,7 @@ public class CIM2MOD
 						moTransformer.add_Attribute(moparam);
 					constructor.add_equipmentNetwork(moTransformer);
 				}
+				twtMap = null;
 				moPowTransEnd.clear(); moPowTransEnd= null;
 			}
 		}

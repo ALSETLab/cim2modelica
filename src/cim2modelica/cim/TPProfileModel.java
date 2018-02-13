@@ -8,6 +8,8 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.log4j.Logger;
+import org.apache.log4j.varia.NullAppender;
 
 public class TPProfileModel extends CIMProfile {
 	//TODO use of JENA Properties for finding tags (see EQProfileModel:gather_BasePower_Attributes(...))
@@ -24,6 +26,8 @@ public class TPProfileModel extends CIMProfile {
 		super(_source_SV_profile);
 		topologicalNodes= new HashMap<Resource, RDFNode>();
 		terminals= new HashMap<Resource, RDFNode>();
+		Logger.getRootLogger().removeAllAppenders();
+		Logger.getRootLogger().addAppender(new NullAppender());
 	}
 	
 	/**
@@ -50,8 +54,8 @@ public class TPProfileModel extends CIMProfile {
 		Resource s,p;
 		RDFNode o;
 		Statement stmt;
+		StmtIterator stmtiter = this.rdfModel.listStatements();
 		
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
 		while( stmtiter.hasNext() ) 
 		{
 			stmt= stmtiter.next();
@@ -70,6 +74,8 @@ public class TPProfileModel extends CIMProfile {
             	this.topologicalNodes.put(s, o);
             }
 		}
+		stmtiter.close();
+		stmtiter = null;
 		return this.topologicalNodes;
 	}
 	
@@ -82,8 +88,8 @@ public class TPProfileModel extends CIMProfile {
 		Resource s,p;
 		RDFNode o;
 		Statement stmt;
+		StmtIterator stmtiter = this.rdfModel.listStatements();
 		
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
 		while( stmtiter.hasNext() ) 
 		{
 			stmt= stmtiter.next();
@@ -101,7 +107,8 @@ public class TPProfileModel extends CIMProfile {
             	this.terminals.put(s, o);
             }
 		}
-		
+		stmtiter.close();
+		stmtiter = null;
 		return this.terminals;
 		//post: Hashtable with cim id of the class (key) and the rdf name of the cim component (value)
 	}
@@ -110,9 +117,9 @@ public class TPProfileModel extends CIMProfile {
 	 * 
 	 * @return boolean
 	 */
-	public boolean has_TerminalTN(Resource _t)
+	public boolean has_Terminal_TopologialNode(Resource _t)
 	{
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
+		StmtIterator stmtiter = this.rdfModel.listStatements();
 		boolean found= false;
 		Resource s, p;
         Statement stmt;
@@ -127,7 +134,8 @@ public class TPProfileModel extends CIMProfile {
             	found= s.getLocalName().equals(_t.getLocalName());
             }
 		}
-		
+		stmtiter.close();
+		stmtiter = null;
 		return found;
 	}
 	
@@ -137,7 +145,7 @@ public class TPProfileModel extends CIMProfile {
 	 */
 	public String get_TerminalTN(Resource _t)
 	{
-		final StmtIterator stmtiter = this.rdfModel.listStatements();
+		StmtIterator stmtiter = this.rdfModel.listStatements();
 		boolean found= false;
 		Resource s, p;
         RDFNode o;
@@ -156,7 +164,8 @@ public class TPProfileModel extends CIMProfile {
         			id_TN= o.toString();
             }
 		}
-		
+		stmtiter.close();
+		stmtiter = null;
 		return id_TN;
 	}
 	
@@ -168,12 +177,13 @@ public class TPProfileModel extends CIMProfile {
 	{
 		Resource foundTagTN= null;
 		boolean found= false;
+		Iterator<Resource> tagsTN = this.topologicalNodes.keySet().iterator();
 		
-		Iterator<Resource> tagsTN= this.topologicalNodes.keySet().iterator();
 		while (!found && tagsTN.hasNext()){
 			foundTagTN= tagsTN.next();
 			found= foundTagTN.getURI().equals(_id_TN);
 		}
+		tagsTN = null;
 		return foundTagTN;
 	}
 	
@@ -185,8 +195,9 @@ public class TPProfileModel extends CIMProfile {
 	public Map<String,Object> gather_TopoNodeAtt(Resource _subject)
 	{ 
 		Statement attributeClass, classAttribute;
+		StmtIterator iAttributes = _subject.listProperties();
+		StmtIterator svPowerFlowAtts;
 		
-		StmtIterator iAttributes= _subject.listProperties();
 		while( iAttributes.hasNext() ) 
 		{
 			attributeClass= iAttributes.next();
@@ -198,8 +209,7 @@ public class TPProfileModel extends CIMProfile {
 			{
 				if ( attributeClass.getPredicate().getLocalName().equals("TopologicalNode.SvVoltage"))
 				{
-					//agafar els valor d'aquest component
-					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+					svPowerFlowAtts= attributeClass.getAlt().listProperties();
 					while( svPowerFlowAtts.hasNext() ) 
 					{
 						classAttribute= svPowerFlowAtts.next();
@@ -209,10 +219,11 @@ public class TPProfileModel extends CIMProfile {
 						}
 					}
 					svPowerFlowAtts.close();
+					svPowerFlowAtts= null;
 				}
 				if ( attributeClass.getPredicate().getLocalName().equals("TopologicalNode.BaseVoltage"))
 				{
-					StmtIterator svPowerFlowAtts= attributeClass.getAlt().listProperties();
+					svPowerFlowAtts= attributeClass.getAlt().listProperties();
 					while( svPowerFlowAtts.hasNext() ) 
 					{
 						classAttribute= svPowerFlowAtts.next();
@@ -222,9 +233,12 @@ public class TPProfileModel extends CIMProfile {
 						}
 					}
 					svPowerFlowAtts.close();
+					svPowerFlowAtts= null;
 				}
 			}
 		}
+		iAttributes.close();
+		iAttributes= null;
 		return this.attribute;
 	}
 }

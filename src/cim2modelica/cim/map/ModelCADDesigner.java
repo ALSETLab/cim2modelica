@@ -233,7 +233,7 @@ public class ModelCADDesigner
 			mapTerminal.get_AttributeMap("SvPowerFlow.q").setContent((String)profile_SV_map.get("SvPowerFlow.q"));
 		}
 		mapTerminal.setConductingEquipment(profile_EQ_map.get("Terminal.ConductingEquipment").toString());
-		if (profile_TP.has_TerminalTN(key)) 
+		if (profile_TP.has_Terminal_TopologialNode(key)) 
 		{
 			mapTerminal.setTopologicalNode(profile_TP.get_TerminalTN(key));
 			resourceTN= profile_TP.get_TNTerminal(profile_TP.get_TerminalTN(key));
