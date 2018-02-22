@@ -7,4 +7,6 @@
 	<attributeMap cim_name="ACLineSegment.x" name="X" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
 	<attributeMap cim_name="ACLineSegment.gch" name="G" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
 	<attributeMap cim_name="ACLineSegment.bch" name="B" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+	<attributeMap cim_name="BasePower.basePower" name="S_b" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
+	<attributeMap cim_name="BaseVoltage.nominalVoltage" name="V_b" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
 </pwLineMap>
