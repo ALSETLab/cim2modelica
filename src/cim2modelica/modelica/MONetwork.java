@@ -130,11 +130,6 @@ public class MONetwork extends MOModel
 			pencil.append("\t");
 			pencil.append(conexio.to_ModelicaEquation("network"));
 		}
-//		for (MOPlant plant: this.elecPlants)
-//		{
-//			pencil.append("\t");
-//			pencil.append(plant.to_ModelicaEquation("network"));
-//		}
 		pencil.append("end ");
 		pencil.append(this.name);
 		pencil.append(";");

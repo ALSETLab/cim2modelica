@@ -24,20 +24,6 @@
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:ACLineSegment>
-  <cim:ACLineSegment rdf:ID="_8a6b547e-3fd7-11e7-8574-24fd522f1a90">
-    <cim:ACLineSegment.bch>4.13422E-05</cim:ACLineSegment.bch>
-    <cim:ACLineSegment.r>2.645</cim:ACLineSegment.r>
-    <cim:ACLineSegment.x>26.45</cim:ACLineSegment.x>
-    <pti:ACLineSegment.MET>1</pti:ACLineSegment.MET>
-    <cim:Conductor.length>25</cim:Conductor.length>
-    <cim:ConductingEquipment.BaseVoltage rdf:resource="#_8a6b5402-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Equipment.aggregate>false</cim:Equipment.aggregate>
-    <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
-    <cim:IdentifiedObject.description>5 6 '2 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>5_6_2</cim:IdentifiedObject.name>
-    <pti:Resources.PSSEID>2 </pti:Resources.PSSEID>
-    <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
-  </cim:ACLineSegment>
   <cim:ACLineSegment rdf:ID="_8a6b5488-3fd7-11e7-8574-24fd522f1a90">
     <cim:ACLineSegment.bch>1.10208E-05</cim:ACLineSegment.bch>
     <cim:ACLineSegment.r>1.587</cim:ACLineSegment.r>
@@ -50,34 +36,6 @@
     <cim:IdentifiedObject.description>6 7 '1 '</cim:IdentifiedObject.description>
     <cim:IdentifiedObject.name>6_7_1</cim:IdentifiedObject.name>
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
-    <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
-  </cim:ACLineSegment>
-  <cim:ACLineSegment rdf:ID="_8a6b5492-3fd7-11e7-8574-24fd522f1a90">
-    <cim:ACLineSegment.bch>1.10208E-05</cim:ACLineSegment.bch>
-    <cim:ACLineSegment.r>1.587</cim:ACLineSegment.r>
-    <cim:ACLineSegment.x>15.87</cim:ACLineSegment.x>
-    <pti:ACLineSegment.MET>1</pti:ACLineSegment.MET>
-    <cim:Conductor.length>10</cim:Conductor.length>
-    <cim:ConductingEquipment.BaseVoltage rdf:resource="#_8a6b5402-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Equipment.aggregate>false</cim:Equipment.aggregate>
-    <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
-    <cim:IdentifiedObject.description>6 7 '2 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>6_7_2</cim:IdentifiedObject.name>
-    <pti:Resources.PSSEID>2 </pti:Resources.PSSEID>
-    <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
-  </cim:ACLineSegment>
-  <cim:ACLineSegment rdf:ID="_8a6b549c-3fd7-11e7-8574-24fd522f1a90">
-    <cim:ACLineSegment.bch>1.10208E-05</cim:ACLineSegment.bch>
-    <cim:ACLineSegment.r>1.587</cim:ACLineSegment.r>
-    <cim:ACLineSegment.x>15.87</cim:ACLineSegment.x>
-    <pti:ACLineSegment.MET>1</pti:ACLineSegment.MET>
-    <cim:Conductor.length>10</cim:Conductor.length>
-    <cim:ConductingEquipment.BaseVoltage rdf:resource="#_8a6b5402-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Equipment.aggregate>false</cim:Equipment.aggregate>
-    <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
-    <cim:IdentifiedObject.description>6 7 '3 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>6_7_3</cim:IdentifiedObject.name>
-    <pti:Resources.PSSEID>3 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:ACLineSegment>
   <cim:ACLineSegment rdf:ID="_8a6b54a6-3fd7-11e7-8574-24fd522f1a90">
@@ -150,34 +108,6 @@
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:ACLineSegment>
-  <cim:ACLineSegment rdf:ID="_8a6b54d8-3fd7-11e7-8574-24fd522f1a90">
-    <cim:ACLineSegment.bch>1.10208E-05</cim:ACLineSegment.bch>
-    <cim:ACLineSegment.r>1.587</cim:ACLineSegment.r>
-    <cim:ACLineSegment.x>15.87</cim:ACLineSegment.x>
-    <pti:ACLineSegment.MET>1</pti:ACLineSegment.MET>
-    <cim:Conductor.length>10</cim:Conductor.length>
-    <cim:ConductingEquipment.BaseVoltage rdf:resource="#_8a6b5402-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Equipment.aggregate>false</cim:Equipment.aggregate>
-    <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
-    <cim:IdentifiedObject.description>9 10 '2 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>9_10_2</cim:IdentifiedObject.name>
-    <pti:Resources.PSSEID>2 </pti:Resources.PSSEID>
-    <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
-  </cim:ACLineSegment>
-  <cim:ACLineSegment rdf:ID="_8a6b54e2-3fd7-11e7-8574-24fd522f1a90">
-    <cim:ACLineSegment.bch>1.10208E-05</cim:ACLineSegment.bch>
-    <cim:ACLineSegment.r>1.587</cim:ACLineSegment.r>
-    <cim:ACLineSegment.x>15.87</cim:ACLineSegment.x>
-    <pti:ACLineSegment.MET>1</pti:ACLineSegment.MET>
-    <cim:Conductor.length>10</cim:Conductor.length>
-    <cim:ConductingEquipment.BaseVoltage rdf:resource="#_8a6b5402-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Equipment.aggregate>false</cim:Equipment.aggregate>
-    <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
-    <cim:IdentifiedObject.description>9 10 '3 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>9_10_3</cim:IdentifiedObject.name>
-    <pti:Resources.PSSEID>3 </pti:Resources.PSSEID>
-    <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
-  </cim:ACLineSegment>
   <cim:ACLineSegment rdf:ID="_8a6b54ec-3fd7-11e7-8574-24fd522f1a90">
     <cim:ACLineSegment.bch>4.13422E-05</cim:ACLineSegment.bch>
     <cim:ACLineSegment.r>2.645</cim:ACLineSegment.r>
@@ -190,20 +120,6 @@
     <cim:IdentifiedObject.description>10 11 '1 '</cim:IdentifiedObject.description>
     <cim:IdentifiedObject.name>10_11_1</cim:IdentifiedObject.name>
     <pti:Resources.PSSEID>1 </pti:Resources.PSSEID>
-    <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
-  </cim:ACLineSegment>
-  <cim:ACLineSegment rdf:ID="_8a6b54f6-3fd7-11e7-8574-24fd522f1a90">
-    <cim:ACLineSegment.bch>4.13422E-05</cim:ACLineSegment.bch>
-    <cim:ACLineSegment.r>2.645</cim:ACLineSegment.r>
-    <cim:ACLineSegment.x>26.45</cim:ACLineSegment.x>
-    <pti:ACLineSegment.MET>1</pti:ACLineSegment.MET>
-    <cim:Conductor.length>25</cim:Conductor.length>
-    <cim:ConductingEquipment.BaseVoltage rdf:resource="#_8a6b5402-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Equipment.aggregate>false</cim:Equipment.aggregate>
-    <cim:Equipment.normallyInService>true</cim:Equipment.normallyInService>
-    <cim:IdentifiedObject.description>10 11 '2 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>10_11_2</cim:IdentifiedObject.name>
-    <pti:Resources.PSSEID>2 </pti:Resources.PSSEID>
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:ACLineSegment>
   <cim:BasePower rdf:ID="_8a6b53d2-3fd7-11e7-8574-24fd522f1a90">
@@ -1238,8 +1154,8 @@
     <cim:IdentifiedObject.name>LowVoltage</cim:IdentifiedObject.name>
   </cim:OperationalLimitType>
   <cim:PowerTransformer rdf:ID="_8a6b5500-3fd7-11e7-8574-24fd522f1a90">
-    <pti:PowerTransformer.cw>1</pti:PowerTransformer.cw>
-    <pti:PowerTransformer.cz>2</pti:PowerTransformer.cz>
+    <pti:PowerTransformer.cw>2</pti:PowerTransformer.cw>
+    <pti:PowerTransformer.cz>1</pti:PowerTransformer.cz>
     <pti:PowerTransformer.cm>1</pti:PowerTransformer.cm>
     <pti:PowerTransformer.cr>0</pti:PowerTransformer.cr>
     <pti:PowerTransformer.cx>0</pti:PowerTransformer.cx>
@@ -1254,8 +1170,8 @@
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>
   <cim:PowerTransformer rdf:ID="_8a6b550d-3fd7-11e7-8574-24fd522f1a90">
-    <pti:PowerTransformer.cw>1</pti:PowerTransformer.cw>
-    <pti:PowerTransformer.cz>2</pti:PowerTransformer.cz>
+    <pti:PowerTransformer.cw>2</pti:PowerTransformer.cw>
+    <pti:PowerTransformer.cz>1</pti:PowerTransformer.cz>
     <pti:PowerTransformer.cm>1</pti:PowerTransformer.cm>
     <pti:PowerTransformer.cr>0</pti:PowerTransformer.cr>
     <pti:PowerTransformer.cx>0</pti:PowerTransformer.cx>
@@ -1270,8 +1186,8 @@
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>
   <cim:PowerTransformer rdf:ID="_8a6b551a-3fd7-11e7-8574-24fd522f1a90">
-    <pti:PowerTransformer.cw>1</pti:PowerTransformer.cw>
-    <pti:PowerTransformer.cz>2</pti:PowerTransformer.cz>
+    <pti:PowerTransformer.cw>2</pti:PowerTransformer.cw>
+    <pti:PowerTransformer.cz>1</pti:PowerTransformer.cz>
     <pti:PowerTransformer.cm>1</pti:PowerTransformer.cm>
     <pti:PowerTransformer.cr>0</pti:PowerTransformer.cr>
     <pti:PowerTransformer.cx>0</pti:PowerTransformer.cx>
@@ -1286,8 +1202,8 @@
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:PowerTransformer>
   <cim:PowerTransformer rdf:ID="_8a6b5527-3fd7-11e7-8574-24fd522f1a90">
-    <pti:PowerTransformer.cw>1</pti:PowerTransformer.cw>
-    <pti:PowerTransformer.cz>2</pti:PowerTransformer.cz>
+    <pti:PowerTransformer.cw>2</pti:PowerTransformer.cw>
+    <pti:PowerTransformer.cz>1</pti:PowerTransformer.cz>
     <pti:PowerTransformer.cm>1</pti:PowerTransformer.cm>
     <pti:PowerTransformer.cr>0</pti:PowerTransformer.cr>
     <pti:PowerTransformer.cx>0</pti:PowerTransformer.cx>
@@ -1310,7 +1226,7 @@
     <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
     <cim:PowerTransformerEnd.ratedS>900</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230</cim:PowerTransformerEnd.ratedU>
-    <cim:PowerTransformerEnd.x>8.8167</cim:PowerTransformerEnd.x>
+    <cim:PowerTransformerEnd.x>0.01667</cim:PowerTransformerEnd.x>
     <pti:PowerTransformerEnd.ang>0</pti:PowerTransformerEnd.ang>
     <pti:PowerTransformerEnd.nomV>230</pti:PowerTransformerEnd.nomV>
     <pti:PowerTransformerEnd.sBase>900</pti:PowerTransformerEnd.sBase>
@@ -1348,7 +1264,7 @@
     <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
     <cim:PowerTransformerEnd.ratedS>900</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230</cim:PowerTransformerEnd.ratedU>
-    <cim:PowerTransformerEnd.x>8.8167</cim:PowerTransformerEnd.x>
+    <cim:PowerTransformerEnd.x>0.01667</cim:PowerTransformerEnd.x>
     <pti:PowerTransformerEnd.ang>0</pti:PowerTransformerEnd.ang>
     <pti:PowerTransformerEnd.nomV>230</pti:PowerTransformerEnd.nomV>
     <pti:PowerTransformerEnd.sBase>900</pti:PowerTransformerEnd.sBase>
@@ -1386,7 +1302,7 @@
     <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
     <cim:PowerTransformerEnd.ratedS>900</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230</cim:PowerTransformerEnd.ratedU>
-    <cim:PowerTransformerEnd.x>8.8167</cim:PowerTransformerEnd.x>
+    <cim:PowerTransformerEnd.x>0.01667</cim:PowerTransformerEnd.x>
     <pti:PowerTransformerEnd.ang>0</pti:PowerTransformerEnd.ang>
     <pti:PowerTransformerEnd.nomV>230</pti:PowerTransformerEnd.nomV>
     <pti:PowerTransformerEnd.sBase>900</pti:PowerTransformerEnd.sBase>
@@ -1424,7 +1340,7 @@
     <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
     <cim:PowerTransformerEnd.ratedS>900</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230</cim:PowerTransformerEnd.ratedU>
-    <cim:PowerTransformerEnd.x>8.8167</cim:PowerTransformerEnd.x>
+    <cim:PowerTransformerEnd.x>0.01667</cim:PowerTransformerEnd.x>
     <pti:PowerTransformerEnd.ang>0</pti:PowerTransformerEnd.ang>
     <pti:PowerTransformerEnd.nomV>230</pti:PowerTransformerEnd.nomV>
     <pti:PowerTransformerEnd.sBase>900</pti:PowerTransformerEnd.sBase>
@@ -1761,20 +1677,6 @@
     <cim:IdentifiedObject.description>5 6 '1 '</cim:IdentifiedObject.description>
     <cim:IdentifiedObject.name>T2</cim:IdentifiedObject.name>
   </cim:Terminal>
-  <cim:Terminal rdf:ID="_8a6b547f-3fd7-11e7-8574-24fd522f1a90">
-    <cim:Terminal.ConductingEquipment rdf:resource="#_8a6b547e-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b53fe-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
-    <cim:IdentifiedObject.description>5 6 '2 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>T1</cim:IdentifiedObject.name>
-  </cim:Terminal>
-  <cim:Terminal rdf:ID="_8a6b5480-3fd7-11e7-8574-24fd522f1a90">
-    <cim:Terminal.ConductingEquipment rdf:resource="#_8a6b547e-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b5407-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
-    <cim:IdentifiedObject.description>5 6 '2 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>T2</cim:IdentifiedObject.name>
-  </cim:Terminal>
   <cim:Terminal rdf:ID="_8a6b5489-3fd7-11e7-8574-24fd522f1a90">
     <cim:Terminal.ConductingEquipment rdf:resource="#_8a6b5488-3fd7-11e7-8574-24fd522f1a90" />
     <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b5407-3fd7-11e7-8574-24fd522f1a90" />
@@ -1787,34 +1689,6 @@
     <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b540f-3fd7-11e7-8574-24fd522f1a90" />
     <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
     <cim:IdentifiedObject.description>6 7 '1 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>T2</cim:IdentifiedObject.name>
-  </cim:Terminal>
-  <cim:Terminal rdf:ID="_8a6b5493-3fd7-11e7-8574-24fd522f1a90">
-    <cim:Terminal.ConductingEquipment rdf:resource="#_8a6b5492-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b5407-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
-    <cim:IdentifiedObject.description>6 7 '2 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>T1</cim:IdentifiedObject.name>
-  </cim:Terminal>
-  <cim:Terminal rdf:ID="_8a6b5494-3fd7-11e7-8574-24fd522f1a90">
-    <cim:Terminal.ConductingEquipment rdf:resource="#_8a6b5492-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b540f-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
-    <cim:IdentifiedObject.description>6 7 '2 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>T2</cim:IdentifiedObject.name>
-  </cim:Terminal>
-  <cim:Terminal rdf:ID="_8a6b549d-3fd7-11e7-8574-24fd522f1a90">
-    <cim:Terminal.ConductingEquipment rdf:resource="#_8a6b549c-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b5407-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
-    <cim:IdentifiedObject.description>6 7 '3 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>T1</cim:IdentifiedObject.name>
-  </cim:Terminal>
-  <cim:Terminal rdf:ID="_8a6b549e-3fd7-11e7-8574-24fd522f1a90">
-    <cim:Terminal.ConductingEquipment rdf:resource="#_8a6b549c-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b540f-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
-    <cim:IdentifiedObject.description>6 7 '3 '</cim:IdentifiedObject.description>
     <cim:IdentifiedObject.name>T2</cim:IdentifiedObject.name>
   </cim:Terminal>
   <cim:Terminal rdf:ID="_8a6b54a7-3fd7-11e7-8574-24fd522f1a90">
@@ -1887,34 +1761,6 @@
     <cim:IdentifiedObject.description>9 10 '1 '</cim:IdentifiedObject.description>
     <cim:IdentifiedObject.name>T2</cim:IdentifiedObject.name>
   </cim:Terminal>
-  <cim:Terminal rdf:ID="_8a6b54d9-3fd7-11e7-8574-24fd522f1a90">
-    <cim:Terminal.ConductingEquipment rdf:resource="#_8a6b54d8-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b541f-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
-    <cim:IdentifiedObject.description>9 10 '2 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>T1</cim:IdentifiedObject.name>
-  </cim:Terminal>
-  <cim:Terminal rdf:ID="_8a6b54da-3fd7-11e7-8574-24fd522f1a90">
-    <cim:Terminal.ConductingEquipment rdf:resource="#_8a6b54d8-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b5427-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
-    <cim:IdentifiedObject.description>9 10 '2 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>T2</cim:IdentifiedObject.name>
-  </cim:Terminal>
-  <cim:Terminal rdf:ID="_8a6b54e3-3fd7-11e7-8574-24fd522f1a90">
-    <cim:Terminal.ConductingEquipment rdf:resource="#_8a6b54e2-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b541f-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
-    <cim:IdentifiedObject.description>9 10 '3 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>T1</cim:IdentifiedObject.name>
-  </cim:Terminal>
-  <cim:Terminal rdf:ID="_8a6b54e4-3fd7-11e7-8574-24fd522f1a90">
-    <cim:Terminal.ConductingEquipment rdf:resource="#_8a6b54e2-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b5427-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
-    <cim:IdentifiedObject.description>9 10 '3 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>T2</cim:IdentifiedObject.name>
-  </cim:Terminal>
   <cim:Terminal rdf:ID="_8a6b54ed-3fd7-11e7-8574-24fd522f1a90">
     <cim:Terminal.ConductingEquipment rdf:resource="#_8a6b54ec-3fd7-11e7-8574-24fd522f1a90" />
     <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b5427-3fd7-11e7-8574-24fd522f1a90" />
@@ -1927,20 +1773,6 @@
     <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b542f-3fd7-11e7-8574-24fd522f1a90" />
     <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
     <cim:IdentifiedObject.description>10 11 '1 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>T2</cim:IdentifiedObject.name>
-  </cim:Terminal>
-  <cim:Terminal rdf:ID="_8a6b54f7-3fd7-11e7-8574-24fd522f1a90">
-    <cim:Terminal.ConductingEquipment rdf:resource="#_8a6b54f6-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b5427-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
-    <cim:IdentifiedObject.description>10 11 '2 '</cim:IdentifiedObject.description>
-    <cim:IdentifiedObject.name>T1</cim:IdentifiedObject.name>
-  </cim:Terminal>
-  <cim:Terminal rdf:ID="_8a6b54f8-3fd7-11e7-8574-24fd522f1a90">
-    <cim:Terminal.ConductingEquipment rdf:resource="#_8a6b54f6-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:Terminal.ConnectivityNode rdf:resource="#_8a6b542f-3fd7-11e7-8574-24fd522f1a90" />
-    <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
-    <cim:IdentifiedObject.description>10 11 '2 '</cim:IdentifiedObject.description>
     <cim:IdentifiedObject.name>T2</cim:IdentifiedObject.name>
   </cim:Terminal>
   <cim:Terminal rdf:ID="_8a6b5502-3fd7-11e7-8574-24fd522f1a90">

@@ -14,293 +14,267 @@ import cim2modelica.modelica.openipsl.machines.OpenIPSLMachine;
  */
 public class MOPlant extends MOModel
 {
-	private String visibility;
-	private String variability;
-	private String instanceName; 
-	private OpenIPSLMachine machine;
-	private OpenIPSLExcitationSystem excitationSystem;
-	private OpenIPSLTurbineGovernor turbineGovernor;
-	private MOClass stabilizer;
-	private MOClass constantBlock;
-	private MOConnector outpin;
-	private ArrayList<MOConnectNode> conexions;
+    protected String visibility;
+    protected String variability;
+    protected String instanceName;
+    protected OpenIPSLMachine machine;
+    protected OpenIPSLExcitationSystem excitationSystem;
+    protected OpenIPSLTurbineGovernor turbineGovernor;
+    protected MOClass stabilizer;
+    protected MOClass constantBlock;
+    protected MOConnector outpin;
+    protected ArrayList<MOConnectNode> conexions;
 		
-	public MOPlant(OpenIPSLMachine _mach, OpenIPSLExcitationSystem _es, 
-			OpenIPSLTurbineGovernor _tg, MOClass _stab) 
-	{
-		super(_mach.instanceName, "model");
-		this.machine= _mach;
-		this.excitationSystem= _es;
-		this.turbineGovernor= _tg;
-		this.stabilizer= _stab;
-		this.constantBlock = null;
-		this.outpin= null;
-		this.conexions= new ArrayList<MOConnectNode>();
-	}
-	
-	/**
-	 * @return the visibility
-	 */
-	public String getVisibility() {
-		return visibility;
+    public MOPlant(OpenIPSLMachine _mach, OpenIPSLExcitationSystem _es, OpenIPSLTurbineGovernor _tg, MOClass _stab) {
+	super(_mach.instanceName, "model");
+	this.machine = _mach;
+	this.excitationSystem = _es;
+	this.turbineGovernor = _tg;
+	this.stabilizer = _stab;
+	this.constantBlock = null;
+	this.outpin = null;
+	this.conexions = new ArrayList<MOConnectNode>();
+    }
+
+    /**
+     * @return the visibility
+     */
+    public String getVisibility() {
+	return visibility;
+    }
+
+    /**
+     * @param visibility
+     *            the visibility to set
+     */
+    public void setVisibility(String visibility) {
+	this.visibility = visibility;
+    }
+
+    /**
+     * @return the variability
+     */
+    public String getVariability() {
+	return variability;
+    }
+
+    /**
+     * @param variability
+     *            the variability to set
+     */
+    public void setVariability(String variability) {
+	this.variability = variability;
+    }
+
+    /**
+     * @return the instanceName
+     */
+    public String getInstanceName() {
+	return instanceName;
+    }
+
+    /**
+     * @param instanceName
+     *            the instanceName to set
+     */
+    public void setInstanceName(String instanceName) {
+	this.instanceName = instanceName;
+    }
+
+    /**
+     * @return the outpin
+     */
+    public MOConnector getOutpin() {
+	return outpin;
+    }
+
+    /**
+     * @param outpin
+     *            the outpin to set
+     */
+    public void setOutpin(MOConnector outpin) {
+	this.outpin = outpin;
+    }
+
+    /**
+     * @return the machine
+     */
+    public OpenIPSLMachine getMachine() {
+	return machine;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public boolean has_excitationSystem() {
+	return this.excitationSystem != null;
+    }
+
+    /**
+     * @return the excitationSystem
+     */
+    public OpenIPSLExcitationSystem getExcitationSystem() {
+	return excitationSystem;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public boolean has_turbineGovernor() {
+	return this.turbineGovernor != null;
+    }
+
+    /**
+     * @return the turbineGovernor
+     */
+    public OpenIPSLTurbineGovernor getTurbineGovernor() {
+	return turbineGovernor;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public boolean has_powerStabilizer() {
+	return this.stabilizer != null;
+    }
+
+    /**
+     * @return the stabilizer
+     */
+    public MOClass getStabilizer() {
+	return stabilizer;
+    }
+
+    /**
+     * 
+     * @param variable
+     */
+    public void add_Terminal(MOConnector pin) {
+	this.outpin = pin;
+    }
+
+    /**
+     * 
+     * @param component
+     */
+    public void add_Connection(MOConnectNode _value) {
+	this.conexions.add(_value);
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public boolean has_constantBlock() {
+	return this.constantBlock != null;
+    }
+
+    public void add_ContantBlock(MOClass _cteblock) {
+	this.constantBlock = _cteblock;
+    }
+
+    public boolean exist_Connection(MOConnectNode _value) {
+	boolean exists = false;
+	MOConnectNode current;
+
+	Iterator<MOConnectNode> iconnections = this.conexions.iterator();
+	while (!exists && iconnections.hasNext()) {
+	    current = iconnections.next();
+	    exists = (current.getId_component_u().equals(_value.getId_component_u())
+		    && current.getId_component_y().equals(_value.getId_component_y()))
+		    || (current.getId_component_u().equals(_value.getId_component_y())
+			    && current.getId_component_y().equals(_value.getId_component_u()));
 	}
 
-	/**
-	 * @param visibility the visibility to set
-	 */
-	public void setVisibility(String visibility) {
-		this.visibility = visibility;
-	}
+	return exists;
+    }
 
-	/**
-	 * @return the variability
-	 */
-	public String getVariability() {
-		return variability;
-	}
+    public String to_ModelicaClass(String _package) {
+	String code = "";
+	StringBuilder pencil = new StringBuilder();
 
-	/**
-	 * @param variability the variability to set
-	 */
-	public void setVariability(String variability) {
-		this.variability = variability;
+	/* HEADER */
+	pencil.append("within ");
+	pencil.append(_package);
+	pencil.append(";\n");
+	pencil.append(this.stereotype);
+	pencil.append(" ");
+	pencil.append(this.name);
+	pencil.append(" ");
+	pencil.append('"');
+	pencil.append(this.annotation);
+	pencil.append('"');
+	pencil.append("\n");
+	/* VARIABLE SECTION */
+	pencil.append("\t");
+	pencil.append(this.getOutpin().to_ModelicaInstance(false));
+	// print machine component
+	pencil.append("\t");
+	pencil.append(this.machine.to_ModelicaInstance());
+	// print excitation system component
+	if (this.has_excitationSystem()) {
+	    pencil.append("\t");
+	    pencil.append(this.excitationSystem.to_ModelicaInstance());
 	}
+	// print turbine governor component
+	if (this.has_turbineGovernor()) {
+	    pencil.append("\t");
+	    pencil.append(this.turbineGovernor.to_ModelicaInstance());
+	}
+	// print stabilizer component
+	if (this.has_powerStabilizer()) {
+	}
+	if (this.has_constantBlock()) {
+	    pencil.append("\t");
+	    pencil.append(this.constantBlock.to_ModelicaInstance());
+	}
+	/* EQUATION SECTION */
+	pencil.append("equation\n");
+	// if (this.excitationSystem== null && this.turbineGovernor== null){
+	// this.machine.default_connectionPMECH();
+	// this.machine.default_connectionEFD();
+	// }
+	for (MOConnectNode conexio : this.conexions) {
+	    pencil.append("\t");
+	    pencil.append(conexio.to_ModelicaEquation("plant"));
+	}
+	pencil.append("end ");
+	pencil.append(this.name);
+	pencil.append(";");
+	code = pencil.toString();
 
-	/**
-	 * @return the instanceName
-	 */
-	public String getInstanceName() {
-		return instanceName;
-	}
+	return code;
+    }
 
-	/**
-	 * @param instanceName the instanceName to set
-	 */
-	public void setInstanceName(String instanceName) {
-		this.instanceName = instanceName;
-	}
+    /**
+     * generates the code for the instances of the objects with in the plant
+     * object
+     * 
+     * @return
+     */
+    public String to_ModelicaInstance() {
+	String code = "";
+	StringBuilder pencil = new StringBuilder();
 
-	/**
-	 * @return the outpin
-	 */
-	public MOConnector getOutpin() {
-		return outpin;
-	}
+	pencil.append(this.pakage);
+	pencil.append(".");
+	pencil.append(this.name);
+	pencil.append(" ");
+	pencil.append(this.instanceName);
+	pencil.append(" ");
+	pencil.append('"');
+	pencil.append(this.comment);
+	pencil.append('"');
+	pencil.append(" ");
+	pencil.append(this.annotation);
+	pencil.append(";\n");
 
-	/**
-	 * @param outpin the outpin to set
-	 */
-	public void setOutpin(MOConnector outpin) {
-		this.outpin = outpin;
-	}
+	code = pencil.toString();
+	pencil = null;
 
-	/**
-	 * @return the machine
-	 */
-	public OpenIPSLMachine getMachine() {
-		return machine;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean has_excitationSystem(){
-		return this.excitationSystem!= null;
-	}
-	/**
-	 * @return the excitationSystem
-	 */
-	public OpenIPSLExcitationSystem getExcitationSystem() {
-		return excitationSystem;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean has_turbineGovernor(){
-		return this.turbineGovernor!= null;
-	}
-	/**
-	 * @return the turbineGovernor
-	 */
-	public OpenIPSLTurbineGovernor getTurbineGovernor() {
-		return turbineGovernor;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean has_powerStabilizer(){
-		return this.stabilizer!= null;
-	}
-	/**
-	 * @return the stabilizer
-	 */
-	public MOClass getStabilizer() {
-		return stabilizer;
-	}
-
-	/**
-	 * 
-	 * @param variable
-	 */
-	public void add_Terminal(MOConnector pin){
-		this.outpin= pin;
-	}
-	
-	/**
-	 * 
-	 * @param component
-	 */
-	public void add_Connection(MOConnectNode _value){
-		this.conexions.add(_value);
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean has_constantBlock() {
-		return this.constantBlock != null;
-	}
-	public void add_ContantBlock(MOClass _cteblock) {
-		this.constantBlock = _cteblock;
-	}
-	
-	public boolean exist_Connection(MOConnectNode _value){
-		boolean exists= false;
-		MOConnectNode current;
-		
-		Iterator<MOConnectNode> iconnections= this.conexions.iterator();
-		while (!exists && iconnections.hasNext())
-		{
-			current= iconnections.next();
-			exists= (current.getId_component_u().equals(_value.getId_component_u()) &&
-					current.getId_component_y().equals(_value.getId_component_y())) ||
-					(current.getId_component_u().equals(_value.getId_component_y()) &&
-					current.getId_component_y().equals(_value.getId_component_u()));
-		}
-		
-		return exists;
-	}
-	
-	public String to_ModelicaClass(String _package)
-	{
-		String code= "";
-		StringBuilder pencil= new StringBuilder();
-		
-		/* HEADER */
-		pencil.append("within ");
-		pencil.append(_package);
-		pencil.append(";\n");
-		pencil.append(this.stereotype); pencil.append(" ");
-		pencil.append(this.name); pencil.append(" ");
-		pencil.append('"');
-		pencil.append(this.annotation);
-		pencil.append('"'); pencil.append("\n");
-		/* VARIABLE SECTION */
-		pencil.append("\t");
-		pencil.append(this.getOutpin().to_ModelicaInstance(false));
-		// print machine component
-		pencil.append("\t");
-		pencil.append(this.machine.to_ModelicaInstance());
-		// print excitation system component
-		if (this.has_excitationSystem()){
-			pencil.append("\t");
-			pencil.append(this.excitationSystem.to_ModelicaInstance());
-		}
-		// print turbine governor component
-		if (this.has_turbineGovernor()){
-			pencil.append("\t");
-			pencil.append(this.turbineGovernor.to_ModelicaInstance());
-		}
-		// print stabilizer component
-		if (this.has_powerStabilizer()){}
-		if (this.has_constantBlock()) {
-			pencil.append("\t");
-			pencil.append(this.constantBlock.to_ModelicaInstance());
-		}
-		/* EQUATION SECTION */
-		pencil.append("equation\n");
-//		if (this.excitationSystem== null && this.turbineGovernor== null){
-//			this.machine.default_connectionPMECH();
-//			this.machine.default_connectionEFD();
-//		}
-		for (MOConnectNode conexio: this.conexions)
-		{
-			pencil.append("\t");
-			pencil.append(conexio.to_ModelicaEquation("plant"));
-		}
-		pencil.append("end ");
-		pencil.append(this.name);
-		pencil.append(";");
-		code= pencil.toString();
-		
-		return code;
-	}
-	
-	/**
-	 * generates the code for the instances of the objects with in the plant 
-	 * object
-	 * @return
-	 */
-	public String to_ModelicaInstance(){
-		String code= "";
-		StringBuilder pencil= new StringBuilder();
-		
-		pencil.append(this.pakage);
-		pencil.append(".");
-		pencil.append(this.name);
-		pencil.append(" ");
-		pencil.append(this.instanceName);
-		pencil.append(" ");
-		pencil.append('"');
-		pencil.append(this.comment);
-		pencil.append('"'); 
-		pencil.append(" ");
-		pencil.append(this.annotation);
-		pencil.append(";\n");
-		
-		code= pencil.toString(); pencil= null;
-		
-		return code;
-	}
-	
-	/**
-	 * This methods creates the connections within the plant object
-	 * @return
-	 */
-	public String to_ModelicaEquation(String isNetwork)
-	{
-		String code= "";
-//		if (isNetwork.equals("network"))
-//			code= this.connect_equipmentNetwork();
-//		if (isNetwork.equals("plant"))
-//			code= this.connect_equipmentPlant();
-		return code;
-	}
-
-	public void update_ComponentAnnotation(OpenIPSLMachine _momachine) {
-		this.set_Coord(_momachine.get_Coord().get(0),
-				_momachine.get_Coord().get(0));
-
-		StringBuilder pencil = new StringBuilder();
-		if (this.coord_eq.size() != 0 || this.coord_eq.size() != 0) {
-			// extent={{-10,-10},{10,10}},
-			pencil.append(
-					"annotation (Placement(visible= true, transformation(");
-			pencil.append("origin={");
-			pencil.append(this.coord_eq.get(0));
-			pencil.append(",");
-			pencil.append(this.coord_eq.get(1));
-			pencil.append("}, extent= {{-10,-10},{10,10}})))");
-		} else
-			pencil.append("annotation ();");
-		this.annotation = pencil.toString();
-		pencil = null;
-	}
-	
+	return code;
+    }
 }

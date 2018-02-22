@@ -1,9 +1,5 @@
 package cim2modelica.cim.map;
 
-import java.util.Map;
-
-import org.apache.jena.rdf.model.Resource;
-
 import cim2modelica.cim.EQProfileModel;
 import cim2modelica.cim.GEProfileModel;
 import cim2modelica.utils.ReaderCIM;
@@ -23,19 +19,6 @@ public class GISDesigner
 	{
 		readerGE= new ReaderCIM(_source_GE_profile);
 		readerEQ= new ReaderCIM(_source_EQ_profile);
-	}
-	
-	public Map<Resource, String> load_EQ_profile(String _xmlns_cim)
-	{
-		profileEQ = new EQProfileModel(readerEQ.read_profile(_xmlns_cim));
-		Map<Resource, String> classesEQ = profileEQ.gather_SubstationResource();
-		
-		return classesEQ;
-	}
-	
-	public void load_GE_profile(String _xmlns_cim)
-	{
-		profileGE = new GEProfileModel(readerGE.read_profile(_xmlns_cim));
 	}
 	
 	/**

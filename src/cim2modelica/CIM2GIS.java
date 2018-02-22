@@ -1,9 +1,5 @@
 package cim2modelica;
 
-import java.util.Map;
-
-import org.apache.jena.rdf.model.Resource;
-
 import cim2modelica.cim.map.GISDesigner;
 
 public class CIM2GIS 
@@ -26,20 +22,20 @@ public class CIM2GIS
 	
 	public static void coordinates_network(String _source)
 	{//creation of the coordinates file
-		Map<Resource, String> profile_EQ;
-		String substationID, substationName;
-		String[] coordinates;
-		
-		profile_EQ= cartografo.load_EQ_profile(xmlns_cim);
-		cartografo.load_GE_profile(xmlns_cim);
-		for (Resource tag : profile_EQ.keySet())
-		{
-			substationID= tag.getLocalName();
-			substationName= profile_EQ.get(tag);
-			coordinates= cartografo.create_coordinatesSubstation(substationID);
-			System.out.print(substationName+ " - ");
-			System.out.println(coordinates[0]+ " ; "+ coordinates[1]);
-		}
+	// Map<Resource, String> profile_EQ;
+	// String substationID, substationName;
+	// String[] coordinates;
+	//
+	// profile_EQ= cartografo.load_EQ_profile(xmlns_cim);
+	// cartografo.load_GE_profile(xmlns_cim);
+	// for (Resource tag : profile_EQ.keySet())
+	// {
+	// substationID= tag.getLocalName();
+	// substationName= profile_EQ.get(tag);
+	// coordinates= cartografo.create_coordinatesSubstation(substationID);
+	// System.out.print(substationName+ " - ");
+	// System.out.println(coordinates[0]+ " ; "+ coordinates[1]);
+	// }
 	}
 	
 	public static void main(String[] args) 
