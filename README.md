@@ -1,41 +1,43 @@
+<h3> CIM to Modelica Model Transformation Tool</h3>
 <p>
-<h4> CIM to Modelica Model Transformation Tool</h4>
-Description
-
-<p>
-<h5>For developing:</h5>
-<li>Download the entire project in a desired folder</li>
-<li>Open Eclipse</li>
-<li>On the project explorer, right click and select Import> Existing project into workspace</li>
-<li>check project properties... tbc</li>
+<h4> Working spaces setup: </h4>
+Create a working folder where to download and place the required files for <br>
+testing, following this steps:
+<ol>
+<li>Copy inside the working folder the <b>cim2modelica.jar</b> file (It contains <br>
+the necessary libraries to run the code)</li>
+<li>Copy the <b>./res/</b> folder and its content, into the working folder. Make <br>
+sure that the <i>./res/</i> folder contains the following files:</li>
+<ul>
+<li>The folder <b>./res/map/</b>, which contains the mapping rules.</li>
+<li>The folder <b>./res/network/</b> containing the network models' CIM files </li>
+</ul>
+</ol>
 </p>
 <p>
-<h6> Create a new distribution .jar file for the tool </h6>
-<li>Click on the project root folder and select File> Export...</li>
-<li>Select JAVA> Runnable JAR file </li>
-<li>Select Launch configuration, which you use to run the code</li>
-<li>Give a name to the .jar file</li>
-<li>Select option <i>Package required libraries into generated JAR</i></li>
+<h4>Using the tool in command line:</h4>
+Open a console terminal and go to the working directory where you have <br>
+placed the cim2modelica.jar file. Use the command: <br>
+<b>java –jar cim2modelica.jar –d &lt;model_name&gt; &lt;relativePathFolderCIMFiles&gt;</b><br>
+where:
+<ol>
+<li>Option –d indicates that the input parameter of the .jar file is the <br>
+folder relative path that contains the CIM profile files.</li>
+<li>&lt;model_name&gt; - name for the resulting Modelica model.</li>
+<li>The &lt;relativePathFolderCIMFiles&gt; indicates the folder where the <br>
+the CIM profiles’ files are stored, i.e. ./res/network/cim_model/. The folder <br>
+must contain the following profiles:</li>
+<ul>
+	<li><i>xxx_EQ.xml</i> - equipment profile CIM file.</li>
+	<li><i>xxx_TP.xml</i> - topology profile CIM file.</li>
+	<li><i>xxx_SV.xml</i> - state variable profile CIM file</li>
+	<li><i>xxx_DY.xml</i> - dynamics profile CIM file</li>
+</ul>
+</ol>
 </p>
 <p>
-<h5>Using the tool:</h5>
-Create a working folder and download:
-<li> The .jar file under the <i>dist</i> folder
-<li>Place a <i>res</i> folder containing two sub folders:
-<ul>Folder <i>map</i> containing the mapping rules for populating the CIM values into the Modelica component instances of he model</ul>
-<ul>Folder <i>network</i> containing the CIM files of the network model</ul>
-</li>
-The <b>cim2modelica.jar</b> contains the necessary libraries to run the tool.
-
-</p>
-<p>
-<li>Execute the .jar file in command line:
-<ul><b>java -jar <i>./folder_CIM_model</i> <i>model_given_name</i> </b></ul>
-</li>
-<p> The <i>model_given_name</i> is the name for the resulting Modelica model. And, make sure that within the <i>./folder_CIM_model</i> there are the following CIM profiles’ files:</p>
-<li><i>CIM_model_EQ.xml</i> - equipment profile cim file</li>
-<li><i>CIM_model_TP.xml</i> - topology profile cim file</li>
-<li><i>CIM_model_SV.xml</i> - state variable profile cim file</li>
-<li><i>CIM_model_DY.xml</i> - dynamics profile cim file</li>
-
+Use the option –p to indicate the relative path of the profile files <br>
+individually, in the following order: <br>
+<b>java –jar cim2modelica.jar –p &lt;model_name&gt; &lt;relativePath/xxx_EQ.xml&gt; <br>
+&lt;relativePath/xxx_TP.xml&gt; &lt;relativePath/xxx_SV.xml&gt; &lt;relativePath/xxx_DY.xml&gt;</b>
 </p>
