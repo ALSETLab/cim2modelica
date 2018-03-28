@@ -140,11 +140,9 @@ public class CIM2MOD {
 		    mapExcSys = cartografo.create_SEXSModelicaMap(excSysData.getValue(),
 			    "./res/map/openipsl/controls/es/cim_openipsl_sexs.xml", excSysData.getKey());
 		    break;
-		// case "SEXS":
-		// mapExcSys= cartografo.create_ExcSEXSModelicaMap(
-		// excSysData.getValue(),
-		// "./res/map/openipsl/controls/es/cim_openipsl_excsexs.xml",
-		// excSysData.getKey());
+//		case "ExcSEXS":
+//		    mapExcSys = cartografo.create_ExcSEXSModelicaMap(excSysData.getValue(),
+//			    "./res/map/openipsl/controls/es/cim_openipsl_excsexs.xml", excSysData.getKey());
 		// break;
 		case "ESST1A":
 		    mapExcSys = cartografo.create_ESST1AModelicaMap(excSysData.getValue(),
@@ -170,24 +168,11 @@ public class CIM2MOD {
 		motgov = constructor.create_TGovComponent(mapTGov);
 		mapTGov = null;
 	    }
-	    // Entry<String, Resource> pssData=
-	    // cartografo.typeOf_ExcitationSystem(
-	    // cartografo.get_CurrentConnectionMap().get_ConductingEquipment());
-	    // if (pssData!= null)
-	    // {
-	    // HYGOVMap mapExcSys= cartografo.create_HYGOVModelicaMap(
-	    // excSysData.getValue(),
-	    // "./res/map/openipsl/controls/es/cim_openipsl_esdc1a.xml",
-	    // excSysData.getKey());
-	    // moexcsys= constructor.create_ExcSysComponent(mapExcSys);
-	    // }
 	    moplanta = new PlantBuilder().machine(_momachine).excitationSystem(moexcsys).turbineGovernor(motgov)
 		    .stabilizer(mopss).buildPlant();
 	    MOConnector pinPlant = new MOConnector(_mopin, "plantaPin");
 	    moplanta.add_Terminal(pinPlant);
-	    MOClass constblock = constructor.create_ConstantBlock();
-	    PlantBuilder.assemble_plant(moplanta, pinPlant, constblock);
-	    moplanta.add_ContantBlock(constblock);
+	    PlantBuilder.assemble_plant(moplanta, pinPlant);
 	    constructor.add_plantNetwork(moplanta);
 	    constructor.add_equipmentNetwork(_momachine);
 	} else
@@ -298,6 +283,7 @@ public class CIM2MOD {
 				cartografo.get_CurrentConnectionMap().get_ConductingEquipment(),
 				"./res/map/openipsl/branches/cim_openipsl_pwline.xml", equipmentResource);
 			moline = constructor.create_LineComponent(mapACLine);
+			constructor.update_LineValuesToPU(moline);
 			mapACLine = null;
 			moline.add_Terminal(mopin);
 			constructor.add_equipmentNetwork(moline);
@@ -309,10 +295,7 @@ public class CIM2MOD {
 		    if (mobus != null) {
 			mopinbus.set_InstanceName("p"); // trick to set all pin
 			mobus.add_Terminal(mopinbus);
-		    } else {/*
-			     * false, create map of the line and add the first
-			     * terminal
-			     */
+		    } else { // create the map with the first terminal
 			PwBusMap mapTopoNode = cartografo.create_BusModelicaMap(
 				cartografo.get_CurrentConnectionMap().get_TopologicalNode(),
 				"./res/map/openipsl/buses/cim_openipsl_pwbus.xml", topologyResource);
@@ -347,11 +330,13 @@ public class CIM2MOD {
 		/* check if the PowerTransformer is already in the network */
 		MOClass moTransformer = constructor.get_equipmentNetwork(transformerResource[0]);
 		if (moTransformer != null) {
+		    constructor.update_TransformerComponent(moTransformer, twtMap);
 		    moTransformer.add_Terminal(mopin);
 		    for (MOAttribute moparam : moPowTransEnd)
 			moTransformer.add_Attribute(moparam);
 		} else {
 		    moTransformer = constructor.create_TransformerComponent(twtMap);
+		    constructor.update_TransformerComponent(moTransformer, twtMap);
 		    moTransformer.add_Terminal(mopin);
 		    for (MOAttribute moparam : moPowTransEnd)
 			moTransformer.add_Attribute(moparam);

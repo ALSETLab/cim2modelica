@@ -1,5 +1,7 @@
 package cim2modelica.modelica;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -7,12 +9,12 @@ import cim2modelica.cim.map.AttributeMap;
 import cim2modelica.cim.map.ComponentMap;
 import cim2modelica.cim.map.ConnectionMap;
 import cim2modelica.cim.map.openipsl.branches.PwLineMap;
-import cim2modelica.cim.map.openipsl.buses.Bus;
 import cim2modelica.cim.map.openipsl.buses.PwBusMap;
 import cim2modelica.cim.map.openipsl.connectors.PwPinMap;
 import cim2modelica.cim.map.openipsl.loads.LoadMap;
 import cim2modelica.cim.map.openipsl.transformers.TwoWindingTransformerMap;
 import cim2modelica.modelica.openipsl.branches.PwLine;
+import cim2modelica.modelica.openipsl.buses.OpenIPSLBus;
 import cim2modelica.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
 import cim2modelica.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
 import cim2modelica.modelica.openipsl.machines.OpenIPSLMachine;
@@ -185,7 +187,7 @@ public class ModelBuilder {
 		MOAttribute variable = new MOAttribute();
 		variable.set_Name(current.getName());
 		if (current.getContent() == null)
-		    variable.set_Value("0.001");
+		    variable.set_Value("0.00001");
 		else
 		    variable.set_Value(current.getContent());
 		variable.set_Variability(current.getVariability());
@@ -220,7 +222,7 @@ public class ModelBuilder {
 		MOAttribute variable = new MOAttribute();
 		variable.set_Name(current.getName());
 		if (current.getContent() == null)
-		    variable.set_Value("0.001");
+		    variable.set_Value("0.00001");
 		else
 		    variable.set_Value(current.getContent());
 		variable.set_Variability(current.getVariability());
@@ -335,22 +337,12 @@ public class ModelBuilder {
     public MOClass create_LineComponent(PwLineMap _mapACLine) {
 	PwLine pwline = new PwLine(_mapACLine.getName());
 	Iterator<AttributeMap> imapAttList = _mapACLine.getAttributeMap().iterator();
-	double baseP = 0.0, baseV = 0.0, baseZ = 0.0, value = 0.0;
-
 	AttributeMap current;
+
 	while (imapAttList.hasNext()) {
 	    current = imapAttList.next();
 	    if (current.getCimName().equals("IdentifiedObject.name")) {
 		pwline.set_InstanceName("ln" + current.getContent().trim());
-	    } else if (current.getCimName().equals("BasePower.basePower"))
-	    {
-		// System.out.println(current.getContent());
-		baseP = Double.parseDouble(current.getContent());
-	    }
-	    else if (current.getCimName().equals("BaseVoltage.nominalVoltage"))
-	    {
-		// System.out.println(current.getContent());
-		baseV = Double.parseDouble(current.getContent());
 	    }
 	    else {
 		MOAttribute variable = new MOAttribute();
@@ -366,12 +358,6 @@ public class ModelBuilder {
 	    }
 	}
 	imapAttList = null;
-	// a little bit of math
-	baseZ = (baseV * baseV) / baseP;
-	value = Double.parseDouble(pwline.get_Attribute("R").get_Value().toString());
-	pwline.get_Attribute("R").set_Value(value / baseZ);
-	value = Double.parseDouble(pwline.get_Attribute("X").get_Value().toString());
-	pwline.get_Attribute("X").set_Value(value / baseZ);
 	pwline.set_Stereotype(_mapACLine.getStereotype());
 	pwline.set_Package(_mapACLine.getPackage());
 	// rdf:id used internally for generatin annotations
@@ -381,7 +367,21 @@ public class ModelBuilder {
     }
 
     public void update_LineValuesToPU(MOClass _moline) {
+	double baseP = 0.0, baseV = 0.0, baseZ = 0.0, value = 0.0;
 
+	baseP = Double.parseDouble(_moline.get_Attribute("S_b").get_Value().toString());
+	baseV = Double.parseDouble(_moline.get_Attribute("V_b").get_Value().toString());
+	baseZ = (baseV * baseV) / baseP;
+	value = Double.parseDouble(_moline.get_Attribute("R").get_Value().toString());
+	value = value / baseZ;
+	// _moline.get_Attribute("R").set_Value(value);
+	_moline.get_Attribute("R")
+		.set_Value(new BigDecimal(value).setScale(3, RoundingMode.CEILING).stripTrailingZeros().toString());
+	value = Double.parseDouble(_moline.get_Attribute("X").get_Value().toString());
+	value = value / baseZ;
+	// _moline.get_Attribute("X").set_Value(value);
+	_moline.get_Attribute("X")
+		.set_Value(new BigDecimal(value).setScale(3, RoundingMode.CEILING).stripTrailingZeros().toString());
     }
 
     /**
@@ -428,6 +428,38 @@ public class ModelBuilder {
 	return twtransformer;
     }
 
+    public void update_TransformerComponent(MOClass _moTransformer, TwoWindingTransformerMap _mapPowTrans) {
+	if (!_mapPowTrans.get_AttributeMap("PowerTransformerEnd.x").getContent().equals("0")) {
+	    _moTransformer.get_Attribute("R")
+		    .set_Value(_mapPowTrans.get_AttributeMap("PowerTransformerEnd.r").getContent());
+	    _moTransformer.get_Attribute("X")
+		    .set_Value(_mapPowTrans.get_AttributeMap("PowerTransformerEnd.x").getContent());
+	    _moTransformer.get_Attribute("G")
+		    .set_Value(_mapPowTrans.get_AttributeMap("PowerTransformerEnd.g").getContent());
+	    _moTransformer.get_Attribute("B")
+		    .set_Value(_mapPowTrans.get_AttributeMap("PowerTransformerEnd.b").getContent());
+	    this.update_TransformerToPU(_moTransformer, _mapPowTrans);
+	}
+    }
+
+    private void update_TransformerToPU(MOClass _moTransformer, TwoWindingTransformerMap _mapPowTrans) {
+	double baseP = 0.0, baseV = 0.0, baseZ = 0.0, value = 0.0;
+
+	baseP = Double.parseDouble(_moTransformer.get_Attribute("S_n").get_Value().toString());
+	baseV = Double.parseDouble(_mapPowTrans.get_AttributeMap("PowerTransformerEnd.ratedU").getContent());
+	baseZ = (baseV * baseV) / baseP;
+	value = Double.parseDouble(_moTransformer.get_Attribute("R").get_Value().toString());
+	value = value / baseZ;
+	// _moTransformer.get_Attribute("R").set_Value(value);
+	_moTransformer.get_Attribute("R")
+		.set_Value(new BigDecimal(value).setScale(3, RoundingMode.CEILING).stripTrailingZeros().toString());
+	value = Double.parseDouble(_moTransformer.get_Attribute("X").get_Value().toString());
+	value = value / baseZ;
+	// _moTransformer.get_Attribute("X").set_Value(value);
+	_moTransformer.get_Attribute("X")
+		.set_Value(new BigDecimal(value).setScale(3, RoundingMode.CEILING).stripTrailingZeros().toString());
+    }
+
     /**
      * Creates different attributes for the TwoWindingTransformer model of the
      * Library. This attributes represent values for each winding, and each
@@ -456,9 +488,6 @@ public class ModelBuilder {
 		powerTransEnd = this.create_TransformerEndAttribute(endNumber, current);
 		endAttributes.add(powerTransEnd);
 	    }
-	    // else if (current.getCimName().equals("SvVoltage.v"))
-	    // svvoltage= this.create_TransformerEndAttribute(endNumber,
-	    // current);
 	}
 	imapAttList = null;
 	ratioTapChanger = null;
@@ -491,7 +520,7 @@ public class ModelBuilder {
     }
 
     /**
-     * Creates an OpenIPSL Bus component from the map of cim:TopologicalNode.
+     * Creates an OpenIPSL OpenIPSLBus component from the map of cim:TopologicalNode.
      * Use of the RDF_ID for internal identification only
      * 
      * @param _mapTopoNode
@@ -500,7 +529,7 @@ public class ModelBuilder {
      * @return
      */
     public MOClass create_BusComponent(PwBusMap _mapTopoNode) {
-	Bus pwbus = new Bus(_mapTopoNode.getName());
+	OpenIPSLBus pwbus = new OpenIPSLBus(_mapTopoNode.getName());
 	Iterator<AttributeMap> imapAttList = _mapTopoNode.getAttributeMap().iterator();
 	AttributeMap current;
 	while (imapAttList.hasNext()) {
@@ -526,31 +555,6 @@ public class ModelBuilder {
 	pwbus.set_RdfId(_mapTopoNode.getRdfId());
 
 	return pwbus;
-    }
-
-    /**
-     * Use of the RDF_ID for internal identification only
-     * 
-     * @param _mapACLine
-     * @return
-     */
-    public MOClass create_ConstantBlock() {
-	MOClass constantblock = new MOClass("Constant");
-
-	MOAttribute variable = new MOAttribute();
-	variable.set_Name("k");
-	variable.set_Value(0);
-	variable.set_Variability("parameter");
-	variable.set_Visibility("public");
-	variable.set_Flow(false);
-	constantblock.add_Attribute(variable);
-
-	constantblock.set_InstanceName("const");
-	constantblock.set_Stereotype("block");
-	constantblock.set_Package("Modelica.Blocks.Sources");
-	constantblock.set_RdfId("none");
-
-	return constantblock;
     }
 
     /**

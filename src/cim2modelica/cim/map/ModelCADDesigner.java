@@ -631,7 +631,7 @@ public class ModelCADDesigner {
      */
     public PwBusMap create_BusModelicaMap(Resource key, String _source, String[] _subjectID) {
 	PwBusMap mapTopoNode = BusesMapFactory.getInstance().pwbusXMLToObject(_source);
-	Map<String, Object> cimClassMap = profile_TP.gather_TopoNodeAtt(key);
+	Map<String, Object> cimClassMap = profile_TP.gather_TopologicalNode_Attributes(key);
 	Iterator<AttributeMap> imapAttList = mapTopoNode.getAttributeMap().iterator();
 	AttributeMap currentmapAtt;
 	while (imapAttList.hasNext()) {

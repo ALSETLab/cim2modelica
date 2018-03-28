@@ -21,7 +21,7 @@ public class MOPlant extends MOModel
     protected OpenIPSLExcitationSystem excitationSystem;
     protected OpenIPSLTurbineGovernor turbineGovernor;
     protected MOClass stabilizer;
-    protected MOClass constantBlock;
+    protected ArrayList<MOClass> constantBlock;
     protected MOConnector outpin;
     protected ArrayList<MOConnectNode> conexions;
 		
@@ -33,6 +33,7 @@ public class MOPlant extends MOModel
 	this.stabilizer = _stab;
 	this.constantBlock = null;
 	this.outpin = null;
+	this.constantBlock = new ArrayList<MOClass>();
 	this.conexions = new ArrayList<MOConnectNode>();
     }
 
@@ -169,11 +170,11 @@ public class MOPlant extends MOModel
      * @return
      */
     public boolean has_constantBlock() {
-	return this.constantBlock != null;
+	return this.constantBlock.size() > 0;
     }
 
     public void add_ContantBlock(MOClass _cteblock) {
-	this.constantBlock = _cteblock;
+	this.constantBlock.add(_cteblock);
     }
 
     public boolean exist_Connection(MOConnectNode _value) {
@@ -228,8 +229,10 @@ public class MOPlant extends MOModel
 	if (this.has_powerStabilizer()) {
 	}
 	if (this.has_constantBlock()) {
-	    pencil.append("\t");
-	    pencil.append(this.constantBlock.to_ModelicaInstance());
+	    for (MOClass cteblock : this.constantBlock) {
+		pencil.append("\t");
+		pencil.append(cteblock.to_ModelicaInstance());
+	    }
 	}
 	/* EQUATION SECTION */
 	pencil.append("equation\n");

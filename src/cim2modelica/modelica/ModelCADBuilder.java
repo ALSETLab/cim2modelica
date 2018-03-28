@@ -7,12 +7,12 @@ import cim2modelica.cim.map.AttributeMap;
 import cim2modelica.cim.map.ComponentMap;
 import cim2modelica.cim.map.ConnectionMap;
 import cim2modelica.cim.map.openipsl.branches.PwLineMap;
-import cim2modelica.cim.map.openipsl.buses.Bus;
 import cim2modelica.cim.map.openipsl.buses.PwBusMap;
 import cim2modelica.cim.map.openipsl.connectors.PwPinMap;
 import cim2modelica.cim.map.openipsl.loads.LoadMap;
 import cim2modelica.cim.map.openipsl.transformers.TwoWindingTransformerMap;
 import cim2modelica.modelica.openipsl.branches.PwLine;
+import cim2modelica.modelica.openipsl.buses.OpenIPSLBus;
 import cim2modelica.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
 import cim2modelica.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
 import cim2modelica.modelica.openipsl.machines.OpenIPSLMachine;
@@ -469,7 +469,7 @@ public class ModelCADBuilder {
     }
 
     /**
-     * Creates an OpenIPSL Bus component from the map of cim:TopologicalNode.
+     * Creates an OpenIPSL OpenIPSLBus component from the map of cim:TopologicalNode.
      * Use of the RDF_ID for internal identification only
      * 
      * @param _mapTopoNode
@@ -478,7 +478,7 @@ public class ModelCADBuilder {
      * @return
      */
     public MOClass create_BusComponent(PwBusMap _mapTopoNode) {
-	Bus pwbus = new Bus(_mapTopoNode.getName());
+	OpenIPSLBus pwbus = new OpenIPSLBus(_mapTopoNode.getName());
 	Iterator<AttributeMap> imapAttList = _mapTopoNode.getAttributeMap().iterator();
 	AttributeMap current;
 	while (imapAttList.hasNext()) {

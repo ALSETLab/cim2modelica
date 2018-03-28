@@ -16,8 +16,8 @@
   <attributeMap cim_name="PowerTransformerEnd.ratedU" name="VB" datatype="Real" variability="parameter" visibility="public">99</attributeMap>
   <!-- ratedU attribute of each PowerTransformerEnd as param VNOM in the model (VNOM1,VNOM2) -->
   <attributeMap cim_name="PowerTransformerEnd.nomV" name="VNOM" datatype="Real" variability="parameter" visibility="public">99</attributeMap>
-  <attributeMap cim_name="PowerTransformerEnd.ratedS" name="S_n" datatype="Real" variability="parameter" visibility="public">99</attributeMap>
+  <attributeMap cim_name="PowerTransformerEnd.ratedS" name="S_n" datatype="Real" variability="parameter" visibility="public">100</attributeMap>
   <!--  attributes exclusive from PSSE  -->
-  <attributeMap cim_name="PowerTransformer.cw" name="CW" datatype="Real" variability="parameter" visibility="public">99</attributeMap>
-  <attributeMap cim_name="PowerTransformer.cz" name="CZ" datatype="Real" variability="parameter" visibility="public">99</attributeMap>
+  <attributeMap cim_name="PowerTransformer.cw" name="CW" datatype="Real" variability="parameter" visibility="public">2</attributeMap>
+  <attributeMap cim_name="PowerTransformer.cz" name="CZ" datatype="Real" variability="parameter" visibility="public">1</attributeMap>
 </twoWindingTransformerMap>

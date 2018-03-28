@@ -1,5 +1,7 @@
 package cim2modelica.modelica;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -226,23 +228,18 @@ public class MOClass extends MOModel
      */
     public void update_powerFlow(MOConnector _pin) {
 	Iterator<MOAttribute> iAttributes;
-	MOAttribute attbaseV, currentAtt = null;
+	MOAttribute currentAtt = null;
 	double baseV = 1, componentV = 0;
-	boolean found = false;
-	iAttributes = this.attributes.iterator();
-	while (!found && iAttributes.hasNext()) {
-	    attbaseV = iAttributes.next();
-	    if (attbaseV.get_Name().equals("V_b")) {
-		found = true;
-		baseV = Double.parseDouble((String) attbaseV.get_Value());
-	    }
-	}
+
+	baseV = Double.parseDouble(this.get_Attribute("V_b").get_Value().toString());
 	iAttributes = this.attributes.iterator();
 	while (iAttributes.hasNext()) {
 	    currentAtt = iAttributes.next();
 	    if (currentAtt.get_Name().equals("V_0")) {
 		componentV = Double.parseDouble((String) _pin.get_Attribute("vr").get_Value());
-		currentAtt.set_Value(String.valueOf(componentV / baseV));
+		// currentAtt.set_Value(componentV / baseV);
+		currentAtt.set_Value(new BigDecimal(componentV / baseV).setScale(3, RoundingMode.CEILING)
+			.stripTrailingZeros().toString());
 	    }
 	    if (currentAtt.get_Name().equals("angle_0"))
 		currentAtt.set_Value(_pin.get_Attribute("vi").get_Value());
@@ -329,8 +326,6 @@ public class MOClass extends MOModel
 	    pencil.append(this.visibility);
 	    pencil.append(" ");
 	}
-	// pencil.append(this.variability);
-	// pencil.append(" ");
 	pencil.append(this.pakage);
 	pencil.append(".");
 	pencil.append(this.name);

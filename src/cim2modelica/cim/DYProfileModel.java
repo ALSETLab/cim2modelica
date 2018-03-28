@@ -9,8 +9,6 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.log4j.Logger;
-import org.apache.log4j.varia.NullAppender;
 
 import cim2modelica.cim.map.openipsl.DynamicComponentType;
 
@@ -34,8 +32,6 @@ public class DYProfileModel extends CIMProfile {
 	tgov = new HashMap<Resource, RDFNode>();
 	pss = new HashMap<Resource, RDFNode>();
 	synchmach = new HashMap<Resource, RDFNode>();
-	Logger.getRootLogger().removeAllAppenders();
-	Logger.getRootLogger().addAppender(new NullAppender());
     }
 
     /**

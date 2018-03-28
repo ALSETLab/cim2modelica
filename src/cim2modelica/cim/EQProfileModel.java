@@ -13,14 +13,22 @@ import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
-import org.apache.log4j.Logger;
-import org.apache.log4j.varia.NullAppender;
 
 public class EQProfileModel extends CIMProfile {
     static final String CIMns = "http://iec.ch/TC57/2013/CIM-schema-cim16#";
     // private String id;
     private Map<Resource, RDFNode> component;
     private Map<Resource, String> substations;
+    // definition of rdf properties, to get values from mapping
+    // TODO Good to get this properties from mapping rules, somehow, so the
+    // class gets the map file or class
+    final Resource substationTag = ResourceFactory.createResource(CIMns + "Substation");
+    final Property substationNameTag = ResourceFactory.createProperty(CIMns + "IdentifiedObject.name");
+    final Property baseV = ResourceFactory.createProperty(CIMns + "ConductingEquipment.BaseVoltage");
+    final Resource BaseVoltageTag = ResourceFactory.createResource(CIMns + "BaseVoltage");
+    final Property nominalVoltage = ResourceFactory.createProperty(CIMns + "BaseVoltage.nominalVoltage");
+    final Resource BasePowerTag = ResourceFactory.createResource(CIMns + "BasePower");
+    final Property basePower = ResourceFactory.createProperty(CIMns + "BasePower.basePower");
 
     /**
      * 
@@ -29,8 +37,6 @@ public class EQProfileModel extends CIMProfile {
     public EQProfileModel(String _source_SV_profile) {
 	super(_source_SV_profile);
 	component = new HashMap<Resource, RDFNode>();
-	Logger.getRootLogger().removeAllAppenders();
-	Logger.getRootLogger().addAppender(new NullAppender());
     }
 
     /**
@@ -39,14 +45,12 @@ public class EQProfileModel extends CIMProfile {
      *         Component (Object): URL#Class
      */
     public Map<Resource, String> gather_SubstationResource() {
-	final Resource substationTag = ResourceFactory.createResource(CIMns + "Substation");
-	final Property nameTag = ResourceFactory.createProperty(CIMns + "IdentifiedObject.name");
 	Resource attTag;
 	substations = new HashMap<Resource, String>();
 
 	for (final ResIterator it = this.rdfModel.listResourcesWithProperty(RDF.type, substationTag); it.hasNext();) {
 	    attTag = it.next();
-	    substations.put(attTag, attTag.getProperty(nameTag).getLiteral().getValue().toString());
+	    substations.put(attTag, attTag.getProperty(substationNameTag).getLiteral().getValue().toString());
 
 	}
 	return substations;
@@ -126,8 +130,6 @@ public class EQProfileModel extends CIMProfile {
 
     public Map<String, Object> gatther_ACLineSegment_Attributes(Resource _subject) {
 	// _subject is an ACLineSegment Resource
-	final Property baseV = ResourceFactory.createProperty(CIMns + "ConductingEquipment.BaseVoltage");
-	final Property valueBaseV= ResourceFactory.createProperty(CIMns+ "BaseVoltage.nominalVoltage");
 	StmtIterator statements = _subject.listProperties();
 	Statement stmt;
 	attribute = new HashMap<String, Object>();
@@ -138,10 +140,9 @@ public class EQProfileModel extends CIMProfile {
 	    }
 	}
 	statements = null;
-	// System.out.println(_subject.getProperty(baseV).getAlt().getProperty(valueBaseV).getLiteral().getValue());
-	// System.out.println(_subject.getProperty(baseV).getAlt().getProperty(valueBaseV).getPredicate().getLocalName());
-	this.attribute.put(_subject.getProperty(baseV).getAlt().getProperty(valueBaseV).getPredicate().getLocalName(),
-		_subject.getProperty(baseV).getAlt().getProperty(valueBaseV).getLiteral().getValue());
+	this.attribute.put(
+		_subject.getProperty(baseV).getAlt().getProperty(nominalVoltage).getPredicate().getLocalName(),
+		_subject.getProperty(baseV).getAlt().getProperty(nominalVoltage).getLiteral().getValue());
 	return this.attribute;
     }
 
@@ -319,18 +320,41 @@ public class EQProfileModel extends CIMProfile {
     }
 
     /**
+     * Auxiliar mehtod to get the BaseVoltage value associated to a specified
+     * component
+     * 
+     * @param _attributecimClass
+     * @param _cimClassID
+     *            - id of the specified component
+     */
+    public void gather_BaseVoltage_Attributes(Map<String, Object> _attributecimClass, String _cimClassID) {
+	ResIterator it = this.rdfModel.listResourcesWithProperty(RDF.type, BaseVoltageTag);
+	Resource attTag;
+	boolean found = false;
+	while (!found & it.hasNext()) {
+	    attTag = it.next();
+	    if (attTag.getURI().split("#")[1].equals(_cimClassID)) {
+		found = true;
+		_attributecimClass.put(attTag.getProperty(nominalVoltage).getPredicate().getLocalName(),
+			attTag.getProperty(nominalVoltage).getLiteral().getValue());
+	    }
+	}
+	it.close();
+	it = null;
+    }
+
+    /**
+     * Auxiliar method to get the BasePower value of the entire model
      * 
      * @param _subject
      * @param _attribute
      */
-    public void gather_BasePower_Attributes(Map<String, Object> _attribute) {
-	final Resource BasePowerTag = ResourceFactory.createResource(CIMns + "BasePower");
-	final Property basePower = ResourceFactory.createProperty(CIMns + "BasePower.basePower");
+    public void gather_BasePower_Attributes(Map<String, Object> _attributecimClass) {
 	ResIterator it = this.rdfModel.listResourcesWithProperty(RDF.type, BasePowerTag);
 	Resource attTag;
 	while (it.hasNext()) {
 	    attTag = it.next();
-	    _attribute.put(attTag.getProperty(basePower).getPredicate().getLocalName(),
+	    _attributecimClass.put(attTag.getProperty(basePower).getPredicate().getLocalName(),
 		    attTag.getProperty(basePower).getLiteral().getValue());
 	}
 	it.close();
@@ -501,4 +525,5 @@ public class EQProfileModel extends CIMProfile {
     public void clearAttributes() {
 	this.attribute.clear();
     }
-    }
+
+}

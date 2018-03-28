@@ -365,7 +365,6 @@ public class ModelDesigner {
     public Entry<String, Resource> typeOf_ExcitationSystem(Resource _key) {
 	Entry<String, Resource> excSysData = null;
 	final Property nameTag = ResourceFactory.createProperty(CIMns + "IdentifiedObject.name");
-
 	Resource machDynamics = profile_DY.find_SynchronousMachineDynamic_Tag(_key);
 	Entry<Resource, RDFNode> excSysTag = profile_DY.find_ExcitationSystem(machDynamics);
 	if (excSysTag != null) {
@@ -623,19 +622,25 @@ public class ModelDesigner {
      * @param _subjectID
      * @return
      */
-    public PwBusMap create_BusModelicaMap(Resource key, String _source, String[] _subjectID) {
+    public PwBusMap create_BusModelicaMap(Resource _cimclass, String _source, String[] _subjectID) {
 	PwBusMap mapTopoNode = BusesMapFactory.getInstance().pwbusXMLToObject(_source);
-	Map<String, Object> cimClassMap = profile_TP.gather_TopoNodeAtt(key);
+	Map<String, Object> tpNodeClassMap = profile_TP.gather_TopologicalNode_Attributes(_cimclass);
+	profile_SV.gather_SvVoltage_TopologicalNode(tpNodeClassMap, _subjectID[0]);
+	profile_EQ.gather_BaseVoltage_Attributes(tpNodeClassMap,
+		tpNodeClassMap.get("TopologicalNode.BaseVoltage").toString());
 	Iterator<AttributeMap> imapAttList = mapTopoNode.getAttributeMap().iterator();
 	AttributeMap currentmapAtt;
 	while (imapAttList.hasNext()) {
 	    currentmapAtt = imapAttList.next();
-	    currentmapAtt.setContent((String) cimClassMap.get(currentmapAtt.getCimName()));
+	    currentmapAtt.setContent((String) tpNodeClassMap.get(currentmapAtt.getCimName()));
 	}
+	imapAttList = null;
 	mapTopoNode.setRdfId(_subjectID[0]);
 	mapTopoNode.setCimName(_subjectID[1]);
 
 	profile_TP.clearAttributes();
+	tpNodeClassMap.clear();
+	tpNodeClassMap = null;
 
 	return mapTopoNode;
     }

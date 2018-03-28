@@ -19,5 +19,5 @@
   <attributeMap cim_name="SvVoltage.v" name="V_0" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
   <attributeMap cim_name="EnergyConsumer.pfixed" name="P_0" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
   <attributeMap cim_name="EnergyConsumer.qfixed" name="Q_0" datatype="Real" variability="parameter" visibility="public">0</attributeMap>
-  <attributeMap cim_name="BaseVoltage.nominalVoltage" name="V_b" datatype="parameter" variability="parameter" visibility="none">0</attributeMap>
+  <attributeMap cim_name="BaseVoltage.nominalVoltage" name="V_b" datatype="Real" variability="parameter" visibility="none">0</attributeMap>
 </loadMap>

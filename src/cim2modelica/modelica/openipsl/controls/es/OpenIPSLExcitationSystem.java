@@ -10,7 +10,6 @@ public class OpenIPSLExcitationSystem extends MOClass
 	public String VOTHSG= "VOTHSG";
 	public String VUEL= "VUEL";
 	public String VOEL= "VOEL";
-	public String XADIFD = "XADIFD";
 	/* Outputs */
 	public String EFD= "EFD";
 	
@@ -19,12 +18,11 @@ public class OpenIPSLExcitationSystem extends MOClass
 	private boolean VOTHSGconnected;
 	private boolean VUELconnected;
 	private boolean VOELconnected;
-	private boolean XADIFDconnected;
 	
 	public OpenIPSLExcitationSystem(String _name) {
 		super(_name);
 		this.EFD0connected = this.ECOMPconnected = this.VOTHSGconnected = false;
-		this.XADIFDconnected = this.VUELconnected = this.VOELconnected = false;
+	this.VUELconnected = this.VOELconnected = false;
 	}
 	
 	public boolean isConnected(String _input)
@@ -41,8 +39,6 @@ public class OpenIPSLExcitationSystem extends MOClass
 			connected= this.VUELconnected;
 		if (_input.equals(VOEL))
 			connected= this.VOELconnected;
-		if (_input.equals(XADIFD))
-			connected = this.XADIFDconnected;
 		
 		return connected;
 	}
@@ -59,7 +55,5 @@ public class OpenIPSLExcitationSystem extends MOClass
 			this.VUELconnected= true;
 		if (_input.equals(VOEL))
 			this.VOELconnected= true;
-		if (_input.equals(XADIFD))
-			this.XADIFDconnected = true;
 	}
 }

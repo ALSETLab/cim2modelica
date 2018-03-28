@@ -11,7 +11,7 @@
     <md:Model.profile>http://entsoe.eu/CIM/EquipmentOperation/3/1</md:Model.profile>
   </md:FullModel>
   <cim:ACLineSegment rdf:ID="_8a6b546d-3fd7-11e7-8574-24fd522f1a90">
-    <cim:ACLineSegment.bch>4.13422E-05</cim:ACLineSegment.bch>
+    <cim:ACLineSegment.bch>0.021875</cim:ACLineSegment.bch>
     <cim:ACLineSegment.r>2.645</cim:ACLineSegment.r>
     <cim:ACLineSegment.x>26.45</cim:ACLineSegment.x>
     <pti:ACLineSegment.MET>1</pti:ACLineSegment.MET>
@@ -25,7 +25,7 @@
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:ACLineSegment>
   <cim:ACLineSegment rdf:ID="_8a6b5488-3fd7-11e7-8574-24fd522f1a90">
-    <cim:ACLineSegment.bch>1.10208E-05</cim:ACLineSegment.bch>
+    <cim:ACLineSegment.bch>0.00875</cim:ACLineSegment.bch>
     <cim:ACLineSegment.r>1.587</cim:ACLineSegment.r>
     <cim:ACLineSegment.x>15.87</cim:ACLineSegment.x>
     <pti:ACLineSegment.MET>1</pti:ACLineSegment.MET>
@@ -39,7 +39,7 @@
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:ACLineSegment>
   <cim:ACLineSegment rdf:ID="_8a6b54a6-3fd7-11e7-8574-24fd522f1a90">
-    <cim:ACLineSegment.bch>0.0003638941</cim:ACLineSegment.bch>
+    <cim:ACLineSegment.bch>0.09625</cim:ACLineSegment.bch>
     <cim:ACLineSegment.r>5.819</cim:ACLineSegment.r>
     <cim:ACLineSegment.x>58.19</cim:ACLineSegment.x>
     <pti:ACLineSegment.MET>1</pti:ACLineSegment.MET>
@@ -53,7 +53,7 @@
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:ACLineSegment>
   <cim:ACLineSegment rdf:ID="_8a6b54b0-3fd7-11e7-8574-24fd522f1a90">
-    <cim:ACLineSegment.bch>0.0003638941</cim:ACLineSegment.bch>
+    <cim:ACLineSegment.bch>0.09625</cim:ACLineSegment.bch>
     <cim:ACLineSegment.r>5.819</cim:ACLineSegment.r>
     <cim:ACLineSegment.x>58.19</cim:ACLineSegment.x>
     <pti:ACLineSegment.MET>1</pti:ACLineSegment.MET>
@@ -67,7 +67,7 @@
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:ACLineSegment>
   <cim:ACLineSegment rdf:ID="_8a6b54ba-3fd7-11e7-8574-24fd522f1a90">
-    <cim:ACLineSegment.bch>0.0003638941</cim:ACLineSegment.bch>
+    <cim:ACLineSegment.bch>0.09625</cim:ACLineSegment.bch>
     <cim:ACLineSegment.r>5.819</cim:ACLineSegment.r>
     <cim:ACLineSegment.x>58.19</cim:ACLineSegment.x>
     <pti:ACLineSegment.MET>1</pti:ACLineSegment.MET>
@@ -81,7 +81,7 @@
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:ACLineSegment>
   <cim:ACLineSegment rdf:ID="_8a6b54c4-3fd7-11e7-8574-24fd522f1a90">
-    <cim:ACLineSegment.bch>0.0003638941</cim:ACLineSegment.bch>
+    <cim:ACLineSegment.bch>0.09625</cim:ACLineSegment.bch>
     <cim:ACLineSegment.r>5.819</cim:ACLineSegment.r>
     <cim:ACLineSegment.x>58.19</cim:ACLineSegment.x>
     <pti:ACLineSegment.MET>1</pti:ACLineSegment.MET>
@@ -95,7 +95,7 @@
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:ACLineSegment>
   <cim:ACLineSegment rdf:ID="_8a6b54ce-3fd7-11e7-8574-24fd522f1a90">
-    <cim:ACLineSegment.bch>1.10208E-05</cim:ACLineSegment.bch>
+    <cim:ACLineSegment.bch>0.00875</cim:ACLineSegment.bch>
     <cim:ACLineSegment.r>1.587</cim:ACLineSegment.r>
     <cim:ACLineSegment.x>15.87</cim:ACLineSegment.x>
     <pti:ACLineSegment.MET>1</pti:ACLineSegment.MET>
@@ -109,7 +109,7 @@
     <pti:Resources.PSSEStatus>1</pti:Resources.PSSEStatus>
   </cim:ACLineSegment>
   <cim:ACLineSegment rdf:ID="_8a6b54ec-3fd7-11e7-8574-24fd522f1a90">
-    <cim:ACLineSegment.bch>4.13422E-05</cim:ACLineSegment.bch>
+    <cim:ACLineSegment.bch>0.021875</cim:ACLineSegment.bch>
     <cim:ACLineSegment.r>2.645</cim:ACLineSegment.r>
     <cim:ACLineSegment.x>26.45</cim:ACLineSegment.x>
     <pti:ACLineSegment.MET>1</pti:ACLineSegment.MET>
@@ -1226,7 +1226,7 @@
     <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
     <cim:PowerTransformerEnd.ratedS>900</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230</cim:PowerTransformerEnd.ratedU>
-    <cim:PowerTransformerEnd.x>0.01667</cim:PowerTransformerEnd.x>
+    <cim:PowerTransformerEnd.x>8.8167</cim:PowerTransformerEnd.x>
     <pti:PowerTransformerEnd.ang>0</pti:PowerTransformerEnd.ang>
     <pti:PowerTransformerEnd.nomV>230</pti:PowerTransformerEnd.nomV>
     <pti:PowerTransformerEnd.sBase>900</pti:PowerTransformerEnd.sBase>
@@ -1264,7 +1264,7 @@
     <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
     <cim:PowerTransformerEnd.ratedS>900</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230</cim:PowerTransformerEnd.ratedU>
-    <cim:PowerTransformerEnd.x>0.01667</cim:PowerTransformerEnd.x>
+    <cim:PowerTransformerEnd.x>8.8167</cim:PowerTransformerEnd.x>
     <pti:PowerTransformerEnd.ang>0</pti:PowerTransformerEnd.ang>
     <pti:PowerTransformerEnd.nomV>230</pti:PowerTransformerEnd.nomV>
     <pti:PowerTransformerEnd.sBase>900</pti:PowerTransformerEnd.sBase>
@@ -1302,7 +1302,7 @@
     <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
     <cim:PowerTransformerEnd.ratedS>900</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230</cim:PowerTransformerEnd.ratedU>
-    <cim:PowerTransformerEnd.x>0.01667</cim:PowerTransformerEnd.x>
+    <cim:PowerTransformerEnd.x>8.8167</cim:PowerTransformerEnd.x>
     <pti:PowerTransformerEnd.ang>0</pti:PowerTransformerEnd.ang>
     <pti:PowerTransformerEnd.nomV>230</pti:PowerTransformerEnd.nomV>
     <pti:PowerTransformerEnd.sBase>900</pti:PowerTransformerEnd.sBase>
@@ -1340,7 +1340,7 @@
     <cim:PowerTransformerEnd.r>0</cim:PowerTransformerEnd.r>
     <cim:PowerTransformerEnd.ratedS>900</cim:PowerTransformerEnd.ratedS>
     <cim:PowerTransformerEnd.ratedU>230</cim:PowerTransformerEnd.ratedU>
-    <cim:PowerTransformerEnd.x>0.01667</cim:PowerTransformerEnd.x>
+    <cim:PowerTransformerEnd.x>8.8167</cim:PowerTransformerEnd.x>
     <pti:PowerTransformerEnd.ang>0</pti:PowerTransformerEnd.ang>
     <pti:PowerTransformerEnd.nomV>230</pti:PowerTransformerEnd.nomV>
     <pti:PowerTransformerEnd.sBase>900</pti:PowerTransformerEnd.sBase>
