@@ -36,7 +36,7 @@ public class DLProfileModel extends CIMProfile {
 	Logger.getRootLogger().addAppender(new NullAppender());
     }
 
-    public Map<Resource, RDFNode> gather_Object() {
+    public Map<Resource, RDFNode> gather_Objects() {
 	for (final ResIterator it = this.rdfModel.listResourcesWithProperty(RDF.type, objectTag); it.hasNext();) {
 	    final Resource attTag = it.next();
 	    diagramObjects.put(attTag.getProperty(idObject).getSubject(), attTag.getProperty(idObject).getObject());

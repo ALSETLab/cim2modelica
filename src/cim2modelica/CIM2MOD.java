@@ -28,6 +28,7 @@ import cim2modelica.modelica.MOClass;
 import cim2modelica.modelica.MOConnector;
 import cim2modelica.modelica.MOPlant;
 import cim2modelica.modelica.ModelBuilder;
+import cim2modelica.modelica.PlantBuilder;
 import cim2modelica.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
 import cim2modelica.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
 import cim2modelica.modelica.openipsl.machines.OpenIPSLMachine;
@@ -35,10 +36,34 @@ import cim2modelica.utils.ModelWriter;
 import cim2modelica.utils.ProfileFactory;
 import cim2modelica.utils.ProfileReader;
 
+/**
+ * This file is part of the CIM2MTT project which is released under GPL_v3. See
+ * file LICENSE.txt for full license details.
+ * 
+ * @license GPL_v3
+ * @year 2017
+ * @author Francis J. Gómez
+ */
 public class CIM2MOD {
     private static ModelDesigner cartografo;
     private static ModelBuilder constructor;
 	
+    public static void viewLicense(String[] args) {
+	if (args[0].equals("-w")) {
+	    System.out.println("warranty details");
+	    System.exit(1);
+	} else if (args[0].equals("-c")) {
+	    System.out.println("distribution details");
+	    System.exit(1);
+	} else {
+	    System.out.println("CIM2MTT  Copyright (C) @year 2017  @author Francis J. Gómez \n"
+		    + " This program comes with ABSOLUTELY NO WARRANTY; for details, run \n"
+		    + " the tool with the option '-w'. \n"
+		    + " This is free software, and you are welcome \nto redistribute it \n"
+		    + " under certain conditions; run the tool with the option '-c' details.");
+	}
+
+    }
     /**
      * <p>
      * Method for initialization of the tool. Loads the CIM Profile files into
@@ -212,6 +237,7 @@ public class CIM2MOD {
     }
 
     public static void main(String[] args) {
+	viewLicense(args);
 	setUp(args);
 	// Map<Resource, RDFNode> profile_SV;
 	String[] cimClassResource;

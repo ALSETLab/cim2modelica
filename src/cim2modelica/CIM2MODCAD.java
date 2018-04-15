@@ -31,6 +31,7 @@ import cim2modelica.modelica.MOConnector;
 import cim2modelica.modelica.MOPlant;
 import cim2modelica.modelica.ModelBuilder;
 import cim2modelica.modelica.ModelCADBuilder;
+import cim2modelica.modelica.PlantBuilder;
 import cim2modelica.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
 import cim2modelica.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
 import cim2modelica.modelica.openipsl.machines.OpenIPSLMachine;
@@ -38,6 +39,14 @@ import cim2modelica.utils.ModelWriter;
 import cim2modelica.utils.ProfileFactory;
 import cim2modelica.utils.ProfileReader;
 
+/**
+ * This file is part of the CIM2MTT project which is released under GPL_v3. See
+ * file LICENSE.txt for full license details.
+ * 
+ * @license GPL_v3
+ * @year 2017
+ * @author Francis J. Gómez
+ */
 public class CIM2MODCAD {
     private static ModelCADDesigner cartografo;
     private static ModelCADBuilder constructor;

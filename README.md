@@ -1,6 +1,7 @@
 <h3> CIM to Modelica Model Transformation Tool</h3>
 <p>
-<h4> Working spaces setup: </h4>
+<h4> Working space setup: </h4>
+The executable an resoruces to run the tool can be found under the ./dist folder. <br>
 Create a working folder where to download and place the required files for <br>
 testing, following this steps:
 <ol>

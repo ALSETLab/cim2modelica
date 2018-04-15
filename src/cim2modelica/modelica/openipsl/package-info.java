@@ -1,7 +1,7 @@
 /**
- * Specialized package with the main classes that manage the mapping class
- * structure, used to load the mapping information from the mapping files stored
- * in the $PROJECT_ROOT/res folder. <br>
+ * This package contains the specialized classes, organized in specialized
+ * packages, to create instances of models, components and attributes of the
+ * OpenIPSL library. <br>
  * Copyright (C) @year 2017 @author Francis J. Gómez
  * 
  * This package is part of CIM2MTT.
@@ -17,4 +17,4 @@
  * You should have received a copy of the GNU General Public License along with
  * Foobar. If not, see <http://www.gnu.org/licenses/>.
  */
-package cim2modelica.cim.map;
+package cim2modelica.modelica.openipsl;

@@ -19,19 +19,14 @@ import cim2modelica.modelica.MOEquation;
  */
 public class MOClassCAD extends MOClass {
 
-    public MOClassCAD(String _name) { // TODO CAD
+    public int[] origin = { 0, 0 };
+    public int[][] extend = { { -10, -10 }, { 10, 10 } };
+    // TODO annotation(Placement(transformation(origin= , extend= , rotation= )
+
+    public MOClassCAD(String _name) {
 	super(_name);
-	this.annotation = "annotation (Placement(transformation(extent={{30,-40},{50,-20}})))";
+	this.annotation = "annotation (Placement(transformation(origin={0,0}, extent={{-10,-10},{10,10}})))";
 
-    }
-
-    /**
-     * 
-     * @param variable
-     */
-    public void add_Terminal(MOConnectorCAD _pin) {
-	_pin.set_Annotation("annotation (Placement(transformation(extent={{90,-10},{110,10}})));");
-	this.terminals.add(_pin);
     }
 
     @Override
@@ -166,8 +161,6 @@ public class MOClassCAD extends MOClass {
 	    pencil.append(this.visibility);
 	    pencil.append(" ");
 	}
-	// pencil.append(this.variability);
-	// pencil.append(" ");
 	pencil.append(this.pakage);
 	pencil.append(".");
 	pencil.append(this.name);
@@ -206,8 +199,4 @@ public class MOClassCAD extends MOClass {
 	return code;
     }
 
-    @Override
-    public String toString() {
-	return this.stereotype + ", " + this.pakage + ", " + this.instanceName + ", " + this.get_RdfId();
-    }
 }

@@ -17,20 +17,6 @@ public class MONetworkCAD extends MONetwork
 	super(_name);
     }
 
-    /**
-     * This methods creates the connections within the plant object
-     * 
-     * @return
-     */
-    public String to_ModelicaEquation(String isNetwork) {
-	String code = "";
-	// if (isNetwork.equals("network"))
-	// code= this.connect_equipmentNetwork();
-	// if (isNetwork.equals("plant"))
-	// code= this.connect_equipmentPlant();
-	return code;
-    }
-
     @Override
     public String to_ModelicaClass(String _package) {
 	String code = "";

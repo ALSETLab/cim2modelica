@@ -14,6 +14,10 @@ import cim2modelica.modelica.MOConnectNode;
 public class MOConnectNodeCAD extends MOConnectNode
 {
     private final ArrayList<String> coord_eq, coord_bus;
+    public int[] origin = { 0, 0 };
+    public int[] target = { 0, 0 };
+    // TODO this coordinates to be used when drawing the lines, connect
+    // equations
 
     /**
      * Connecting equipment with bus/equipment

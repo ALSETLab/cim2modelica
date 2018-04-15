@@ -1,9 +1,20 @@
 /**
- * Package with generic classes to treat attributes, objects and models from CIM definition;
- * Used when implementing generic translation from CIM 2 Modelica with no Modelica reference
- */
-/**
- * @author fragom
+ * This package contains the specialized classes to load and read the objects
+ * from CIM models, in the form of CIM profiles, which are implemented in RDF
+ * format. <br>
+ * Copyright (C) @year 2017 @author Francis J. Gómez
+ * 
+ * This package is part of CIM2MTT.
  *
+ * CIM2MTT is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or any later version.
+ *
+ * CIM2MTT is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * Foobar. If not, see <http://www.gnu.org/licenses/>.
  */
 package cim2modelica.cim;

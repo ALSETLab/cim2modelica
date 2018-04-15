@@ -126,7 +126,7 @@ public class ModelDesigner {
 	return this.connections;
     }
 
-    private static PwPinMap pwpinXMLToObject(String _xmlmap) {
+    protected static PwPinMap pwpinXMLToObject(String _xmlmap) {
 	JAXBContext context;
 	Unmarshaller un;
 
@@ -150,7 +150,7 @@ public class ModelDesigner {
      * @param _cn
      * @param _tn
      */
-    private void create_newConnectionMap(PwPinMap _mapTerminal, Resource _cn, Resource _tn) {
+    protected void create_newConnectionMap(PwPinMap _mapTerminal, Resource _cn, Resource _tn) {
 	ConnectionMap nuevaConnection = new ConnectionMap(_mapTerminal.getRdfId(),
 		_mapTerminal.getConductingEquipment().split("#")[1], _mapTerminal.getTopologicalNode().split("#")[1]);
 	nuevaConnection.set_ConductingEquipment(_cn);
@@ -218,7 +218,7 @@ public class ModelDesigner {
 
 	return rotorType;
     }
-    // private static GENCLSMap genclsXMLToObject(String _xmlmap) {
+    // protected static GENCLSMap genclsXMLToObject(String _xmlmap) {
     // JAXBContext context;
     // Unmarshaller un;
     //
@@ -689,7 +689,7 @@ public class ModelDesigner {
 	return auxiliarMap;
     }
 
-    // private static PwFaultMap pwfaultXMLToObject(String _xmlmap) {
+    // protected static PwFaultMap pwfaultXMLToObject(String _xmlmap) {
     // JAXBContext context;
     // Unmarshaller un;
     //

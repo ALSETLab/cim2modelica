@@ -1,14 +1,17 @@
-package cim2modelica;
+package cim2modelica.modelica;
 
-import cim2modelica.modelica.MOAttribute;
-import cim2modelica.modelica.MOClass;
-import cim2modelica.modelica.MOConnectNode;
-import cim2modelica.modelica.MOConnector;
-import cim2modelica.modelica.MOPlant;
 import cim2modelica.modelica.openipsl.controls.es.OpenIPSLExcitationSystem;
 import cim2modelica.modelica.openipsl.controls.tg.OpenIPSLTurbineGovernor;
 import cim2modelica.modelica.openipsl.machines.OpenIPSLMachine;
 
+/**
+ * This file is part of the CIM2MTT project which is released under GPL_v3. See
+ * file LICENSE.txt for full license details.
+ * 
+ * @license GPL_v3
+ * @year 2017
+ * @author Francis J. Gómez
+ */
 public class PlantBuilder {
     private OpenIPSLMachine machine = null;
     private OpenIPSLExcitationSystem excitationSystem = null;

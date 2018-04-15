@@ -190,7 +190,7 @@ public class MOClass extends MOModel
      * 
      * @param _pin
      */
-    private void update_pin_current(MOConnector _pin) {
+    protected void update_pin_current(MOConnector _pin) {
 	double v, angle, p, q, vr, vi, ir, ii;
 
 	v = Double.parseDouble((String) _pin.get_Attribute("vr").get_Value());
