@@ -62,7 +62,7 @@ To run the transformation tool from the Eclipse, you need to create a Run Config
 
 This section describes how to implement new mapping files and how to extend the tool class structure with new JAXB Classes.
 
-   **1. Create Mapping Files**
+**1. Create Mapping Files**
 
 The folder res.map.openipsl contains the .xml, .xsd and .dtd files that conform the mapping rules for each OpenIPSL component available. To comply with the OpenIPSL packages&#39; organization, the folder res.map.openipsl is organized in the same way as the library (e.g. the folder res.map.openipsl.controls.es contains mapping rules for Excitation System components).
 
@@ -88,7 +88,7 @@ To add a new mapping component rule, follow the next steps:
               variability="parameter" visibility="public"> 0 </attributeMap>
 ```
 
-   **2. Create Mapping Files**
+**2. Create Mapping Files**
 
 Using the API provided by the JAXB Library, we can create for each XML mapping rule its corresponding JAVAX class, which will be integrated within the transformation tool. There are two ways of doing this:
 
@@ -96,11 +96,11 @@ Using the API provided by the JAXB Library, we can create for each XML mapping r
 
    a. Name of the package to store the JAVAX class, e.g.: _cim.map.openipsl.controls.es_ (in case of the mapping of a new excitation system component)
    
-   b. Relative path with the name of the mapping schema file, e.g., _./res/map/openipsl/controls/es/cim\_openipsl\_sexs.xsd_
+   b. Relative path with the name of the mapping schema file, e.g. _./res/map/openipsl/controls/es/cim\_openipsl\_sexs.xsd_
    
 2. Second option is to use the JAXB tool, **XJC**, in the command line. The XJC executable will generate an additional external package, in the folder you have executed the XJC command, with the generated classes. They need to be included into the tool class structure manually.
 
-   **3. Modify the code from the generated JAVAX classes**
+**3. Modify the code from the generated JAVAX classes**
 
 After the execution of the XJC tool three JAVAX classes are created: _SEXSMap.java_ (following the example of the mapping of the excitation system), _AttributeMap.java_ and _ObjectFactory.java_. Because most of the mapping rules share the same parameters, the package _cim2modelica.cim.map_ contains and abstract class _ComponentMap.java_ that contains the general attributes and the _getters/setters_ methods. To adapt the generated classes to the Mapping Meta-Model structure of the project, follow these steps.
 
@@ -124,29 +124,27 @@ public class SEXSMap extends ComponentMap
 {…}
 ```
 
-4. The package cim2modelica.cim.map already contains the class AttributeMap.java. Thus, you can delete the newest one.
+4. The package _cim2modelica.cim.map_ already contains the class _AttributeMap.java_. Thus, you can delete the newest one.
 
-5. The generated _ObjectFactory.java_ class can be discarded because we use the JAXB API to create a specific factory class for the new JAVAX class. This factory class, contains a factory method that unmarshalls the values from the corresponding .xml mapping file into memory.
-
-6. In this example, copy/paste an existing factory method within the same ExcSysMapFactory.java class and adapt its code to the new component name: (Each package of the _Mapping Meta-Model_ structure contains a factory class, to group the factory methods per components).
+5. The generated _ObjectFactory.java_ class can be discarded because we use the JAXB API to create a specific factory class for the new JAVAX class. This factory class, contains a factory method that unmarshalls the values from the corresponding .xml mapping file into memory. So, copy/paste an existing factory method within the same ExcSysMapFactory.java class and adapt its code to the new component name: (Each package of the _Mapping Meta-Model_ structure contains a factory class, to group the factory methods per components).
 ```JAVA
 public  SEXSMap sexsXMLToObject(String _xmlmap) {
     JAXBContext context;
     Unmarshaller un;
 
     try  {
-        context = JAXBContext.newInstance(SEXSMap. **class** );
+        context = JAXBContext.newInstance(SEXSMap. class );
         un = context.createUnmarshaller();
-        SEXSMap map = (SEXSMap) un.unmarshal( **new**  File(\_xmlmap));
+        SEXSMap map = (SEXSMap) un.unmarshal(new File(_xmlmap));
         return  map;
     }  catch  (JAXBException e) {
         e.printStackTrace();
-         return null ;
+        return null ;
     }
 }
 ```
 
-   **4. Update classes to use the new component map**
+**4. Update classes to use the new component map**
 
 1. Updated the ModelDesigner.java class, adding a new method to populate the values of the new component map. Just copy one of the existing create\_ methods and adapt it to the new mapping object:
 ```JAVA
@@ -167,13 +165,11 @@ public OpenIPSLExcitationSystem create_SEXSComponent(ComponentMap _mapExcSys)
 4. Last step is to update the identification process of the CIM classes, within the main _CIM2MOD.java_ class. The algorithm first starts with the identification of the CIM Terminals. Then, it identifies the ConductingEquipement and TopologicalNode classes associated to the Terminal.
 ```JAVA
 cimClassResource= cartografo.get_EquipmentClassName(key);
-if (cimClassResource[1].equals(&quot;Terminal&quot;))
+if (cimClassResource[1].equals("Terminal"))
 {
 …
-equipmentResource= cartografo.get\_EquipmentClassName(cartografo.get\_CurrentConnectionMap().
-get_ConductingEquipment());
-topologyResource= cartografo.get\_TopoNodeClassName(cartografo.get\_CurrentConnectionMap().
-get_TopologicalNode());
+equipmentResource= cartografo.get_EquipmentClassName(cartografo.get_CurrentConnectionMap().get_ConductingEquipment());
+topologyResource= cartografo.get_TopoNodeClassName(cartografo.get_CurrentConnectionMap().get_TopologicalNode());
 …
 }
 ```
@@ -198,12 +194,11 @@ public static void factory_Plant(OpenIPSLMachine _momachine, String _machineType
    …
    switch (excSysData.getKey())
    {
-   case  "SEXS": mapExcSys= cartografo.create_SEXSModelicaMap(
-         excSysData.getValue(),"./res/map/openipsl/controls/es/cim_openipsl_sexs.xml",
-         excSysData.getKey());
+   case  "SEXS": mapExcSys= cartografo.create_SEXSModelicaMap(excSysData.getValue(),   
+         "./res/map/openipsl/controls/es/cim_openipsl_sexs.xml", excSysData.getKey());
          …
    }
-   moexcsys = constructor.create\_ExcSysComponent(mapExcSys);
+   moexcsys = constructor.create_ExcSysComponent(mapExcSys);
    …
 }
 ``` 
