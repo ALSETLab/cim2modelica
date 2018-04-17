@@ -1,4 +1,4 @@
-package cim2modelica;
+package cim2modelica.utils;
 
 import java.io.IOException;
 import java.nio.file.Files;
