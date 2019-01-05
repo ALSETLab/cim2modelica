@@ -35,10 +35,12 @@ must contain the following profiles:</li>
 	<li><i>xxx_DY.xml</i> - dynamics profile CIM file</li>
 </ul>
 </ol>
+<p><i>e.g.</i> <b>java -jar ./cim2modelica.jar -d defaultNetwork ./res/network/Kundur_2Area_ES_2017/</b></p>
 </p>
 <p>
 Use the option –p to indicate the relative path of the profile files <br>
 individually, in the following order: <br>
 <b>java –jar cim2modelica.jar –p &lt;model_name&gt; &lt;relativePath/xxx_EQ.xml&gt; <br>
 &lt;relativePath/xxx_TP.xml&gt; &lt;relativePath/xxx_SV.xml&gt; &lt;relativePath/xxx_DY.xml&gt;</b>
+<p><i>e.g.</i> <b>java -jar ./cim2modelica.jar -d defaultNetwork ./res/network/Kundur_2Area_ES_2017/Benchmark_4ger_SEXS_ESDC1A_2017_EQ.xml ./res/network/Kundur_2Area_ES_2017/Benchmark_4ger_SEXS_ESDC1A_2017_TP.xml ./res/network/Kundur_2Area_ES_2017/Benchmark_4ger_SEXS_ESDC1A_2017_SV.xml ./res/network/Kundur_2Area_ES_2017/Benchmark_4ger_SEXS_ESDC1A_2017_DY.xml</b></p>
 </p>
