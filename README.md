@@ -1,7 +1,25 @@
+![alt text](https://github.com/ALSETLab/cim2modelica/blob/master/docs/img/CIM2mod_logo.png)
 # CIM-2-mod: A CIM to Modelica Model Transformation Tool
 
 ## About:
+New requirement on power systems analysis tools consider information exchange for both steady-state and system dynamics information. New European regulations on information exchange power system dynamic simulations now require coordinating TSOs operations under different scenarios, some of which require to assess the dynamic behavior of power systems under a vast array of contingencies. As a mean to comply with these regulations and to advance the state-of-the-art, this work describes the software architecture of a Model-To-Model (M2M) transformation tool to create power system dynamic models using Modelica components by linking it to data from the Common Information Model (CIM). This software architecture is conceived to combine the CIM standard language with the Modelica standardized language, and to provide a Free/Libre Open Source Software (FLOSS) CIM-compliant unambiguous power system modeling solution considering both steady-state and dynamic model representations of the electrical grid.
 
+## Cite this work:
+If you use or are inspired by this work, please cite the following papers.
+
+The design of the mapping was first proposed in ([1](https://ieeexplore.ieee.org/document/8231176)), and then was further explained with a proof of concept of methodology for a model-to-model transformation workflow described in ([2](http://dx.doi.org/10.1109/PESGM.2015.7286434)).
+
+The main paper documenting this repository ([3](https://doi.org/10.1016/j.softx.2019.01.013)) and providing further information has been published as open access in the SoftwareX journal, you can obtain a copy [here](http://www.sciencedirect.com/science/article/pii/S2352711018300554).
+
+Please cite as follows:
+> (1) Gómez FJ, Vanfretti L, Olsen SH. Binding CIM and Modelica for consistent power system dynamic model exchange and simulation. In: 2015 IEEE power & energy society general meeting, Denver, CO; 2015. http://dx.doi.org/10.1109/PESGM.2015.7286434.
+  - Download the authors copy [here](https://www.researchgate.net/publication/304604502_Binding_CIM_and_modelica_for_consistent_power_system_dynamic_model_exchange_and_simulation).
+
+> (2) Gómez FJ, Vanfretti L, Olsen SH. CIM-compliant power system dynamic model-to-model transformation and Modelica simulation, IEEE Transactions on Industrial Informatics, PP (99) 1-1. http://dx.doi.org/10.1109/TII.2017.2785439.
+  - Download the authors' copy [here](https://ecse.rpi.edu/~vanfrl/documents/publications/journal/J053_CIM2Modelica_Theory.pdf).
+  
+> (3) Francisco J. Gómez, Luigi Vanfretti, Miguel Aguilera, Svein H. Olsen, "CIM-2-mod: A CIM to modelica mapping and model-2-model transformation engine," SoftwareX, Volume 9, 2019, Pages 161-167, ISSN 2352-7110, https://doi.org/10.1016/j.softx.2019.01.013.
+  - Download an open access copy [here](http://www.sciencedirect.com/science/article/pii/S2352711018300554).
 
 ## Getting Started: Running the Executable
 The executable an resoruces to run the tool can be found under the `./dist` folder.
@@ -23,5 +41,10 @@ Create a working folder where to download and place the required files for testi
   - Use the option `–p` to indicate the relative path of the profile files individually, in the following order: `java –jar cim2modelica.jar –p <model_name> <relativePath/xxx_EQ.xml> <relativePath/xxx_TP.xml> <relativePath/xxx_SV.xml> <relativePath/xxx_DY.xml>`
     - Example: `java -jar ./cim2modelica.jar -p defaultNetwork ./res/network/Kundur_2Area_ES_2017/Benchmark_4ger_SEXS_ESDC1A_2017_EQ.xml ./res/network/Kundur_2Area_ES_2017/Benchmark_4ger_SEXS_ESDC1A_2017_TP.xml ./res/network/Kundur_2Area_ES_2017/Benchmark_4ger_SEXS_ESDC1A_2017_SV.xml ./res/network/Kundur_2Area_ES_2017/Benchmark_4ger_SEXS_ESDC1A_2017_DY.xml`
 
-# In Memoriam:
+## Documentation:
+  - [User's Guide](https://github.com/ALSETLab/cim2modelica/blob/master/docs/users_guide.md)
+  - [Developer's Guide](https://github.com/ALSETLab/cim2modelica/blob/master/docs/developers_guide.md)
+
+## License: No Warranty
+(c) Francisco Jose Gomez Lopez and Luigi Vanfretti
 
