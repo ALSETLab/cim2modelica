@@ -51,3 +51,4 @@ Create a working folder where to download and place the required files for testi
 ## License: No Warranty
 (c) Francisco Jose Gomez Lopez and Luigi Vanfretti
 
+This software package is free software and the use is completely at your own risk; it can be redistributed and/or modified under the terms of the GNU Public License version 3.
