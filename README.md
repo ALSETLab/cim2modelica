@@ -1,4 +1,6 @@
 ![alt text](https://github.com/ALSETLab/cim2modelica/blob/master/docs/img/CIM2mod_logo_small.png)
+[![DOI](https://zenodo.org/badge/23629920.svg)](https://zenodo.org/badge/latestdoi/23629920)
+
 ## About:
 New requirement on power systems analysis tools consider information exchange for both steady-state and system dynamics information. New European regulations on information exchange power system dynamic simulations now require coordinating TSOs operations under different scenarios, some of which require to assess the dynamic behavior of power systems under a vast array of contingencies. As a mean to comply with these regulations and to advance the state-of-the-art, this work describes the software architecture of a Model-To-Model (M2M) transformation tool to create power system dynamic models using Modelica components by linking it to data from the Common Information Model (CIM). This software architecture is conceived to combine the CIM standard language with the Modelica standardized language, and to provide a Free/Libre Open Source Software (FLOSS) CIM-compliant unambiguous power system modeling solution considering both steady-state and dynamic model representations of the electrical grid.
 
@@ -17,6 +19,7 @@ The main paper documenting this repository ([3](https://doi.org/10.1016/j.softx.
 Please cite as follows:
 > (1) Gómez FJ, Vanfretti L, Olsen SH. Binding CIM and Modelica for consistent power system dynamic model exchange and simulation. In: 2015 IEEE power & energy society general meeting, Denver, CO; 2015. http://dx.doi.org/10.1109/PESGM.2015.7286434.
   - Download the authors copy [here](https://www.researchgate.net/publication/304604502_Binding_CIM_and_modelica_for_consistent_power_system_dynamic_model_exchange_and_simulation).
+  - Note: you can also include a reference to this repository explicitly through its DOI: [![DOI](https://zenodo.org/badge/23629920.svg)](https://zenodo.org/badge/latestdoi/23629920)
 
 > (2) Gómez FJ, Vanfretti L, Olsen SH. CIM-compliant power system dynamic model-to-model transformation and Modelica simulation, IEEE Transactions on Industrial Informatics, PP (99) 1-1. http://dx.doi.org/10.1109/TII.2017.2785439.
   - Download the authors' copy [here](https://ecse.rpi.edu/~vanfrl/documents/publications/journal/J053_CIM2Modelica_Theory.pdf).
